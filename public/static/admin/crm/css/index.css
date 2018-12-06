@@ -1,0 +1,7 @@
+.container{background: #fff}
+.container .title{background: #fff;padding: 30px 0 0 0;box-shadow: 0 1px 0 #ccc;text-align: center;}
+.container .title a{padding: 0 0 10px 0;display:block;}
+.container .search{padding: 20px;0}
+.container .table .success{border-bottom: 2px #ccc solid;border-top: none;}
+.container .edit{padding: 10px 10px;background: #ebeff2;}
+#text-center-b{display: block;height: 1px;width: 40%;background: rgba(0,0,0,0.2);margin-bottom: 10px;margin-left: 30%;}

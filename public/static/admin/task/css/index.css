@@ -1,0 +1,179 @@
+.task{width:100%;	display: flex;}
+.task .task_left{width: 7%;}
+.task .task_right{width: 2%;}
+.task .task_box{flex: auto;}
+
+.task .task_box .task_title span,.task .task_box .task_title h4{
+	height: 50px;
+	font-size: 22px;
+	line-height: 50px;
+	margin-right: 6px;
+}
+.task .task_box .task_content{
+	background: #f4f8fb;
+	width: 100%;
+	height: auto;
+}
+.task .task_box .task_content .list_top{
+	display: flex;
+	padding: 20px 0;
+}
+
+.task .task_box .task_content .list_top li{
+	flex: auto;
+	text-align: center;
+	height: 50px;
+	line-height: 50px;
+	font-size: 22px;
+	color: #505458;
+}
+.task .task_box .task_content .list_top li>a{color: #505458;text-decoration: none;}
+.task .task_box .task_content  .list_bottom{
+	display: flex;
+	justify-content: center;
+	padding-bottom: 20px;
+}
+.task .task_box .task_content  .list_bottom li{
+	padding: 10px;
+	font-size: 18px;
+}
+.task .task_box .task_content  ul li a span{	margin-right: 5px;}
+
+/*汇总页面的样式*/
+.task .task_box .time_list a{
+	color: #333333;
+	font-size: 14px;
+}
+.task .task_box .time_cur h4{
+	font-size: 22px;
+	line-height: 40px;
+}
+.task .task_box .gather_content .time{
+	background: #f4f8fb;
+}
+
+.table tr th{
+	text-align: center;
+}
+
+.aa{
+		width: 100%;
+	}
+	.aa th,td{text-align: center;height: 40px}
+	.table_box{
+		width: 100%;
+		background: #b7dee8;
+	}
+	.Employee_box{
+		color: rgb(33,89,103);
+		margin:10px 0;
+		overflow: hidden;
+	}
+	.Employee_box .Employee_left{
+		width: 70%;
+		margin-top:20px; 
+		float: left;
+	}
+	.Employee_box .Employee_left .Employee_head{
+		font-size: 28px;
+		font-weight: bold;
+		text-align: center;
+		margin:10px; 
+
+	}
+	.Employee_box .Employee_left .wire{
+		width: 90%;
+		margin:auto;
+		height: 3px;
+		background: rgb(123,183,197);
+	}
+	.Employee_box .Employee_left .Employee_footer{
+       width: 80%;
+       margin:20px auto;
+
+       font-size: 18px;
+       font-weight: bold;
+       overflow: hidden;;
+	}
+	.Employee_box .Employee_left .Employee_footer div:nth-child(1){
+       float: left;	
+	}
+	.Employee_box .Employee_left .Employee_footer div:nth-child(2){
+       float: right;	
+	}
+	.Employee_box .Employee_left .Employee_footer div span{
+       margin-left: 20px;	
+	}
+	.Employee_box .Employee_right{
+		width: 20%;
+		float: right;
+		margin-top: 15px;
+		overflow: hidden;
+	}
+	.Employee_box .Employee_right .font{
+		font-size: 22px;
+		font-weight: bold;
+		width: 30px;
+		float: left;
+	}
+	.Employee_box .Employee_right .Score{
+		float: left;
+		width: 100px;
+		height: 100px;
+		margin:20px;
+		padding: 1px;
+		line-height: 100px;
+		border: 1px solid rgb(76,113,153);
+		border-radius: 100%;
+		text-align: center;
+	}
+	.Employee_box .Employee_right .Score .fens{
+		width: 96px;
+		height: 96px;
+		border: 1px solid rgb(76,113,153);
+		border-radius: 100%;
+		overflow: hidden;
+		position: relative;
+	}
+	.Employee_box .Employee_right .Score .fens .se{
+		width: 110%;
+		height: 66.6%;
+		margin:auto;
+		border-radius: 0;
+		background: rgb(217,150,148);
+		position: absolute;
+		bottom: 0;
+		left: -4px;
+	}
+	.Employee_box .Employee_right .Score .fens  .fen{
+			position: absolute;
+			top:0;
+			width: 100%;
+			height: 100%;
+
+			text-align: center;
+	}
+	input,select{
+		width: 100%;
+		height: 100%;
+		border:0;
+		
+	}
+	.backlog{
+		 width: 80%;
+       margin:20px auto;
+       font-size: 18px;
+       font-weight: bold;
+	}
+	 .add{
+		width: 40px;
+		height: 40px;
+		text-align: center;
+		line-height: 35px;
+		font-size: 28px;
+		border-radius: 5px;
+		border: 3px solid rgb(33,89,103);
+		margin: 10px 0 0 10px;
+		position: absolute;
+		margin: 80px 0 0 25px;
+	}
