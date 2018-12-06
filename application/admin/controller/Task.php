@@ -275,10 +275,11 @@ class Task extends \app\admin\Auth
     //批改作业页面
     public function check()
     {
-        $id = input('id');
-        $check = db('work')->where("id=$id")->select();
+         $id = input('id');
+        $check = db('bossworklist')->where("id=$id")->select();
         $this->assign('check',$check);     
-   
+         $log_list = db('worklog')->where("rw_id=$id")->select();
+         $this->assign('log_list',$log_list); 
         $user_name=Session::get('user_name');
         $user=db('user')->where("user_name",$user_name)->select();
         $this->assign("user",$user);      
@@ -329,21 +330,17 @@ class Task extends \app\admin\Auth
     }  
     public function update()
     {
-        $id = input('id');
-        $data=input();
-        $work=request()->file('work');
-        if($work){
-            $info = $work->move(ROOT_PATH.'/public/uploads');
-            if($info){
-                $data['work'] = $info->getSaveName();
-            }else{
-                 echo $info->getError();
-            }
-        }
-        $time=date('Y-m-d H:i:s');
-        $data["time"]=$time;
-        db('work')->where("id=$id")->update($data);
-        $this->success('操作成功','index');      
+        $user_data=Session::get();
+    	$rw_id = input('id');
+    	$uname = $user_data['user_name'];
+    	$rw_log = input('log');
+    	db('worklog')->insert([
+            'rw_id'=>$rw_id,
+            'rw_log'=>$rw_log,
+            'uname'=>$uname,           
+            'time'=>date('Y-m-d H:i',time()),
+        ]);     
+         $this->success('操作成功'); 
     } 
     public function xiugai()
     {
