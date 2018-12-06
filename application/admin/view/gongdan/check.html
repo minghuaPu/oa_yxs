@@ -1,0 +1,76 @@
+{include file="top"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css?9">
+	<div class="write_box" id="check">
+		<div class="title" style="margin-bottom: 20px;">
+			<a class="glyphicon glyphicon-ok">外勤工单审核</a>
+			<a href="{:url('index')}" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
+		</div>
+		{foreach $check as $check_info}
+		<form action="{:url('update')}?id={$check_info.id}"  method="post" enctype="multipart/form-data">
+			<div class="form-group" style="font-size: 16px;">
+				{foreach $user as $userdata}
+				{if $userdata.user_cate=='员工'}
+				<div class="form-group">
+					<label>外勤</label>
+					<input type="text" class="form-control" name="title" value="{$check_info.title}">
+				</div>
+				<div class="form-group">
+					<label>内容</label>
+					<textarea name="content" id="myEditor" style="height: 280px;width: 100%;" >{$check_info.content}</textarea>
+				</div>
+				<div class="form-group">
+					<label>附件</label>
+					<input type="file" name="work" class="dropify" data-default-file="__UPLOADS__{$check_info.work}">
+				</div>				
+				{/if}
+				{if $userdata.user_cate!='员工'}
+				<div class="form-group">
+					<label>外出时间</label>
+					<div>{$check_info.outside_time}</div>
+				</div>
+				<div class="form-group">
+					<label>外出原因</label>
+					<div>{$check_info.outside_reason}</div>
+				</div>
+				<div class="form-group">
+					<label>拜访人姓名</label>
+					<div>{$check_info.visitname}</div>
+				</div>
+				<div class="form-group">
+					<label>拜访人地点</label>
+					<div>{$check_info.visitplace}</div>
+				</div>
+				<div class="form-group">
+					<label>拜访人电话</label>
+					<div>{$check_info.visitphone}</div>
+				</div>
+				<div class="form-group">
+					<label>是否批准</label>
+					<div>
+					<select id="selectPointOfInterest" title="Select points of interest nearby" name="pizhun">
+						<option selected = "selected">请选择</option>
+                <option>同意</option>
+                <option>不同意</option>
+                </div>              
+            </select>
+				</div>
+				<div class="form-group">
+					<label>备注：</label>
+					<br>				
+					<textarea name="reply"  style="height: 180px;width: 60%;"  id="reply">{$check_info.reply}</textarea>
+				</div>
+				{/if}
+				{/foreach}								
+			</div>
+			<div class="form-group">
+				<input type="submit" class="btn btn-primary" value="提交">
+			</div>
+		</form>
+		{/foreach}
+	</div>
+
+{include file="foot"}
+	<script type="text/javascript">
+    	$('.dropify').dropify();
+   		UE.getEditor("myEditor");
+	</script>

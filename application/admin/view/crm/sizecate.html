@@ -1,0 +1,35 @@
+{include file="top"} {include file="left"}
+<div class="container" style="background: #fff">
+    <h3>录入数据类型配置(客户-客户公司规模)</h3>
+    <form action="{:url('update_size')}" class="form" method="post" enctype="multipart/form-data">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr class="success">
+                <th>序号</th>
+                <th>选项内容</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {foreach $list as $info_cate}
+            <tr>
+                <td>{$info_cate.id}</td>
+                <td>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name" value="{$info_cate.size}" name="size[{$info_cate.id}]">
+                    </div>
+                </td>
+  
+            </tr>
+            {/foreach}
+        </tbody>
+    </table>
+    <div  style="">
+       <div style="text-align: center;" class="form-group"><input type="submit" class="btn btn-success" style="width: 150px;float: left;margin-left: 400px"></div>
+       <a href="{:url('addsize')}" type="button" class="btn btn-primary" style="width: 150px; margin-left: 50px">增加</a>
+       <a href="{:url('index')}" type="button" class="btn btn-info" style="width: 150px; margin-left: 50px">返回</a>
+    </div>
+    </form>
+    {$list->render()}
+</div>
+{include file="foot"}

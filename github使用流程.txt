@@ -1,0 +1,14 @@
+1、组长版
+
+	1.1、注册github、绿色按钮new responsity
+
+	1.2、github工具，项目目录中右键选择git bash here
+
+	1.3、
+
+	git init  //初始化项目的本地仓库
+
+	git add ./    //项目所有的文件/目录都要提交
+git commit -m "first commit"
+git remote add origin https://github.com/minghuaPu/oa_yxs.git
+git push -u origin master

@@ -1,0 +1,102 @@
+{include file="top"}
+{include file="left"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?2">
+<div class="task">
+	<div class="task_left"></div>
+	<div class="task_box">
+		<div class="task_title">
+			<span class="glyphicon glyphicon-list-alt pull-left"></span>
+			<h4>员工信息管理</h4>
+		</div>
+		<div class="task_content">
+			{foreach $user as $userdata}
+			<!-- 学生身份作业管理 -->
+			{if $userdata.user_cate=='员工'}
+			<table class="table" style="text-align: center;">
+				<tr>
+					<th>编号ID</th>
+					<th>用户姓名</th>
+					<th>用户密码</th>
+					<th>部门</th>
+					<th>所属公司id</th>
+					<th>操作</th>
+				</tr>
+				{foreach $work_list as $info}
+				<tr >
+					<td>{$info.id}</td>
+					<td>{$info.user_name}</td>
+					<td>{$info.password}</td>
+						<td>{$info.bumen}</td>
+					<td>{$info.belong}</td>
+					<td><a class="btn btn-default" href="{:url('check',['id'=>$info.id])}">查看详细</a></td>
+			
+
+				</tr>
+				{/foreach}
+			</table>
+			{/if}
+			<!-- 非学生身份管理作业 -->
+			{if $userdata.user_cate=='老板'}
+			<ul class="list_top">
+				<li></li>
+				<li></li>
+				
+			</ul>
+			<table class="table" style="text-align: center;">
+				<tr>
+					<th>用户ID</th>
+					<th>员工名字</th>
+					<th>所属部门</th>
+					<th>身份</th>
+					<th>操作</th>
+				</tr>
+				{foreach $work_list as $info}
+					<tr >
+						<td>{$info.id}</td>
+					
+						<td>{$info.user_name}</td>
+						<td>{$info.bumen}</td>
+						<td>{$info.user_cate}</td>
+						<td><a class="btn btn-default" href="{:url('check',['id'=>$info.id])}">查看详细</a></td>
+					</tr>			
+				{/foreach}
+			</table>
+			
+			{$work_list->render()}
+
+			{/if}
+			{if $userdata.user_cate=='经理'}
+			<ul class="list_top">
+				<li></li>
+				<li></li>
+				
+			</ul>
+			<table class="table" style="text-align: center;">
+				<tr>
+					<th>用户ID</th>
+					<th>员工名字</th>
+					<th>所属部门</th>
+					<th>身份</th>
+					<th>操作</th>
+				</tr>
+				{foreach $work_list as $info}
+					<tr >
+						<td>{$info.id}</td>
+					
+						<td>{$info.user_name}</td>
+						<td>{$info.bumen}</td>
+						<td>{$info.user_cate}</td>
+						<td><a class="btn btn-default" href="{:url('check',['id'=>$info.id])}">查看详细</a></td>
+					</tr>			
+				{/foreach}
+			</table>
+			
+			{$work_list->render()}
+
+			{/if}
+			{/foreach}
+		</div>
+	</div>
+	<div class="task_right"></div>
+</div>
+{include file="foot"}

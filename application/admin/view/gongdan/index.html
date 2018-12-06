@@ -1,0 +1,125 @@
+{include file="top"}
+{include file="left"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?2">
+<div class="task">
+	<div class="task_left"></div>
+	<div class="task_box">
+		<div class="task_title">
+			<span class="glyphicon glyphicon-list-alt pull-left"></span>
+			<h4>TASK员工外勤工单管理</h4>
+		</div>
+		<div class="task_content">
+			{foreach $user as $userdata}
+			<!-- 学生身份作业管理 -->
+			{if $userdata.user_cate=='员工'}
+			<ul class="list_top">
+				<li><a href="{:url('add')}"><span class="glyphicon glyphicon-pencil"></span>提交工单</a></li>
+			</ul>
+			<table class="table" style="text-align: center;">
+				<tr>
+					<th>编号ID</th>
+					<th>外出时间</th>
+					<th>外出理由</th>
+					<th>是否批准</th>
+					<th>回复</th>
+					<th>添加时间</th>
+				</tr>
+				{foreach $work_list as $info}
+				<tr>
+					<td>{$info.id}</td>
+					<td>{$info.outside_time}</td>
+					<td>{$info.outside_reason}</td>
+					<td>{$info.pizhun}</td>
+					<td>{$info.reply}</td>
+					<td>{$info.time}</td>
+			
+
+				</tr>
+				{/foreach}
+			</table>
+			{/if}
+			<!-- 非学生身份管理作业 -->
+			{if $userdata.user_cate=='老板'}
+			<ul class="list_top">
+				<li></li>
+				<li></li>
+				
+			</ul>
+			<table class="table" style="text-align: center;">
+				<tr>
+					<th>编号ID</th>
+					<th>员工名字</th>
+					<th>外出时间</th>
+					<th>外出理由</th>
+	                <th>部门</th>
+					<th>添加时间</th>
+					<th>是否同意</th>
+					<th>回复</th>
+					<th>操作</th>
+				</tr>
+				{foreach $work_list as $info}
+					<tr >
+						<td>{$info.id}</td>
+						{foreach $user_list as $user}
+						{if $user.id==$info.u_id}	
+						<td>{$user.user_name}</td>
+						{/if}
+						{/foreach}	
+						<td>{$info.outside_time}</td>
+						<td>{$info.outside_reason}</td>
+						<td>{$info.bumen}</td>
+						<td>{$info.time}</td>
+						<td>{$info.pizhun}</td>
+						<td>{$info.reply}</td>
+						<td><a class="btn btn-default" href="{:url('check',['id'=>$info.id])}">批改</a></td>
+					</tr>			
+				{/foreach}
+			</table>
+			
+			{$work_list->render()}
+
+			{/if}
+			{if $userdata.user_cate=='经理'}
+			<ul class="list_top">
+				<li></li>
+				<li></li>
+				
+			</ul>
+			<table class="table" style="text-align: center;">
+				<tr>
+					<th>编号ID</th>
+					<th>员工名字</th>
+					<th>外出时间</th>
+					<th>外出理由</th>
+	
+					<th>添加时间</th>
+					<th>回复</th>
+					<th>操作</th>
+				</tr>
+				{foreach $work_list as $info}
+					<tr >
+						<td>{$info.id}</td>
+						{foreach $user_list as $user}
+						{if $user.id==$info.u_id}	
+						<td>{$user.user_name}</td>
+						{/if}
+						{/foreach}	
+						<td>{$info.outside_time}</td>
+						<td>{$info.outside_reason}</td>
+						
+						<td>{$info.time}</td>
+						<td>{$info.reply}</td>
+						<td><a class="btn btn-default" href="{:url('check',['id'=>$info.id])}">批改</a></td>
+					</tr>			
+				{/foreach}
+			</table>
+			
+			{$work_list->render()}
+
+			{/if}
+			{/foreach}
+		</div>
+	</div>
+	<div class="task_right"></div>
+</div>
+{include file="foot"}
