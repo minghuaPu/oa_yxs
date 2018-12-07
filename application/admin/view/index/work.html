@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/work/work.css"/>
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	{include file="top"}
+	{include file="left"} 
+	{include file="right"} 
+	</head>
+	<body>
+	
+	<div class="container">
+		<div class="top">
+			<div class="week"> 
+				<div class="week_title">本周工作</div>
+				<div class="img_box" id="main" ></div>
+		    </div>
+		    <div class="month">
+		    	 <div class="week_title">本月汇总</div>
+		    	 <div class="img_box" id="main_two" ></div>
+		    </div>     
+		</div>
+		<div class="bottom">
+			<div class="bottom_title">
+				<div class="title_one">工作文档</div>
+				<div class="title_two">新建文档 +</div>
+				<div class="title_two">本地上传 +</div>
+			</div> 
+			<div class="bottom_table">
+				<table class="table" border="" cellspacing="" cellpadding="">
+					<tr>
+					  <th>全选<input type="checkbox" /></th>
+					  <th>时间</th>
+					  <th>主题</th>
+					  <th>内容</th>
+					  <th>分类</th>
+					  <th>查询</th>
+					  <th>抄作</th>
+					</tr>
+					<tr><td>Data</td></tr>
+				</table>
+			</div>
+		</div>
+		
+		
+		
+		
+		
+		
+	</div>
+	</body>
+</html>
+<script type="text/javascript">
+	    var myChart = echarts.init(document.getElementById('main'));
+        var option = {
+            title: {
+                text: '完成度%',
+               textStyle:{fontSize:10},
+               padding: [ 30,0,0,33]
+            },
+            tooltip: {},
+            legend: {
+                data:['销量']
+            },
+            xAxis: {
+                data: ["星期一","星期二","星期三","星期四","星期五","星期六"]
+            },
+            yAxis: {
+            	max:100
+            },
+            series: [{
+                color:'#28d2ae',
+                type: 'bar',
+                data: [20, 40, 10, 80, 90.5,80]
+            }]
+        };
+        myChart.setOption(option);// 使用刚指定的配置项和数据显示图表。
+        
+        var myChart = echarts.init(document.getElementById('main_two'));
+	    var   option = {
+	    xAxis: {
+	        type: 'category',
+	        data: ['第一周', '第二周', '第三周', '第四周']
+	    },
+	     tooltip: {}, //提示
+	    yAxis: {
+	        type: 'value',
+	        max:100
+	    },
+	    series: [{
+	    	 color:'#28d2ae',
+	        data: [50, 80, 30, 70],
+	        type: 'line',
+	        smooth: true
+	    }]
+	    };
+       myChart.setOption(option);
+</script>

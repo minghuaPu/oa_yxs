@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/finance/finance.css"/>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	{include file="top"}
+	{include file="left"} 
+	{include file="right"} 
+	</head>
+	<body>
+		<div class="container">
+			 <div class="top">
+				<div class="month"> 
+					<div class="month_title">本月收入</div>
+					<div class="img_box" id="main" ></div>
+			    </div>
+			    <div class="year">
+			    	 <div class="year_title">年度收入</div>
+			    	 <div class="img_box" id="main_two" ></div>
+			    </div>     
+			</div>
+			<div class="bottom">
+				   <div class="achievement_title">业绩表现 </div>
+				   <div class="img_box_two" id="main_three" ></div>
+			</div>
+		</div>	
+	</body>
+</html>
+<script type="text/javascript">
+	var myChart = echarts.init(document.getElementById('main'));
+        var option = {
+            title: {
+                text: '完成度%',
+               textStyle:{fontSize:10},
+               padding: [ 30,0,0,33]
+            },
+            tooltip: {},
+            legend: {
+                data:['本月工作','上月工作']
+            },
+            xAxis: {
+                data: []
+            },
+            yAxis: {
+            	max:100
+            },
+            series: [
+              {
+            barWidth:'45',
+            color:'#28d2ae',
+            name: '本月工作',
+            type: 'bar',
+            data: [50]
+        },
+        {   barGap:3,
+        	barWidth:'45',
+        	color:'#dadada',
+            name: '上月工作',
+            type: 'bar',
+            data: [90]
+        }]
+        };
+        myChart.setOption(option);// 使用刚指定的配置项和数据显示图表。
+        
+        var myChart_two = echarts.init(document.getElementById('main_two'));
+	    var   option = {
+	    xAxis: {
+	        type: 'category',
+	        data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+	    },
+	     tooltip: {
+	     	 trigger: 'axis'
+	     }, //提示
+	       legend: {
+        data:['本年工资','去年工资']
+    },
+	    yAxis: {
+	        type: 'value',
+	        max:100
+	    },
+	    series: [{
+	    	        name: '本年工资',
+			    	color:'#28d2ae',
+			        data: [50, 80, 30, 70,50, 80, 30, 70,50, 80, 30, 70],
+			        type: 'line',
+			        smooth: true
+	            },
+	            {   
+	            	name: '去年工资',
+			    	color:'#dadada',
+			        data: [30, 70, 100, 30,30, 70, 100, 30,30, 70, 100, 30],
+			        type: 'line',
+			        smooth: true
+	             }
+	     
+	    ]
+	    };
+       myChart_two.setOption(option);
+       
+       var myChart_three = echarts.init(document.getElementById('main_three'));
+          var option = {
+            title: {},
+            tooltip: {},
+            legend: {
+                data:['业绩']
+            },
+            xAxis: {
+               
+            },
+            yAxis: {
+            	 data: ["第一季度","第二季度","第三季度","第四季度"]
+            },
+            series: [{
+            	barWidth:'20',
+            	color:'#28d2ae',
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10]
+            }]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart_three.setOption(option);
+</script>

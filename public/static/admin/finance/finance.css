@@ -1,0 +1,33 @@
+.top{
+	display: flex;
+}
+.month_title{
+	font-size: 20px;
+    margin: 10px 0 10px 20px;
+}
+.month{
+	margin-right: 20px;
+}
+.year_title{
+	font-size: 20px;
+    margin: 10px 0 10px 20px;
+}
+.year{
+	margin-right: 20px;
+}
+
+
+.img_box{
+	width: 560px;
+	height:390px;
+	background: white;
+}
+.achievement_title{
+	font-size: 20px;
+    margin: 10px 0 10px 20px;
+}
+.img_box_two{
+	width: 1140px;
+	height:390px;
+	background: white;
+}
