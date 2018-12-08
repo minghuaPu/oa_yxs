@@ -1,9 +1,6 @@
-<<<<<<< HEAD:runtime/temp/4a44674208597f2d696ff0cbff5ec978.php
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"D:\wamp64\www\oa\public/../application/admin\view\gongdan\index.html";i:1544063215;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544089172;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544063215;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
-=======
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\work.html";i:1544171529;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544081012;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544171604;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544172912;}*/ ?>
->>>>>>> 732a581b54d60724c2ee196ba40f2da8b6af63e5:runtime/temp/d606a6ec5736f676ce26fac4c3fe5576.php
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\work.html";i:1544239420;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544239444;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544239500;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544239601;}*/ ?>
 <!DOCTYPE html>
+
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/work/work.css"/>
 
 <html>
@@ -14,6 +11,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>智慧云办公系统管理</title>
     <!-- CSS公共样式 -->
     <link rel="stylesheet" type="text/css" href="__STATIC__/admin/common/common.css?99">
@@ -360,7 +359,7 @@
         }
     })
 </script>
-	<div class="left_menu lbs" id="left_menu">
+	<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
 		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
 		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
@@ -421,7 +420,7 @@
 		<title></title>
 	</head>
 	<body>
-		<div class="page">
+		<div class="page" style="z-index: 99;background:white;">
 			<div class="search_box">
 				<div class="iconfont icon-fangdajing"></div>
 				<input type="text" name="search" class="search" placeholder="搜索" />

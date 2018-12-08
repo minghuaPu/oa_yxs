@@ -1,8 +1,10 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:69:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544180417;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544081012;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544171604;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544172912;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544081012;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:69:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544258880;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544239444;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544239601;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544239500;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544081012;}*/ ?>
  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>智慧云办公系统管理</title>
     <!-- CSS公共样式 -->
     <link rel="stylesheet" type="text/css" href="__STATIC__/admin/common/common.css?99">
@@ -349,61 +351,7 @@
         }
     })
 </script>
-
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> 
-<div class="left_menu lbs" id="left_menu">
-	<ul v-if="controller!='Map'">
-		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
-		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
-		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
-		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
-		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
-	</ul>
-	<!--<ul v-if="controller=='Map'" class="Maplist">
-		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
-		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
-		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
-		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
-		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
-		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
-		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
-		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-	</ul>-->
-</div>
-<script type="text/javascript">
- new Vue({
-        el:'#left_menu',
-        data:{
-           controller:"Index"
-        },
-        created(){
-        	this.init();
-        },
-        methods:{
-        	init(){
-                this.controller="<?php echo request()->controller(); ?>";
-        	}
-        }
-    })
- function jump(){
- 	 window.location.href='<?php echo url('admin/index/index'); ?>'
- }
- function jump_two(){
- 	window.location.href='<?php echo url('admin/index/work'); ?>'
- }
- function jump_three(){
- 	window.location.href='<?php echo url('admin/index/finance'); ?>'
- }
- function jump_four (){
- 	window.location.href='<?php echo url('admin/index/department'); ?>'
- }
- function jump_five(){
- 	window.location.href='<?php echo url('admin/index/index'); ?>'
- }
-
-</script>
- 
-<!DOCTYPE html>
+ 	<!DOCTYPE html>
 <html>
 	<head>
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
@@ -412,7 +360,7 @@
 		<title></title>
 	</head>
 	<body>
-		<div class="page">
+		<div class="page" style="z-index: 99;background:white;">
 			<div class="search_box">
 				<div class="iconfont icon-fangdajing"></div>
 				<input type="text" name="search" class="search" placeholder="搜索" />
@@ -547,484 +495,90 @@
     font-size: 11px;
 }
 </style> 
-<?php if(\think\Session::get('user_cate')=='学生'): ?>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> <div class="left_menu lbs" id="left_menu" style="z-index: 99;">
+	<ul v-if="controller!='Map'">
+		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
+		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
+		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
+		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
+		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
+	</ul>
+	<!--<ul v-if="controller=='Map'" class="Maplist">
+		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
+		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
+		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
+		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
+		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
+		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
+		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
+		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
+	</ul>-->
+</div>
+<script type="text/javascript">
+ new Vue({
+        el:'#left_menu',
+        data:{
+           controller:"Index"
+        },
+        created(){
+        	this.init();
+        },
+        methods:{
+        	init(){
+                this.controller="<?php echo request()->controller(); ?>";
+        	}
+        }
+    })
+ function jump(){
+ 	 window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+ function jump_two(){
+ 	window.location.href='<?php echo url('admin/index/work'); ?>'
+ }
+ function jump_three(){
+ 	window.location.href='<?php echo url('admin/index/finance'); ?>'
+ }
+ function jump_four (){
+ 	window.location.href='<?php echo url('admin/index/department'); ?>'
+ }
+ function jump_five(){
+ 	window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+
+</script>
+
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
+<style>
+
+</style> 
 <div class="container">
-    <div class="" style="height: 80px;background: #fff;margin-bottom: 10px 0px;text-align: center;line-height: 80px;color: red;font-size: 18px;">
-        <p>提示:第一次登陆请尽快完善信息及修改密码</p>
+<div class="index_content_center">
+    <div class="center_1">
+    <div class="center_1a">
+        <div></div>
+    </div> 
+    <h3 style="margin-bottom: 0.1em;"><strong>张三</strong></h3>
+    <p style="font-size: 1em;"><strong>设计部-中级设计师</strong></p>
+    <button class="button1"><strong>打卡</strong></button>
+    <button class="button2"><strong>补卡</strong></button>
     </div>
-    <div class="title">
-        <h3 style="display: inline-block;">工作台</h3>
-        <br>
-        <p style="display: inline-block;">欢迎您</p><span><?php echo \think\Session::get('user_name'); ?>!</span>
-        <p style="font-size: 10px;display: inline-block;">请完善个人信息</p>
+    <div class="center_2">
+          <div class="center_2a">
+              <h3>员工请假</h3>
+          </div>
+          <div class="cneter_2b"><h3>始 ：2017-12-2<i></i></h3></div>
+          <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/1544153282(1).png" alt=""></div>
+          <div class="cneter_2b"><h3>至 ：2017-4-5<i></i></h3></div>
+          <textarea rows="10" cols="30" placeholder="请假说明"></textarea> 
+          <div class="cneter_2c"><a href="#" class="cneter_2ca">提交</a></div>
     </div>
-    <div class="item">
-        <ul>
-            <li class="animated" style="animation-name: fadeInDown;">
-                <a href="javascript:;" data-toggle="modal" data-target="#client1">
-                    <img src="__STATIC__/admin/index/images/edit.jpg">
-                       <div>
-                        <h1>编辑信息</h1>
-                        <p>做人要做一个有身份的人</p>
-                    </div>
-                </a>
-                <p style="font-size: 8px;color: #ccc;text-align: center;line-height: 30px;">学生请选择</p>
-            </li>
-            <li class="animated" style="animation-name: fadeInDown;">
-                <a href="<?php echo url('draw/start',['id'=>\think\Session::get('u_id')]); ?>">
-                     <img src="__STATIC__/admin/index/images/draw.jpg">
-                       <div>
-                        <h1>参与抽奖</h1>
-                        <p>奖还是要抽的，万一中了呢</p>
-                    </div>
-                </a>
-                <p style="font-size: 8px;color: #ccc;text-align: center;line-height: 30px;">试试手气</p>
-            </li>
-             <li class="animated" style="animation-name: fadeInDown;">
-                <a href="<?php echo url('crm/eachstudentinfo',['id'=>\think\Session::get('u_id')]); ?>">
-                  <img src="__STATIC__/admin/index/images/info.jpg">
-                       <div>
-                        <h1>个人信息</h1>
-                        <p>你的全部信息都在这里</p>
-                    </div>
-                        
-                </a>
-                <p style="font-size: 8px;color: #ccc;text-align: center;line-height: 30px;">试试手气</p>
-            </li>
-            <li class="animated" style="animation-name: fadeInDown;">
-                <a href="<?php echo url('weekly/index',['id'=>\think\Session::get('u_id')]); ?>">
-                  <img src="__STATIC__/admin/index/images/record.jpg">
-                       <div>
-                        <h1>日报/周报</h1>
-                        <p>把你的经历心得都记录下来</p>
-                    </div>
-                        
-                </a>
-                <p style="font-size: 8px;color: #ccc;text-align: center;line-height: 30px;">试试手气</p>
-            </li>
-        </ul>
-    </div>
-    <div class="content row">
-        <div class="news col-md-3 animated" style="animation-name: flipInY;">
-            <div class="title">
-                <h3>消息</h3>
-                <p class="bz pull-left" style="margin:8px 0 0 3px;"><a href="#" class="glyphicon glyphicon-list-alt"></a></p>
-                <a href="#" class="glyphicon glyphicon-repeat"></a>
-            </div>
-            <div class="cont">
-                <?php foreach($notice_info as $notice): ?>
-                <div class="text" style="width:100%;text-align:left;">
-                    <h6>发布时间:<?php echo $notice['time']; ?></h6>
-                    <p><?php echo $notice['author']; ?><span style="font-size:18px;">:<?php echo $notice['content']; ?></span></p>
-                    <div class="split" style="height:2px;width:100%;background:#ccc"></div>
-                </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-        <div class="task col-md-3 col-md-offset-1 animated" style="animation-name: flipInY;">
-            <div class="title">成绩</div>
-            <ul>
-                <li><span class="glyphicon glyphicon-star"></span></li>
-                <li><span class="glyphicon glyphicon-search"></span></li>
-            </ul>
-        </div>
-        <div class="remind col-md-3 col-md-offset-1 animated" style="animation-name: flipInY;">
-            <div class="title">任务活动</div>
-            <ul>
-            </ul>
-            <div class="left">
-                <span class="glyphicon glyphicon-cog"></span>
-                <span class="glyphicon glyphicon-repeat"></span>
-            </div>
-        </div>
-    </div>
-    <div class="add_info">
-        <div class="top">
-            <h5>速建</h5><a href="#" class="glyphicon glyphicon-minus"></a></div>
-        <a href="#client1" data-toggle="modal" class="btn btn-primary">学生</a>
-    </div>
-<!-- 学生模态框开始 -->
-<div class="modal fade" id="client1" style="padding: 30px;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">请完善个人信息</div>
-            <div class="modal-body">
-                <form action="<?php echo url('studentsave'); ?>" class="form" method="post" enctype="multipart/form-data">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">学校</span>
-                        <select name="schoolname_id" class="form-control" style="width: 95%;">
-                            <option value="index.html">请选择学校</option>
-                            <?php foreach($school_name as $info): ?>
-                            <option value="<?php echo $info['id']; ?>"><?php echo $info['school_name']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <a class="glyphicon glyphicon-book" title="数据字典" data-placement="bottom" href="<?php echo url('crm/school'); ?>"></a>
-                    </div>
-                    <div class="row" style="margin-top: 25px;">
-                        <div class="col-md-5">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">姓名</span>
-                                <input type="text" class="form-control" placeholder="姓名" aria-describedby="basic-addon1" name="name" value="<?php echo \think\Session::get('user_name'); ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-5 pull-right">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">专业</span>
-                                <input type="text" class="form-control" placeholder="学校专业" aria-describedby="basic-addon1" name="professio">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 25px;">
-                        <div class="col-md-5">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">手机</span>
-                                <input type="text" class="form-control" placeholder="手机号码" aria-describedby="basic-addon1" name="phone">
-                            </div>
-                        </div>
-                        <div class="col-md-5 pull-right">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">微信</span>
-                                <input type="text" class="form-control" placeholder="微信号" aria-describedby="basic-addon1" name="wecat">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-group" style="margin:25px 0;">
-                        <span class="input-group-addon" id="basic-addon1">修改密码</span>
-                        <input type="text" class="form-control" placeholder="输入密码" aria-describedby="basic-addon1" name="password">
-                    </div>
-                    <div class="input-group" style="margin-top: 25px;">
-                        <span class="input-group-addon" id="basic-addon1">课程</span>
-                        <select name="lessonname_id" class="form-control">
-                            <option value="index.html">请选择所报课程</option>
-                            <?php foreach($lesson_name as $info): ?>
-                            <option value="<?php echo $info['id']; ?>"><?php echo $info['lesson_name']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="form-group" style="margin:25px 0 0 220px;">
-                        <a href="https://y.qq.com/portal/player.html" id="true_tj">
-                            <input type="submit" class="btn btn-primary">
-                        </a>
-                        <a href="" class="btn btn-danger">取消</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    <div class="cneter_3" style="margin-right: 2%"><h3>打卡日历<span><i></i>2017 年 9 月<i></i></span></h3></div>
+    <div class="cneter_3"><h3>考勤统计</h3></div>
+    <div class="cneter_4" style="margin-right: 2%"></div>
+    <div class="cneter_4"></div>
+</div>   
 </div>
-<?php endif; if(\think\Session::get('user_cate')!='学生'): ?>
-<div class="container">
-    <div class="title">
-        <h3 style="display: inline-block;">工作台</h3>
-        <p style="display: inline-block;">欢迎您,</p><span><?php echo \think\Session::get('u_company'); ?> <?php echo \think\Session::get('user_cate'); ?> <?php echo \think\Session::get('user_name'); ?>!</span>
-    </div>
-    <div class="item">
-        <ul>
-           <li class="animated" style="animation-name: fadeInDown;">
-                <a href="javascript:;" data-toggle="modal" data-target="#client3">
-                     <img src="__STATIC__/admin/crm/images/index/notice.jpg">
-                       <div>
-                        <h1>发布公告</h1>
-                        <p>发布公告给所有成员</p>
-                    </div>
-                </a>
-                <p style="font-size: 8px;color: #ccc;text-align: center;line-height: 30px;">把信息发布给其他成员</p>
-            </li>
-           <li class="animated" style="animation-name: fadeInDown;">
-                <a href="<?php echo url('crm/index'); ?>">
-                     <img src="__STATIC__/admin/crm/images/index/user.jpg">
-                       <div>
-                        <h1>客户</h1>
-                        <p>查看所有客户信息</p>
-                    </div>
-                </a>
-                <p style="font-size: 8px;color: #ccc;text-align: center;line-height: 30px;">客户资料查看</p>
-            </li>
-            <li class="animated" style="animation-name: fadeInDown;">
-                     <a href="<?php echo url('crm/studentsinfo'); ?>">
-                     <img src="__STATIC__/admin/crm/images/index/student.jpg">
-                       <div>
-                        <h1>实习</h1>
-                        <p>查看所有实习生信息</p>
-                    </div>
-                </a>
-                <p style="font-size: 8px;color: #ccc;text-align: center;line-height: 30px;">实习生资料查看</p>
-            </li>
-<li class="animated" style="animation-name: fadeInDown;">
-                <a href="<?php echo url('gongdan/index'); ?>" data-toggle="modal" >
-                    <img src="__STATIC__/admin/index/images/edit.jpg">
-                       <div>
-                        <h1>外勤工单管理</h1>
-                        <p>外勤工单提交和审批</p>
-                    </div>
-                </a>
-                <p style="font-size: 8px;color: #ccc;text-align: center;line-height: 30px;">学生请选择</p>
-            </li>
-           <!--  <li class="animated" style="animation-name: fadeInDown;">
-               <a href="<?php echo url('draw/start',['id'=>\think\Session::get('u_id')]); ?>">
-                    <img src="__STATIC__/admin/index/images/draw.jpg">
-                      <div>
-                       <h1>参与抽奖</h1>
-                       <p>奖还是要抽的，万一中了呢</p>
-                   </div>
-               </a>
-               <p style="font-size: 8px;color: #ccc;text-align: center;line-height: 30px;">试试手气</p>
-           </li> -->
-             <!-- <li class="animated" style="animation-name: fadeInDown;">
-                <a href="<?php echo url('crm/eachstudentinfo',['id'=>\think\Session::get('u_id')]); ?>">
-                  <img src="__STATIC__/admin/index/images/info.jpg">
-                       <div>
-                        <h1>个人信息</h1>
-                        <p>你的全部信息都在这里</p>
-                    </div>
-                        
-                </a>
-                <p style="font-size: 8px;color: #ccc;text-align: center;line-height: 30px;">试试手气</p>
-                         </li> -->
-            <li class="animated" style="animation-name: fadeInDown;">
-                <a href="<?php echo url('Information/index'); ?>">
-                  <img src="__STATIC__/admin/index/images/record.jpg">
-                       <div>
-                        <h1>员工信息管理</h1>
-                        <p>员工信息自我修改和BOSS管理</p>
-                    </div>
-                        
-                </a>
-                <p style="font-size: 8px;color: #ccc;text-align: center;line-height: 30px;">修改个人信息请选择</p>
-            </li>
-            <li class="animated" style="animation-name: fadeInDown;">
-                <a href="<?php echo url('Bumen/index'); ?>">
-                  <img src="__STATIC__/admin/index/images/info.jpg">
-                       <div>
-                        <h1>公司部门管理</h1>
-                        <p>公司部门增删改查</p>
-                    </div>
-                        
-                </a>
-                <p style="font-size: 8px;color: #ccc;text-align: center;line-height: 30px;">管理公司部门请选择</p>
-            </li>
-        </ul>
-    </div>
-<!-- 公告模态框开始 -->
-<div class="modal fade" id="client3" style="padding: 30px;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">发布公告</div>
-            <div class="modal-body">
-                <form action="<?php echo url('noticesave'); ?>" class="form" method="post" enctype="multipart/form-data">
-                    <div class="input-group" style="margin:25px 0;">
-                        <span class="input-group-addon" id="basic-addon1">公告</span>
-                        <textarea class="form-control" name="content"></textarea>
-                    </div>
-                    <div class="form-group" style="margin:25px 0 0 220px;">
-                        <a href="" id="true_tj">
-                            <input type="hidden" name="author" value="<?php echo \think\Session::get('user_name'); ?>">
-                            <input type="submit" class="btn btn-primary">
-                        </a>
-                        <a href="" class="btn btn-danger">取消</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="content row">
-     <div class="news col-md-3 animated" style="animation-name: flipInY;width: 97.5%;">
-        <div class="title">
-            <h3>消息</h3>
-            <a href="#" class="glyphicon glyphicon-repeat"></a>
-        </div>
-        <div class="cont">
-                <?php foreach($notice_info as $notice): ?>
-                <div class="text" style="width:100%;text-align:left;">
-                    <h6>发布时间:<?php echo $notice['time']; ?></h6>
-                    <p><?php echo $notice['author']; ?><span style="font-size:18px;">:<?php echo $notice['content']; ?></span></p>
-                    <div class="split" style="height:2px;width:100%;background:#ccc"></div>
-                </div>
-                <?php endforeach; ?>
-            </div>
-    </div>
-<!--     <div class="task col-md-3 col-md-offset-1 animated" style="animation-name: flipInY;">
-    <div class="title">代办任务</div>
-    <ul>
-        <li>最近沟通</li>
-        <li>to我</li>
-        <li><span class="glyphicon glyphicon-star"></span></li>
-        <li>超期</li>
-        <li><span class="glyphicon glyphicon-search"></span></li>
-    </ul>
-</div>
-<div class="remind col-md-3 col-md-offset-1 animated" style="animation-name: flipInY;">
-    <div class="title">提醒</div>
-    <ul>
-        <li>销售</li>
-        <li>客户</li>
-        <li>财务</li>
-        <li>采购</li>
-        <li>库管</li>
-        <li>维修</li>
-    </ul>
-    <div class="left">
-        <span class="glyphicon glyphicon-cog"></span>
-        <span class="glyphicon glyphicon-repeat"></span>
-    </div>
-</div> -->
-<div class="add">
-    <a href="">
-        <i class="glyphicon glyphicon-plus"></i>
-        <span style="font-size: 12px;" data-toggle="modal">速建</span>
-    </a>
-</div>
-<div class="add_info">
-    <div class="top">
-        <h5>速建</h5><a href="#" class="glyphicon glyphicon-minus"></a></div>
-    <a href="#client" data-toggle="modal" class="btn btn-primary">客户</a>
-    <a href="#client1" data-toggle="modal" class="btn btn-primary">实习生</a>
-</div>
-</div>
-<!-- 客户模态框开始 -->
-<div class="modal fade" id="client" style="padding: 30px;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">创建客户</div>
-            <div class="modal-body">
-                <form action="<?php echo url('customersave'); ?>" class="form" method="post" enctype="multipart/form-data">
-                    <div class="input-group spacing" style="margin-top: 25px;">
-                        <span class="input-group-addon" id="basic-addon1">公司</span>
-                        <input type="text" class="form-control" placeholder="公司名称" aria-describedby="basic-addon1" name="company_name">
-                    </div>
-                    <div class="row" style="margin-top: 25px;">
-                        <div class="col-md-5">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">姓名</span>
-                                <input type="text" class="form-control" placeholder="客户姓名" aria-describedby="basic-addon1" name="user_name">
-                            </div>
-                        </div>
-                        <div class="col-md-5 pull-right">
-                            <div class="form-inline">
-                                <select name="usersource_id" class="form-control" style="width: 90%;">
-                                    <option value="index.html">客户来源</option>
-                                    <?php foreach($user_source as $info): ?>
-                                    <option value="<?php echo $info['id']; ?>"><?php echo $info['user_source']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <a class="glyphicon glyphicon-book" title="数据字典" data-placement="bottom" href="<?php echo url('crm/usersource'); ?>"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 25px;">
-                        <div class="col-md-5">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">手机</span>
-                                <input type="text" class="form-control" placeholder="手机号码" aria-describedby="basic-addon1" name="user_phone">
-                            </div>
-                        </div>
-                        <div class="col-md-5 pull-right">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">电话</span>
-                                <input type="text" class="form-control" placeholder="电话号码" aria-describedby="basic-addon1" name="user_telephone">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-group" style="margin:25px 0;">
-                        <span class="input-group-addon" id="basic-addon1">备注</span>
-                        <input type="text" class="form-control" placeholder="备注" aria-describedby="basic-addon1" name="remark">
-                    </div>
-                    <!-- 选择客户类型 -->
-                    <div class="form-inline">
-                        <label>选择客户类型</label>
-                        <select name="companycate_id" class="form-control" style="width: 95%;">
-                            <option value="index.html">请选择</option>
-                            <?php foreach($list as $info): ?>
-                            <option value="<?php echo $info['id']; ?>"><?php echo $info['company_cate']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <a class="glyphicon glyphicon-book" title="数据字典" data-placement="bottom" href="<?php echo url('crm/companycate'); ?>"></a>
-                    </div>
-                    <div class="form-group" style="margin:25px 0 0 220px;">
-                        <a href="" id="true_tj">
-                            <input type="submit" class="btn btn-primary">
-                        </a>
-                        <a href="" class="btn btn-danger">取消</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<!-- 模态框结束 -->
-<!-- 学生模态框开始 -->
-<div class="modal fade" id="client1" style="padding: 30px;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">录入学生</div>
-            <div class="modal-body">
-                <form action="<?php echo url('studentsave'); ?>" class="form" method="post" enctype="multipart/form-data">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">学校</span>
-                        <select name="schoolname_id" class="form-control" style="width: 95%;">
-                            <option value="index.html">请选择学校</option>
-                            <?php foreach($school_name as $info): ?>
-                            <option value="<?php echo $info['id']; ?>"><?php echo $info['school_name']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <a class="glyphicon glyphicon-book" title="数据字典" data-placement="bottom" href="<?php echo url('crm/school'); ?>"></a>
-                    </div>
-                    <div class="row" style="margin-top: 25px;">
-                        <div class="col-md-5">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">姓名</span>
-                                <input type="text" class="form-control" placeholder="姓名" aria-describedby="basic-addon1" name="name">
-                            </div>
-                        </div>
-                        <div class="col-md-5 pull-right">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">专业</span>
-                                <input type="text" class="form-control" placeholder="学校专业" aria-describedby="basic-addon1" name="professio">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 25px;">
-                        <div class="col-md-5">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">手机</span>
-                                <input type="text" class="form-control" placeholder="手机号码" aria-describedby="basic-addon1" name="phone">
-                            </div>
-                        </div>
-                        <div class="col-md-5 pull-right">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">微信</span>
-                                <input type="text" class="form-control" placeholder="微信号" aria-describedby="basic-addon1" name="wecat">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-group" style="margin:25px 0;">
-                        <span class="input-group-addon" id="basic-addon1">备注</span>
-                        <input type="text" class="form-control" placeholder="备注" aria-describedby="basic-addon1" name="remark">
-                    </div>
-                    <div class="input-group" style="margin-top: 25px;">
-                        <span class="input-group-addon" id="basic-addon1">课程</span>
-                        <select name="lessonname_id" class="form-control">
-                            <option value="index.html">请选择所报课程</option>
-                            <?php foreach($lesson_name as $info): ?>
-                            <option value="<?php echo $info['id']; ?>"><?php echo $info['lesson_name']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="form-group" style="margin:25px 0 0 220px;">
-                        <a href="" id="true_tj">
-                            <input type="submit" class="btn btn-primary">
-                        </a>
-                        <a href="" class="btn btn-danger">取消</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<?php endif; ?>
+    
 <!-- 模态框结束 -->
 <script type="text/javascript" src="__STATIC__/admin/index/js/index.js?126"></script>
 
