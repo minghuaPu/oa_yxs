@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:64:"D:\wamp64\www\oa\public/../application/admin\view\task\read.html";i:1544063215;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544089172;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544063215;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:74:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\bumen\index.html";i:1544063215;s:66:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\top.html";i:1544063215;s:67:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\left.html";i:1544063215;s:67:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -348,8 +348,7 @@
             }
         }
     })
-</script>
-<div class="left_menu lbs" id="left_menu">
+</script> <div class="left_menu lbs" id="left_menu">
 	<ul v-if="controller!='Map'">
 		<li><a href="#" class="glyphicon glyphicon-calendar"><p>工作台</p></a></li>
 		<li><a href="#" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
@@ -386,133 +385,44 @@
     })
 </script>
 
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?2">
-<div class="task">
-	<div class="task_left"></div>
-	<div class="task_box">
-		<div class="task_title">
-			<span class="glyphicon glyphicon-list-alt pull-left"></span>
-			<h4>TASK员工任务管理</h4>
-		</div>
-		<div class="task_content">
-			<?php foreach($user as $userdata): ?>
-			<!-- 学生身份作业管理 -->
-			<?php if($userdata['user_cate']=='员工'): ?>
-			<ul class="list_top">
-				<li><a href="<?php echo url('add'); ?>"><span class="glyphicon glyphicon-pencil"></span>提交汇报</a></li>
-				<li><a href="<?php echo url('index'); ?>"><span class="glyphicon glyphicon-pencil"></span>查看已交汇报</a></li>
-			</ul>
-			<table class="table" style="text-align: center;">
-				<tr>
-					<th>编号ID</th>
-					<th>发布人</th>
-					<th>名称</th>
-					<th>附件</th>
-					<th>添加时间</th>
-				</tr>
-				<?php foreach($work_list as $info): ?>
-				<tr >
-					<td><?php echo $info['id']; ?></td>
-					<td><?php echo $info['faburen']; ?></td>
-					<td><?php echo $info['work_name']; ?></td>
-					<?php if($info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($info['work_require']==""): ?>
-						<td>无</td>
-						<?php endif; ?>
-					<td><?php echo $info['time']; ?></td>
-				</tr>
-				<?php endforeach; ?>
-			</table>
-			<?php endif; ?>
-			<!-- 非学生身份管理作业 -->
-			<?php if($userdata['user_cate']=='老板'): ?>
-			<ul class="list_top">
-				<li><a href="<?php echo url('index'); ?>"><span class="glyphicon glyphicon-list"></span>查看任务进度</a></li>
-				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
-				<li style="width: 0%;">
-
-				</li>
-			</ul>
-			<table class="table" style="text-align: center;">
-				<tr>
-					<th>编号ID</th>
-					<th>发布人</th>
-					<th>内容</th>
-					<th>附件</th>
-					<th>添加时间</th>
-					<th>操作</th>
-				</tr>
-				<?php foreach($work_list as $info): ?>
-					<tr >
-						<td><?php echo $info['id']; ?></td>
-						<?php foreach($user_list as $user): if($user["user_name"]==$userdata['user_name']): ?>
-						<td><?php echo $info['faburen']; ?></td>
-						<td><?php echo $info['work_name']; ?></td><?php if($info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($info['work_require']==""): ?>
-						<td>无</td>
-						<?php endif; endif; endforeach; ?>	
-						
-						
-						<td><?php echo $info['time']; ?></td>
-						<td><a class="btn btn-default" href="<?php echo url('xiugai',['id'=>$info['id']]); ?>">修改</a></td>
-					</tr>			
-				<?php endforeach; ?>
-			</table>
-			
-			<?php echo $work_list->render(); ?>
-			<ul class="list_bottom">
-				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-list"></span>汇总</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-download-alt"></span>作业导出</a></li>
-			</ul>
-			<?php endif; if($userdata['user_cate']=='经理'): ?>
-			<ul class="list_top">
-				<li><a href="<?php echo url('index'); ?>"><span class="glyphicon glyphicon-list"></span>查看任务进度</a></li>
-				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
-				<li style="width: 0%;">
-
-				</li>
-			</ul>
-			<table class="table" style="text-align: center;">
-				<tr>
-					<th>编号ID</th>
-					<th>发布人</th>
-					<th>内容</th>
-					<th>附件</th>
-					<th>添加时间</th>
-					<th>操作</th>
-				</tr>
-				<?php foreach($work_list as $info): ?>
-					<tr >
-						<td><?php echo $info['id']; ?></td>
-						<?php foreach($user_list as $user): if($user["user_name"]==$userdata['user_name']): ?>
-						<td><?php echo $info['faburen']; ?></td>
-						<td><?php echo $info['work_name']; ?></td><?php if($info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($info['work_require']==""): ?>
-						<td>无</td>
-						<?php endif; endif; endforeach; ?>	
-						
-						
-						<td><?php echo $info['time']; ?></td>
-						<td><a class="btn btn-default" href="<?php echo url('xiugai',['id'=>$info['id']]); ?>">修改</a></td>
-					</tr>			
-				<?php endforeach; ?>
-			</table>
-			
-			<?php echo $work_list->render(); ?>
-			<ul class="list_bottom">
-				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-list"></span>汇总</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-download-alt"></span>作业导出</a></li>
-			</ul>
-			<?php endif; endforeach; ?>
-		</div>
-	</div>
-	<div class="task_right"></div>
+<div class="container" style="background: #fff">
+    <h3>录入/修改公司部门</h3>
+    <?php if(\think\Session::get('user_cate')=='老板'): ?>
+    <form action="<?php echo url('update_bumen'); ?>" class="form" method="post" enctype="multipart/form-data">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr class="success">
+                <th>序号</th>
+                <th>部门名称</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($list as $info_cate): ?>
+            <tr>
+                <td><?php echo $info_cate['id']; ?></td>
+                <td>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name" value="<?php echo $info_cate['bumen_name']; ?>" name="bumen[<?php echo $info_cate['id']; ?>]">
+                    </div>
+                </td>
+  
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <div  style="">
+       <div style="text-align: center;" class="form-group"><input type="submit" class="btn btn-success" style="width: 150px;float: left;margin-left: 400px"></div>
+       <a href="<?php echo url('addbumen',['id'=>\think\Session::get('u_belong')]); ?>" type="button" class="btn btn-primary" style="width: 150px; margin-left: 50px">增加</a>
+       <a href="<?php echo url('admin/index/index'); ?>" type="button" class="btn btn-info" style="width: 150px; margin-left: 50px">返回</a>
+    </div>
+    </form>
+    <?php echo $list->render(); ?>
 </div>
+<?php endif; if(\think\Session::get('user_cate')!='老板'): ?>
+<div>
+    您的身份为<?php echo \think\Session::get('user_cate'); ?>,暂时无权限进行此操作
+</div>
+<?php endif; ?>
 
 <footer class="footer" style="text-align: center;margin-top: 50px;">
 	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 

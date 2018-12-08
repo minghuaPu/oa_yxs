@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:64:"D:\wamp64\www\oa\public/../application/admin\view\crm\index.html";i:1544063215;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544089172;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544063215;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:72:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\crm\index.html";i:1544063215;s:66:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\top.html";i:1544063215;s:67:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\left.html";i:1544063215;s:67:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

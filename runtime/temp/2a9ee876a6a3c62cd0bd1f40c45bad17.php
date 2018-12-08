@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:64:"D:\wamp64\www\oa\public/../application/admin\view\task\read.html";i:1544063215;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544089172;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544063215;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:72:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\map\field.html";i:1544063215;s:66:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\top.html";i:1544063215;s:67:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\left.html";i:1544063215;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -386,165 +386,139 @@
     })
 </script>
 
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?2">
-<div class="task">
-	<div class="task_left"></div>
-	<div class="task_box">
-		<div class="task_title">
-			<span class="glyphicon glyphicon-list-alt pull-left"></span>
-			<h4>TASK员工任务管理</h4>
-		</div>
-		<div class="task_content">
-			<?php foreach($user as $userdata): ?>
-			<!-- 学生身份作业管理 -->
-			<?php if($userdata['user_cate']=='员工'): ?>
-			<ul class="list_top">
-				<li><a href="<?php echo url('add'); ?>"><span class="glyphicon glyphicon-pencil"></span>提交汇报</a></li>
-				<li><a href="<?php echo url('index'); ?>"><span class="glyphicon glyphicon-pencil"></span>查看已交汇报</a></li>
-			</ul>
-			<table class="table" style="text-align: center;">
-				<tr>
-					<th>编号ID</th>
-					<th>发布人</th>
-					<th>名称</th>
-					<th>附件</th>
-					<th>添加时间</th>
-				</tr>
-				<?php foreach($work_list as $info): ?>
-				<tr >
-					<td><?php echo $info['id']; ?></td>
-					<td><?php echo $info['faburen']; ?></td>
-					<td><?php echo $info['work_name']; ?></td>
-					<?php if($info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($info['work_require']==""): ?>
-						<td>无</td>
-						<?php endif; ?>
-					<td><?php echo $info['time']; ?></td>
-				</tr>
-				<?php endforeach; ?>
-			</table>
-			<?php endif; ?>
-			<!-- 非学生身份管理作业 -->
-			<?php if($userdata['user_cate']=='老板'): ?>
-			<ul class="list_top">
-				<li><a href="<?php echo url('index'); ?>"><span class="glyphicon glyphicon-list"></span>查看任务进度</a></li>
-				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
-				<li style="width: 0%;">
-
-				</li>
-			</ul>
-			<table class="table" style="text-align: center;">
-				<tr>
-					<th>编号ID</th>
-					<th>发布人</th>
-					<th>内容</th>
-					<th>附件</th>
-					<th>添加时间</th>
-					<th>操作</th>
-				</tr>
-				<?php foreach($work_list as $info): ?>
-					<tr >
-						<td><?php echo $info['id']; ?></td>
-						<?php foreach($user_list as $user): if($user["user_name"]==$userdata['user_name']): ?>
-						<td><?php echo $info['faburen']; ?></td>
-						<td><?php echo $info['work_name']; ?></td><?php if($info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($info['work_require']==""): ?>
-						<td>无</td>
-						<?php endif; endif; endforeach; ?>	
-						
-						
-						<td><?php echo $info['time']; ?></td>
-						<td><a class="btn btn-default" href="<?php echo url('xiugai',['id'=>$info['id']]); ?>">修改</a></td>
-					</tr>			
-				<?php endforeach; ?>
-			</table>
-			
-			<?php echo $work_list->render(); ?>
-			<ul class="list_bottom">
-				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-list"></span>汇总</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-download-alt"></span>作业导出</a></li>
-			</ul>
-			<?php endif; if($userdata['user_cate']=='经理'): ?>
-			<ul class="list_top">
-				<li><a href="<?php echo url('index'); ?>"><span class="glyphicon glyphicon-list"></span>查看任务进度</a></li>
-				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
-				<li style="width: 0%;">
-
-				</li>
-			</ul>
-			<table class="table" style="text-align: center;">
-				<tr>
-					<th>编号ID</th>
-					<th>发布人</th>
-					<th>内容</th>
-					<th>附件</th>
-					<th>添加时间</th>
-					<th>操作</th>
-				</tr>
-				<?php foreach($work_list as $info): ?>
-					<tr >
-						<td><?php echo $info['id']; ?></td>
-						<?php foreach($user_list as $user): if($user["user_name"]==$userdata['user_name']): ?>
-						<td><?php echo $info['faburen']; ?></td>
-						<td><?php echo $info['work_name']; ?></td><?php if($info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($info['work_require']==""): ?>
-						<td>无</td>
-						<?php endif; endif; endforeach; ?>	
-						
-						
-						<td><?php echo $info['time']; ?></td>
-						<td><a class="btn btn-default" href="<?php echo url('xiugai',['id'=>$info['id']]); ?>">修改</a></td>
-					</tr>			
-				<?php endforeach; ?>
-			</table>
-			
-			<?php echo $work_list->render(); ?>
-			<ul class="list_bottom">
-				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-list"></span>汇总</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-download-alt"></span>作业导出</a></li>
-			</ul>
-			<?php endif; endforeach; ?>
-		</div>
-	</div>
-	<div class="task_right"></div>
+<style>
+    #mtk{
+        margin-left: 86px;
+        margin-top: 20px;
+    }
+    .block{
+        overflow: hidden;
+    }
+    .user{
+        float: left;
+        line-height: 40px;
+    }
+    .userinput{
+        float: left;
+        width: 80%;
+        margin-left: 10px;
+    }
+    .Executor{
+        width: 84%;
+    }
+    .jilu{
+        margin-top: 50px;
+    }
+    .tab{
+        width: 100%;
+    }
+    .tab .col{
+        border: 1px solid #ebeff2 ;
+        height: 42px;
+        background: #ebeff2;
+    }
+    .zhixing{
+        margin-top: 20px;
+    }
+    .query{
+        margin-top: 20px;
+        text-align: center;
+    }
+</style>
+<div class="row" id="mtk">
+    <div class=" col-md-8">
+        <template>
+            <p>查询</p>
+            <div class="block">
+                <div class="col-md-6">
+                    <span>日期</span>
+                    <el-date-picker type="date" v-model="value1" placeholder="选择日期" style="width: 40%; margin-left: 20px"></el-date-picker>
+                    到
+                    <el-date-picker type="date" v-model="value2" placeholder="选择日期" style="width: 40%"></el-date-picker>
+                </div>
+                <div class="col-md-6">
+                    <span class="user">客户名称</span><el-input class="userinput" v-model="value3"></el-input>
+                </div>
+                <div class="col-md-6 zhixing">
+                    <span class="user">执行人</span><el-input class="userinput Executor" v-model="value3"></el-input>
+                </div>
+                <div class="col-md-6 query">
+                    <el-button>查询</el-button>
+                </div>
+            </div>
+        </template>
+        <div class="jilu">
+            <div>
+                <div class="col-sm-6">外勤工单</div>
+                <div class="col-sm-6" style="text-align: right"> <el-button>新建</el-button></div>
+            </div>
+            <table class="tab">
+                <tr class="col">
+                    <th>主题</th>
+                    <th>客户</th>
+                    <th>执行人</th>
+                    <th>完成期限</th>
+                    <th>状态</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-4" style="margin-left: -10px">
+        <div class="container" style="width:100%;height:250px;border: 1px solid #ccc; margin-top: 20px;overflow: hidden" >
+            <div style="width:100%;height:100%">
+                <div id="allmap"></div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<footer class="footer" style="text-align: center;margin-top: 50px;">
-	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
-	&nbsp;
-	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
-		投诉&amp;问题
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
-		微客服
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
-		<i class="md md-speaker-notes m-r-5"></i>
-		订阅号
-	</a>
-	<br>
-	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
+<footer class="footer" style="text-align: center; padding-top:10px; margin-top: 50px; border-top: 1px solid #ccc">
+    热线: <b>4000-80-4000 400-960-9606</b>
+    &nbsp;&nbsp;网站: <b><a href="http://www.xtools.cn" target="_blank">www.xtools.cn</a></b>
+    &nbsp;
+    <a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://www.xtools.cn/about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
+        投诉&amp;问题
+    </a>
+    &nbsp;&nbsp;
+    <a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
+        微客服
+    </a>
+    &nbsp;&nbsp;
+    <a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
+        <i class="md md-speaker-notes m-r-5"></i>
+        订阅号
+    </a>
+    <br>
+    Copyright © 2004-2017 &nbsp;北京沃力森信息技术有限公司&nbsp;&nbsp;  Beijing Volitation Information Technology Co.,ltd
 </footer>
-<!-- 底部 -->
-<script type="text/javascript">
-$(document).ready(function(){
-	$(".left_menu ul li").click(function(event){
-		event.preventDefault();
-		console.log($(this).siblings().find('a,p'))
-		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
-			"color":"#5d9cec"})
-		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
-		$(this).find('a,p').css("color","#5d9cec")
-		$(this).siblings().find('a,p').css("color","white")
-	})
-});
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=RLG68MPH7d0OZMp6GM21BMWrPOqVRXFZ"></script>
+<script>
+    new Vue({
+        el: "#mtk",
+        data: {
+            // 显示编辑内容
+            // 时间插件
+            pickerOptions1: {
+                disabledDate(time) {
+                    return time.getTime() > Date.now();
+                }
+            },
+            value1: '',
+            value2: '',
+            value3:'',
+        },
+        methods: {
+
+        }
+    })
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");    // 创建Map实例
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+    //添加地图类型控件
+    map.addControl(new BMap.MapTypeControl({
+        mapTypes:[
+            BMAP_NORMAL_MAP,
+            BMAP_HYBRID_MAP
+        ]}));
+    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
 </script>
-</body>
-</html>

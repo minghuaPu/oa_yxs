@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:64:"D:\wamp64\www\oa\public/../application/admin\view\task\read.html";i:1544063215;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544089172;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544063215;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:79:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\crm\studentsinfo.html";i:1544063215;s:66:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\top.html";i:1544063215;s:67:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\left.html";i:1544063215;s:67:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -348,8 +348,7 @@
             }
         }
     })
-</script>
-<div class="left_menu lbs" id="left_menu">
+</script> <div class="left_menu lbs" id="left_menu">
 	<ul v-if="controller!='Map'">
 		<li><a href="#" class="glyphicon glyphicon-calendar"><p>工作台</p></a></li>
 		<li><a href="#" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
@@ -386,133 +385,110 @@
     })
 </script>
 
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?2">
-<div class="task">
-	<div class="task_left"></div>
-	<div class="task_box">
-		<div class="task_title">
-			<span class="glyphicon glyphicon-list-alt pull-left"></span>
-			<h4>TASK员工任务管理</h4>
-		</div>
-		<div class="task_content">
-			<?php foreach($user as $userdata): ?>
-			<!-- 学生身份作业管理 -->
-			<?php if($userdata['user_cate']=='员工'): ?>
-			<ul class="list_top">
-				<li><a href="<?php echo url('add'); ?>"><span class="glyphicon glyphicon-pencil"></span>提交汇报</a></li>
-				<li><a href="<?php echo url('index'); ?>"><span class="glyphicon glyphicon-pencil"></span>查看已交汇报</a></li>
-			</ul>
-			<table class="table" style="text-align: center;">
-				<tr>
-					<th>编号ID</th>
-					<th>发布人</th>
-					<th>名称</th>
-					<th>附件</th>
-					<th>添加时间</th>
-				</tr>
-				<?php foreach($work_list as $info): ?>
-				<tr >
-					<td><?php echo $info['id']; ?></td>
-					<td><?php echo $info['faburen']; ?></td>
-					<td><?php echo $info['work_name']; ?></td>
-					<?php if($info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($info['work_require']==""): ?>
-						<td>无</td>
-						<?php endif; ?>
-					<td><?php echo $info['time']; ?></td>
-				</tr>
-				<?php endforeach; ?>
-			</table>
-			<?php endif; ?>
-			<!-- 非学生身份管理作业 -->
-			<?php if($userdata['user_cate']=='老板'): ?>
-			<ul class="list_top">
-				<li><a href="<?php echo url('index'); ?>"><span class="glyphicon glyphicon-list"></span>查看任务进度</a></li>
-				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
-				<li style="width: 0%;">
-
-				</li>
-			</ul>
-			<table class="table" style="text-align: center;">
-				<tr>
-					<th>编号ID</th>
-					<th>发布人</th>
-					<th>内容</th>
-					<th>附件</th>
-					<th>添加时间</th>
-					<th>操作</th>
-				</tr>
-				<?php foreach($work_list as $info): ?>
-					<tr >
-						<td><?php echo $info['id']; ?></td>
-						<?php foreach($user_list as $user): if($user["user_name"]==$userdata['user_name']): ?>
-						<td><?php echo $info['faburen']; ?></td>
-						<td><?php echo $info['work_name']; ?></td><?php if($info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($info['work_require']==""): ?>
-						<td>无</td>
-						<?php endif; endif; endforeach; ?>	
-						
-						
-						<td><?php echo $info['time']; ?></td>
-						<td><a class="btn btn-default" href="<?php echo url('xiugai',['id'=>$info['id']]); ?>">修改</a></td>
-					</tr>			
-				<?php endforeach; ?>
-			</table>
-			
-			<?php echo $work_list->render(); ?>
-			<ul class="list_bottom">
-				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-list"></span>汇总</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-download-alt"></span>作业导出</a></li>
-			</ul>
-			<?php endif; if($userdata['user_cate']=='经理'): ?>
-			<ul class="list_top">
-				<li><a href="<?php echo url('index'); ?>"><span class="glyphicon glyphicon-list"></span>查看任务进度</a></li>
-				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
-				<li style="width: 0%;">
-
-				</li>
-			</ul>
-			<table class="table" style="text-align: center;">
-				<tr>
-					<th>编号ID</th>
-					<th>发布人</th>
-					<th>内容</th>
-					<th>附件</th>
-					<th>添加时间</th>
-					<th>操作</th>
-				</tr>
-				<?php foreach($work_list as $info): ?>
-					<tr >
-						<td><?php echo $info['id']; ?></td>
-						<?php foreach($user_list as $user): if($user["user_name"]==$userdata['user_name']): ?>
-						<td><?php echo $info['faburen']; ?></td>
-						<td><?php echo $info['work_name']; ?></td><?php if($info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($info['work_require']==""): ?>
-						<td>无</td>
-						<?php endif; endif; endforeach; ?>	
-						
-						
-						<td><?php echo $info['time']; ?></td>
-						<td><a class="btn btn-default" href="<?php echo url('xiugai',['id'=>$info['id']]); ?>">修改</a></td>
-					</tr>			
-				<?php endforeach; ?>
-			</table>
-			
-			<?php echo $work_list->render(); ?>
-			<ul class="list_bottom">
-				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-list"></span>汇总</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-download-alt"></span>作业导出</a></li>
-			</ul>
-			<?php endif; endforeach; ?>
-		</div>
-	</div>
-	<div class="task_right"></div>
+<!-- 页面css样式 -->
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/crm/css/index.css?199">
+<div class="container" id="app" style="width: 80%;">
+<!--     <div class="title row">
+    <div class="col-md-1" >
+        <a href="javascript:" style="border-bottom: 2px gray solid">全部数据</a>
+    </div>
+    
+    <div class="col-md-1" >
+        <a href="javascript:">前端</a>
+    </div>
+    <div class="col-md-1">
+        <a href="javascript:">全栈</a>
+    </div>
+    <div class="col-md-1">
+        <a href="javascript:">设计</a>
+    </div>
+    <div class="col-md-1">
+        <a href="javascript:">后台</a>
+    </div>
+</div> -->
+    <!-- 全部数据 -->
+    
+    <div class="all">
+    <div class="search row">
+        <form action="<?php echo url('studentsinfo'); ?>" class="form">
+            <div class="col-md-3 form-inline" style="overflow: hidden;">
+                <p class="glyphicon glyphicon-glass pull-left" style="margin-top: 8px;"></p>
+                <!-- 课程分类选择 -->
+                <div class="pull-left">
+                    <select class="form-control pull-right" name="lessonname_id" onchange="$('#basic-addon2').click()" style="width: 100%;">
+                        <option value="">课程查询</option>
+                         <?php foreach($lesson_name as $info): ?>
+                    <option value="<?php echo $info['id']; ?>"><?php echo $info['lesson_name']; ?></option>
+                    <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4 form-inline">
+                <p class="glyphicon glyphicon-search pull-left" style="margin: 8px 5px 0 0;"></p>
+                <div class="input-group pull-left">
+                    <input type="text" class="form-control pull-left" placeholder="请输入学校" aria-describedby="basic-addon2" name="school_name">
+                </div>
+                <input type="submit" class="btn btn-group pull-left" id="basic-addon2" style="cursor: pointer;" value="搜索" style="margin-left:-100px;">
+            </div>
+        </form>
+    </div>
+    <div class="info">
+        <div>
+            <div class="pull-left">
+                <p class="pull-left" style="margin:5px 0 0 5px;">学生基本信息</p>
+                <span style="color: #ccc">共2条</span>
+                <a href="<?php echo url('studentsinfo'); ?>" class="btn btn-default">清除搜索</a><span class="glyphicon glyphicon-trash"></span>
+            </div>
+        </div>
+    </div>
+    <table class="table table-bordered table-hover">
+        <tr class="warning">
+            <td>ID</td>
+            <th>姓名</th>
+            <th>学校名称</th>
+            <th>所学专业</th>
+            <th>电话</th>
+            <th>微信</th>
+            <th>实习岗位</th>
+            <th>报名时间</th>
+            <th>操作</th>
+        </tr>
+        <?php foreach($list as $info): ?>
+        <tr>
+            <td><?php echo $info['id']; ?></td>
+            <td><?php echo $info['name']; ?></td>
+            <td><?php echo $info['school_name']; ?></td>
+            <td><?php echo $info['professio']; ?></td>
+            <td><?php echo $info['phone']; ?></td>
+             <td><?php echo $info['wecat']; ?></td>
+            <td><?php echo $info['lesson_name']; ?></td>
+            <td><?php echo $info['time']; ?></td>
+            <td>
+                <!-- <a class="glyphicon glyphicon-list-alt" title="视图" data-placement="bottom" href="<?php echo url('crm/eachstudentinfo',['id'=>$info['uid']]); ?>" target="view_window"></a> -->
+                <a class="glyphicon glyphicon-pencil" title="实习审评" data-placement="bottom"  href="<?php echo url('crm/editstudentinfo',['id'=>$info['uid']]); ?>" target="view_window">
+                    </a>
+                </a>
+                <a class="glyphicon glyphicon-remove" title="删除" data-placement="bottom" onclick="return confirm('确定要删除?')" href="<?php echo url('deletestudentsinfo',['id'=>$info['id']]); ?>" ></a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+    </div>
+    
 </div>
+
+  <script type="text/javascript">
+var app = new Vue({
+  el:'#app',
+  data: {
+  
+  },
+  methods: {
+   
+    }
+  
+})
+</script>
 
 <footer class="footer" style="text-align: center;margin-top: 50px;">
 	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
