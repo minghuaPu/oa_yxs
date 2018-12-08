@@ -329,19 +329,38 @@ class Task extends \app\admin\Auth
         $this->success('布置成功','index');
     }  
     public function update()
-    {
-        $user_data=Session::get();
+    {  	
+    	$user_data=Session::get();
     	$rw_id = input('id');
     	$uname = $user_data['user_name'];
     	$rw_log = input('log');
-    	db('worklog')->insert([
-            'rw_id'=>$rw_id,
-            'rw_log'=>$rw_log,
-            'uname'=>$uname,           
-            'time'=>date('Y-m-d H:i',time()),
-        ]);     
-         $this->success('操作成功'); 
-    } 
+         	
+	    	db('worklog')->insert([
+	            'rw_id'=>$rw_id,
+	            'rw_log'=>$rw_log,
+	            'uname'=>$uname,           
+	            'time'=>date('Y-m-d H:i',time()),
+	        ]);     
+	         $this->success('操作成功'); 
+    	
+    	
+    }
+    public function giveUp()
+    {
+    	db('bossworklist')
+    		->where('id',input('id'))
+    		->update(['state' => '3']);
+    		
+    	
+    }
+     public function finishWork()
+    {
+    	db('bossworklist')
+    		->where('id',input('id'))
+    		->update(['state' => '4']);
+    		
+    	
+    }
     public function xiugai()
     {
         $id = input('id');

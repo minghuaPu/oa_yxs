@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:82:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\task\arrange.html";i:1544063398;s:73:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1544063398;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:82:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\task\arrange.html";i:1544197893;s:73:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1544063398;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -361,7 +361,7 @@
 		</div>
 		<h3 class="time_now"><?php echo $time; ?></h3>
 		<div class="from_box">
-			<form action="<?php echo url('save2'); ?>" class="form" method="post" enctype="multipart/form-data">
+			<form action="<?php echo url('save2'); ?>" class="form" method="post" enctype="multipart/form-data" onsubmit="return beforesend()">
 				<div class="form-group">
 					<div class="form-group">
 						<label>任务</label>
@@ -377,7 +377,7 @@
 					</div>
 					<div class="form-group">
 						<label>对接人</label>
-						<input type="text" name="executerid" id="executer" value="" class="abc" style="display: none;"></input>
+						<input  type="text" name="executerid" id="executer" value="" class="abc" style="display: none;"></input>
 						<select id="approverq" class="selectpicker" multiple name="executor">
 							<?php foreach($userid_list as $key=>$info): ?>
 						    <option value="<?php echo $info['user_name']; ?>"><?php echo $info['user_name']; ?></option>
@@ -399,9 +399,9 @@
 					</div>
 					<div class="form-group">
 						<label>截止时间</label>
-						                <div class='input-group date' id='datetimepicker'>
-						                    <input style="width:200px" type='text' class="form-control" name="lasttime"/>
-						                    <span class="input-group-addon">
+						                <div class='input-group date'style="width:200px" id='datetimepicker'>
+						                    <input id="time" type='text' class="form-control" name="lasttime"/>
+						                    <span class="input-group-addon" style="margin-left: -200px;">
 						                        <span class="glyphicon glyphicon-calendar"></span>
 						                    </span>
 						                </div>
@@ -422,16 +422,24 @@
 	<script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-select.min.js"></script>
 	<script type="text/javascript" src="__STATIC__/library/bootstrap/defaults-zh_CN.min.js"></script>
 	<script type="text/javascript">
+		function beforesend(){
+			
+			if($('#workname').val()==''){
+				alert('任务不能为空');
+				return false;
+			}else if($('#approverq').val()==''){
+				alert('对接人不能为空');
+				return false;
+			}else if($('#time').val()==''){
+				alert('截止时间不能为空');
+				return false;
+			}else{
+				return true;
+			}
+		};
 		function fun(){
-//			$a = $("#workname").val();
-//			
-//			if($a==''){
-//				 $("#sub").attr("type","text");
-//				 alert('任务不能为空');
-//				 $("#sub").attr("type","submit");
-//				 return		
-//			}else{
-				var str=[];
+			
+			var str=[];
 		var obj = document.getElementById("approverq");
 			for(var i=0;i<obj.options.length;i++){
 				if(obj.options[i].selected){
@@ -439,14 +447,15 @@
 				}
 			}
 		$("#executer").val(str);
-		};	
+		};
+		
 		$('#datetimepicker').datetimepicker({
 			 
 		});
     	$('.dropify').dropify();
    		UE.getEditor("myEditor");			
     	
-   		/*UE.getEditor("myEditor");*/
+   		
 	</script>
 </body>
 </html>

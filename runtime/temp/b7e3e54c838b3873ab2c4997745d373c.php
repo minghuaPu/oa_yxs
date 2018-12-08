@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:80:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\task\check.html";i:1544068213;s:73:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1544063398;s:74:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:80:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\task\check.html";i:1544195530;s:73:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1544063398;s:74:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -349,14 +349,14 @@
         }
     })
 </script>
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css?1">
 	<div class="write_box" id="check">
 		<div class="title" style="margin-bottom: 20px;">
 			<a class="glyphicon glyphicon-ok">工作汇报批改/详情</a>
 			<a href="<?php echo url('index'); ?>" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
 		</div>
 		<?php foreach($check as $check_info): ?>
-		<form action="<?php echo url('update'); ?>?id=<?php echo $check_info['id']; ?>"  method="post" enctype="multipart/form-data">
+		<form action="<?php echo url('update'); ?>?id=<?php echo $check_info['id']; ?>" method="post" enctype="multipart/form-data" onsubmit="return sumbit_sure()">
 			<div class="form-group" style="font-size: 16px;">
 				<?php foreach($user as $userdata): if($userdata['user_cate']=='员工'): ?>
 				<div class="form-group">
@@ -440,20 +440,25 @@
 				</div>
 			</div>
 			<?php endforeach; ?>
-			<div style="width: 15%;height: 30px;line-height: 30px;color: cornflowerblue; font-size: 20px;margin-top: 30px;">
-				操作
+			<div class="<?php echo !empty($check_info['state']) && $check_info['state']==3||$check_info['state']==4?'aa' :''; ?>">
+				<div style="width: 15%;height: 30px;line-height: 30px;color: cornflowerblue; font-size: 20px;margin-top: 30px;">
+					操作
+				</div>
+				<textarea id="caozuo" name="log" style="height: 100px;width: 100%;" value=""></textarea>
 			</div>
-			<textarea name="log" style="height: 100px;width: 100%;"></textarea>
                
-				
 				
 				<?php endif; endforeach; ?>								
 			</div>
-			<div class="form-group <?php echo !empty($check_info['state']) && $check_info['state']==3&4?'':'aa'; ?>" >
-				<input type="submit" class="btn btn-primary" value="提交">
-				<input type="button" class="btn btn-primary" style="outline:none;" value="放弃任务">
-				<input type="button" class="btn btn-primary" style="outline:none;" value="结束任务">
+						
+			<div class="form-group <?php echo !empty($check_info['state']) && $check_info['state']==3||$check_info['state']==4?'aa' :''; ?>">
+				<input name="abandon" type="submit" class="btn btn-primary" style="outline:none;" value="提交">
+				 <input name="abandon" type="button" class="btn btn-primary" style="outline:none;" onclick="giveUp()" value="放弃任务">
+				<input name="abandon" type="button" class="btn btn-primary" style="outline:none;" onclick="finish()" value="结束任务">
+				
 			</div>
+			
+			
 		</form>
 		<?php endforeach; ?>
 	</div>
@@ -493,7 +498,57 @@ $(document).ready(function(){
 </script>
 </body>
 </html>
-	<script type="text/javascript">
+	<script type="text/javascript">	
+		//操作提交前判定
+		function sumbit_sure(){	
+			var a = $("#caozuo").val();
+				if(a == ''){
+					alert('操作框不能为空！');
+					return false;
+				}else{
+					var cof = confirm('是否要提交！');
+					if(cof==true){
+						return true;
+					}else{
+						return false;
+					}
+				}
+			};
+			//放弃任务
+			function giveUp(){
+				var cof = confirm('是否要提交放弃任务')
+				if(cof){
+					$.post(
+						'<?php echo url('giveUp'); ?>?id=<?php echo $check_info['id']; ?>', 
+						function(e){
+							window.location.reload()
+						}
+					);
+				}
+				
+
+			};
+			//完成任务
+			function finish(){
+				var cof = confirm('是否要提交完成任务')
+				if(cof){
+				$.post(
+						'<?php echo url('finishWork'); ?>?id=<?php echo $check_info['id']; ?>', 
+						function(e){
+							window.location.reload()
+						}
+					);
+				}
+
+			}
+			
+			
+		
     	$('.dropify').dropify();
    		UE.getEditor("myEditor");
 	</script>
+	<style type="text/css">
+		.aa{
+			display: none;
+		    }
+	</style>
