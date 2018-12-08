@@ -1,16 +1,5 @@
-<<<<<<< HEAD:runtime/temp/4a44674208597f2d696ff0cbff5ec978.php
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"D:\wamp64\www\oa\public/../application/admin\view\gongdan\index.html";i:1544063215;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544089172;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544063215;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
-=======
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\work.html";i:1544171529;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544081012;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544171604;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544172912;}*/ ?>
->>>>>>> 732a581b54d60724c2ee196ba40f2da8b6af63e5:runtime/temp/d606a6ec5736f676ce26fac4c3fe5576.php
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:79:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\crm\studentsinfo.html";i:1544063215;s:66:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\top.html";i:1544063215;s:67:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\left.html";i:1544063215;s:67:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/work/work.css"/>
-
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -359,16 +348,16 @@
             }
         }
     })
-</script>
-	<div class="left_menu lbs" id="left_menu">
+</script> <div class="left_menu lbs" id="left_menu">
 	<ul v-if="controller!='Map'">
-		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
-		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
-		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
-		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
-		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
+		<li><a href="#" class="glyphicon glyphicon-calendar"><p>工作台</p></a></li>
+		<li><a href="#" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
+		<li><a href="#"><p>全功能</p></a></li>
+		<li style="margin-top: 150px;"><a href="#" class="glyphicon glyphicon-tasks"><p>综合报表</p></a></li>
+		<li><a href="#"><p>APP</p></a></li>
+		<li><a href="#" class="glyphicon glyphicon-download-alt"><p>下载</p></a></li>
 	</ul>
-	<!--<ul v-if="controller=='Map'" class="Maplist">
+	<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
 		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
 		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
@@ -377,7 +366,7 @@
 		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
 		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
 		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-	</ul>-->
+	</ul>
 </div>
 <script type="text/javascript">
  new Vue({
@@ -394,255 +383,144 @@
         	}
         }
     })
- function jump(){
- 	 window.location.href='<?php echo url('admin/index/index'); ?>'
- }
- function jump_two(){
- 	window.location.href='<?php echo url('admin/index/work'); ?>'
- }
- function jump_three(){
- 	window.location.href='<?php echo url('admin/index/finance'); ?>'
- }
- function jump_four (){
- 	window.location.href='<?php echo url('admin/index/department'); ?>'
- }
- function jump_five(){
- 	window.location.href='<?php echo url('admin/index/index'); ?>'
- }
-
 </script>
- 
-	<!DOCTYPE html>
-<html>
-	<head>
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
-<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<div class="page">
-			<div class="search_box">
-				<div class="iconfont icon-fangdajing"></div>
-				<input type="text" name="search" class="search" placeholder="搜索" />
-			</div>
-			<div class="people_box">
-				<div class="icon">
-					<div class="iconfont icon-geren"></div>
-					<div class="iconfont icon-iconset0337"></div>
-					<div class="iconfont icon-group"></div>
-				</div>
-				<div class="name_box">
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				公告栏
-			</div>
-			<div class="notice_box">
-				<div class="notice">
-					<div class="notice_dian"></div>
-					<div class="notice_content">oa系统正式上线</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				新闻
-			</div>
-		</div>
-	</body>
-</html>
 
+<!-- 页面css样式 -->
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/crm/css/index.css?199">
+<div class="container" id="app" style="width: 80%;">
+<!--     <div class="title row">
+    <div class="col-md-1" >
+        <a href="javascript:" style="border-bottom: 2px gray solid">全部数据</a>
+    </div>
+    
+    <div class="col-md-1" >
+        <a href="javascript:">前端</a>
+    </div>
+    <div class="col-md-1">
+        <a href="javascript:">全栈</a>
+    </div>
+    <div class="col-md-1">
+        <a href="javascript:">设计</a>
+    </div>
+    <div class="col-md-1">
+        <a href="javascript:">后台</a>
+    </div>
+</div> -->
+    <!-- 全部数据 -->
+    
+    <div class="all">
+    <div class="search row">
+        <form action="<?php echo url('studentsinfo'); ?>" class="form">
+            <div class="col-md-3 form-inline" style="overflow: hidden;">
+                <p class="glyphicon glyphicon-glass pull-left" style="margin-top: 8px;"></p>
+                <!-- 课程分类选择 -->
+                <div class="pull-left">
+                    <select class="form-control pull-right" name="lessonname_id" onchange="$('#basic-addon2').click()" style="width: 100%;">
+                        <option value="">课程查询</option>
+                         <?php foreach($lesson_name as $info): ?>
+                    <option value="<?php echo $info['id']; ?>"><?php echo $info['lesson_name']; ?></option>
+                    <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4 form-inline">
+                <p class="glyphicon glyphicon-search pull-left" style="margin: 8px 5px 0 0;"></p>
+                <div class="input-group pull-left">
+                    <input type="text" class="form-control pull-left" placeholder="请输入学校" aria-describedby="basic-addon2" name="school_name">
+                </div>
+                <input type="submit" class="btn btn-group pull-left" id="basic-addon2" style="cursor: pointer;" value="搜索" style="margin-left:-100px;">
+            </div>
+        </form>
+    </div>
+    <div class="info">
+        <div>
+            <div class="pull-left">
+                <p class="pull-left" style="margin:5px 0 0 5px;">学生基本信息</p>
+                <span style="color: #ccc">共2条</span>
+                <a href="<?php echo url('studentsinfo'); ?>" class="btn btn-default">清除搜索</a><span class="glyphicon glyphicon-trash"></span>
+            </div>
+        </div>
+    </div>
+    <table class="table table-bordered table-hover">
+        <tr class="warning">
+            <td>ID</td>
+            <th>姓名</th>
+            <th>学校名称</th>
+            <th>所学专业</th>
+            <th>电话</th>
+            <th>微信</th>
+            <th>实习岗位</th>
+            <th>报名时间</th>
+            <th>操作</th>
+        </tr>
+        <?php foreach($list as $info): ?>
+        <tr>
+            <td><?php echo $info['id']; ?></td>
+            <td><?php echo $info['name']; ?></td>
+            <td><?php echo $info['school_name']; ?></td>
+            <td><?php echo $info['professio']; ?></td>
+            <td><?php echo $info['phone']; ?></td>
+             <td><?php echo $info['wecat']; ?></td>
+            <td><?php echo $info['lesson_name']; ?></td>
+            <td><?php echo $info['time']; ?></td>
+            <td>
+                <!-- <a class="glyphicon glyphicon-list-alt" title="视图" data-placement="bottom" href="<?php echo url('crm/eachstudentinfo',['id'=>$info['uid']]); ?>" target="view_window"></a> -->
+                <a class="glyphicon glyphicon-pencil" title="实习审评" data-placement="bottom"  href="<?php echo url('crm/editstudentinfo',['id'=>$info['uid']]); ?>" target="view_window">
+                    </a>
+                </a>
+                <a class="glyphicon glyphicon-remove" title="删除" data-placement="bottom" onclick="return confirm('确定要删除?')" href="<?php echo url('deletestudentsinfo',['id'=>$info['id']]); ?>" ></a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+    </div>
+    
+</div>
 
+  <script type="text/javascript">
+var app = new Vue({
+  el:'#app',
+  data: {
+  
+  },
+  methods: {
+   
+    }
+  
+})
+</script>
 
-
-
-<style type="text/css">
-.page{
-	width:172px;
-	position:fixed ;
-	right: 0;
-	
-	
-}
-.search_box{
-	display: flex;
-	margin-top:9px;
-	background: #e6e6e6;
-	
-}
-.search_box input{
-	background: #e6e6e6;
-	border: 0px;
-	outline:none 
-}
-.icon{
-	display: flex;
-	margin: 6px 20px ;
-	
-}
-.icon div{
-	font-size: 23px;
-	flex: 1;
-	text-align: center;
-}
-.people{
-	display: flex;
-	align-items: center;
-}
-.name_box{
-	height: 250px;
-	overflow:scroll;
-	overflow-x:visible;
-}
-.people img{
-	width: 26px;
-	height: 26px;
-	border-radius: 26px;	
-}
-.people p{
-    margin-top: 13px;
-    margin-left: 3px;
-}
-.notice_title{
-	text-align: center;
-    padding: 4px 0;
-    font-size: 16px;
-    border-top: 1px solid #cccccc;
-    border-bottom:1px solid #cccccc;
-    font-weight: bold;
-}
-.notice{
-	display: flex;
-}
-.notice_dian{
-	width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: red;
-    margin-top: 5px;
-    margin-left: 7px;
-}
-.notice_box{
-	height: 143px;
-}
-.notice_content{
-	margin-left: 10px;
-    font-size: 11px;
-}
-</style> 
-	</head>
-	<body>
-	
-	<div class="container">
-		<div class="top">
-			<div class="week"> 
-				<div class="week_title">本周工作</div>
-				<div class="img_box" id="main" ></div>
-		    </div>
-		    <div class="month">
-		    	 <div class="week_title">本月汇总</div>
-		    	 <div class="img_box" id="main_two" ></div>
-		    </div>     
-		</div>
-		<div class="bottom">
-			<div class="bottom_title">
-				<div class="title_one">工作文档</div>
-				<div class="title_two">新建文档 +</div>
-				<div class="title_two">本地上传 +</div>
-			</div> 
-			<div class="bottom_table">
-				<table class="table" border="" cellspacing="" cellpadding="">
-					<tr>
-					  <th>全选<input type="checkbox" /></th>
-					  <th>时间</th>
-					  <th>主题</th>
-					  <th>内容</th>
-					  <th>分类</th>
-					  <th>查询</th>
-					  <th>抄作</th>
-					</tr>
-					<tr><td>Data</td></tr>
-				</table>
-			</div>
-		</div>
-		
-		
-		
-		
-		
-		
-	</div>
-	</body>
-</html>
+<footer class="footer" style="text-align: center;margin-top: 50px;">
+	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
+	&nbsp;
+	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
+		投诉&amp;问题
+	</a>
+	&nbsp;&nbsp;
+	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
+		微客服
+	</a>
+	&nbsp;&nbsp;
+	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
+		<i class="md md-speaker-notes m-r-5"></i>
+		订阅号
+	</a>
+	<br>
+	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
+</footer>
+<!-- 底部 -->
 <script type="text/javascript">
-	    var myChart = echarts.init(document.getElementById('main'));
-        var option = {
-            title: {
-                text: '完成度%',
-               textStyle:{fontSize:10},
-               padding: [ 30,0,0,33]
-            },
-            tooltip: {},
-            legend: {
-                data:['销量']
-            },
-            xAxis: {
-                data: ["星期一","星期二","星期三","星期四","星期五","星期六"]
-            },
-            yAxis: {
-            	max:100
-            },
-            series: [{
-                color:'#28d2ae',
-                type: 'bar',
-                data: [20, 40, 10, 80, 90.5,80]
-            }]
-        };
-        myChart.setOption(option);// 使用刚指定的配置项和数据显示图表。
-        
-        var myChart = echarts.init(document.getElementById('main_two'));
-	    var   option = {
-	    xAxis: {
-	        type: 'category',
-	        data: ['第一周', '第二周', '第三周', '第四周']
-	    },
-	     tooltip: {}, //提示
-	    yAxis: {
-	        type: 'value',
-	        max:100
-	    },
-	    series: [{
-	    	 color:'#28d2ae',
-	        data: [50, 80, 30, 70],
-	        type: 'line',
-	        smooth: true
-	    }]
-	    };
-       myChart.setOption(option);
+$(document).ready(function(){
+	$(".left_menu ul li").click(function(event){
+		event.preventDefault();
+		console.log($(this).siblings().find('a,p'))
+		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
+			"color":"#5d9cec"})
+		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
+		$(this).find('a,p').css("color","#5d9cec")
+		$(this).siblings().find('a,p').css("color","white")
+	})
+});
 </script>
+</body>
+</html>

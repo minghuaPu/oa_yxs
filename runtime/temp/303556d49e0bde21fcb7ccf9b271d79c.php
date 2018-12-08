@@ -1,16 +1,5 @@
-<<<<<<< HEAD:runtime/temp/4a44674208597f2d696ff0cbff5ec978.php
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"D:\wamp64\www\oa\public/../application/admin\view\gongdan\index.html";i:1544063215;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544089172;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544063215;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
-=======
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\work.html";i:1544171529;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544081012;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544171604;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544172912;}*/ ?>
->>>>>>> 732a581b54d60724c2ee196ba40f2da8b6af63e5:runtime/temp/d606a6ec5736f676ce26fac4c3fe5576.php
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:63:"D:\wamp64\www\oa\public/../application/admin\view\task\add.html";i:1544063215;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544089172;}*/ ?>
 <!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/work/work.css"/>
-
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -360,289 +349,48 @@
         }
     })
 </script>
-	<div class="left_menu lbs" id="left_menu">
-	<ul v-if="controller!='Map'">
-		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
-		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
-		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
-		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
-		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
-	</ul>
-	<!--<ul v-if="controller=='Map'" class="Maplist">
-		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
-		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
-		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
-		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
-		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
-		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
-		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
-		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-	</ul>-->
-</div>
-<script type="text/javascript">
- new Vue({
-        el:'#left_menu',
-        data:{
-           controller:"Index"
-        },
-        created(){
-        	this.init();
-        },
-        methods:{
-        	init(){
-                this.controller="<?php echo request()->controller(); ?>";
-        	}
-        }
-    })
- function jump(){
- 	 window.location.href='<?php echo url('admin/index/index'); ?>'
- }
- function jump_two(){
- 	window.location.href='<?php echo url('admin/index/work'); ?>'
- }
- function jump_three(){
- 	window.location.href='<?php echo url('admin/index/finance'); ?>'
- }
- function jump_four (){
- 	window.location.href='<?php echo url('admin/index/department'); ?>'
- }
- function jump_five(){
- 	window.location.href='<?php echo url('admin/index/index'); ?>'
- }
-
-</script>
- 
-	<!DOCTYPE html>
-<html>
-	<head>
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
-<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<div class="page">
-			<div class="search_box">
-				<div class="iconfont icon-fangdajing"></div>
-				<input type="text" name="search" class="search" placeholder="搜索" />
-			</div>
-			<div class="people_box">
-				<div class="icon">
-					<div class="iconfont icon-geren"></div>
-					<div class="iconfont icon-iconset0337"></div>
-					<div class="iconfont icon-group"></div>
-				</div>
-				<div class="name_box">
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				公告栏
-			</div>
-			<div class="notice_box">
-				<div class="notice">
-					<div class="notice_dian"></div>
-					<div class="notice_content">oa系统正式上线</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				新闻
-			</div>
+<link rel="stylesheet" type="text/css" href="__STATIC__/library/dropify-master/dist/css/dropify.min.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css?3">
+	<div class="write_box">
+		<div class="title">
+			<a class="glyphicon glyphicon-pencil">汇报工作</a>
+			<a href="<?php echo url('index'); ?>" class="glyphicon glyphicon-chevron-left return">返回工作台</a>			
 		</div>
-	</body>
-</html>
-
-
-
-
-
-<style type="text/css">
-.page{
-	width:172px;
-	position:fixed ;
-	right: 0;
-	
-	
-}
-.search_box{
-	display: flex;
-	margin-top:9px;
-	background: #e6e6e6;
-	
-}
-.search_box input{
-	background: #e6e6e6;
-	border: 0px;
-	outline:none 
-}
-.icon{
-	display: flex;
-	margin: 6px 20px ;
-	
-}
-.icon div{
-	font-size: 23px;
-	flex: 1;
-	text-align: center;
-}
-.people{
-	display: flex;
-	align-items: center;
-}
-.name_box{
-	height: 250px;
-	overflow:scroll;
-	overflow-x:visible;
-}
-.people img{
-	width: 26px;
-	height: 26px;
-	border-radius: 26px;	
-}
-.people p{
-    margin-top: 13px;
-    margin-left: 3px;
-}
-.notice_title{
-	text-align: center;
-    padding: 4px 0;
-    font-size: 16px;
-    border-top: 1px solid #cccccc;
-    border-bottom:1px solid #cccccc;
-    font-weight: bold;
-}
-.notice{
-	display: flex;
-}
-.notice_dian{
-	width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: red;
-    margin-top: 5px;
-    margin-left: 7px;
-}
-.notice_box{
-	height: 143px;
-}
-.notice_content{
-	margin-left: 10px;
-    font-size: 11px;
-}
-</style> 
-	</head>
-	<body>
-	
-	<div class="container">
-		<div class="top">
-			<div class="week"> 
-				<div class="week_title">本周工作</div>
-				<div class="img_box" id="main" ></div>
-		    </div>
-		    <div class="month">
-		    	 <div class="week_title">本月汇总</div>
-		    	 <div class="img_box" id="main_two" ></div>
-		    </div>     
+		<h3 class="time_now"><?php echo $time; ?></h3>
+		<div class="from_box">
+			<form action="<?php echo url('save'); ?>" class="form" method="post" enctype="multipart/form-data">
+				<div class="form-group">
+					<div class="form-group">
+						<label>汇报</label>
+						<select name="title" v-model="title">
+							<?php foreach($work as $info): ?>
+							<option value="<?php echo $info['work_name']; ?>"><?php echo $info['work_name']; ?></option>
+							<?php endforeach; ?>
+						</select>						
+					</div>
+					<div class="form-group">
+						<label>内容</label>
+						<textarea name="content" id="myEditor" style="height: 280px;width: 100%;"></textarea>
+					</div>
+					<div class="form-group">
+						<label>附件</label>
+						<input type="file" name="work" class="dropify">
+					</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-primary" value="提交">
+				</div>
+			</form>
 		</div>
-		<div class="bottom">
-			<div class="bottom_title">
-				<div class="title_one">工作文档</div>
-				<div class="title_two">新建文档 +</div>
-				<div class="title_two">本地上传 +</div>
-			</div> 
-			<div class="bottom_table">
-				<table class="table" border="" cellspacing="" cellpadding="">
-					<tr>
-					  <th>全选<input type="checkbox" /></th>
-					  <th>时间</th>
-					  <th>主题</th>
-					  <th>内容</th>
-					  <th>分类</th>
-					  <th>查询</th>
-					  <th>抄作</th>
-					</tr>
-					<tr><td>Data</td></tr>
-				</table>
-			</div>
-		</div>
-		
-		
-		
-		
-		
-		
 	</div>
-	</body>
+	<script type="text/javascript" src="__STATIC__/library/dropify-master/dist/js/dropify.min.js"></script>
+	<!-- 配置文件 -->
+	<script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.config.js"></script>
+	<!-- 编辑器源码文件 -->
+	<script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.all.min.js"></script>
+	<script type="text/javascript">
+    	$('.dropify').dropify();
+   		UE.getEditor("myEditor");
+   		
+	</script>
+</body>
 </html>
-<script type="text/javascript">
-	    var myChart = echarts.init(document.getElementById('main'));
-        var option = {
-            title: {
-                text: '完成度%',
-               textStyle:{fontSize:10},
-               padding: [ 30,0,0,33]
-            },
-            tooltip: {},
-            legend: {
-                data:['销量']
-            },
-            xAxis: {
-                data: ["星期一","星期二","星期三","星期四","星期五","星期六"]
-            },
-            yAxis: {
-            	max:100
-            },
-            series: [{
-                color:'#28d2ae',
-                type: 'bar',
-                data: [20, 40, 10, 80, 90.5,80]
-            }]
-        };
-        myChart.setOption(option);// 使用刚指定的配置项和数据显示图表。
-        
-        var myChart = echarts.init(document.getElementById('main_two'));
-	    var   option = {
-	    xAxis: {
-	        type: 'category',
-	        data: ['第一周', '第二周', '第三周', '第四周']
-	    },
-	     tooltip: {}, //提示
-	    yAxis: {
-	        type: 'value',
-	        max:100
-	    },
-	    series: [{
-	    	 color:'#28d2ae',
-	        data: [50, 80, 30, 70],
-	        type: 'line',
-	        smooth: true
-	    }]
-	    };
-       myChart.setOption(option);
-</script>

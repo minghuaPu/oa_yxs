@@ -1,8 +1,4 @@
-<<<<<<< HEAD:runtime/temp/4a44674208597f2d696ff0cbff5ec978.php
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"D:\wamp64\www\oa\public/../application/admin\view\gongdan\index.html";i:1544063215;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544089172;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544063215;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
-=======
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\work.html";i:1544171529;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544081012;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544171604;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544172912;}*/ ?>
->>>>>>> 732a581b54d60724c2ee196ba40f2da8b6af63e5:runtime/temp/d606a6ec5736f676ce26fac4c3fe5576.php
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:62:"D:\new\www\oa\public/../application/admin\view\index\work.html";i:1544257331;s:55:"D:\new\www\oa\public/../application/admin\view\top.html";i:1544086361;s:56:"D:\new\www\oa\public/../application/admin\view\left.html";i:1544257331;s:57:"D:\new\www\oa\public/../application/admin\view\right.html";i:1544257331;}*/ ?>
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/work/work.css"/>
 

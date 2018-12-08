@@ -1,11 +1,6 @@
-<<<<<<< HEAD:runtime/temp/4a44674208597f2d696ff0cbff5ec978.php
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"D:\wamp64\www\oa\public/../application/admin\view\gongdan\index.html";i:1544063215;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544089172;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544063215;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
-=======
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\work.html";i:1544171529;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544081012;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544171604;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544172912;}*/ ?>
->>>>>>> 732a581b54d60724c2ee196ba40f2da8b6af63e5:runtime/temp/d606a6ec5736f676ce26fac4c3fe5576.php
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:65:"D:\new\www\oa\public/../application/admin\view\index\finance.html";i:1544257331;s:55:"D:\new\www\oa\public/../application/admin\view\top.html";i:1544086361;s:56:"D:\new\www\oa\public/../application/admin\view\left.html";i:1544257331;s:57:"D:\new\www\oa\public/../application/admin\view\right.html";i:1544257331;}*/ ?>
 <!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/work/work.css"/>
-
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/finance/finance.css"/>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -558,50 +553,26 @@
 </style> 
 	</head>
 	<body>
-	
-	<div class="container">
-		<div class="top">
-			<div class="week"> 
-				<div class="week_title">本周工作</div>
-				<div class="img_box" id="main" ></div>
-		    </div>
-		    <div class="month">
-		    	 <div class="week_title">本月汇总</div>
-		    	 <div class="img_box" id="main_two" ></div>
-		    </div>     
-		</div>
-		<div class="bottom">
-			<div class="bottom_title">
-				<div class="title_one">工作文档</div>
-				<div class="title_two">新建文档 +</div>
-				<div class="title_two">本地上传 +</div>
-			</div> 
-			<div class="bottom_table">
-				<table class="table" border="" cellspacing="" cellpadding="">
-					<tr>
-					  <th>全选<input type="checkbox" /></th>
-					  <th>时间</th>
-					  <th>主题</th>
-					  <th>内容</th>
-					  <th>分类</th>
-					  <th>查询</th>
-					  <th>抄作</th>
-					</tr>
-					<tr><td>Data</td></tr>
-				</table>
+		<div class="container">
+			 <div class="top">
+				<div class="month"> 
+					<div class="month_title">本月收入</div>
+					<div class="img_box" id="main" ></div>
+			    </div>
+			    <div class="year">
+			    	 <div class="year_title">年度收入</div>
+			    	 <div class="img_box" id="main_two" ></div>
+			    </div>     
 			</div>
-		</div>
-		
-		
-		
-		
-		
-		
-	</div>
+			<div class="bottom">
+				   <div class="achievement_title">业绩表现 </div>
+				   <div class="img_box_two" id="main_three" ></div>
+			</div>
+		</div>	
 	</body>
 </html>
 <script type="text/javascript">
-	    var myChart = echarts.init(document.getElementById('main'));
+	var myChart = echarts.init(document.getElementById('main'));
         var option = {
             title: {
                 text: '完成度%',
@@ -610,39 +581,88 @@
             },
             tooltip: {},
             legend: {
-                data:['销量']
+                data:['本月工作','上月工作']
             },
             xAxis: {
-                data: ["星期一","星期二","星期三","星期四","星期五","星期六"]
+                data: []
             },
             yAxis: {
             	max:100
             },
-            series: [{
-                color:'#28d2ae',
-                type: 'bar',
-                data: [20, 40, 10, 80, 90.5,80]
-            }]
+            series: [
+              {
+            barWidth:'45',
+            color:'#28d2ae',
+            name: '本月工作',
+            type: 'bar',
+            data: [50]
+        },
+        {   barGap:3,
+        	barWidth:'45',
+        	color:'#dadada',
+            name: '上月工作',
+            type: 'bar',
+            data: [90]
+        }]
         };
         myChart.setOption(option);// 使用刚指定的配置项和数据显示图表。
         
-        var myChart = echarts.init(document.getElementById('main_two'));
+        var myChart_two = echarts.init(document.getElementById('main_two'));
 	    var   option = {
 	    xAxis: {
 	        type: 'category',
-	        data: ['第一周', '第二周', '第三周', '第四周']
+	        data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
 	    },
-	     tooltip: {}, //提示
+	     tooltip: {
+	     	 trigger: 'axis'
+	     }, //提示
+	       legend: {
+        data:['本年工资','去年工资']
+    },
 	    yAxis: {
 	        type: 'value',
 	        max:100
 	    },
 	    series: [{
-	    	 color:'#28d2ae',
-	        data: [50, 80, 30, 70],
-	        type: 'line',
-	        smooth: true
-	    }]
+	    	        name: '本年工资',
+			    	color:'#28d2ae',
+			        data: [50, 80, 30, 70,50, 80, 30, 70,50, 80, 30, 70],
+			        type: 'line',
+			        smooth: true
+	            },
+	            {   
+	            	name: '去年工资',
+			    	color:'#dadada',
+			        data: [30, 70, 100, 30,30, 70, 100, 30,30, 70, 100, 30],
+			        type: 'line',
+			        smooth: true
+	             }
+	     
+	    ]
 	    };
-       myChart.setOption(option);
+       myChart_two.setOption(option);
+       
+       var myChart_three = echarts.init(document.getElementById('main_three'));
+          var option = {
+            title: {},
+            tooltip: {},
+            legend: {
+                data:['业绩']
+            },
+            xAxis: {
+               
+            },
+            yAxis: {
+            	 data: ["第一季度","第二季度","第三季度","第四季度"]
+            },
+            series: [{
+            	barWidth:'20',
+            	color:'#28d2ae',
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10]
+            }]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart_three.setOption(option);
 </script>

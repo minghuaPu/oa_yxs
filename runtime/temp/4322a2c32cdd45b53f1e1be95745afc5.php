@@ -1,4 +1,8 @@
+<<<<<<< HEAD:runtime/temp/fe816d22272e71137f1031b172088e33.php
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:64:"D:\wamp64\www\oa\public/../application/admin\view\task\read.html";i:1544063215;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544089172;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544063215;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+=======
 <?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:71:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\finance.html";i:1544171379;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544081012;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544171604;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544172912;}*/ ?>
+>>>>>>> 732a581b54d60724c2ee196ba40f2da8b6af63e5:runtime/temp/4322a2c32cdd45b53f1e1be95745afc5.php
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/finance/finance.css"/>
 <html>

@@ -1,16 +1,5 @@
-<<<<<<< HEAD:runtime/temp/4a44674208597f2d696ff0cbff5ec978.php
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"D:\wamp64\www\oa\public/../application/admin\view\gongdan\index.html";i:1544063215;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544089172;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544063215;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
-=======
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\work.html";i:1544171529;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544081012;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544171604;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544172912;}*/ ?>
->>>>>>> 732a581b54d60724c2ee196ba40f2da8b6af63e5:runtime/temp/d606a6ec5736f676ce26fac4c3fe5576.php
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:75:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\map\business.html";i:1544063215;s:66:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\top.html";i:1544063215;s:67:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\left.html";i:1544063215;}*/ ?>
 <!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/work/work.css"/>
-
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -360,15 +349,16 @@
         }
     })
 </script>
-	<div class="left_menu lbs" id="left_menu">
+<div class="left_menu lbs" id="left_menu">
 	<ul v-if="controller!='Map'">
-		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
-		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
-		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
-		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
-		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
+		<li><a href="#" class="glyphicon glyphicon-calendar"><p>工作台</p></a></li>
+		<li><a href="#" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
+		<li><a href="#"><p>全功能</p></a></li>
+		<li style="margin-top: 150px;"><a href="#" class="glyphicon glyphicon-tasks"><p>综合报表</p></a></li>
+		<li><a href="#"><p>APP</p></a></li>
+		<li><a href="#" class="glyphicon glyphicon-download-alt"><p>下载</p></a></li>
 	</ul>
-	<!--<ul v-if="controller=='Map'" class="Maplist">
+	<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
 		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
 		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
@@ -377,7 +367,7 @@
 		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
 		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
 		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-	</ul>-->
+	</ul>
 </div>
 <script type="text/javascript">
  new Vue({
@@ -394,255 +384,142 @@
         	}
         }
     })
- function jump(){
- 	 window.location.href='<?php echo url('admin/index/index'); ?>'
- }
- function jump_two(){
- 	window.location.href='<?php echo url('admin/index/work'); ?>'
- }
- function jump_three(){
- 	window.location.href='<?php echo url('admin/index/finance'); ?>'
- }
- function jump_four (){
- 	window.location.href='<?php echo url('admin/index/department'); ?>'
- }
- function jump_five(){
- 	window.location.href='<?php echo url('admin/index/index'); ?>'
- }
-
 </script>
- 
-	<!DOCTYPE html>
-<html>
-	<head>
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
-<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<div class="page">
-			<div class="search_box">
-				<div class="iconfont icon-fangdajing"></div>
-				<input type="text" name="search" class="search" placeholder="搜索" />
-			</div>
-			<div class="people_box">
-				<div class="icon">
-					<div class="iconfont icon-geren"></div>
-					<div class="iconfont icon-iconset0337"></div>
-					<div class="iconfont icon-group"></div>
-				</div>
-				<div class="name_box">
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				公告栏
-			</div>
-			<div class="notice_box">
-				<div class="notice">
-					<div class="notice_dian"></div>
-					<div class="notice_content">oa系统正式上线</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				新闻
-			</div>
-		</div>
-	</body>
-</html>
 
-
-
-
-
-<style type="text/css">
-.page{
-	width:172px;
-	position:fixed ;
-	right: 0;
-	
-	
-}
-.search_box{
-	display: flex;
-	margin-top:9px;
-	background: #e6e6e6;
-	
-}
-.search_box input{
-	background: #e6e6e6;
-	border: 0px;
-	outline:none 
-}
-.icon{
-	display: flex;
-	margin: 6px 20px ;
-	
-}
-.icon div{
-	font-size: 23px;
-	flex: 1;
-	text-align: center;
-}
-.people{
-	display: flex;
-	align-items: center;
-}
-.name_box{
-	height: 250px;
-	overflow:scroll;
-	overflow-x:visible;
-}
-.people img{
-	width: 26px;
-	height: 26px;
-	border-radius: 26px;	
-}
-.people p{
-    margin-top: 13px;
-    margin-left: 3px;
-}
-.notice_title{
-	text-align: center;
-    padding: 4px 0;
-    font-size: 16px;
-    border-top: 1px solid #cccccc;
-    border-bottom:1px solid #cccccc;
-    font-weight: bold;
-}
-.notice{
-	display: flex;
-}
-.notice_dian{
-	width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: red;
-    margin-top: 5px;
-    margin-left: 7px;
-}
-.notice_box{
-	height: 143px;
-}
-.notice_content{
-	margin-left: 10px;
-    font-size: 11px;
-}
-</style> 
-	</head>
-	<body>
-	
-	<div class="container">
-		<div class="top">
-			<div class="week"> 
-				<div class="week_title">本周工作</div>
-				<div class="img_box" id="main" ></div>
-		    </div>
-		    <div class="month">
-		    	 <div class="week_title">本月汇总</div>
-		    	 <div class="img_box" id="main_two" ></div>
-		    </div>     
-		</div>
-		<div class="bottom">
-			<div class="bottom_title">
-				<div class="title_one">工作文档</div>
-				<div class="title_two">新建文档 +</div>
-				<div class="title_two">本地上传 +</div>
-			</div> 
-			<div class="bottom_table">
-				<table class="table" border="" cellspacing="" cellpadding="">
-					<tr>
-					  <th>全选<input type="checkbox" /></th>
-					  <th>时间</th>
-					  <th>主题</th>
-					  <th>内容</th>
-					  <th>分类</th>
-					  <th>查询</th>
-					  <th>抄作</th>
-					</tr>
-					<tr><td>Data</td></tr>
-				</table>
-			</div>
-		</div>
-		
-		
-		
-		
-		
-		
-	</div>
-	</body>
-</html>
-<script type="text/javascript">
-	    var myChart = echarts.init(document.getElementById('main'));
-        var option = {
-            title: {
-                text: '完成度%',
-               textStyle:{fontSize:10},
-               padding: [ 30,0,0,33]
+<style>
+    #mtk{
+        margin-left: 86px;
+        margin-top: 20px;
+    }
+    .block{
+        overflow: hidden;
+    }
+    .user{
+        float: left;
+        line-height: 40px;
+    }
+    .userinput{
+        float: left;
+        width: 80%;
+        margin-left: 10px;
+    }
+    .Executor{
+        width: 84%;
+    }
+    .jilu{
+        margin-top: 50px;
+    }
+    .tab{
+        width: 100%;
+    }
+    .tab .col{
+        border: 1px solid #ebeff2 ;
+        height: 42px;
+        background: #ebeff2;
+    }
+    .zhixing{
+        margin-top: 20px;
+    }
+    .query{
+        margin-top: 20px;
+        text-align: center;
+    }
+</style>
+<div class="row" id="mtk">
+    <div class=" col-md-8">
+        <template>
+            <p>快速查询</p>
+            <div class="block">
+                <div class="col-md-6">
+                    <span>日期</span>
+                    <el-date-picker type="date" v-model="value1" placeholder="选择日期" style="width: 40%; margin-left: 20px"></el-date-picker>
+                    到
+                    <el-date-picker type="date" v-model="value2" placeholder="选择日期" style="width: 40%"></el-date-picker>
+                </div>
+                <div class="col-md-6">
+                    <span class="user">地点</span><el-input class="userinput" v-model="value3"></el-input>
+                </div>
+                <div class="col-md-6 zhixing">
+                    <span class="user">申请人</span><el-input class="userinput Executor" v-model="value3"></el-input>
+                </div>
+                <div class="col-md-6 query">
+                    <el-button>查询</el-button>
+                </div>
+            </div>
+        </template>
+        <div class="jilu">
+            <div>
+                <div class="col-sm-6">出差</div>
+                <div class="col-sm-6" style="text-align: right"></div>
+            </div>
+            <table class="tab">
+                <tr class="col">
+                    <th>主题</th>
+                    <th>申请人</th>
+                    <th>开始时间</th>
+                    <th>结束时间</th>
+                    <th>目的地</th>
+                    <th>状态</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-4" style="margin-left: -10px">
+        <div class="container" style="width:100%;height:250px;border: 1px solid #ccc; margin-top: 20px;overflow: hidden" >
+            <div style="width:100%;height:100%">
+                <div id="allmap"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer" style="text-align: center; padding-top:10px; margin-top: 50px; border-top: 1px solid #ccc">
+    热线: <b>4000-80-4000 400-960-9606</b>
+    &nbsp;&nbsp;网站: <b><a href="http://www.xtools.cn" target="_blank">www.xtools.cn</a></b>
+    &nbsp;
+    <a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://www.xtools.cn/about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
+        投诉&amp;问题
+    </a>
+    &nbsp;&nbsp;
+    <a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
+        微客服
+    </a>
+    &nbsp;&nbsp;
+    <a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
+        <i class="md md-speaker-notes m-r-5"></i>
+        订阅号
+    </a>
+    <br>
+    Copyright © 2004-2017 &nbsp;北京沃力森信息技术有限公司&nbsp;&nbsp;  Beijing Volitation Information Technology Co.,ltd
+</footer>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=RLG68MPH7d0OZMp6GM21BMWrPOqVRXFZ"></script>
+<script>
+    new Vue({
+        el: "#mtk",
+        data: {
+            // 显示编辑内容
+            // 时间插件
+            pickerOptions1: {
+                disabledDate(time) {
+                    return time.getTime() > Date.now();
+                }
             },
-            tooltip: {},
-            legend: {
-                data:['销量']
-            },
-            xAxis: {
-                data: ["星期一","星期二","星期三","星期四","星期五","星期六"]
-            },
-            yAxis: {
-            	max:100
-            },
-            series: [{
-                color:'#28d2ae',
-                type: 'bar',
-                data: [20, 40, 10, 80, 90.5,80]
-            }]
-        };
-        myChart.setOption(option);// 使用刚指定的配置项和数据显示图表。
-        
-        var myChart = echarts.init(document.getElementById('main_two'));
-	    var   option = {
-	    xAxis: {
-	        type: 'category',
-	        data: ['第一周', '第二周', '第三周', '第四周']
-	    },
-	     tooltip: {}, //提示
-	    yAxis: {
-	        type: 'value',
-	        max:100
-	    },
-	    series: [{
-	    	 color:'#28d2ae',
-	        data: [50, 80, 30, 70],
-	        type: 'line',
-	        smooth: true
-	    }]
-	    };
-       myChart.setOption(option);
+            value1: '',
+            value2: '',
+            value3:'',
+        },
+        methods: {
+
+        }
+    })
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");    // 创建Map实例
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+    //添加地图类型控件
+    map.addControl(new BMap.MapTypeControl({
+        mapTypes:[
+            BMAP_NORMAL_MAP,
+            BMAP_HYBRID_MAP
+        ]}));
+    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
 </script>
