@@ -1,5 +1,9 @@
  {include file="top"}
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> {include file="left"} {if $Think.session.user_cate=='学生'}
+
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> 
+{include file="left"} 
+{include file="right"} 
+{if $Think.session.user_cate=='学生'}
 <div class="container">
     <div class="" style="height: 80px;background: #fff;margin-bottom: 10px 0px;text-align: center;line-height: 80px;color: red;font-size: 18px;">
         <p>提示:第一次登陆请尽快完善信息及修改密码</p>

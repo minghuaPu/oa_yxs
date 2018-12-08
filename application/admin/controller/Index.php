@@ -62,4 +62,16 @@ class Index extends \app\admin\Auth
              $this->success('添加成功',"index");
 
     }
+	public function work(){
+		
+    	return $this->fetch();
+    }
+	public function finance(){
+		
+    	return $this->fetch();
+    }
+	public function department(){
+		
+    	return $this->fetch();
+    }
 }

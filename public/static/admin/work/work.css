@@ -1,0 +1,31 @@
+.top{
+	display: flex;
+}
+.week_title{
+	font-size: 20px;
+    margin: 10px 0 10px 20px;
+}
+.week{
+	margin-right: 20px;
+}
+
+.img_box{
+	width: 560px;
+	height:390px;
+	background: white;
+}
+.bottom_title{
+	display: flex;
+}
+.title_one{
+	font-size: 21px;
+	
+}
+.title_two{
+	border: 1px solid #28d2ae;
+    border-radius: 10px;
+    margin-left: 16px;
+    padding: 0 8px;
+    height: 20px;
+    margin-top: 6px;
+}
