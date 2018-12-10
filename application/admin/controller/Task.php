@@ -87,6 +87,18 @@ class Task extends \app\admin\Auth
 
         return $this->fetch();
     } 
+    public function select(){
+
+         $con = input('searchinfo');     
+         $where = "work_name like '%$con%'";
+         $selectlists=db('bossworklist')                             
+                   ->order("id desc")
+                   ->where('work_name','like',"%".$con."%")  
+                   ->where('status',1)                                         
+                   ->select();
+                   print_r($selectlists);
+         $this->assign('selectlists',$selectlists);
+    }
     //员工分类
     public function classify(){
         $user_data=Session::get();
@@ -381,11 +393,19 @@ class Task extends \app\admin\Auth
        $user_data=Session::get();
         $u_id = $user_data["u_id"];
         $work_name = input('work_name');
-        $work_file = input('work_require');
         $urgency = input('urgency');
         $content = input('content');
         $executerid = input('executerid');
         $lasttime = input('lasttime');
+        $work=request()->file('work_require');
+        if($work){
+            $info = $work->move(ROOT_PATH.'/public/uploads');
+            if($info){
+                $work_file = $info->getSaveName();
+            }else{
+                 echo $info->getError();
+            }
+        }
          db('bossworklist')->insert([
             'work_name'=>$work_name,
             'work_file'=>$work_file,

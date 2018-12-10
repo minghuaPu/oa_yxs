@@ -16,3 +16,6 @@
 .aa{
 	display: none;
 }
+.table tr th{
+	text-align: center;
+}

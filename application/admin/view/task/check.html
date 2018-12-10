@@ -1,5 +1,5 @@
 {include file="top"}
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css?1">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css">
 	<div class="write_box" id="check">
 		<div class="title" style="margin-bottom: 20px;">
 			<a class="glyphicon glyphicon-ok">工作汇报批改/详情</a>
@@ -39,14 +39,14 @@
 						<td>{$check_info.id}</td>
 						<td>{$check_info.execute_id}</td>
 						<td>{$check_info.work_name}</td>
-						{if $check_info.work_require!=""}
-						<td><a href="__UPLOADS__{$check_info.work_require}">点击查看</a></td>
+						{if $check_info.work_file!=""}
+						<td><a href="__UPLOADS__{$check_info.work_file}">点击查看</a></td>
 						{/if}
-						{if $check_info.work_require==""}
+						{if $check_info.work_file==""}
 						<td>无</td>
 						{/if}
-						<td>{$check_info.time}</td>
-						<td>{$check_info.lasttime}</td>
+						<td>{$check_info.time|date="Y-m-d  H:i:s",###}</td>
+						<td>{$check_info.lasttime|date="Y-m-d  H:i:s",###}</td>
 						<td>{$check_info.work_rank}</td>
 						{if $check_info.state=="1"}
 						<td>已发布待查阅</td>
