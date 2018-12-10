@@ -9,7 +9,7 @@
 		<form action="{:url('update')}?id={$check_info.id}" method="post" enctype="multipart/form-data" onsubmit="return sumbit_sure()">
 			<div class="form-group" style="font-size: 16px;">
 				{foreach $user as $userdata}
-				{if $userdata.user_cate=='员工'}
+				{if $userdata.user_cate=='工'}
 				<div class="form-group">
 					<label>作业</label>
 					<input type="text" class="form-control" name="title" value="{$check_info.title}">
@@ -23,7 +23,7 @@
 					<input type="file" name="work" class="dropify" data-default-file="__UPLOADS__{$check_info.work}">
 				</div>				
 				{/if}
-				{if $userdata.user_cate!='员工'}
+				
 				<table v-if="con == 1" class="table" style="text-align: center;"  >
 				<tr>				
 					<th>编号ID</th>
@@ -104,7 +104,7 @@
 			</div>
                
 				
-				{/if}
+				
 				
 				{/foreach}								
 			</div>
@@ -117,12 +117,7 @@
 			</div>
 			
 			
-		</form>
-		{/foreach}
-	</div>
-
-{include file="foot"}
-	<script type="text/javascript">	
+		</form><script type="text/javascript">	
 		//操作提交前判定
 		function sumbit_sure(){	
 			var a = $("#caozuo").val();
@@ -171,6 +166,11 @@
     	$('.dropify').dropify();
    		UE.getEditor("myEditor");
 	</script>
+		{/foreach}
+	</div>
+
+{include file="foot"}
+	
 	<style type="text/css">
 		.aa{
 			display: none;

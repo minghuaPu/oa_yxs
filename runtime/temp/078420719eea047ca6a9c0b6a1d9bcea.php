@@ -1,8 +1,10 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:63:"D:\wamp64\www\oa\public/../application/admin\view\task\add.html";i:1544063215;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544089172;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:64:"D:\wamp64\www\oa\public/../application/admin\view\task\look.html";i:1544407078;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>智慧云办公系统管理</title>
     <!-- CSS公共样式 -->
     <link rel="stylesheet" type="text/css" href="__STATIC__/admin/common/common.css?99">
@@ -349,48 +351,225 @@
         }
     })
 </script>
-<link rel="stylesheet" type="text/css" href="__STATIC__/library/dropify-master/dist/css/dropify.min.css">
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css?3">
-	<div class="write_box">
-		<div class="title">
-			<a class="glyphicon glyphicon-pencil">汇报工作</a>
-			<a href="<?php echo url('index'); ?>" class="glyphicon glyphicon-chevron-left return">返回工作台</a>			
-		</div>
-		<h3 class="time_now"><?php echo $time; ?></h3>
-		<div class="from_box">
-			<form action="<?php echo url('save'); ?>" class="form" method="post" enctype="multipart/form-data">
-				<div class="form-group">
-					<div class="form-group">
-						<label>汇报</label>
-						<select name="title" v-model="title">
-							<?php foreach($work as $info): ?>
-							<option value="<?php echo $info['work_name']; ?>"><?php echo $info['work_name']; ?></option>
-							<?php endforeach; ?>
-						</select>						
-					</div>
-					<div class="form-group">
-						<label>内容</label>
-						<textarea name="content" id="myEditor" style="height: 280px;width: 100%;"></textarea>
-					</div>
-					<div class="form-group">
-						<label>附件</label>
-						<input type="file" name="work" class="dropify">
-					</div>
-				<div class="form-group">
-					<input type="submit" class="btn btn-primary" value="提交">
-				</div>
-			</form>
-		</div>
+<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
+	<ul v-if="controller!='Map'">
+		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
+		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
+		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
+		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
+		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
+	</ul>
+	<!--<ul v-if="controller=='Map'" class="Maplist">
+		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
+		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
+		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
+		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
+		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
+		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
+		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
+		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
+	</ul>-->
+</div>
+<script type="text/javascript">
+ new Vue({
+        el:'#left_menu',
+        data:{
+           controller:"Index"
+        },
+        created(){
+        	this.init();
+        },
+        methods:{
+        	init(){
+                this.controller="<?php echo request()->controller(); ?>";
+        	}
+        }
+    })
+ function jump(){
+ 	 window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+ function jump_two(){
+ 	window.location.href='<?php echo url('admin/index/work'); ?>'
+ }
+ function jump_three(){
+ 	window.location.href='<?php echo url('admin/index/finance'); ?>'
+ }
+ function jump_four (){
+ 	window.location.href='<?php echo url('admin/index/department'); ?>'
+ }
+ function jump_five(){
+ 	window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+
+</script>
+
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/look.css?3">
+
+<div class="container" id="container">
+	<div class="title" style="margin: 10px 30px;">
+		<a href="<?php echo url('index'); ?>" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
 	</div>
-	<script type="text/javascript" src="__STATIC__/library/dropify-master/dist/js/dropify.min.js"></script>
-	<!-- 配置文件 -->
-	<script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.config.js"></script>
-	<!-- 编辑器源码文件 -->
-	<script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.all.min.js"></script>
-	<script type="text/javascript">
-    	$('.dropify').dropify();
-   		UE.getEditor("myEditor");
-   		
-	</script>
+	<!-- <div class="mid_but">
+		<el-button type="primary"><a href="/github/crm/public/admin/task/look#/">查看作业提交情况</a></el-button>
+		<el-button type="success"><a href="/github/crm/public/admin/task/look#/info">查看批改分数情况</a></el-button>
+		<el-button  @click="tiaozhuan()" type="danger">查看批改分数情况</el-button>
+	</div> -->
+	<h3 id="title">
+		
+		<span id="time">{{year}}-{{month}}</span>
+		月份
+		<span id="type">提交情况</span>
+	</h3>
+	<div id="month_choose">
+		<el-button type="info" @click=lastmonth()>
+			<<上一月</el-button>
+		<el-button type="info" @click=nextmonth() >下一月>></el-button>
+		<p class="status">状态说明 空白：未交汇报； √:已交汇报(N个表示该天提交N份)；</p>
+	</div>
+	<div id="router">
+		<!--  第五步：路由出口  路由匹配到的组件将渲染在这里 -->
+    		<div id="look">
+	<div>
+		<table class="table">
+			<tr>
+				<th style="width: 102px;">
+					<p class="name" >姓<br>名</p>
+				</th>
+				<th v-for="n in t_days"  class="biao" style="line-height: 30px">
+					{{n}}
+					<br>{{n,year,month | getweek}}
+				</th>
+			</tr>
+		</table>
+		<table class="table table2" style="margin-top: -21px">
+			<?php foreach($user as $userdata): ?>
+			<!-- 用户身份为学生时 -->
+			<?php if($userdata['user_cate']=='员工'): ?>
+			<tr>
+				<th style="width: 68px;">
+					<p class="name" ><?php echo \think\Session::get('user_name'); ?></p>
+				</th>
+				<th v-for="n in t_days"  class="biao" style="width: 35px;line-height: 46px">
+					<span v-if="work_list[n]">√</span>
+				</th>
+			</tr>
+			<?php endif; ?>
+			<!-- 用户身份不是学生时 -->
+			<?php if($userdata['user_cate']!='员工'): foreach($user_list as $u_info): ?>
+			<tr>
+				<th style="width: 68px;">
+					<p class="name" ><?php echo $u_info['user_name']; ?></p>
+				</th>
+				<th v-for="n in t_days"  class="biao" style="width: 35px;line-height: 46px">
+					<span  v-for="t_work in t_work_list" v-if='t_work.d==n&&t_work.u_id==<?php echo $u_info['id']; ?>'>√</span>
+				</th>
+			</tr>
+			<?php endforeach; endif; endforeach; ?>
+		</table>
+	</div>
+</div>
+
+	</div>
+</div>
+
+<footer class="footer" style="text-align: center;margin-top: 50px;">
+	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
+	&nbsp;
+	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
+		投诉&amp;问题
+	</a>
+	&nbsp;&nbsp;
+	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
+		微客服
+	</a>
+	&nbsp;&nbsp;
+	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
+		<i class="md md-speaker-notes m-r-5"></i>
+		订阅号
+	</a>
+	<br>
+	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
+</footer>
+<!-- 底部 -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".left_menu ul li").click(function(event){
+		event.preventDefault();
+		console.log($(this).siblings().find('a,p'))
+		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
+			"color":"#5d9cec"})
+		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
+		$(this).find('a,p').css("color","#5d9cec")
+		$(this).siblings().find('a,p').css("color","white")
+	})
+});
+</script>
 </body>
 </html>
+
+
+<script>
+ 	// 第二步：定义路由，也就是每个路由应该映射一个组件
+ 	
+	new Vue({
+        el: "#container",
+        data: {
+            // 显示编辑内容
+            // 时间插件
+            input:'',
+            t_days:<?php echo $t_days; ?>,
+            year:<?php echo $year; ?>,
+            month:<?php echo $month; ?>,
+            work_list:JSON.parse('<?php echo $work_list; ?>'),
+			t_work_list:JSON.parse('<?php echo $t_work_list; ?>'),
+        },
+        mounted(){
+    this.shuchu();
+},
+       	filters:{
+          	getweek:function (val,year,month) {
+          		var arry=["日","一","二","三","四","五","六"]
+          		var m = new Date(year,month-1,val);//计算2016.2.20日星期几
+          		k='星期'+arry[m.getDay()]+'' ;
+          		return k;
+          	}
+        },
+     methods:{
+        	tiaozhuan:function(){
+        		router.push("/info");
+        	},
+        	shuchu:function(){
+                 console.log("现在的年是"+this.year);
+                 console.log("现在的月是"+this.month);
+                 console.log(this.work_list);
+        	},
+        	lastmonth:function(){
+        		this.month--;
+        		if(this.month==0){
+        			this.month=12;
+        			this.year--;
+        		}
+                 window.location.href="<?php echo url('look'); ?>"+'?y='+this.year+'&&m='+this.month;
+        	},
+        	nextmonth:function(){
+                 this.month++;
+                 if(this.month==13){
+                 	this.month=1;
+                    this.year++;
+                 }
+                 console.log("现在的年是"+this.year);
+                 console.log("现在的月是"+this.month);
+                  $.get('<?php echo url("admin/task/look2"); ?>',{y:this.year,m:this.month},(rtnData)=>{
+                 	this.t_days=rtnData['t_days'];
+                 	this.work_list=rtnData['work_list'];
+                 	this.t_work_list=rtnData['t_work_list'];                 	
+                 	window.location.href="<?php echo url('look'); ?>"+'?y='+this.year+'&&m='+this.month;
+
+
+     
+      });
+        	}
+
+        }         
+    })
+</script>

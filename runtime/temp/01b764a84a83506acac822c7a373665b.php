@@ -1,8 +1,16 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:76:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\gongdan\index.html";i:1544063215;s:66:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\top.html";i:1544063215;s:67:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\left.html";i:1544063215;s:67:"D:\wamp64\www\OAZ\oa_yxs\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"D:\wamp64\www\oa\public/../application/admin\view\index\finance.html";i:1544234685;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544414115;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1544407078;}*/ ?>
 <!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/finance/finance.css"/>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>智慧云办公系统管理</title>
     <!-- CSS公共样式 -->
     <link rel="stylesheet" type="text/css" href="__STATIC__/admin/common/common.css?99">
@@ -349,16 +357,15 @@
         }
     })
 </script>
-<div class="left_menu lbs" id="left_menu">
+	<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
-		<li><a href="#" class="glyphicon glyphicon-calendar"><p>工作台</p></a></li>
-		<li><a href="#" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-		<li><a href="#"><p>全功能</p></a></li>
-		<li style="margin-top: 150px;"><a href="#" class="glyphicon glyphicon-tasks"><p>综合报表</p></a></li>
-		<li><a href="#"><p>APP</p></a></li>
-		<li><a href="#" class="glyphicon glyphicon-download-alt"><p>下载</p></a></li>
+		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
+		<li ><a href="<?php echo url('admin/index/work'); ?>" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
+		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
+		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
+		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
 	</ul>
-	<ul v-if="controller=='Map'" class="Maplist">
+	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
 		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
 		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
@@ -367,7 +374,7 @@
 		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
 		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
 		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-	</ul>
+	</ul>-->
 </div>
 <script type="text/javascript">
  new Vue({
@@ -384,152 +391,280 @@
         	}
         }
     })
+ function jump(){
+ 	 window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+ function jump_two(){
+ 	window.location.href='<?php echo url('admin/index/work'); ?>'
+ }
+ function jump_three(){
+ 	window.location.href='<?php echo url('admin/index/finance'); ?>'
+ }
+ function jump_four (){
+ 	window.location.href='<?php echo url('admin/index/department'); ?>'
+ }
+ function jump_five(){
+ 	window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+
 </script>
-
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?2">
-<div class="task">
-	<div class="task_left"></div>
-	<div class="task_box">
-		<div class="task_title">
-			<span class="glyphicon glyphicon-list-alt pull-left"></span>
-			<h4>TASK员工外勤工单管理</h4>
+ 
+	<!DOCTYPE html>
+<html>
+	<head>
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
+<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="page" style="z-index: 99;background:white;">
+			<div class="search_box">
+				<div class="iconfont icon-fangdajing"></div>
+				<input type="text" name="search" class="search" placeholder="搜索" />
+			</div>
+			<div class="people_box">
+				<div class="icon">
+					<div class="iconfont icon-geren"></div>
+					<div class="iconfont icon-iconset0337"></div>
+					<div class="iconfont icon-group"></div>
+				</div>
+				<div class="name_box">
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+				</div>
+			</div>
+			<div  class="notice_title">
+				公告栏
+			</div>
+			<div class="notice_box">
+				<div class="notice">
+					<div class="notice_dian"></div>
+					<div class="notice_content">oa系统正式上线</div>
+				</div>
+			</div>
+			<div  class="notice_title">
+				新闻
+			</div>
 		</div>
-		<div class="task_content">
-			<?php foreach($user as $userdata): ?>
-			<!-- 学生身份作业管理 -->
-			<?php if($userdata['user_cate']=='员工'): ?>
-			<ul class="list_top">
-				<li><a href="<?php echo url('add'); ?>"><span class="glyphicon glyphicon-pencil"></span>提交工单</a></li>
-			</ul>
-			<table class="table" style="text-align: center;">
-				<tr>
-					<th>编号ID</th>
-					<th>外出时间</th>
-					<th>外出理由</th>
-					<th>是否批准</th>
-					<th>回复</th>
-					<th>添加时间</th>
-				</tr>
-				<?php foreach($work_list as $info): ?>
-				<tr>
-					<td><?php echo $info['id']; ?></td>
-					<td><?php echo $info['outside_time']; ?></td>
-					<td><?php echo $info['outside_reason']; ?></td>
-					<td><?php echo $info['pizhun']; ?></td>
-					<td><?php echo $info['reply']; ?></td>
-					<td><?php echo $info['time']; ?></td>
-			
-
-				</tr>
-				<?php endforeach; ?>
-			</table>
-			<?php endif; ?>
-			<!-- 非学生身份管理作业 -->
-			<?php if($userdata['user_cate']=='老板'): ?>
-			<ul class="list_top">
-				<li></li>
-				<li></li>
-				
-			</ul>
-			<table class="table" style="text-align: center;">
-				<tr>
-					<th>编号ID</th>
-					<th>员工名字</th>
-					<th>外出时间</th>
-					<th>外出理由</th>
-	                <th>部门</th>
-					<th>添加时间</th>
-					<th>是否同意</th>
-					<th>回复</th>
-					<th>操作</th>
-				</tr>
-				<?php foreach($work_list as $info): ?>
-					<tr >
-						<td><?php echo $info['id']; ?></td>
-						<?php foreach($user_list as $user): if($user['id']==$info['u_id']): ?>	
-						<td><?php echo $user['user_name']; ?></td>
-						<?php endif; endforeach; ?>	
-						<td><?php echo $info['outside_time']; ?></td>
-						<td><?php echo $info['outside_reason']; ?></td>
-						<td><?php echo $info['bumen']; ?></td>
-						<td><?php echo $info['time']; ?></td>
-						<td><?php echo $info['pizhun']; ?></td>
-						<td><?php echo $info['reply']; ?></td>
-						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">批改</a></td>
-					</tr>			
-				<?php endforeach; ?>
-			</table>
-			
-			<?php echo $work_list->render(); endif; if($userdata['user_cate']=='经理'): ?>
-			<ul class="list_top">
-				<li></li>
-				<li></li>
-				
-			</ul>
-			<table class="table" style="text-align: center;">
-				<tr>
-					<th>编号ID</th>
-					<th>员工名字</th>
-					<th>外出时间</th>
-					<th>外出理由</th>
-	
-					<th>添加时间</th>
-					<th>回复</th>
-					<th>操作</th>
-				</tr>
-				<?php foreach($work_list as $info): ?>
-					<tr >
-						<td><?php echo $info['id']; ?></td>
-						<?php foreach($user_list as $user): if($user['id']==$info['u_id']): ?>	
-						<td><?php echo $user['user_name']; ?></td>
-						<?php endif; endforeach; ?>	
-						<td><?php echo $info['outside_time']; ?></td>
-						<td><?php echo $info['outside_reason']; ?></td>
-						
-						<td><?php echo $info['time']; ?></td>
-						<td><?php echo $info['reply']; ?></td>
-						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">批改</a></td>
-					</tr>			
-				<?php endforeach; ?>
-			</table>
-			
-			<?php echo $work_list->render(); endif; endforeach; ?>
-		</div>
-	</div>
-	<div class="task_right"></div>
-</div>
-
-<footer class="footer" style="text-align: center;margin-top: 50px;">
-	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
-	&nbsp;
-	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
-		投诉&amp;问题
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
-		微客服
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
-		<i class="md md-speaker-notes m-r-5"></i>
-		订阅号
-	</a>
-	<br>
-	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
-</footer>
-<!-- 底部 -->
-<script type="text/javascript">
-$(document).ready(function(){
-	$(".left_menu ul li").click(function(event){
-		event.preventDefault();
-		console.log($(this).siblings().find('a,p'))
-		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
-			"color":"#5d9cec"})
-		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
-		$(this).find('a,p').css("color","#5d9cec")
-		$(this).siblings().find('a,p').css("color","white")
-	})
-});
-</script>
-</body>
+	</body>
 </html>
+
+
+
+
+
+<style type="text/css">
+.page{
+	width:172px;
+	position:fixed ;
+	right: 0;
+	
+	
+}
+.search_box{
+	display: flex;
+	margin-top:9px;
+	background: #e6e6e6;
+	
+}
+.search_box input{
+	background: #e6e6e6;
+	border: 0px;
+	outline:none 
+}
+.icon{
+	display: flex;
+	margin: 6px 20px ;
+	
+}
+.icon div{
+	font-size: 23px;
+	flex: 1;
+	text-align: center;
+}
+.people{
+	display: flex;
+	align-items: center;
+}
+.name_box{
+	height: 250px;
+	overflow:scroll;
+	overflow-x:visible;
+}
+.people img{
+	width: 26px;
+	height: 26px;
+	border-radius: 26px;	
+}
+.people p{
+    margin-top: 13px;
+    margin-left: 3px;
+}
+.notice_title{
+	text-align: center;
+    padding: 4px 0;
+    font-size: 16px;
+    border-top: 1px solid #cccccc;
+    border-bottom:1px solid #cccccc;
+    font-weight: bold;
+}
+.notice{
+	display: flex;
+}
+.notice_dian{
+	width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: red;
+    margin-top: 5px;
+    margin-left: 7px;
+}
+.notice_box{
+	height: 143px;
+}
+.notice_content{
+	margin-left: 10px;
+    font-size: 11px;
+}
+</style> 
+	</head>
+	<body>
+		<div class="container">
+			 <div class="top">
+				<div class="month"> 
+					<div class="month_title">本月收入</div>
+					<div class="img_box" id="main" ></div>
+			    </div>
+			    <div class="year">
+			    	 <div class="year_title">年度收入</div>
+			    	 <div class="img_box" id="main_two" ></div>
+			    </div>     
+			</div>
+			<div class="bottom">
+				   <div class="achievement_title">业绩表现 </div>
+				   <div class="img_box_two" id="main_three" ></div>
+			</div>
+		</div>	
+	</body>
+</html>
+<script type="text/javascript">
+	var myChart = echarts.init(document.getElementById('main'));
+        var option = {
+            title: {
+                text: '完成度%',
+               textStyle:{fontSize:10},
+               padding: [ 30,0,0,33]
+            },
+            tooltip: {},
+            legend: {
+                data:['本月工作','上月工作']
+            },
+            xAxis: {
+                data: []
+            },
+            yAxis: {
+            	max:100
+            },
+            series: [
+              {
+            barWidth:'45',
+            color:'#28d2ae',
+            name: '本月工作',
+            type: 'bar',
+            data: [50]
+        },
+        {   barGap:3,
+        	barWidth:'45',
+        	color:'#dadada',
+            name: '上月工作',
+            type: 'bar',
+            data: [90]
+        }]
+        };
+        myChart.setOption(option);// 使用刚指定的配置项和数据显示图表。
+        
+        var myChart_two = echarts.init(document.getElementById('main_two'));
+	    var   option = {
+	    xAxis: {
+	        type: 'category',
+	        data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+	    },
+	     tooltip: {
+	     	 trigger: 'axis'
+	     }, //提示
+	       legend: {
+        data:['本年工资','去年工资']
+    },
+	    yAxis: {
+	        type: 'value',
+	        max:100
+	    },
+	    series: [{
+	    	        name: '本年工资',
+			    	color:'#28d2ae',
+			        data: [50, 80, 30, 70,50, 80, 30, 70,50, 80, 30, 70],
+			        type: 'line',
+			        smooth: true
+	            },
+	            {   
+	            	name: '去年工资',
+			    	color:'#dadada',
+			        data: [30, 70, 100, 30,30, 70, 100, 30,30, 70, 100, 30],
+			        type: 'line',
+			        smooth: true
+	             }
+	     
+	    ]
+	    };
+       myChart_two.setOption(option);
+       
+       var myChart_three = echarts.init(document.getElementById('main_three'));
+          var option = {
+            title: {},
+            tooltip: {},
+            legend: {
+                data:['业绩']
+            },
+            xAxis: {
+               
+            },
+            yAxis: {
+            	 data: ["第一季度","第二季度","第三季度","第四季度"]
+            },
+            series: [{
+            	barWidth:'20',
+            	color:'#28d2ae',
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10]
+            }]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart_three.setOption(option);
+</script>
