@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:66:"D:\wamp64\www\oa\public/../application/index\view\login\index.html";i:1544063215;s:58:"D:\wamp64\www\oa\public/../application/index\view\top.html";i:1544088979;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:66:"D:\wamp64\www\oa\public/../application/index\view\login\index.html";i:1544063215;s:58:"D:\wamp64\www\oa\public/../application/index\view\top.html";i:1544427062;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +24,6 @@
     <a href="<?php echo url('index/index'); ?>" class="logo"><img src="__PUBLIC__static/index/index/images/logo.png" alt=""></a>
     <a href="#" class="contact-btn">免费注册</a>
     <ul>
-        <li><a href="<?php echo url('business/index'); ?>">产品</a></li>
         <li><a href="<?php echo url('news/index'); ?>">新闻</a></li>
         <li><a href="javascript:;">租用</a></li>
         <li><a href="javascript:;">关于</a></li>

@@ -1,5 +1,9 @@
 {include file="top"}
+<<<<<<< HEAD
 
+=======
+<!-- {include file="left"} -->
+>>>>>>> 5ce3a7d2df1ed0caf23b1c36d9c182b750de36d5
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
 <div class="task">
 	<div class="task_left"></div>
@@ -12,10 +16,10 @@
 			{foreach $user as $userdata}
 			<!-- 学生身份作业管理 -->
 			{if $userdata.user_cate=='员工'}
-			<ul class="list_top">
+		<!-- 	<ul class="list_top">
 				<li><a href="{:url('add')}"><span class="glyphicon glyphicon-pencil"></span>提交汇报</a></li>
 				<li><a href="{:url('read')}"><span class="glyphicon glyphicon-pencil"></span>查看任务</a></li>
-			</ul>
+			</ul> -->
 			<div class="table_box">
 				<div class="Employee_box">
 					<div class="Employee_left">
@@ -30,7 +34,7 @@
 					</div>
 					<div class="Employee_right">
 						<div class="font">完成情况</div>
-						<div class="Score"><div class="fens"><div class="se"></div><div class="fen">66.6分</div></div></div>
+						<div class="Score"><div class="fens"><div class="se" :style="'height:'+zongshu+'%'"></div><div class="fen">{{zongshu}}分</div></div></div>
 						
 					</div>
 					<table class="aa" style="text-align: center;" border='1px' width="1000px">
@@ -68,9 +72,8 @@
 					  </select>
 					</td>
 					<td quantity>
-						<select :style="index%2 ==0?'background: #b7dee8;':''"  v-model='item.quantity' @change='liang(index)'>
-					    
-						  <option v-for="(s,sl) in quantity[index]"  style="text-align: center;">{{s.time}}</option>
+						<input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.quantity' @blur='liang(index)'>
+						
 						 
 					</td>
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" @blur='job(index)' v-model="item.job"></td>
@@ -86,7 +89,7 @@
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.reasons' @blur='reasons(index)'></td>
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.remark' @blur='remark(index)'></td>
 					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
-					<td><a href="">查看详情</a></td>
+					<td></td>
 				</tr>
 				{foreach $bossfenprw as $val}
 				<tr >
@@ -126,7 +129,7 @@
 					<td><input type="text"  ></td>
 					<td><input type="text" ></td>
 					<td><input type="text"  ></td>
-					<td><a href="">查看详情</a></td>
+					<td><a href="{:url('check',['id'=>$val.id])}">查看详情</a></td>
 				</tr>
 				{/foreach}
 				
@@ -264,8 +267,8 @@
 						<td>无</td>
 						{/if}
 						<td></td>
-						<td>{$info.time}</td>
-						<td>{$info.lasttime}</td>
+						<td>{$info.time|date="Y-m-d  H:i:s",###}</td>
+						<td>{$info.lasttime|date="Y-m-d  H:i:s",###}</td>
 						<td>{$info.work_rank}</td>
 						{if $info.state=="1"}
 						<td>已发布待查阅</td>
@@ -372,7 +375,7 @@
             worklist:[{$work_list}],
             fine:{$fine},
             secondary:[],
-            quantity:[],
+            zongshu:{$zongshu},
             con:1,
           
         },
@@ -388,24 +391,20 @@
         	}
         	for (var i = 0; i < this.worksheet.length; i++) {
         	this.secondary.push([])
-            this.quantity.push([])
+            
         	this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary);
         	this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary);
-        	     for (var a = 0; a < this.fine.length; a++) {
-        	     	if(this.worksheet[i].primary.id==this.fine[a].main){
+        		for (var a = 0; a < this.fine.length; a++) {
+        	     if(this.worksheet[i].primary.id==this.fine[a].main){
           				this.secondary[i].push(this.fine[a])
-        				}
-        	     }
-        			if(this.worksheet[i].secondary.liangtype==0){
-        				this.$set(this.quantity,i,{$liang})	
-        			}else{
-        				this.$set(this.quantity,i,{$time})	
         			}
+        	    }
+        	   
         		
-      		
         	}
+   
         	console.log(this.secondary);
-        	
+        	console.log(this.worksheet);
          				
 		},
        	
@@ -442,10 +441,14 @@
 	        	    	type:this.worksheet[e].primary.type
         	    	},(rtnData)=>{     
         	    	
-        	    			if(!rtnData){
+        	    			console.log(rtnData)
+        	    			if(rtnData!=='false'){
         	    				console.log(1)
+        	    			rtnData.primary=JSON.parse(rtnData.primary)
+        	    			console.log(rtnData)
         	    				this.worksheet[e]=rtnData
         	    			}
+        	    			
 
         	    			var text=[];
         	    			 for (var a = 0; a < this.fine.length; a++) {
@@ -460,6 +463,7 @@
         },
         // 细分类
         ciclassify(e){ 
+        	console.log(this.worksheet[e].id);
         	$.get('{:url("admin/task/classify")}',
         	    	{      	    		
         	    		select:2,
@@ -467,16 +471,7 @@
         	    		xuan:this.worksheet[e].secondary,
 						
         	    	},(rtnData)=>{
-                 	   if(this.worksheet[e].secondary) {
-				          	if(this.worksheet[e].secondary.liangtype==0){
-				          
-				        		this.$set(this.quantity,e,{$liang})	
-				        	}else{
-				        		this.$set(this.quantity,e,{$time})	
-				        		
-				        	}
-				        	console.log(this.quantity)
-				          }
+                 	   
 				          this.worksheet[e].score=rtnData;
         	    			 // this.$set(this.quantity,e,rtnData) 
 
@@ -494,7 +489,7 @@
         	    		theme_id:this.worksheet[e].id,
         	    		liang:this.worksheet[e].quantity
         	    	},(rtnData)=>{
-                 	   
+                 	   this.worksheet[e].score=rtnData;
         	    	});
         },
         // 工作内容
@@ -520,6 +515,8 @@
         	    		select:5,
         	    		theme_id:this.worksheet[e].id,
         	    		whether:this.worksheet[e].whether
+        	    	},(rtnData)=>{
+        	    		this.zongshu=rtnData
         	    	});
         },
         //未完成原因 
@@ -562,7 +559,9 @@
        	    		score:this.worksheet[e].score
         	    	});
         },
-
+        viewDetails:function(e){
+			window.location.href='{:url('check',['id'=>24])}'
+        }
         	
          
 
@@ -570,5 +569,5 @@
     })
 </script>
 <style>
-	
+
 </style>
