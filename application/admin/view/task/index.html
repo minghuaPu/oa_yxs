@@ -1,5 +1,5 @@
 {include file="top"}
-{include file="left"}
+<!-- {include file="left"} -->
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
 <div class="task">
 	<div class="task_left"></div>
@@ -68,9 +68,8 @@
 					  </select>
 					</td>
 					<td quantity>
-						<select :style="index%2 ==0?'background: #b7dee8;':''"  v-model='item.quantity' @change='liang(index)'>
-					    
-						  <option v-for="(s,sl) in quantity[index]"  style="text-align: center;">{{s.time}}</option>
+						<input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.quantity' @blur='liang(index)'>
+						
 						 
 					</td>
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" @blur='job(index)' v-model="item.job"></td>
@@ -368,7 +367,7 @@
             primary : {$main},
             fine:{$fine},
             secondary:[],
-            quantity:[],
+           
             con:1,
           
         },
@@ -384,24 +383,20 @@
         	}
         	for (var i = 0; i < this.worksheet.length; i++) {
         	this.secondary.push([])
-            this.quantity.push([])
+            
         	this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary);
         	this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary);
-        	     for (var a = 0; a < this.fine.length; a++) {
-        	     	if(this.worksheet[i].primary.id==this.fine[a].main){
+        		for (var a = 0; a < this.fine.length; a++) {
+        	     if(this.worksheet[i].primary.id==this.fine[a].main){
           				this.secondary[i].push(this.fine[a])
-        				}
-        	     }
-        			if(this.worksheet[i].secondary.liangtype==0){
-        				this.$set(this.quantity,i,{$liang})	
-        			}else{
-        				this.$set(this.quantity,i,{$time})	
         			}
+        	    }
+        	   
         		
-      		
         	}
+   
         	console.log(this.secondary);
-        	
+        	console.log(this.worksheet);
          				
 		},
        	
@@ -435,10 +430,14 @@
 	        	    	type:this.worksheet[e].primary.type
         	    	},(rtnData)=>{     
         	    	
-        	    			if(!rtnData){
+        	    			console.log(rtnData)
+        	    			if(rtnData!=='false'){
         	    				console.log(1)
+        	    			rtnData.primary=JSON.parse(rtnData.primary)
+        	    			console.log(rtnData)
         	    				this.worksheet[e]=rtnData
         	    			}
+        	    			
 
         	    			var text=[];
         	    			 for (var a = 0; a < this.fine.length; a++) {
@@ -453,6 +452,7 @@
         },
         // 细分类
         ciclassify(e){ 
+        	console.log(this.worksheet[e].id);
         	$.get('{:url("admin/task/classify")}',
         	    	{      	    		
         	    		select:2,
@@ -460,16 +460,7 @@
         	    		xuan:this.worksheet[e].secondary,
 						
         	    	},(rtnData)=>{
-                 	   if(this.worksheet[e].secondary) {
-				          	if(this.worksheet[e].secondary.liangtype==0){
-				          
-				        		this.$set(this.quantity,e,{$liang})	
-				        	}else{
-				        		this.$set(this.quantity,e,{$time})	
-				        		
-				        	}
-				        	console.log(this.quantity)
-				          }
+                 	   
 				          this.worksheet[e].score=rtnData;
         	    			 // this.$set(this.quantity,e,rtnData) 
 
@@ -487,7 +478,7 @@
         	    		theme_id:this.worksheet[e].id,
         	    		liang:this.worksheet[e].quantity
         	    	},(rtnData)=>{
-                 	   
+                 	   this.worksheet[e].score=rtnData;
         	    	});
         },
         // 工作内容

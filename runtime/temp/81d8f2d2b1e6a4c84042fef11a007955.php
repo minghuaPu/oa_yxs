@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544179012;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544089172;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544063215;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544255775;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544089172;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544234685;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -349,16 +349,15 @@
         }
     })
 </script>
-<div class="left_menu lbs" id="left_menu">
+<!-- <div class="left_menu lbs" id="left_menu">
 	<ul v-if="controller!='Map'">
-		<li><a href="#" class="glyphicon glyphicon-calendar"><p>工作台</p></a></li>
-		<li><a href="#" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-		<li><a href="#"><p>全功能</p></a></li>
-		<li style="margin-top: 150px;"><a href="#" class="glyphicon glyphicon-tasks"><p>综合报表</p></a></li>
-		<li><a href="#"><p>APP</p></a></li>
-		<li><a href="#" class="glyphicon glyphicon-download-alt"><p>下载</p></a></li>
+		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
+		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
+		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
+		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
+		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
 	</ul>
-	<ul v-if="controller=='Map'" class="Maplist">
+	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
 		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
 		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
@@ -367,7 +366,7 @@
 		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
 		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
 		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-	</ul>
+	</ul>-->
 </div>
 <script type="text/javascript">
  new Vue({
@@ -384,8 +383,24 @@
         	}
         }
     })
-</script>
+ function jump(){
+ 	 window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+ function jump_two(){
+ 	window.location.href='<?php echo url('admin/index/work'); ?>'
+ }
+ function jump_three(){
+ 	window.location.href='<?php echo url('admin/index/finance'); ?>'
+ }
+ function jump_four (){
+ 	window.location.href='<?php echo url('admin/index/department'); ?>'
+ }
+ function jump_five(){
+ 	window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
 
+</script>
+ -->
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
 <div class="task">
 	<div class="task_left"></div>
@@ -454,9 +469,8 @@
 					  </select>
 					</td>
 					<td quantity>
-						<select :style="index%2 ==0?'background: #b7dee8;':''"  v-model='item.quantity' @change='liang(index)'>
-					    
-						  <option v-for="(s,sl) in quantity[index]"  style="text-align: center;">{{s.time}}</option>
+						<input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.quantity' @blur='liang(index)'>
+						
 						 
 					</td>
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" @blur='job(index)' v-model="item.job"></td>
@@ -773,7 +787,7 @@ $(document).ready(function(){
             primary : <?php echo $main; ?>,
             fine:<?php echo $fine; ?>,
             secondary:[],
-            quantity:[],
+           
             con:1,
           
         },
@@ -789,24 +803,20 @@ $(document).ready(function(){
         	}
         	for (var i = 0; i < this.worksheet.length; i++) {
         	this.secondary.push([])
-            this.quantity.push([])
+            
         	this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary);
         	this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary);
-        	     for (var a = 0; a < this.fine.length; a++) {
-        	     	if(this.worksheet[i].primary.id==this.fine[a].main){
+        		for (var a = 0; a < this.fine.length; a++) {
+        	     if(this.worksheet[i].primary.id==this.fine[a].main){
           				this.secondary[i].push(this.fine[a])
-        				}
-        	     }
-        			if(this.worksheet[i].secondary.liangtype==0){
-        				this.$set(this.quantity,i,<?php echo $liang; ?>)	
-        			}else{
-        				this.$set(this.quantity,i,<?php echo $time; ?>)	
         			}
+        	    }
+        	   
         		
-      		
         	}
+   
         	console.log(this.secondary);
-        	
+        	console.log(this.worksheet);
          				
 		},
        	
@@ -840,10 +850,14 @@ $(document).ready(function(){
 	        	    	type:this.worksheet[e].primary.type
         	    	},(rtnData)=>{     
         	    	
-        	    			if(!rtnData){
+        	    			console.log(rtnData)
+        	    			if(rtnData!=='false'){
         	    				console.log(1)
+        	    			rtnData.primary=JSON.parse(rtnData.primary)
+        	    			console.log(rtnData)
         	    				this.worksheet[e]=rtnData
         	    			}
+        	    			
 
         	    			var text=[];
         	    			 for (var a = 0; a < this.fine.length; a++) {
@@ -858,6 +872,7 @@ $(document).ready(function(){
         },
         // 细分类
         ciclassify(e){ 
+        	console.log(this.worksheet[e].id);
         	$.get('<?php echo url("admin/task/classify"); ?>',
         	    	{      	    		
         	    		select:2,
@@ -865,16 +880,7 @@ $(document).ready(function(){
         	    		xuan:this.worksheet[e].secondary,
 						
         	    	},(rtnData)=>{
-                 	   if(this.worksheet[e].secondary) {
-				          	if(this.worksheet[e].secondary.liangtype==0){
-				          
-				        		this.$set(this.quantity,e,<?php echo $liang; ?>)	
-				        	}else{
-				        		this.$set(this.quantity,e,<?php echo $time; ?>)	
-				        		
-				        	}
-				        	console.log(this.quantity)
-				          }
+                 	   
 				          this.worksheet[e].score=rtnData;
         	    			 // this.$set(this.quantity,e,rtnData) 
 
@@ -892,7 +898,7 @@ $(document).ready(function(){
         	    		theme_id:this.worksheet[e].id,
         	    		liang:this.worksheet[e].quantity
         	    	},(rtnData)=>{
-                 	   
+                 	   this.worksheet[e].score=rtnData;
         	    	});
         },
         // 工作内容
