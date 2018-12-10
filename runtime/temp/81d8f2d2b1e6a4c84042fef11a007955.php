@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544426191;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544427062;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544427747;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544427397;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -400,7 +400,7 @@
  	window.location.href='<?php echo url('admin/index/department'); ?>'
  }
  function jump_five(){
- 	window.location.href='<?php echo url('admin/index/index'); ?>'
+ 	window.location.href='<?php echo url('admin/index/information'); ?>'
  }
 
 </script>
@@ -661,8 +661,8 @@
 						<td>无</td>
 						<?php endif; ?>
 						<td></td>
-						<td><?php echo $info['time']; ?></td>
-						<td><?php echo $info['lasttime']; ?></td>
+						<td><?php echo date("Y-m-d  H:i:s",$info['time']); ?></td>
+						<td><?php echo date("Y-m-d  H:i:s",$info['lasttime']); ?></td>
 						<td><?php echo $info['work_rank']; ?></td>
 						<?php if($info['state']=="1"): ?>
 						<td>已发布待查阅</td>

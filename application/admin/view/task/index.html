@@ -261,8 +261,8 @@
 						<td>无</td>
 						{/if}
 						<td></td>
-						<td>{$info.time}</td>
-						<td>{$info.lasttime}</td>
+						<td>{$info.time|date="Y-m-d  H:i:s",###}</td>
+						<td>{$info.lasttime|date="Y-m-d  H:i:s",###}</td>
 						<td>{$info.work_rank}</td>
 						{if $info.state=="1"}
 						<td>已发布待查阅</td>
