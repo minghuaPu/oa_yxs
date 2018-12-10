@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544432146;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544433122;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -377,6 +377,7 @@
 						<div class="Employee_footer">
 							<div><span>负责人:</span><span><?php echo $userdata['user_name']; ?></span></div>
 							<div><span>日期:</span><span><?php echo $date; ?></span></div>
+							
 						</div>
 
 					</div>
@@ -528,7 +529,7 @@
 			<!-- <div v-if="ok"> -->
 			<button class="btn btn-default" @click="turn1">待我处理(<?php echo $work_listnu; ?>)</button>
 			<button class="btn btn-default" @click="turn1">我发布的任务(<?php echo $work_listnu; ?>)</button>
-			<button class="btn btn-default" @click="turn2">已结束的任务(<?php echo count($unfinish_list); ?>)</button>
+			<button class="btn btn-default" @click="turn2">已结束的任务(<?php echo $unfinish_listnu; ?>)</button>
 			
 			<table v-if="con == 1" class="table" style="text-align: center;"  >
 				<tr>
@@ -633,7 +634,8 @@
 			<!-- </div> -->
 			
 			
-			<div style="text-align: center;"><?php echo $work_list->render(); ?></div>
+			<div v-if="pageshow" style="text-align: center;"><?php echo $work_list->render(); ?></div>
+			<div v-else style="text-align: center;"><?php echo $unfinish_list->render(); ?></div>
 			<ul class="list_bottom">
 				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
 			</ul>
@@ -736,7 +738,7 @@ $(document).ready(function(){
 	new Vue({
         el: ".task",
         data: {
-        	ok:true,
+        	pageshow:true,
             worksheet:<?php echo $yuangong; ?>, 
             primary : <?php echo $main; ?>,
             worklist:[<?php echo $work_list; ?>],
@@ -780,10 +782,12 @@ $(document).ready(function(){
            this.ok=false
      	},
      	turn1(){
-     		this.con=1
+     		this.con=1;
+     		this.pageshow=true;
      	},
      	turn2(){
-     		this.con=2
+     		this.con=2;
+     		this.pageshow=false;
      	},
      	// 添加
      	add(){

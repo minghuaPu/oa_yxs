@@ -177,7 +177,7 @@
 			<!-- <div v-if="ok"> -->
 			<button class="btn btn-default" @click="turn1">待我处理({$work_listnu})</button>
 			<button class="btn btn-default" @click="turn1">我发布的任务({$work_listnu})</button>
-			<button class="btn btn-default" @click="turn2">已结束的任务({$unfinish_list|count})</button>
+			<button class="btn btn-default" @click="turn2">已结束的任务({$unfinish_listnu})</button>
 			
 			<table v-if="con == 1" class="table" style="text-align: center;"  >
 				<tr>
@@ -290,7 +290,8 @@
 			<!-- </div> -->
 			
 			
-			<div style="text-align: center;">{$work_list->render()}</div>
+			<div v-if="pageshow" style="text-align: center;">{$work_list->render()}</div>
+			<div v-else style="text-align: center;">{$unfinish_list->render()}</div>
 			<ul class="list_bottom">
 				<li><a href="{:url('look')}"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
 			</ul>
@@ -366,7 +367,7 @@
 	new Vue({
         el: ".task",
         data: {
-        	ok:true,
+        	pageshow:true,
             worksheet:{$yuangong}, 
             primary : {$main},
             worklist:[{$work_list}],
@@ -410,10 +411,12 @@
            this.ok=false
      	},
      	turn1(){
-     		this.con=1
+     		this.con=1;
+     		this.pageshow=true;
      	},
      	turn2(){
-     		this.con=2
+     		this.con=2;
+     		this.pageshow=false;
      	},
      	// 添加
      	add(){

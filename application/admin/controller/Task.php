@@ -34,8 +34,11 @@ class Task extends \app\admin\Auth
             $work_list1  =  db('bossworklist')->order('id desc')->select();
             $work_listnu = count($work_list1);
             $work_list  =  db('bossworklist')->order('id desc')->paginate(10);
-            $unfinish_list=db("bossworklist")->where('state=3 or state=4')->select();
-            $this->assign('work_listnu',$work_listnu); 
+            $unfinish_list1=db("bossworklist")->where('state=3 or state=4')->select();
+            $unfinish_listnu = count($unfinish_list1);
+            $unfinish_list=db("bossworklist")->where('state=3 or state=4')->paginate(10);
+            $this->assign('work_listnu',$work_listnu);
+            $this->assign('unfinish_listnu',$unfinish_listnu);  
             $this->assign('unfinish_list',$unfinish_list);
         }
         else
