@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\check.html";i:1544407965;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\check.html";i:1544430229;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -360,7 +360,7 @@
 		<?php foreach($check as $check_info): ?>
 		<form action="<?php echo url('update'); ?>?id=<?php echo $check_info['id']; ?>" method="post" enctype="multipart/form-data" onsubmit="return sumbit_sure()">
 			<div class="form-group" style="font-size: 16px;">
-				<?php foreach($user as $userdata): if($userdata['user_cate']=='员工'): ?>
+				<?php foreach($user as $userdata): if($userdata['user_cate']=='工'): ?>
 				<div class="form-group">
 					<label>作业</label>
 					<input type="text" class="form-control" name="title" value="<?php echo $check_info['title']; ?>">
@@ -373,7 +373,8 @@
 					<label>附件</label>
 					<input type="file" name="work" class="dropify" data-default-file="__UPLOADS__<?php echo $check_info['work']; ?>">
 				</div>				
-				<?php endif; if($userdata['user_cate']!='员工'): ?>
+				<?php endif; ?>
+				
 				<table v-if="con == 1" class="table" style="text-align: center;"  >
 				<tr>				
 					<th>编号ID</th>
@@ -389,9 +390,9 @@
 						<td><?php echo $check_info['id']; ?></td>
 						<td><?php echo $check_info['execute_id']; ?></td>
 						<td><?php echo $check_info['work_name']; ?></td>
-						<?php if($check_info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $check_info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($check_info['work_require']==""): ?>
+						<?php if($check_info['work_file']!=""): ?>
+						<td><a href="__UPLOADS__<?php echo $check_info['work_file']; ?>">点击查看</a></td>
+						<?php endif; if($check_info['work_file']==""): ?>
 						<td>无</td>
 						<?php endif; ?>
 						<td><?php echo $check_info['time']; ?></td>
@@ -450,7 +451,9 @@
 			</div>
                
 				
-				<?php endif; endforeach; ?>								
+				
+				
+				<?php endforeach; ?>								
 			</div>
 						
 			<div class="form-group <?php echo !empty($check_info['state']) && $check_info['state']==3||$check_info['state']==4?'aa' :''; ?>">
@@ -461,46 +464,7 @@
 			</div>
 			
 			
-		</form>
-		<?php endforeach; ?>
-	</div>
-
-
-<footer class="footer" style="text-align: center;margin-top: 50px;">
-	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
-	&nbsp;
-	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
-		投诉&amp;问题
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
-		微客服
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
-		<i class="md md-speaker-notes m-r-5"></i>
-		订阅号
-	</a>
-	<br>
-	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
-</footer>
-<!-- 底部 -->
-<script type="text/javascript">
-$(document).ready(function(){
-	$(".left_menu ul li").click(function(event){
-		event.preventDefault();
-		console.log($(this).siblings().find('a,p'))
-		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
-			"color":"#5d9cec"})
-		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
-		$(this).find('a,p').css("color","#5d9cec")
-		$(this).siblings().find('a,p').css("color","white")
-	})
-});
-</script>
-</body>
-</html>
-	<script type="text/javascript">	
+		</form><script type="text/javascript">	
 		//操作提交前判定
 		function sumbit_sure(){	
 			var a = $("#caozuo").val();
@@ -549,6 +513,45 @@ $(document).ready(function(){
     	$('.dropify').dropify();
    		UE.getEditor("myEditor");
 	</script>
+		<?php endforeach; ?>
+	</div>
+
+
+<footer class="footer" style="text-align: center;margin-top: 50px;">
+	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
+	&nbsp;
+	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
+		投诉&amp;问题
+	</a>
+	&nbsp;&nbsp;
+	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
+		微客服
+	</a>
+	&nbsp;&nbsp;
+	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
+		<i class="md md-speaker-notes m-r-5"></i>
+		订阅号
+	</a>
+	<br>
+	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
+</footer>
+<!-- 底部 -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".left_menu ul li").click(function(event){
+		event.preventDefault();
+		console.log($(this).siblings().find('a,p'))
+		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
+			"color":"#5d9cec"})
+		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
+		$(this).find('a,p').css("color","#5d9cec")
+		$(this).siblings().find('a,p').css("color","white")
+	})
+});
+</script>
+</body>
+</html>
+	
 	<style type="text/css">
 		.aa{
 			display: none;

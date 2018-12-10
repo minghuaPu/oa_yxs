@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544429846;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544430130;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -364,10 +364,10 @@
 			<?php foreach($user as $userdata): ?>
 			<!-- 学生身份作业管理 -->
 			<?php if($userdata['user_cate']=='员工'): ?>
-			<ul class="list_top">
+		<!-- 	<ul class="list_top">
 				<li><a href="<?php echo url('add'); ?>"><span class="glyphicon glyphicon-pencil"></span>提交汇报</a></li>
 				<li><a href="<?php echo url('read'); ?>"><span class="glyphicon glyphicon-pencil"></span>查看任务</a></li>
-			</ul>
+			</ul> -->
 			<div class="table_box">
 				<div class="Employee_box">
 					<div class="Employee_left">
@@ -382,7 +382,7 @@
 					</div>
 					<div class="Employee_right">
 						<div class="font">完成情况</div>
-						<div class="Score"><div class="fens"><div class="se"></div><div class="fen">66.6分</div></div></div>
+						<div class="Score"><div class="fens"><div class="se" :style="'height:'+zongshu+'%'"></div><div class="fen">{{zongshu}}分</div></div></div>
 						
 					</div>
 					<table class="aa" style="text-align: center;" border='1px' width="1000px">
@@ -420,9 +420,8 @@
 					  </select>
 					</td>
 					<td quantity>
-						<select :style="index%2 ==0?'background: #b7dee8;':''"  v-model='item.quantity' @change='liang(index)'>
-					    
-						  <option v-for="(s,sl) in quantity[index]"  style="text-align: center;">{{s.time}}</option>
+						<input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.quantity' @blur='liang(index)'>
+						
 						 
 					</td>
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" @blur='job(index)' v-model="item.job"></td>
@@ -438,7 +437,7 @@
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.reasons' @blur='reasons(index)'></td>
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.remark' @blur='remark(index)'></td>
 					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
-					<td><a href="">查看详情</a></td>
+					<td></td>
 				</tr>
 				<?php foreach($bossfenprw as $val): ?>
 				<tr >
@@ -478,7 +477,7 @@
 					<td><input type="text"  ></td>
 					<td><input type="text" ></td>
 					<td><input type="text"  ></td>
-					<td><a href="">查看详情</a></td>
+					<td><a href="<?php echo url('check',['id'=>$val['id']]); ?>">查看详情</a></td>
 				</tr>
 				<?php endforeach; ?>
 				
@@ -611,8 +610,8 @@
 						<td>无</td>
 						<?php endif; ?>
 						<td></td>
-						<td><?php echo $info['time']; ?></td>
-						<td><?php echo $info['lasttime']; ?></td>
+						<td><?php echo date("Y-m-d  H:i:s",$info['time']); ?></td>
+						<td><?php echo date("Y-m-d  H:i:s",$info['lasttime']); ?></td>
 						<td><?php echo $info['work_rank']; ?></td>
 						<?php if($info['state']=="1"): ?>
 						<td>已发布待查阅</td>
@@ -743,7 +742,7 @@ $(document).ready(function(){
             worklist:[<?php echo $work_list; ?>],
             fine:<?php echo $fine; ?>,
             secondary:[],
-            quantity:[],
+            zongshu:<?php echo $zongshu; ?>,
             con:1,
           
         },
@@ -759,24 +758,20 @@ $(document).ready(function(){
         	}
         	for (var i = 0; i < this.worksheet.length; i++) {
         	this.secondary.push([])
-            this.quantity.push([])
+            
         	this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary);
         	this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary);
-        	     for (var a = 0; a < this.fine.length; a++) {
-        	     	if(this.worksheet[i].primary.id==this.fine[a].main){
+        		for (var a = 0; a < this.fine.length; a++) {
+        	     if(this.worksheet[i].primary.id==this.fine[a].main){
           				this.secondary[i].push(this.fine[a])
-        				}
-        	     }
-        			if(this.worksheet[i].secondary.liangtype==0){
-        				this.$set(this.quantity,i,<?php echo $liang; ?>)	
-        			}else{
-        				this.$set(this.quantity,i,<?php echo $time; ?>)	
         			}
+        	    }
+        	   
         		
-      		
         	}
+   
         	console.log(this.secondary);
-        	
+        	console.log(this.worksheet);
          				
 		},
        	
@@ -813,10 +808,14 @@ $(document).ready(function(){
 	        	    	type:this.worksheet[e].primary.type
         	    	},(rtnData)=>{     
         	    	
-        	    			if(!rtnData){
+        	    			console.log(rtnData)
+        	    			if(rtnData!=='false'){
         	    				console.log(1)
+        	    			rtnData.primary=JSON.parse(rtnData.primary)
+        	    			console.log(rtnData)
         	    				this.worksheet[e]=rtnData
         	    			}
+        	    			
 
         	    			var text=[];
         	    			 for (var a = 0; a < this.fine.length; a++) {
@@ -831,6 +830,7 @@ $(document).ready(function(){
         },
         // 细分类
         ciclassify(e){ 
+        	console.log(this.worksheet[e].id);
         	$.get('<?php echo url("admin/task/classify"); ?>',
         	    	{      	    		
         	    		select:2,
@@ -838,16 +838,7 @@ $(document).ready(function(){
         	    		xuan:this.worksheet[e].secondary,
 						
         	    	},(rtnData)=>{
-                 	   if(this.worksheet[e].secondary) {
-				          	if(this.worksheet[e].secondary.liangtype==0){
-				          
-				        		this.$set(this.quantity,e,<?php echo $liang; ?>)	
-				        	}else{
-				        		this.$set(this.quantity,e,<?php echo $time; ?>)	
-				        		
-				        	}
-				        	console.log(this.quantity)
-				          }
+                 	   
 				          this.worksheet[e].score=rtnData;
         	    			 // this.$set(this.quantity,e,rtnData) 
 
@@ -865,7 +856,7 @@ $(document).ready(function(){
         	    		theme_id:this.worksheet[e].id,
         	    		liang:this.worksheet[e].quantity
         	    	},(rtnData)=>{
-                 	   
+                 	   this.worksheet[e].score=rtnData;
         	    	});
         },
         // 工作内容
@@ -891,6 +882,8 @@ $(document).ready(function(){
         	    		select:5,
         	    		theme_id:this.worksheet[e].id,
         	    		whether:this.worksheet[e].whether
+        	    	},(rtnData)=>{
+        	    		this.zongshu=rtnData
         	    	});
         },
         //未完成原因 
@@ -933,7 +926,9 @@ $(document).ready(function(){
        	    		score:this.worksheet[e].score
         	    	});
         },
-
+        viewDetails:function(e){
+			window.location.href='<?php echo url('check',['id'=>24]); ?>'
+        }
         	
          
 
@@ -941,5 +936,5 @@ $(document).ready(function(){
     })
 </script>
 <style>
-	
+
 </style>
