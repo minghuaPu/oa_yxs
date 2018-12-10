@@ -31,9 +31,12 @@ class Task extends \app\admin\Auth
         
         if($user_data['user_cate']=='老板')
           {
+            $work_list1  =  db('bossworklist')->order('id desc')->select();
+            $work_listnu = count($work_list1);
             $work_list  =  db('bossworklist')->order('id desc')->paginate(10);
             $unfinish_list=db("bossworklist")->where('state=3 or state=4')->select();
-            $this->assign('unfinish_list',$unfinish_list); 
+            $this->assign('work_listnu',$work_listnu); 
+            $this->assign('unfinish_list',$unfinish_list);
         }
         else
             $work_list  =  db('work')->order('id desc')->where("belong",$belong)->where("bumen",$user_data["bumen"])->paginate(10);

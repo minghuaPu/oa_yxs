@@ -175,8 +175,8 @@
 			</ul>
 
 			<!-- <div v-if="ok"> -->
-			<button class="btn btn-default" @click="turn1">待我处理({$work_list|count})</button>
-			<button class="btn btn-default" @click="turn1">我发布的任务({$work_list|count})</button>
+			<button class="btn btn-default" @click="turn1">待我处理({$work_listnu})</button>
+			<button class="btn btn-default" @click="turn1">我发布的任务({$work_listnu})</button>
 			<button class="btn btn-default" @click="turn2">已结束的任务({$unfinish_list|count})</button>
 			
 			<table v-if="con == 1" class="table" style="text-align: center;"  >
@@ -290,7 +290,7 @@
 			<!-- </div> -->
 			
 			
-			{$work_list->render()}
+			<div style="text-align: center;">{$work_list->render()}</div>
 			<ul class="list_bottom">
 				<li><a href="{:url('look')}"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
 			</ul>

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544430130;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544432146;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -526,8 +526,8 @@
 			</ul>
 
 			<!-- <div v-if="ok"> -->
-			<button class="btn btn-default" @click="turn1">待我处理(<?php echo count($work_list); ?>)</button>
-			<button class="btn btn-default" @click="turn1">我发布的任务(<?php echo count($work_list); ?>)</button>
+			<button class="btn btn-default" @click="turn1">待我处理(<?php echo $work_listnu; ?>)</button>
+			<button class="btn btn-default" @click="turn1">我发布的任务(<?php echo $work_listnu; ?>)</button>
 			<button class="btn btn-default" @click="turn2">已结束的任务(<?php echo count($unfinish_list); ?>)</button>
 			
 			<table v-if="con == 1" class="table" style="text-align: center;"  >
@@ -633,7 +633,7 @@
 			<!-- </div> -->
 			
 			
-			<?php echo $work_list->render(); ?>
+			<div style="text-align: center;"><?php echo $work_list->render(); ?></div>
 			<ul class="list_bottom">
 				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
 			</ul>
