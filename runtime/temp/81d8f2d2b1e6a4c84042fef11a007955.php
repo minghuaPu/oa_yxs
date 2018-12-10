@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544430293;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544427397;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544432972;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -351,60 +351,7 @@
         }
     })
 </script>
-<!-- 
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
-<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
-	<ul v-if="controller!='Map'">
-		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
-		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
-		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
-		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
-		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
-	</ul>
-	<!--<ul v-if="controller=='Map'" class="Maplist">
-		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
-		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
-		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
-		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
-		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
-		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
-		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
-		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-	</ul>-->
-</div>
-<script type="text/javascript">
- new Vue({
-        el:'#left_menu',
-        data:{
-           controller:"Index"
-        },
-        created(){
-        	this.init();
-        },
-        methods:{
-        	init(){
-                this.controller="<?php echo request()->controller(); ?>";
-        	}
-        }
-    })
- function jump(){
- 	 window.location.href='<?php echo url('admin/index/index'); ?>'
- }
- function jump_two(){
- 	window.location.href='<?php echo url('admin/index/work'); ?>'
- }
- function jump_three(){
- 	window.location.href='<?php echo url('admin/index/finance'); ?>'
- }
- function jump_four (){
- 	window.location.href='<?php echo url('admin/index/department'); ?>'
- }
- function jump_five(){
- 	window.location.href='<?php echo url('admin/index/information'); ?>'
- }
 
-</script>
- -->
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
 <div class="task">
 	<div class="task_left"></div>
@@ -429,7 +376,7 @@
 						<div class="wire"></div>
 						<div class="Employee_footer">
 							<div><span>负责人:</span><span><?php echo $userdata['user_name']; ?></span></div>
-							<div><span>日期:</span><span><?php echo $date; ?></span></div>
+							<div><span>日期:</span><input type="date" v-model='DATE' @change='aa'></div>
 							
 						</div>
 
@@ -569,15 +516,17 @@
 			<ul class="list_top">
 				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
 				
-				<li style="width: 0%;">
-					 <form action="<?php echo url('index'); ?>" class="form">
+				<!-- <li style="width: 0%;">
+					 <form action="<?php echo url('select'); ?>" class="form">
 					 	<div class="input-group pull-left">
-					 		<input type="text" class="form-control pull-left" placeholder="输入员工名称" name="user_name">
+					 		<input type="text" class="form-control pull-left" placeholder="输入任务名称" name="selectinfo">
 					 	</div>
-					 	<input type="submit" class="btn btn-group pull-left" style="cursor: pointer;" value="搜索">
+					 	<input type="submit" class="btn btn-group pull-left" style="cursor: pointer;width: 70px;outline: none;" @click="select" value="搜索">
 					 </form>
-				</li>
+				</li> -->
 			</ul>
+
+			<!-- <div v-if="ok"> -->
 			<button class="btn btn-default" @click="turn1">待我处理(<?php echo count($work_list); ?>)</button>
 			<button class="btn btn-default" @click="turn1">我发布的任务(<?php echo count($work_list); ?>)</button>
 			<button class="btn btn-default" @click="turn2">已结束的任务(<?php echo count($unfinish_list); ?>)</button>
@@ -588,7 +537,7 @@
 					<th>编号ID</th>
 					<th>对接人</th>
 					<th>任务名称</th>
-					<th>内容</th>
+					
 					<th>附件</th>
 					<th>部门</th>
 					<th>添加时间</th>
@@ -605,10 +554,10 @@
 						
 						<td><?php echo $info['execute_id']; ?></td>
 						<td><?php echo $info['work_name']; ?></td>
-						<td><?php echo $info['work_file']; ?></td>
-						<?php if($info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($info['work_require']==""): ?>
+						
+						<?php if($info['work_file']!=""): ?>
+						<td><a href="__UPLOADS__<?php echo $info['work_file']; ?>">点击查看</a></td>
+						<?php endif; if($info['work_file']==""): ?>
 						<td>无</td>
 						<?php endif; ?>
 						<td></td>
@@ -638,7 +587,7 @@
 					<th>编号ID</th>
 					<th>对接人</th>
 					<th>任务名称</th>
-					<th>内容</th>
+					
 					<th>附件</th>
 					<th>部门</th>
 					<th>添加时间</th>
@@ -655,10 +604,10 @@
 						
 						<td><?php echo $info['execute_id']; ?></td>
 						<td><?php echo $info['work_name']; ?></td>
-						<td><?php echo $info['work_file']; ?></td>
-						<?php if($info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($info['work_require']==""): ?>
+						
+						<?php if($info['work_file']!=""): ?>
+						<td><a href="__UPLOADS__<?php echo $info['work_file']; ?>">点击查看</a></td>
+						<?php endif; if($info['work_file']==""): ?>
 						<td>无</td>
 						<?php endif; ?>
 						<td></td>
@@ -682,11 +631,12 @@
 				
 				
 			</table>
+			<!-- </div> -->
+			
 			
 			<?php echo $work_list->render(); ?>
 			<ul class="list_bottom">
 				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
-				
 			</ul>
 			<?php endif; if($userdata['user_cate']=='经理'): ?>
 			<ul class="list_top">
@@ -787,15 +737,18 @@ $(document).ready(function(){
 	new Vue({
         el: ".task",
         data: {
+        	ok:true,
             worksheet:<?php echo $yuangong; ?>, 
             primary : <?php echo $main; ?>,
+            worklist:[<?php echo $work_list; ?>],
             fine:<?php echo $fine; ?>,
             secondary:[],
             zongshu:<?php echo $zongshu; ?>,
             con:1,
-          
+          	DATE:'<?php echo $date; ?>'
         },
         mounted(){
+        	console.log(this.DATE)	
         	console.log(this.worksheet);
         	if(this.worksheet.length<8){
         		var num=8-this.worksheet.length;
@@ -821,10 +774,16 @@ $(document).ready(function(){
    
         	console.log(this.secondary);
         	console.log(this.worksheet);
-         				
+         			
 		},
        	
      methods:{
+     	aa(){
+     		console.log(this.DATE)
+     	},
+     	select(){
+           this.ok=false
+     	},
      	turn1(){
      		this.con=1
      	},
