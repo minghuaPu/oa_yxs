@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:82:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\department.html";i:1544404632;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1544404632;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1544404632;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:82:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\department.html";i:1544430005;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1544430005;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1544430005;}*/ ?>
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/department/department.css"/>
 <html>
@@ -357,7 +357,9 @@
         }
     })
 </script>
-	<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
+	
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
+<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
 		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
 		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
@@ -404,7 +406,7 @@
  	window.location.href='<?php echo url('admin/index/department'); ?>'
  }
  function jump_five(){
- 	window.location.href='<?php echo url('admin/index/index'); ?>'
+ 	window.location.href='<?php echo url('admin/index/information'); ?>'
  }
 
 </script>
@@ -412,13 +414,12 @@
 	<!DOCTYPE html>
 <html>
 	<head>
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
 <script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
 		<meta charset="UTF-8">
 		<title></title>
 	</head>
 	<body>
-		<div class="page" style="z-index: 99;background:white;">
+		<div class="page" style="z-index: 99;background:white;padding-left: 10px;">
 			<div class="search_box">
 				<div class="iconfont icon-fangdajing"></div>
 				<input type="text" name="search" class="search" placeholder="搜索" />
@@ -714,7 +715,7 @@
                
             },
             yAxis: {
-            	 data: ["设计部  张三","设计部  李四","设计部  王五","设计部  弘毅"]
+            	 data: ["设计部  张三","设计部  李四","设计部  王豹","设计部  弘毅"]
             },
             grid: {
 		        left: '3%',
