@@ -45,8 +45,8 @@
 						{if $check_info.work_file==""}
 						<td>无</td>
 						{/if}
-						<td>{$check_info.time}</td>
-						<td>{$check_info.lasttime}</td>
+						<td>{$check_info.time|date="Y-m-d  H:i:s",###}</td>
+						<td>{$check_info.lasttime|date="Y-m-d  H:i:s",###}</td>
 						<td>{$check_info.work_rank}</td>
 						{if $check_info.state=="1"}
 						<td>已发布待查阅</td>
