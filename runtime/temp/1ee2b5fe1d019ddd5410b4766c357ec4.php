@@ -1,10 +1,12 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\check.html";i:1544426694;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<<<<<<< HEAD:runtime/temp/b7e3e54c838b3873ab2c4997745d373c.php
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:80:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\task\check.html";i:1544195530;s:73:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1544063398;s:74:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
+=======
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:65:"D:\new\www\oa\public/../application/admin\view\gongdan\index.html";i:1544086361;s:55:"D:\new\www\oa\public/../application/admin\view\top.html";i:1544086361;s:56:"D:\new\www\oa\public/../application/admin\view\left.html";i:1544257331;s:56:"D:\new\www\oa\public/../application/admin\view\foot.html";i:1544086361;}*/ ?>
+>>>>>>> 6ac23eec1979eda3a5d2f43f82013dfb0633753d:runtime/temp/1ee2b5fe1d019ddd5410b4766c357ec4.php
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>智慧云办公系统管理</title>
     <!-- CSS公共样式 -->
     <link rel="stylesheet" type="text/css" href="__STATIC__/admin/common/common.css?99">
@@ -351,6 +353,7 @@
         }
     })
 </script>
+<<<<<<< HEAD:runtime/temp/b7e3e54c838b3873ab2c4997745d373c.php
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css?1">
 	<div class="write_box" id="check">
 		<div class="title" style="margin-bottom: 20px;">
@@ -360,7 +363,7 @@
 		<?php foreach($check as $check_info): ?>
 		<form action="<?php echo url('update'); ?>?id=<?php echo $check_info['id']; ?>" method="post" enctype="multipart/form-data" onsubmit="return sumbit_sure()">
 			<div class="form-group" style="font-size: 16px;">
-				<?php foreach($user as $userdata): if($userdata['user_cate']=='工'): ?>
+				<?php foreach($user as $userdata): if($userdata['user_cate']=='员工'): ?>
 				<div class="form-group">
 					<label>作业</label>
 					<input type="text" class="form-control" name="title" value="<?php echo $check_info['title']; ?>">
@@ -373,48 +376,138 @@
 					<label>附件</label>
 					<input type="file" name="work" class="dropify" data-default-file="__UPLOADS__<?php echo $check_info['work']; ?>">
 				</div>				
-				<?php endif; ?>
-				
+				<?php endif; if($userdata['user_cate']!='员工'): ?>
 				<table v-if="con == 1" class="table" style="text-align: center;"  >
 				<tr>				
+=======
+<div class="left_menu lbs" id="left_menu">
+	<ul v-if="controller!='Map'">
+		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
+		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
+		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
+		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
+		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
+	</ul>
+	<!--<ul v-if="controller=='Map'" class="Maplist">
+		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
+		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
+		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
+		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
+		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
+		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
+		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
+		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
+	</ul>-->
+</div>
+<script type="text/javascript">
+ new Vue({
+        el:'#left_menu',
+        data:{
+           controller:"Index"
+        },
+        created(){
+        	this.init();
+        },
+        methods:{
+        	init(){
+                this.controller="<?php echo request()->controller(); ?>";
+        	}
+        }
+    })
+ function jump(){
+ 	 window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+ function jump_two(){
+ 	window.location.href='<?php echo url('admin/index/work'); ?>'
+ }
+ function jump_three(){
+ 	window.location.href='<?php echo url('admin/index/finance'); ?>'
+ }
+ function jump_four (){
+ 	window.location.href='<?php echo url('admin/index/department'); ?>'
+ }
+ function jump_five(){
+ 	window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+
+</script>
+
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?2">
+<div class="task">
+	<div class="task_left"></div>
+	<div class="task_box">
+		<div class="task_title">
+			<span class="glyphicon glyphicon-list-alt pull-left"></span>
+			<h4>TASK员工外勤工单管理</h4>
+		</div>
+		<div class="task_content">
+			<?php foreach($user as $userdata): ?>
+			<!-- 学生身份作业管理 -->
+			<?php if($userdata['user_cate']=='员工'): ?>
+			<ul class="list_top">
+				<li><a href="<?php echo url('add'); ?>"><span class="glyphicon glyphicon-pencil"></span>提交工单</a></li>
+			</ul>
+			<table class="table" style="text-align: center;">
+				<tr>
+>>>>>>> 6ac23eec1979eda3a5d2f43f82013dfb0633753d:runtime/temp/1ee2b5fe1d019ddd5410b4766c357ec4.php
 					<th>编号ID</th>
-					<th>对接人</th>
-					<th>任务名称</th>
-					<th>附件</th>
+					<th>外出时间</th>
+					<th>外出理由</th>
+					<th>是否批准</th>
+					<th>回复</th>
 					<th>添加时间</th>
-					<th>截止时间</th>
-					<th>任务级别</th>
-					<th>状态</th>					
 				</tr>
-				    <tr >
-						<td><?php echo $check_info['id']; ?></td>
-						<td><?php echo $check_info['execute_id']; ?></td>
-						<td><?php echo $check_info['work_name']; ?></td>
-						<?php if($check_info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $check_info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($check_info['work_require']==""): ?>
-						<td>无</td>
-						<?php endif; ?>
-						<td><?php echo $check_info['time']; ?></td>
-						<td><?php echo $check_info['lasttime']; ?></td>
-						<td><?php echo $check_info['work_rank']; ?></td>
-						<?php if($check_info['state']=="1"): ?>
-						<td>已发布待查阅</td>
-						<?php endif; if($check_info['state']=="2"): ?>
-						<td>已查阅</td>
-						<?php endif; if($check_info['state']=="3"): ?>
-						<td>发起人已放弃</td>
-						<?php endif; if($check_info['state']=="4"): ?>
-						<td>任务已完成</td>
-						<?php endif; ?>
-					</tr>			
-				
+				<?php foreach($work_list as $info): ?>
+				<tr>
+					<td><?php echo $info['id']; ?></td>
+					<td><?php echo $info['outside_time']; ?></td>
+					<td><?php echo $info['outside_reason']; ?></td>
+					<td><?php echo $info['pizhun']; ?></td>
+					<td><?php echo $info['reply']; ?></td>
+					<td><?php echo $info['time']; ?></td>
 			
+
+				</tr>
+				<?php endforeach; ?>
+			</table>
+			<?php endif; ?>
+			<!-- 非学生身份管理作业 -->
+			<?php if($userdata['user_cate']=='老板'): ?>
+			<ul class="list_top">
+				<li></li>
+				<li></li>
 				
-				
-				
+			</ul>
+			<table class="table" style="text-align: center;">
+				<tr>
+					<th>编号ID</th>
+					<th>员工名字</th>
+					<th>外出时间</th>
+					<th>外出理由</th>
+	                <th>部门</th>
+					<th>添加时间</th>
+					<th>是否同意</th>
+					<th>回复</th>
+					<th>操作</th>
+				</tr>
+				<?php foreach($work_list as $info): ?>
+					<tr >
+						<td><?php echo $info['id']; ?></td>
+						<?php foreach($user_list as $user): if($user['id']==$info['u_id']): ?>	
+						<td><?php echo $user['user_name']; ?></td>
+						<?php endif; endforeach; ?>	
+						<td><?php echo $info['outside_time']; ?></td>
+						<td><?php echo $info['outside_reason']; ?></td>
+						<td><?php echo $info['bumen']; ?></td>
+						<td><?php echo $info['time']; ?></td>
+						<td><?php echo $info['pizhun']; ?></td>
+						<td><?php echo $info['reply']; ?></td>
+						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">批改</a></td>
+					</tr>			
+				<?php endforeach; ?>
 			</table>
 			
+<<<<<<< HEAD:runtime/temp/b7e3e54c838b3873ab2c4997745d373c.php
 			<div style="width: 100%;height: auto;border: 1px solid #DDDDDD; border-radius: 10px;">
 				<div style="width: 10%;height: 30px;line-height: 30px;color: red;margin-left: 20px;">详情</div>
 				<div style="padding-left: 20px;"><?php echo $check_info['work_require']; ?></div>
@@ -451,9 +544,7 @@
 			</div>
                
 				
-				
-				
-				<?php endforeach; ?>								
+				<?php endif; endforeach; ?>								
 			</div>
 						
 			<div class="form-group <?php echo !empty($check_info['state']) && $check_info['state']==3||$check_info['state']==4?'aa' :''; ?>">
@@ -464,7 +555,85 @@
 			</div>
 			
 			
-		</form><script type="text/javascript">	
+		</form>
+		<?php endforeach; ?>
+=======
+			<?php echo $work_list->render(); endif; if($userdata['user_cate']=='经理'): ?>
+			<ul class="list_top">
+				<li></li>
+				<li></li>
+				
+			</ul>
+			<table class="table" style="text-align: center;">
+				<tr>
+					<th>编号ID</th>
+					<th>员工名字</th>
+					<th>外出时间</th>
+					<th>外出理由</th>
+	
+					<th>添加时间</th>
+					<th>回复</th>
+					<th>操作</th>
+				</tr>
+				<?php foreach($work_list as $info): ?>
+					<tr >
+						<td><?php echo $info['id']; ?></td>
+						<?php foreach($user_list as $user): if($user['id']==$info['u_id']): ?>	
+						<td><?php echo $user['user_name']; ?></td>
+						<?php endif; endforeach; ?>	
+						<td><?php echo $info['outside_time']; ?></td>
+						<td><?php echo $info['outside_reason']; ?></td>
+						
+						<td><?php echo $info['time']; ?></td>
+						<td><?php echo $info['reply']; ?></td>
+						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">批改</a></td>
+					</tr>			
+				<?php endforeach; ?>
+			</table>
+			
+			<?php echo $work_list->render(); endif; endforeach; ?>
+		</div>
+>>>>>>> 6ac23eec1979eda3a5d2f43f82013dfb0633753d:runtime/temp/1ee2b5fe1d019ddd5410b4766c357ec4.php
+	</div>
+	<div class="task_right"></div>
+</div>
+
+<footer class="footer" style="text-align: center;margin-top: 50px;">
+	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
+	&nbsp;
+	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
+		投诉&amp;问题
+	</a>
+	&nbsp;&nbsp;
+	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
+		微客服
+	</a>
+	&nbsp;&nbsp;
+	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
+		<i class="md md-speaker-notes m-r-5"></i>
+		订阅号
+	</a>
+	<br>
+	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
+</footer>
+<!-- 底部 -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".left_menu ul li").click(function(event){
+		event.preventDefault();
+		console.log($(this).siblings().find('a,p'))
+		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
+			"color":"#5d9cec"})
+		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
+		$(this).find('a,p').css("color","#5d9cec")
+		$(this).siblings().find('a,p').css("color","white")
+	})
+});
+</script>
+</body>
+<<<<<<< HEAD:runtime/temp/b7e3e54c838b3873ab2c4997745d373c.php
+</html>
+	<script type="text/javascript">	
 		//操作提交前判定
 		function sumbit_sure(){	
 			var a = $("#caozuo").val();
@@ -513,47 +682,11 @@
     	$('.dropify').dropify();
    		UE.getEditor("myEditor");
 	</script>
-		<?php endforeach; ?>
-	</div>
-
-
-<footer class="footer" style="text-align: center;margin-top: 50px;">
-	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
-	&nbsp;
-	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
-		投诉&amp;问题
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
-		微客服
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
-		<i class="md md-speaker-notes m-r-5"></i>
-		订阅号
-	</a>
-	<br>
-	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
-</footer>
-<!-- 底部 -->
-<script type="text/javascript">
-$(document).ready(function(){
-	$(".left_menu ul li").click(function(event){
-		event.preventDefault();
-		console.log($(this).siblings().find('a,p'))
-		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
-			"color":"#5d9cec"})
-		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
-		$(this).find('a,p').css("color","#5d9cec")
-		$(this).siblings().find('a,p').css("color","white")
-	})
-});
-</script>
-</body>
-</html>
-	
 	<style type="text/css">
 		.aa{
 			display: none;
 		    }
 	</style>
+=======
+</html>
+>>>>>>> 6ac23eec1979eda3a5d2f43f82013dfb0633753d:runtime/temp/1ee2b5fe1d019ddd5410b4766c357ec4.php

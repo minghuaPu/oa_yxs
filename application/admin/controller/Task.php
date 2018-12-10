@@ -74,6 +74,13 @@ class Task extends \app\admin\Auth
             }
             
         }
+        $zongshu=0;
+        foreach ($yuangong as $key => $value) {
+            if($value['whether']=='0'){
+                $zongshu+=floatval($value['score']);
+                }
+        }
+        $this->assign('zongshu',$zongshu);
         $this->assign('bossfenprw',$bossfenprw);
         $this->assign('daibanwork',$daibanwork);
         $this->assign('yuangong',json_encode($yuangong));
@@ -119,7 +126,7 @@ class Task extends \app\admin\Auth
                 $up['grade']=input('xuan.grade');
                 $liang=db('worksheet')->where('id='.input('theme_id'))->value('quantity');
                 if(in_array($up['id'],[1,2,9,10,11,])){
-                $bb=$liang*$ii['grade'];
+                $bb=$liang*$up['grade'];
                 db("worksheet")->where('id='.input('theme_id'))->update(["score"=>$bb]);
                 }
                 db('worksheet')->where('id='.input('theme_id'))->update(["secondary"=>json_encode($up),'score'=>$up['grade']]);
@@ -155,10 +162,24 @@ class Task extends \app\admin\Auth
             
         }
         else if($select==5){
-             if(input('whether')==0){}
+             
               if(input('theme_id')){
                 db("worksheet")->where('id='.input('theme_id'))->update(["whether"=>input('whether')]);
             }
+               $yuan=db('worksheet')->where("uid=".$user_data['u_id'])->select();
+                foreach ($yuan as $key => $value) {
+                    if(date('Y-m-d',$value['time'])==date('Y-m-d')){
+                        $yuangong[]=$value;
+                    }
+                }
+                $zongshu=0;
+                foreach ($yuangong as $key => $value) {
+                    if($value['whether']=='0'){
+                        $zongshu+=floatval($value['score']);
+                    }
+                }
+                   return $zongshu ;
+                
         }
         else if($select==6){
             
@@ -328,8 +349,9 @@ class Task extends \app\admin\Auth
     //批改作业页面
     public function check()
     {
-         $id = input('id');
+        $id = input('id');
         $check = db('bossworklist')->where("id=$id")->select();
+       
         $this->assign('check',$check);     
          $log_list = db('worklog')->where("rw_id=$id")->select();
          $this->assign('log_list',$log_list); 
@@ -382,19 +404,38 @@ class Task extends \app\admin\Auth
         $this->success('布置成功','index');
     }  
     public function update()
-    {
-        $user_data=Session::get();
+    {  	
+    	$user_data=Session::get();
     	$rw_id = input('id');
     	$uname = $user_data['user_name'];
     	$rw_log = input('log');
-    	db('worklog')->insert([
-            'rw_id'=>$rw_id,
-            'rw_log'=>$rw_log,
-            'uname'=>$uname,           
-            'time'=>date('Y-m-d H:i',time()),
-        ]);     
-         $this->success('操作成功'); 
-    } 
+         	
+	    	db('worklog')->insert([
+	            'rw_id'=>$rw_id,
+	            'rw_log'=>$rw_log,
+	            'uname'=>$uname,           
+	            'time'=>date('Y-m-d H:i',time()),
+	        ]);     
+	         $this->success('操作成功'); 
+    	
+    	
+    }
+    public function giveUp()
+    {
+    	db('bossworklist')
+    		->where('id',input('id'))
+    		->update(['state' => '3']);
+    		
+    	
+    }
+     public function finishWork()
+    {
+    	db('bossworklist')
+    		->where('id',input('id'))
+    		->update(['state' => '4']);
+    		
+    	
+    }
     public function xiugai()
     {
         $id = input('id');

@@ -1,8 +1,10 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:66:"D:\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544258509;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544089172;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544234685;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:66:"D:\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544407078;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544415057;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>智慧云办公系统管理</title>
     <!-- CSS公共样式 -->
     <link rel="stylesheet" type="text/css" href="__STATIC__/admin/common/common.css?99">
@@ -349,7 +351,151 @@
         }
     })
 </script>
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> <div class="left_menu lbs" id="left_menu">
+ 	<!DOCTYPE html>
+<html>
+	<head>
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
+<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="page" style="z-index: 99;background:white;">
+			<div class="search_box">
+				<div class="iconfont icon-fangdajing"></div>
+				<input type="text" name="search" class="search" placeholder="搜索" />
+			</div>
+			<div class="people_box">
+				<div class="icon">
+					<div class="iconfont icon-geren"></div>
+					<div class="iconfont icon-iconset0337"></div>
+					<div class="iconfont icon-group"></div>
+				</div>
+				<div class="name_box">
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+				</div>
+			</div>
+			<div  class="notice_title">
+				公告栏
+			</div>
+			<div class="notice_box">
+				<div class="notice">
+					<div class="notice_dian"></div>
+					<div class="notice_content">oa系统正式上线</div>
+				</div>
+			</div>
+			<div  class="notice_title">
+				新闻
+			</div>
+		</div>
+	</body>
+</html>
+
+
+
+
+
+<style type="text/css">
+.page{
+	width:172px;
+	position:fixed ;
+	right: 0;
+	
+	
+}
+.search_box{
+	display: flex;
+	margin-top:9px;
+	background: #e6e6e6;
+	
+}
+.search_box input{
+	background: #e6e6e6;
+	border: 0px;
+	outline:none 
+}
+.icon{
+	display: flex;
+	margin: 6px 20px ;
+	
+}
+.icon div{
+	font-size: 23px;
+	flex: 1;
+	text-align: center;
+}
+.people{
+	display: flex;
+	align-items: center;
+}
+.name_box{
+	height: 250px;
+	overflow:scroll;
+	overflow-x:visible;
+}
+.people img{
+	width: 26px;
+	height: 26px;
+	border-radius: 26px;	
+}
+.people p{
+    margin-top: 13px;
+    margin-left: 3px;
+}
+.notice_title{
+	text-align: center;
+    padding: 4px 0;
+    font-size: 16px;
+    border-top: 1px solid #cccccc;
+    border-bottom:1px solid #cccccc;
+    font-weight: bold;
+}
+.notice{
+	display: flex;
+}
+.notice_dian{
+	width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: red;
+    margin-top: 5px;
+    margin-left: 7px;
+}
+.notice_box{
+	height: 143px;
+}
+.notice_content{
+	margin-left: 10px;
+    font-size: 11px;
+}
+</style> 
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> <div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
 		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
 		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>

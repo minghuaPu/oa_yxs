@@ -1,5 +1,6 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\index\work.html";i:1544234685;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544089172;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544234685;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1544234685;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\index\work.html";i:1544407078;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544414368;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1544407078;}*/ ?>
 <!DOCTYPE html>
+
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/work/work.css"/>
 
 <html>
@@ -10,6 +11,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>智慧云办公系统管理</title>
     <!-- CSS公共样式 -->
     <link rel="stylesheet" type="text/css" href="__STATIC__/admin/common/common.css?99">
@@ -356,13 +359,13 @@
         }
     })
 </script>
-	<div class="left_menu lbs" id="left_menu">
+	<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
-		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
-		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
-		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
-		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
-		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
+		<li><a href="<?php echo url('admin/index/index'); ?>" class="iconfont icon-geren"><p>个人管理</p></a></li>
+		<li><a href="<?php echo url('admin/index/work'); ?>" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
+		<li><a href="<?php echo url('admin/index/finance'); ?>" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
+		<li><a href="<?php echo url('admin/index/department'); ?>" class="iconfont icon-group"><p>部门管理</p></a></li>
+		<li><a href="<?php echo url('admin/index/information'); ?>" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
 	</ul>
 	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
@@ -390,21 +393,7 @@
         	}
         }
     })
- function jump(){
- 	 window.location.href='<?php echo url('admin/index/index'); ?>'
- }
- function jump_two(){
- 	window.location.href='<?php echo url('admin/index/work'); ?>'
- }
- function jump_three(){
- 	window.location.href='<?php echo url('admin/index/finance'); ?>'
- }
- function jump_four (){
- 	window.location.href='<?php echo url('admin/index/department'); ?>'
- }
- function jump_five(){
- 	window.location.href='<?php echo url('admin/index/index'); ?>'
- }
+
 
 </script>
  
@@ -417,7 +406,7 @@
 		<title></title>
 	</head>
 	<body>
-		<div class="page">
+		<div class="page" style="z-index: 99;background:white;">
 			<div class="search_box">
 				<div class="iconfont icon-fangdajing"></div>
 				<input type="text" name="search" class="search" placeholder="搜索" />

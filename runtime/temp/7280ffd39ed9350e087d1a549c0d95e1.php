@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\check.html";i:1544426694;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:75:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\look.html";i:1544198158;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -351,171 +351,126 @@
         }
     })
 </script>
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css?1">
-	<div class="write_box" id="check">
-		<div class="title" style="margin-bottom: 20px;">
-			<a class="glyphicon glyphicon-ok">工作汇报批改/详情</a>
-			<a href="<?php echo url('index'); ?>" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
-		</div>
-		<?php foreach($check as $check_info): ?>
-		<form action="<?php echo url('update'); ?>?id=<?php echo $check_info['id']; ?>" method="post" enctype="multipart/form-data" onsubmit="return sumbit_sure()">
-			<div class="form-group" style="font-size: 16px;">
-				<?php foreach($user as $userdata): if($userdata['user_cate']=='工'): ?>
-				<div class="form-group">
-					<label>作业</label>
-					<input type="text" class="form-control" name="title" value="<?php echo $check_info['title']; ?>">
-				</div>
-				<div class="form-group">
-					<label>内容</label>
-					<textarea name="content" id="myEditor" style="height: 280px;width: 100%;" ><?php echo $check_info['content']; ?></textarea>
-				</div>
-				<div class="form-group">
-					<label>附件</label>
-					<input type="file" name="work" class="dropify" data-default-file="__UPLOADS__<?php echo $check_info['work']; ?>">
-				</div>				
-				<?php endif; ?>
-				
-				<table v-if="con == 1" class="table" style="text-align: center;"  >
-				<tr>				
-					<th>编号ID</th>
-					<th>对接人</th>
-					<th>任务名称</th>
-					<th>附件</th>
-					<th>添加时间</th>
-					<th>截止时间</th>
-					<th>任务级别</th>
-					<th>状态</th>					
-				</tr>
-				    <tr >
-						<td><?php echo $check_info['id']; ?></td>
-						<td><?php echo $check_info['execute_id']; ?></td>
-						<td><?php echo $check_info['work_name']; ?></td>
-						<?php if($check_info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $check_info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($check_info['work_require']==""): ?>
-						<td>无</td>
-						<?php endif; ?>
-						<td><?php echo $check_info['time']; ?></td>
-						<td><?php echo $check_info['lasttime']; ?></td>
-						<td><?php echo $check_info['work_rank']; ?></td>
-						<?php if($check_info['state']=="1"): ?>
-						<td>已发布待查阅</td>
-						<?php endif; if($check_info['state']=="2"): ?>
-						<td>已查阅</td>
-						<?php endif; if($check_info['state']=="3"): ?>
-						<td>发起人已放弃</td>
-						<?php endif; if($check_info['state']=="4"): ?>
-						<td>任务已完成</td>
-						<?php endif; ?>
-					</tr>			
-				
-			
-				
-				
-				
-			</table>
-			
-			<div style="width: 100%;height: auto;border: 1px solid #DDDDDD; border-radius: 10px;">
-				<div style="width: 10%;height: 30px;line-height: 30px;color: red;margin-left: 20px;">详情</div>
-				<div style="padding-left: 20px;"><?php echo $check_info['work_require']; ?></div>
-			</div>
+<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
+	<ul v-if="controller!='Map'">
+		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
+		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
+		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
+		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
+		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
+	</ul>
+	<!--<ul v-if="controller=='Map'" class="Maplist">
+		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
+		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
+		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
+		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
+		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
+		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
+		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
+		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
+	</ul>-->
+</div>
+<script type="text/javascript">
+ new Vue({
+        el:'#left_menu',
+        data:{
+           controller:"Index"
+        },
+        created(){
+        	this.init();
+        },
+        methods:{
+        	init(){
+                this.controller="<?php echo request()->controller(); ?>";
+        	}
+        }
+    })
+ function jump(){
+ 	 window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+ function jump_two(){
+ 	window.location.href='<?php echo url('admin/index/work'); ?>'
+ }
+ function jump_three(){
+ 	window.location.href='<?php echo url('admin/index/finance'); ?>'
+ }
+ function jump_four (){
+ 	window.location.href='<?php echo url('admin/index/department'); ?>'
+ }
+ function jump_five(){
+ 	window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
 
-			<div style="width: 15%;height: 30px;line-height: 30px;color: cornflowerblue; font-size: 20px;margin-top: 30px;">
-				任务日志
-			</div>
-			<?php foreach($log_list as $loglist_info): ?>
-			<div style="width: 100%;height: 140px;">
-				<div style="width: 12%;height: 35px;background-color: #00A65A;text-align: center;line-height: 35px;border-radius: 10px;">
-					<?php echo $loglist_info['time']; ?>
-				</div>
-				<div style="width: 100%;height: 105px;">
-					<div style="display: inline-block;width: 3px;height: 104px;background-color: #DADADA;margin-left: 70px;float: left;"></div>
-					<div style="width: 90%;height: 90px;border: 1px solid #DADADA;margin-left: 10px;float: left;margin-top: 5px;border-radius: 5px;">
-						<div style="width: 100%;height: 30px;border-bottom: 1px solid #DADADA;">
-							<div style="height: 30px;line-height: 30px;color: #3376B2;font-size: 15px;float: left;">操作人:</div>
-							<div style="width:70%; height: 30px;line-height: 30px;font-size: 13px;float: left;"><?php echo $loglist_info['uname']; ?></div>
-						</div>
-						<div style="height: 60px;font-size: 13px;overflow: hidden;">
-							<?php echo $loglist_info['rw_log']; ?>
-						</div>
-					</div>
-					
-				</div>
-			</div>
-			<?php endforeach; ?>
-			<div class="<?php echo !empty($check_info['state']) && $check_info['state']==3||$check_info['state']==4?'aa' :''; ?>">
-				<div style="width: 15%;height: 30px;line-height: 30px;color: cornflowerblue; font-size: 20px;margin-top: 30px;">
-					操作
-				</div>
-				<textarea id="caozuo" name="log" style="height: 100px;width: 100%;" value=""></textarea>
-			</div>
-               
-				
-				
-				
-				<?php endforeach; ?>								
-			</div>
-						
-			<div class="form-group <?php echo !empty($check_info['state']) && $check_info['state']==3||$check_info['state']==4?'aa' :''; ?>">
-				<input name="abandon" type="submit" class="btn btn-primary" style="outline:none;" value="提交">
-				 <input name="abandon" type="button" class="btn btn-primary" style="outline:none;" onclick="giveUp()" value="放弃任务">
-				<input name="abandon" type="button" class="btn btn-primary" style="outline:none;" onclick="finish()" value="结束任务">
-				
-			</div>
-			
-			
-		</form><script type="text/javascript">	
-		//操作提交前判定
-		function sumbit_sure(){	
-			var a = $("#caozuo").val();
-				if(a == ''){
-					alert('操作框不能为空！');
-					return false;
-				}else{
-					var cof = confirm('是否要提交！');
-					if(cof==true){
-						return true;
-					}else{
-						return false;
-					}
-				}
-			};
-			//放弃任务
-			function giveUp(){
-				var cof = confirm('是否要提交放弃任务')
-				if(cof){
-					$.post(
-						'<?php echo url('giveUp'); ?>?id=<?php echo $check_info['id']; ?>', 
-						function(e){
-							window.location.reload()
-						}
-					);
-				}
-				
+</script>
 
-			};
-			//完成任务
-			function finish(){
-				var cof = confirm('是否要提交完成任务')
-				if(cof){
-				$.post(
-						'<?php echo url('finishWork'); ?>?id=<?php echo $check_info['id']; ?>', 
-						function(e){
-							window.location.reload()
-						}
-					);
-				}
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/look.css?3">
 
-			}
-			
-			
-		
-    	$('.dropify').dropify();
-   		UE.getEditor("myEditor");
-	</script>
-		<?php endforeach; ?>
+<div class="container" id="container">
+	<div class="title" style="margin: 10px 30px;">
+		<a href="<?php echo url('index'); ?>" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
 	</div>
+	<!-- <div class="mid_but">
+		<el-button type="primary"><a href="/github/crm/public/admin/task/look#/">查看作业提交情况</a></el-button>
+		<el-button type="success"><a href="/github/crm/public/admin/task/look#/info">查看批改分数情况</a></el-button>
+		<el-button  @click="tiaozhuan()" type="danger">查看批改分数情况</el-button>
+	</div> -->
+	<h3 id="title">
+		
+		<span id="time">{{year}}-{{month}}</span>
+		月份
+		<span id="type">提交情况</span>
+	</h3>
+	<div id="month_choose">
+		<el-button type="info" @click=lastmonth()>
+			<<上一月</el-button>
+		<el-button type="info" @click=nextmonth() >下一月>></el-button>
+		<p class="status">状态说明 空白：未交汇报； √:已交汇报(N个表示该天提交N份)；</p>
+	</div>
+	<div id="router">
+		<!--  第五步：路由出口  路由匹配到的组件将渲染在这里 -->
+    		<div id="look">
+	<div>
+		<table class="table">
+			<tr>
+				<th style="width: 102px;">
+					<p class="name" >姓<br>名</p>
+				</th>
+				<th v-for="n in t_days"  class="biao" style="line-height: 30px">
+					{{n}}
+					<br>{{n,year,month | getweek}}
+				</th>
+			</tr>
+		</table>
+		<table class="table table2" style="margin-top: -21px">
+			<?php foreach($user as $userdata): ?>
+			<!-- 用户身份为学生时 -->
+			<?php if($userdata['user_cate']=='员工'): ?>
+			<tr>
+				<th style="width: 68px;">
+					<p class="name" ><?php echo \think\Session::get('user_name'); ?></p>
+				</th>
+				<th v-for="n in t_days"  class="biao" style="width: 35px;line-height: 46px">
+					<span v-if="work_list[n]">√</span>
+				</th>
+			</tr>
+			<?php endif; ?>
+			<!-- 用户身份不是学生时 -->
+			<?php if($userdata['user_cate']!='员工'): foreach($user_list as $u_info): ?>
+			<tr>
+				<th style="width: 68px;">
+					<p class="name" ><?php echo $u_info['user_name']; ?></p>
+				</th>
+				<th v-for="n in t_days"  class="biao" style="width: 35px;line-height: 46px">
+					<span  v-for="t_work in t_work_list" v-if='t_work.d==n&&t_work.u_id==<?php echo $u_info['id']; ?>'>√</span>
+				</th>
+			</tr>
+			<?php endforeach; endif; endforeach; ?>
+		</table>
+	</div>
+</div>
 
+	</div>
+</div>
 
 <footer class="footer" style="text-align: center;margin-top: 50px;">
 	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
@@ -551,9 +506,70 @@ $(document).ready(function(){
 </script>
 </body>
 </html>
-	
-	<style type="text/css">
-		.aa{
-			display: none;
-		    }
-	</style>
+
+
+<script>
+ 	// 第二步：定义路由，也就是每个路由应该映射一个组件
+ 	
+	new Vue({
+        el: "#container",
+        data: {
+            // 显示编辑内容
+            // 时间插件
+            input:'',
+            t_days:<?php echo $t_days; ?>,
+            year:<?php echo $year; ?>,
+            month:<?php echo $month; ?>,
+            work_list:JSON.parse('<?php echo $work_list; ?>'),
+			t_work_list:JSON.parse('<?php echo $t_work_list; ?>'),
+        },
+        mounted(){
+    this.shuchu();
+},
+       	filters:{
+          	getweek:function (val,year,month) {
+          		var arry=["日","一","二","三","四","五","六"]
+          		var m = new Date(year,month-1,val);//计算2016.2.20日星期几
+          		k='星期'+arry[m.getDay()]+'' ;
+          		return k;
+          	}
+        },
+     methods:{
+        	tiaozhuan:function(){
+        		router.push("/info");
+        	},
+        	shuchu:function(){
+                 console.log("现在的年是"+this.year);
+                 console.log("现在的月是"+this.month);
+                 console.log(this.work_list);
+        	},
+        	lastmonth:function(){
+        		this.month--;
+        		if(this.month==0){
+        			this.month=12;
+        			this.year--;
+        		}
+                 window.location.href="<?php echo url('look'); ?>"+'?y='+this.year+'&&m='+this.month;
+        	},
+        	nextmonth:function(){
+                 this.month++;
+                 if(this.month==13){
+                 	this.month=1;
+                    this.year++;
+                 }
+                 console.log("现在的年是"+this.year);
+                 console.log("现在的月是"+this.month);
+                  $.get('<?php echo url("admin/task/look2"); ?>',{y:this.year,m:this.month},(rtnData)=>{
+                 	this.t_days=rtnData['t_days'];
+                 	this.work_list=rtnData['work_list'];
+                 	this.t_work_list=rtnData['t_work_list'];                 	
+                 	window.location.href="<?php echo url('look'); ?>"+'?y='+this.year+'&&m='+this.month;
+
+
+     
+      });
+        	}
+
+        }         
+    })
+</script>

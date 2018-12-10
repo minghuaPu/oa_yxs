@@ -1,8 +1,10 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544255775;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544089172;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544234685;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544426191;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544415057;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>智慧云办公系统管理</title>
     <!-- CSS公共样式 -->
     <link rel="stylesheet" type="text/css" href="__STATIC__/admin/common/common.css?99">
@@ -349,7 +351,7 @@
         }
     })
 </script>
-<!-- <div class="left_menu lbs" id="left_menu">
+<!-- <div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
 		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
 		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
@@ -413,10 +415,10 @@
 			<?php foreach($user as $userdata): ?>
 			<!-- 学生身份作业管理 -->
 			<?php if($userdata['user_cate']=='员工'): ?>
-			<ul class="list_top">
+		<!-- 	<ul class="list_top">
 				<li><a href="<?php echo url('add'); ?>"><span class="glyphicon glyphicon-pencil"></span>提交汇报</a></li>
 				<li><a href="<?php echo url('read'); ?>"><span class="glyphicon glyphicon-pencil"></span>查看任务</a></li>
-			</ul>
+			</ul> -->
 			<div class="table_box">
 				<div class="Employee_box">
 					<div class="Employee_left">
@@ -431,7 +433,7 @@
 					</div>
 					<div class="Employee_right">
 						<div class="font">完成情况</div>
-						<div class="Score"><div class="fens"><div class="se"></div><div class="fen">66.6分</div></div></div>
+						<div class="Score"><div class="fens"><div class="se" :style="'height:'+zongshu+'%'"></div><div class="fen">{{zongshu}}分</div></div></div>
 						
 					</div>
 					<table class="aa" style="text-align: center;" border='1px' width="1000px">
@@ -486,7 +488,7 @@
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.reasons' @blur='reasons(index)'></td>
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.remark' @blur='remark(index)'></td>
 					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
-					<td><a href="">查看详情</a></td>
+					<td></td>
 				</tr>
 				<?php foreach($bossfenprw as $val): ?>
 				<tr >
@@ -526,7 +528,7 @@
 					<td><input type="text"  ></td>
 					<td><input type="text" ></td>
 					<td><input type="text"  ></td>
-					<td><a href="">查看详情</a></td>
+					<td><a href="<?php echo url('check',['id'=>$val['id']]); ?>">查看详情</a></td>
 				</tr>
 				<?php endforeach; ?>
 				
@@ -563,7 +565,7 @@
 			<?php if($userdata['user_cate']=='老板'): ?>
 			<ul class="list_top">
 				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
-				<li><a href="<?php echo url('read'); ?>"><span class="glyphicon glyphicon-list"></span>查看任务</a></li>
+				
 				<li style="width: 0%;">
 					 <form action="<?php echo url('index'); ?>" class="form">
 					 	<div class="input-group pull-left">
@@ -681,8 +683,7 @@
 			<?php echo $work_list->render(); ?>
 			<ul class="list_bottom">
 				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-list"></span>汇总</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-download-alt"></span>作业导出</a></li>
+				
 			</ul>
 			<?php endif; if($userdata['user_cate']=='经理'): ?>
 			<ul class="list_top">
@@ -787,7 +788,7 @@ $(document).ready(function(){
             primary : <?php echo $main; ?>,
             fine:<?php echo $fine; ?>,
             secondary:[],
-           
+            zongshu:<?php echo $zongshu; ?>,
             con:1,
           
         },
@@ -924,6 +925,8 @@ $(document).ready(function(){
         	    		select:5,
         	    		theme_id:this.worksheet[e].id,
         	    		whether:this.worksheet[e].whether
+        	    	},(rtnData)=>{
+        	    		this.zongshu=rtnData
         	    	});
         },
         //未完成原因 
@@ -966,7 +969,9 @@ $(document).ready(function(){
        	    		score:this.worksheet[e].score
         	    	});
         },
-
+        viewDetails:function(e){
+			window.location.href='<?php echo url('check',['id'=>24]); ?>'
+        }
         	
          
 
@@ -974,5 +979,5 @@ $(document).ready(function(){
     })
 </script>
 <style>
-	
+
 </style>

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\check.html";i:1544426694;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:82:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\task\arrange.html";i:1544197893;s:73:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1544404632;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -351,209 +351,113 @@
         }
     })
 </script>
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css?1">
-	<div class="write_box" id="check">
-		<div class="title" style="margin-bottom: 20px;">
-			<a class="glyphicon glyphicon-ok">工作汇报批改/详情</a>
-			<a href="<?php echo url('index'); ?>" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
+<link rel="stylesheet" type="text/css" href="__STATIC__/library/dropify-master/dist/css/dropify.min.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css?3">
+<link rel="stylesheet" type="text/css" href="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.css"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/library/bootstrap/bootstrap-select.min.css"/>
+
+	<div class="write_box">
+		<div class="title">
+			<a class="glyphicon glyphicon-list">布置任务</a>
+			<a href="<?php echo url('index'); ?>" class="glyphicon glyphicon-chevron-left return">返回工作台</a>			
 		</div>
-		<?php foreach($check as $check_info): ?>
-		<form action="<?php echo url('update'); ?>?id=<?php echo $check_info['id']; ?>" method="post" enctype="multipart/form-data" onsubmit="return sumbit_sure()">
-			<div class="form-group" style="font-size: 16px;">
-				<?php foreach($user as $userdata): if($userdata['user_cate']=='工'): ?>
+		<h3 class="time_now"><?php echo $time; ?></h3>
+		<div class="from_box">
+			<form action="<?php echo url('save2'); ?>" class="form" method="post" enctype="multipart/form-data" onsubmit="return beforesend()">
 				<div class="form-group">
-					<label>作业</label>
-					<input type="text" class="form-control" name="title" value="<?php echo $check_info['title']; ?>">
-				</div>
-				<div class="form-group">
-					<label>内容</label>
-					<textarea name="content" id="myEditor" style="height: 280px;width: 100%;" ><?php echo $check_info['content']; ?></textarea>
-				</div>
-				<div class="form-group">
-					<label>附件</label>
-					<input type="file" name="work" class="dropify" data-default-file="__UPLOADS__<?php echo $check_info['work']; ?>">
-				</div>				
-				<?php endif; ?>
-				
-				<table v-if="con == 1" class="table" style="text-align: center;"  >
-				<tr>				
-					<th>编号ID</th>
-					<th>对接人</th>
-					<th>任务名称</th>
-					<th>附件</th>
-					<th>添加时间</th>
-					<th>截止时间</th>
-					<th>任务级别</th>
-					<th>状态</th>					
-				</tr>
-				    <tr >
-						<td><?php echo $check_info['id']; ?></td>
-						<td><?php echo $check_info['execute_id']; ?></td>
-						<td><?php echo $check_info['work_name']; ?></td>
-						<?php if($check_info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $check_info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($check_info['work_require']==""): ?>
-						<td>无</td>
-						<?php endif; ?>
-						<td><?php echo $check_info['time']; ?></td>
-						<td><?php echo $check_info['lasttime']; ?></td>
-						<td><?php echo $check_info['work_rank']; ?></td>
-						<?php if($check_info['state']=="1"): ?>
-						<td>已发布待查阅</td>
-						<?php endif; if($check_info['state']=="2"): ?>
-						<td>已查阅</td>
-						<?php endif; if($check_info['state']=="3"): ?>
-						<td>发起人已放弃</td>
-						<?php endif; if($check_info['state']=="4"): ?>
-						<td>任务已完成</td>
-						<?php endif; ?>
-					</tr>			
-				
-			
-				
-				
-				
-			</table>
-			
-			<div style="width: 100%;height: auto;border: 1px solid #DDDDDD; border-radius: 10px;">
-				<div style="width: 10%;height: 30px;line-height: 30px;color: red;margin-left: 20px;">详情</div>
-				<div style="padding-left: 20px;"><?php echo $check_info['work_require']; ?></div>
-			</div>
-
-			<div style="width: 15%;height: 30px;line-height: 30px;color: cornflowerblue; font-size: 20px;margin-top: 30px;">
-				任务日志
-			</div>
-			<?php foreach($log_list as $loglist_info): ?>
-			<div style="width: 100%;height: 140px;">
-				<div style="width: 12%;height: 35px;background-color: #00A65A;text-align: center;line-height: 35px;border-radius: 10px;">
-					<?php echo $loglist_info['time']; ?>
-				</div>
-				<div style="width: 100%;height: 105px;">
-					<div style="display: inline-block;width: 3px;height: 104px;background-color: #DADADA;margin-left: 70px;float: left;"></div>
-					<div style="width: 90%;height: 90px;border: 1px solid #DADADA;margin-left: 10px;float: left;margin-top: 5px;border-radius: 5px;">
-						<div style="width: 100%;height: 30px;border-bottom: 1px solid #DADADA;">
-							<div style="height: 30px;line-height: 30px;color: #3376B2;font-size: 15px;float: left;">操作人:</div>
-							<div style="width:70%; height: 30px;line-height: 30px;font-size: 13px;float: left;"><?php echo $loglist_info['uname']; ?></div>
-						</div>
-						<div style="height: 60px;font-size: 13px;overflow: hidden;">
-							<?php echo $loglist_info['rw_log']; ?>
-						</div>
+					<div class="form-group">
+						<label>任务</label>
+						<input id="workname" type="text" class="form-control" name="work_name" value="">
 					</div>
-					
-				</div>
-			</div>
-			<?php endforeach; ?>
-			<div class="<?php echo !empty($check_info['state']) && $check_info['state']==3||$check_info['state']==4?'aa' :''; ?>">
-				<div style="width: 15%;height: 30px;line-height: 30px;color: cornflowerblue; font-size: 20px;margin-top: 30px;">
-					操作
-				</div>
-				<textarea id="caozuo" name="log" style="height: 100px;width: 100%;" value=""></textarea>
-			</div>
-               
-				
-				
-				
-				<?php endforeach; ?>								
-			</div>
+					<div class="form-group">
+						<label>任务附件</label>
+						<input type="file" name="work_require" class="dropify"></input>
+					</div>
+					<div class="form-group">
+						<label>任务详情</label>
+						<textarea name="content" id="myEditor" style="height: 200px;width: 100%;"></textarea>
+					</div>
+					<div class="form-group">
+						<label>对接人</label>
+						<input  type="text" name="executerid" id="executer" value="" class="abc" style="display: none;"></input>
+						<select id="approverq" class="selectpicker" multiple name="executor">
+							<?php foreach($userid_list as $key=>$info): ?>
+						    <option value="<?php echo $info['user_name']; ?>"><?php echo $info['user_name']; ?></option>
+						    <?php endforeach; ?>
+						                           
+						</select>
 						
-			<div class="form-group <?php echo !empty($check_info['state']) && $check_info['state']==3||$check_info['state']==4?'aa' :''; ?>">
-				<input name="abandon" type="submit" class="btn btn-primary" style="outline:none;" value="提交">
-				 <input name="abandon" type="button" class="btn btn-primary" style="outline:none;" onclick="giveUp()" value="放弃任务">
-				<input name="abandon" type="button" class="btn btn-primary" style="outline:none;" onclick="finish()" value="结束任务">
-				
-			</div>
-			
-			
-		</form><script type="text/javascript">	
-		//操作提交前判定
-		function sumbit_sure(){	
-			var a = $("#caozuo").val();
-				if(a == ''){
-					alert('操作框不能为空！');
-					return false;
-				}else{
-					var cof = confirm('是否要提交！');
-					if(cof==true){
-						return true;
-					}else{
-						return false;
-					}
-				}
-			};
-			//放弃任务
-			function giveUp(){
-				var cof = confirm('是否要提交放弃任务')
-				if(cof){
-					$.post(
-						'<?php echo url('giveUp'); ?>?id=<?php echo $check_info['id']; ?>', 
-						function(e){
-							window.location.reload()
-						}
-					);
-				}
-				
-
-			};
-			//完成任务
-			function finish(){
-				var cof = confirm('是否要提交完成任务')
-				if(cof){
-				$.post(
-						'<?php echo url('finishWork'); ?>?id=<?php echo $check_info['id']; ?>', 
-						function(e){
-							window.location.reload()
-						}
-					);
-				}
-
-			}
-			
-			
+						
+					</div>
+					<div class="form-group">
+						<label>任务级别</label>
+						<select  name="urgency" style="width: 200px;margin-top: 20px;height: 30px;border-radius: 10px;outline:none;">
+						<option>今天</option>	
+						<option>代办</option>						
+						<option>紧急</option>						
+						<option>加急</option>						
+						</select>
+						
+					</div>
+					<div class="form-group">
+						<label>截止时间</label>
+						                <div class='input-group date'style="width:200px" id='datetimepicker'>
+						                    <input id="time" type='text' class="form-control" name="lasttime"/>
+						                    <span class="input-group-addon" style="margin-left: -200px;">
+						                        <span class="glyphicon glyphicon-calendar"></span>
+						                    </span>
+						                </div>
 		
-    	$('.dropify').dropify();
-   		UE.getEditor("myEditor");
-	</script>
-		<?php endforeach; ?>
+					</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-primary" value="提交" onclick="fun()">
+				</div>
+			</form>
+		</div>
 	</div>
-
-
-<footer class="footer" style="text-align: center;margin-top: 50px;">
-	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
-	&nbsp;
-	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
-		投诉&amp;问题
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
-		微客服
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
-		<i class="md md-speaker-notes m-r-5"></i>
-		订阅号
-	</a>
-	<br>
-	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
-</footer>
-<!-- 底部 -->
-<script type="text/javascript">
-$(document).ready(function(){
-	$(".left_menu ul li").click(function(event){
-		event.preventDefault();
-		console.log($(this).siblings().find('a,p'))
-		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
-			"color":"#5d9cec"})
-		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
-		$(this).find('a,p').css("color","#5d9cec")
-		$(this).siblings().find('a,p').css("color","white")
-	})
-});
-</script>
+	<script type="text/javascript" src="__STATIC__/library/dropify-master/dist/js/dropify.min.js"></script>
+	<!-- 配置文件 -->
+	<script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.config.js"></script>
+	<!-- 编辑器源码文件 -->
+	<script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.all.min.js"></script>
+	<script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-select.min.js"></script>
+	<script type="text/javascript" src="__STATIC__/library/bootstrap/defaults-zh_CN.min.js"></script>
+	<script type="text/javascript">
+		function beforesend(){
+			
+			if($('#workname').val()==''){
+				alert('任务不能为空');
+				return false;
+			}else if($('#approverq').val()==''){
+				alert('对接人不能为空');
+				return false;
+			}else if($('#time').val()==''){
+				alert('截止时间不能为空');
+				return false;
+			}else{
+				return true;
+			}
+		};
+		function fun(){
+			
+			var str=[];
+		var obj = document.getElementById("approverq");
+			for(var i=0;i<obj.options.length;i++){
+				if(obj.options[i].selected){
+				str.push(obj.options[i].value);// 收集选中项
+				}
+			}
+		$("#executer").val(str);
+		};
+		
+		$('#datetimepicker').datetimepicker({
+			 
+		});
+    	$('.dropify').dropify();
+   		UE.getEditor("myEditor");			
+    	
+   		
+	</script>
 </body>
 </html>
-	
-	<style type="text/css">
-		.aa{
-			display: none;
-		    }
-	</style>

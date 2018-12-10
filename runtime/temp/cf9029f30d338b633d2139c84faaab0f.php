@@ -1,10 +1,8 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\check.html";i:1544426694;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:79:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\task\read.html";i:1544063398;s:73:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1544063398;s:74:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\left.html";i:1544063398;s:74:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>智慧云办公系统管理</title>
     <!-- CSS公共样式 -->
     <link rel="stylesheet" type="text/css" href="__STATIC__/admin/common/common.css?99">
@@ -351,171 +349,170 @@
         }
     })
 </script>
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css?1">
-	<div class="write_box" id="check">
-		<div class="title" style="margin-bottom: 20px;">
-			<a class="glyphicon glyphicon-ok">工作汇报批改/详情</a>
-			<a href="<?php echo url('index'); ?>" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
+<div class="left_menu lbs" id="left_menu">
+	<ul v-if="controller!='Map'">
+		<li><a href="#" class="glyphicon glyphicon-calendar"><p>工作台</p></a></li>
+		<li><a href="#" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
+		<li><a href="#"><p>全功能</p></a></li>
+		<li style="margin-top: 150px;"><a href="#" class="glyphicon glyphicon-tasks"><p>综合报表</p></a></li>
+		<li><a href="#"><p>APP</p></a></li>
+		<li><a href="#" class="glyphicon glyphicon-download-alt"><p>下载</p></a></li>
+	</ul>
+	<ul v-if="controller=='Map'" class="Maplist">
+		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
+		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
+		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
+		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
+		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
+		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
+		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
+		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
+	</ul>
+</div>
+<script type="text/javascript">
+ new Vue({
+        el:'#left_menu',
+        data:{
+           controller:"Index"
+        },
+        created(){
+        	this.init();
+        },
+        methods:{
+        	init(){
+                this.controller="<?php echo request()->controller(); ?>";
+        	}
+        }
+    })
+</script>
+
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?2">
+<div class="task">
+	<div class="task_left"></div>
+	<div class="task_box">
+		<div class="task_title">
+			<span class="glyphicon glyphicon-list-alt pull-left"></span>
+			<h4>TASK员工任务管理</h4>
 		</div>
-		<?php foreach($check as $check_info): ?>
-		<form action="<?php echo url('update'); ?>?id=<?php echo $check_info['id']; ?>" method="post" enctype="multipart/form-data" onsubmit="return sumbit_sure()">
-			<div class="form-group" style="font-size: 16px;">
-				<?php foreach($user as $userdata): if($userdata['user_cate']=='工'): ?>
-				<div class="form-group">
-					<label>作业</label>
-					<input type="text" class="form-control" name="title" value="<?php echo $check_info['title']; ?>">
-				</div>
-				<div class="form-group">
-					<label>内容</label>
-					<textarea name="content" id="myEditor" style="height: 280px;width: 100%;" ><?php echo $check_info['content']; ?></textarea>
-				</div>
-				<div class="form-group">
-					<label>附件</label>
-					<input type="file" name="work" class="dropify" data-default-file="__UPLOADS__<?php echo $check_info['work']; ?>">
-				</div>				
-				<?php endif; ?>
-				
-				<table v-if="con == 1" class="table" style="text-align: center;"  >
-				<tr>				
+		<div class="task_content">
+			<?php foreach($user as $userdata): ?>
+			<!-- 学生身份作业管理 -->
+			<?php if($userdata['user_cate']=='员工'): ?>
+			<ul class="list_top">
+				<li><a href="<?php echo url('add'); ?>"><span class="glyphicon glyphicon-pencil"></span>提交汇报</a></li>
+				<li><a href="<?php echo url('index'); ?>"><span class="glyphicon glyphicon-pencil"></span>查看已交汇报</a></li>
+			</ul>
+			<table class="table" style="text-align: center;">
+				<tr>
 					<th>编号ID</th>
-					<th>对接人</th>
-					<th>任务名称</th>
+					<th>发布人</th>
+					<th>名称</th>
 					<th>附件</th>
 					<th>添加时间</th>
-					<th>截止时间</th>
-					<th>任务级别</th>
-					<th>状态</th>					
 				</tr>
-				    <tr >
-						<td><?php echo $check_info['id']; ?></td>
-						<td><?php echo $check_info['execute_id']; ?></td>
-						<td><?php echo $check_info['work_name']; ?></td>
-						<?php if($check_info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $check_info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($check_info['work_require']==""): ?>
+				<?php foreach($work_list as $info): ?>
+				<tr >
+					<td><?php echo $info['id']; ?></td>
+					<td><?php echo $info['faburen']; ?></td>
+					<td><?php echo $info['work_name']; ?></td>
+					<?php if($info['work_require']!=""): ?>
+						<td><a href="__UPLOADS__<?php echo $info['work_require']; ?>">点击查看</a></td>
+						<?php endif; if($info['work_require']==""): ?>
 						<td>无</td>
 						<?php endif; ?>
-						<td><?php echo $check_info['time']; ?></td>
-						<td><?php echo $check_info['lasttime']; ?></td>
-						<td><?php echo $check_info['work_rank']; ?></td>
-						<?php if($check_info['state']=="1"): ?>
-						<td>已发布待查阅</td>
-						<?php endif; if($check_info['state']=="2"): ?>
-						<td>已查阅</td>
-						<?php endif; if($check_info['state']=="3"): ?>
-						<td>发起人已放弃</td>
-						<?php endif; if($check_info['state']=="4"): ?>
-						<td>任务已完成</td>
-						<?php endif; ?>
+					<td><?php echo $info['time']; ?></td>
+				</tr>
+				<?php endforeach; ?>
+			</table>
+			<?php endif; ?>
+			<!-- 非学生身份管理作业 -->
+			<?php if($userdata['user_cate']=='老板'): ?>
+			<ul class="list_top">
+				<li><a href="<?php echo url('index'); ?>"><span class="glyphicon glyphicon-list"></span>查看任务进度</a></li>
+				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
+				<li style="width: 0%;">
+
+				</li>
+			</ul>
+			<table class="table" style="text-align: center;">
+				<tr>
+					<th>编号ID</th>
+					<th>发布人</th>
+					<th>内容</th>
+					<th>附件</th>
+					<th>添加时间</th>
+					<th>操作</th>
+				</tr>
+				<?php foreach($work_list as $info): ?>
+					<tr >
+						<td><?php echo $info['id']; ?></td>
+						<?php foreach($user_list as $user): if($user["user_name"]==$userdata['user_name']): ?>
+						<td><?php echo $info['faburen']; ?></td>
+						<td><?php echo $info['work_name']; ?></td><?php if($info['work_require']!=""): ?>
+						<td><a href="__UPLOADS__<?php echo $info['work_require']; ?>">点击查看</a></td>
+						<?php endif; if($info['work_require']==""): ?>
+						<td>无</td>
+						<?php endif; endif; endforeach; ?>	
+						
+						
+						<td><?php echo $info['time']; ?></td>
+						<td><a class="btn btn-default" href="<?php echo url('xiugai',['id'=>$info['id']]); ?>">修改</a></td>
 					</tr>			
-				
-			
-				
-				
-				
+				<?php endforeach; ?>
 			</table>
 			
-			<div style="width: 100%;height: auto;border: 1px solid #DDDDDD; border-radius: 10px;">
-				<div style="width: 10%;height: 30px;line-height: 30px;color: red;margin-left: 20px;">详情</div>
-				<div style="padding-left: 20px;"><?php echo $check_info['work_require']; ?></div>
-			</div>
+			<?php echo $work_list->render(); ?>
+			<ul class="list_bottom">
+				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
+				<li><a href="javascript:;"><span class="glyphicon glyphicon-list"></span>汇总</a></li>
+				<li><a href="javascript:;"><span class="glyphicon glyphicon-download-alt"></span>作业导出</a></li>
+			</ul>
+			<?php endif; if($userdata['user_cate']=='经理'): ?>
+			<ul class="list_top">
+				<li><a href="<?php echo url('index'); ?>"><span class="glyphicon glyphicon-list"></span>查看任务进度</a></li>
+				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
+				<li style="width: 0%;">
 
-			<div style="width: 15%;height: 30px;line-height: 30px;color: cornflowerblue; font-size: 20px;margin-top: 30px;">
-				任务日志
-			</div>
-			<?php foreach($log_list as $loglist_info): ?>
-			<div style="width: 100%;height: 140px;">
-				<div style="width: 12%;height: 35px;background-color: #00A65A;text-align: center;line-height: 35px;border-radius: 10px;">
-					<?php echo $loglist_info['time']; ?>
-				</div>
-				<div style="width: 100%;height: 105px;">
-					<div style="display: inline-block;width: 3px;height: 104px;background-color: #DADADA;margin-left: 70px;float: left;"></div>
-					<div style="width: 90%;height: 90px;border: 1px solid #DADADA;margin-left: 10px;float: left;margin-top: 5px;border-radius: 5px;">
-						<div style="width: 100%;height: 30px;border-bottom: 1px solid #DADADA;">
-							<div style="height: 30px;line-height: 30px;color: #3376B2;font-size: 15px;float: left;">操作人:</div>
-							<div style="width:70%; height: 30px;line-height: 30px;font-size: 13px;float: left;"><?php echo $loglist_info['uname']; ?></div>
-						</div>
-						<div style="height: 60px;font-size: 13px;overflow: hidden;">
-							<?php echo $loglist_info['rw_log']; ?>
-						</div>
-					</div>
-					
-				</div>
-			</div>
-			<?php endforeach; ?>
-			<div class="<?php echo !empty($check_info['state']) && $check_info['state']==3||$check_info['state']==4?'aa' :''; ?>">
-				<div style="width: 15%;height: 30px;line-height: 30px;color: cornflowerblue; font-size: 20px;margin-top: 30px;">
-					操作
-				</div>
-				<textarea id="caozuo" name="log" style="height: 100px;width: 100%;" value=""></textarea>
-			</div>
-               
-				
-				
-				
-				<?php endforeach; ?>								
-			</div>
+				</li>
+			</ul>
+			<table class="table" style="text-align: center;">
+				<tr>
+					<th>编号ID</th>
+					<th>发布人</th>
+					<th>内容</th>
+					<th>附件</th>
+					<th>添加时间</th>
+					<th>操作</th>
+				</tr>
+				<?php foreach($work_list as $info): ?>
+					<tr >
+						<td><?php echo $info['id']; ?></td>
+						<?php foreach($user_list as $user): if($user["user_name"]==$userdata['user_name']): ?>
+						<td><?php echo $info['faburen']; ?></td>
+						<td><?php echo $info['work_name']; ?></td><?php if($info['work_require']!=""): ?>
+						<td><a href="__UPLOADS__<?php echo $info['work_require']; ?>">点击查看</a></td>
+						<?php endif; if($info['work_require']==""): ?>
+						<td>无</td>
+						<?php endif; endif; endforeach; ?>	
 						
-			<div class="form-group <?php echo !empty($check_info['state']) && $check_info['state']==3||$check_info['state']==4?'aa' :''; ?>">
-				<input name="abandon" type="submit" class="btn btn-primary" style="outline:none;" value="提交">
-				 <input name="abandon" type="button" class="btn btn-primary" style="outline:none;" onclick="giveUp()" value="放弃任务">
-				<input name="abandon" type="button" class="btn btn-primary" style="outline:none;" onclick="finish()" value="结束任务">
-				
-			</div>
+						
+						<td><?php echo $info['time']; ?></td>
+						<td><a class="btn btn-default" href="<?php echo url('xiugai',['id'=>$info['id']]); ?>">修改</a></td>
+					</tr>			
+				<?php endforeach; ?>
+			</table>
 			
-			
-		</form><script type="text/javascript">	
-		//操作提交前判定
-		function sumbit_sure(){	
-			var a = $("#caozuo").val();
-				if(a == ''){
-					alert('操作框不能为空！');
-					return false;
-				}else{
-					var cof = confirm('是否要提交！');
-					if(cof==true){
-						return true;
-					}else{
-						return false;
-					}
-				}
-			};
-			//放弃任务
-			function giveUp(){
-				var cof = confirm('是否要提交放弃任务')
-				if(cof){
-					$.post(
-						'<?php echo url('giveUp'); ?>?id=<?php echo $check_info['id']; ?>', 
-						function(e){
-							window.location.reload()
-						}
-					);
-				}
-				
-
-			};
-			//完成任务
-			function finish(){
-				var cof = confirm('是否要提交完成任务')
-				if(cof){
-				$.post(
-						'<?php echo url('finishWork'); ?>?id=<?php echo $check_info['id']; ?>', 
-						function(e){
-							window.location.reload()
-						}
-					);
-				}
-
-			}
-			
-			
-		
-    	$('.dropify').dropify();
-   		UE.getEditor("myEditor");
-	</script>
-		<?php endforeach; ?>
+			<?php echo $work_list->render(); ?>
+			<ul class="list_bottom">
+				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
+				<li><a href="javascript:;"><span class="glyphicon glyphicon-list"></span>汇总</a></li>
+				<li><a href="javascript:;"><span class="glyphicon glyphicon-download-alt"></span>作业导出</a></li>
+			</ul>
+			<?php endif; endforeach; ?>
+		</div>
 	</div>
-
+	<div class="task_right"></div>
+</div>
 
 <footer class="footer" style="text-align: center;margin-top: 50px;">
 	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
@@ -551,9 +548,3 @@ $(document).ready(function(){
 </script>
 </body>
 </html>
-	
-	<style type="text/css">
-		.aa{
-			display: none;
-		    }
-	</style>
