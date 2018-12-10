@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:66:"D:\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544407078;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544415057;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:66:"D:\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544407078;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1544427062;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544427397;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
  <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -354,7 +354,6 @@
  	<!DOCTYPE html>
 <html>
 	<head>
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
 <script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
 		<meta charset="UTF-8">
 		<title></title>
@@ -495,7 +494,9 @@
     font-size: 11px;
 }
 </style> 
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> <div class="left_menu lbs" id="left_menu" style="z-index: 99;">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> 
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
+<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
 		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
 		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
@@ -542,7 +543,7 @@
  	window.location.href='<?php echo url('admin/index/department'); ?>'
  }
  function jump_five(){
- 	window.location.href='<?php echo url('admin/index/index'); ?>'
+ 	window.location.href='<?php echo url('admin/index/information'); ?>'
  }
 
 </script>

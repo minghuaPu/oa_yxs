@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:71:"D:\wamp64\www\oa\public/../application/admin\view\index\department.html";i:1544407078;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544414115;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1544407078;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:71:"D:\wamp64\www\oa\public/../application/admin\view\index\department.html";i:1544407078;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544427062;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1544427062;}*/ ?>
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/department/department.css"/>
 <html>
@@ -357,10 +357,12 @@
         }
     })
 </script>
-	<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
+	
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
+<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
 		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
-		<li ><a href="<?php echo url('admin/index/work'); ?>" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
+		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
 		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
 		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
 		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
@@ -412,7 +414,6 @@
 	<!DOCTYPE html>
 <html>
 	<head>
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
 <script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
 		<meta charset="UTF-8">
 		<title></title>

@@ -74,4 +74,7 @@ class Index extends \app\admin\Auth
 		
     	return $this->fetch();
     }
+    public function information(){
+        return $this->fetch();
+    }
 }
