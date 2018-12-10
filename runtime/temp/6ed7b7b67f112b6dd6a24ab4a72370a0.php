@@ -1,8 +1,10 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:80:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\task\index.html";i:1544198105;s:73:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1544063398;s:74:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\left.html";i:1544063398;s:74:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:80:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\task\index.html";i:1544404632;s:73:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1544404632;s:74:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\left.html";i:1544404632;s:74:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>智慧云办公系统管理</title>
     <!-- CSS公共样式 -->
     <link rel="stylesheet" type="text/css" href="__STATIC__/admin/common/common.css?99">
@@ -349,16 +351,15 @@
         }
     })
 </script>
-<div class="left_menu lbs" id="left_menu">
+<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
-		<li><a href="#" class="glyphicon glyphicon-calendar"><p>工作台</p></a></li>
-		<li><a href="#" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-		<li><a href="#"><p>全功能</p></a></li>
-		<li style="margin-top: 150px;"><a href="#" class="glyphicon glyphicon-tasks"><p>综合报表</p></a></li>
-		<li><a href="#"><p>APP</p></a></li>
-		<li><a href="#" class="glyphicon glyphicon-download-alt"><p>下载</p></a></li>
+		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
+		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
+		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
+		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
+		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
 	</ul>
-	<ul v-if="controller=='Map'" class="Maplist">
+	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
 		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
 		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
@@ -367,7 +368,7 @@
 		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
 		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
 		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-	</ul>
+	</ul>-->
 </div>
 <script type="text/javascript">
  new Vue({
@@ -384,6 +385,22 @@
         	}
         }
     })
+ function jump(){
+ 	 window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+ function jump_two(){
+ 	window.location.href='<?php echo url('admin/index/work'); ?>'
+ }
+ function jump_three(){
+ 	window.location.href='<?php echo url('admin/index/finance'); ?>'
+ }
+ function jump_four (){
+ 	window.location.href='<?php echo url('admin/index/department'); ?>'
+ }
+ function jump_five(){
+ 	window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+
 </script>
 
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
@@ -415,7 +432,7 @@
 
 					</div>
 					<div class="Employee_right">
-						<div class="font">整体打分</div>
+						<div class="font">完成情况</div>
 						<div class="Score"><div class="fens"><div class="se"></div><div class="fen">66.6分</div></div></div>
 						
 					</div>
@@ -471,18 +488,18 @@
 					</td>
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.reasons' @blur='reasons(index)'></td>
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.remark' @blur='remark(index)'></td>
-					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.score' @blur='score(index)'></td>
+					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
 					<td><a href="">查看详情</a></td>
 				</tr>
 				<?php foreach($bossfenprw as $val): ?>
 				<tr >
 					<td>
-					  1
+					  2
 					</td>
 					<td>
 						<select >
 					
-						  <option     style="text-align: center;"></option>
+						  <option  style="text-align: center;"></option>
 					
 					  </select>
 					</td>
@@ -770,19 +787,42 @@ $(document).ready(function(){
         data: {
             worksheet:<?php echo $yuangong; ?>, 
             primary : <?php echo $main; ?>,
+            fine:<?php echo $fine; ?>,
             secondary:[],
             quantity:[],
             con:1,
           
         },
         mounted(){
-        	for (var i = 0; i < this.worksheet.length; i++) {
-        	this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary)
-        	// this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary)
-      		this.secondary.push([])
-      		
-            this.quantity.push([])
+        	console.log(this.worksheet);
+        	if(this.worksheet.length<8){
+        		var num=8-this.worksheet.length;
+        		for (var i = 0; i < num; i++) {
+        			this.worksheet.push({});
+        		}
+        		
+        		
         	}
+        	for (var i = 0; i < this.worksheet.length; i++) {
+        	this.secondary.push([])
+            this.quantity.push([])
+        	this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary);
+        	this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary);
+        	     for (var a = 0; a < this.fine.length; a++) {
+        	     	if(this.worksheet[i].primary.id==this.fine[a].main){
+          				this.secondary[i].push(this.fine[a])
+        				}
+        	     }
+        			if(this.worksheet[i].secondary.liangtype==0){
+        				this.$set(this.quantity,i,<?php echo $liang; ?>)	
+        			}else{
+        				this.$set(this.quantity,i,<?php echo $time; ?>)	
+        			}
+        		
+      		
+        	}
+        	console.log(this.secondary);
+        	
          				
 		},
        	
@@ -806,7 +846,7 @@ $(document).ready(function(){
      	},
         // 主分类
         zhuclassify(e){
-     		console.log(this.worksheet[e].primary.xuan)
+     		console.log(this.worksheet[e].primary)
         	    $.get('<?php echo url("admin/task/classify"); ?>',
         	    	{
 	
@@ -815,27 +855,48 @@ $(document).ready(function(){
 	        	    	xuan:this.worksheet[e].primary.id,
 	        	    	type:this.worksheet[e].primary.type
         	    	},(rtnData)=>{     
-        	    			// this.secondary[e]=rtnData
-        	    			this.$set(this.secondary,e,rtnData)
+        	    	
+        	    			if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
 
+        	    			var text=[];
+        	    			 for (var a = 0; a < this.fine.length; a++) {
+			        	     	if(this.worksheet[e].primary.id==this.fine[a].main){
+			          				text.push(this.fine[a])
+			        				this.$set(this.secondary,e,text);
+			        				}
+        	     }
+        	    			console.log(this.worksheet);
         	    			
      			});
         },
         // 细分类
-        ciclassify(e){   
-        	console.log(this.worksheet[e].secondary);
+        ciclassify(e){ 
         	$.get('<?php echo url("admin/task/classify"); ?>',
-        	    	{
-        	    		
+        	    	{      	    		
         	    		select:2,
         	    		theme_id:this.worksheet[e].id,
         	    		xuan:this.worksheet[e].secondary,
-						// type:this.worksheet[e].secondary.type
+						
         	    	},(rtnData)=>{
-                 	   console.log(rtnData)
-        	    			// this.secondary[e]=rtnData
-        	    			this.$set(this.quantity,e,rtnData) 
+                 	   if(this.worksheet[e].secondary) {
+				          	if(this.worksheet[e].secondary.liangtype==0){
+				          
+				        		this.$set(this.quantity,e,<?php echo $liang; ?>)	
+				        	}else{
+				        		this.$set(this.quantity,e,<?php echo $time; ?>)	
+				        		
+				        	}
+				        	console.log(this.quantity)
+				          }
+				          this.worksheet[e].score=rtnData;
+        	    			 // this.$set(this.quantity,e,rtnData) 
+
      			});
+
+ 
         },
         // 时间/数量
         liang(e){
@@ -858,6 +919,11 @@ $(document).ready(function(){
         	    		select:4,
         	    		theme_id:this.worksheet[e].id,
         	    		job:this.worksheet[e].job
+        	    	},(rtnData)=>{
+        	    		if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
         	    	});
         },
         // 是否完成
@@ -878,6 +944,11 @@ $(document).ready(function(){
         	    		select:6,
         	    		theme_id:this.worksheet[e].id,
         	    		reasons:this.worksheet[e].reasons
+        	    	},(rtnData)=>{
+        	    		if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
         	    	});
         },
         // 备注
@@ -888,6 +959,11 @@ $(document).ready(function(){
         	    		select:7,
         	    		theme_id:this.worksheet[e].id,
         	    		remark:this.worksheet[e].remark
+        	    	},(rtnData)=>{
+        	    		if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
         	    	});
         },
         // 统计分数

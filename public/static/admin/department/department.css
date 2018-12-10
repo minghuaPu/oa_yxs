@@ -1,0 +1,53 @@
+.top{
+	display: flex;
+}
+.status_title{
+	font-size: 20px;
+    margin: 10px 0 10px 20px;
+}
+.status_title_two{
+	font-size: 20px;
+    padding: 10px 0 10px 20px;
+    margin-top:10px ;
+    background: white;
+}
+.status{
+	margin-right: 20px;
+}
+.excellent_title{
+	font-size: 20px;
+    margin: 10px 0 10px 20px;
+    
+}
+.excellent{
+	margin-right: 20px;
+}
+
+
+.img_box{
+	width: 560px;
+	height:390px;
+	background: white;
+}
+.bottom{
+	display: flex;
+}
+.contribution{
+	margin-left: 20px;
+	width: 465px;
+}
+.img_box_three{
+	width: 465px;
+	height:400px;
+	background: white;
+}
+.img_box_four{
+	width: 410px;
+	height:400px;
+	background: white;
+}
+.img_box_three{
+	width: 709px;
+	height:390px;
+	background: white;
+}

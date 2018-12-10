@@ -29,7 +29,7 @@
 
 					</div>
 					<div class="Employee_right">
-						<div class="font">整体打分</div>
+						<div class="font">完成情况</div>
 						<div class="Score"><div class="fens"><div class="se"></div><div class="fen">66.6分</div></div></div>
 						
 					</div>
@@ -85,18 +85,18 @@
 					</td>
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.reasons' @blur='reasons(index)'></td>
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.remark' @blur='remark(index)'></td>
-					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.score' @blur='score(index)'></td>
+					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
 					<td><a href="">查看详情</a></td>
 				</tr>
 				{foreach $bossfenprw as $val}
 				<tr >
 					<td>
-					  1
+					  2
 					</td>
 					<td>
 						<select >
 					
-						  <option     style="text-align: center;"></option>
+						  <option  style="text-align: center;"></option>
 					
 					  </select>
 					</td>
@@ -365,19 +365,42 @@
         data: {
             worksheet:{$yuangong}, 
             primary : {$main},
+            fine:{$fine},
             secondary:[],
             quantity:[],
             con:1,
           
         },
         mounted(){
-        	for (var i = 0; i < this.worksheet.length; i++) {
-        	this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary)
-        	// this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary)
-      		this.secondary.push([])
-      		
-            this.quantity.push([])
+        	console.log(this.worksheet);
+        	if(this.worksheet.length<8){
+        		var num=8-this.worksheet.length;
+        		for (var i = 0; i < num; i++) {
+        			this.worksheet.push({});
+        		}
+        		
+        		
         	}
+        	for (var i = 0; i < this.worksheet.length; i++) {
+        	this.secondary.push([])
+            this.quantity.push([])
+        	this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary);
+        	this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary);
+        	     for (var a = 0; a < this.fine.length; a++) {
+        	     	if(this.worksheet[i].primary.id==this.fine[a].main){
+          				this.secondary[i].push(this.fine[a])
+        				}
+        	     }
+        			if(this.worksheet[i].secondary.liangtype==0){
+        				this.$set(this.quantity,i,{$liang})	
+        			}else{
+        				this.$set(this.quantity,i,{$time})	
+        			}
+        		
+      		
+        	}
+        	console.log(this.secondary);
+        	
          				
 		},
        	
@@ -401,7 +424,7 @@
      	},
         // 主分类
         zhuclassify(e){
-     		console.log(this.worksheet[e].primary.xuan)
+     		console.log(this.worksheet[e].primary)
         	    $.get('{:url("admin/task/classify")}',
         	    	{
 	
@@ -410,27 +433,48 @@
 	        	    	xuan:this.worksheet[e].primary.id,
 	        	    	type:this.worksheet[e].primary.type
         	    	},(rtnData)=>{     
-        	    			// this.secondary[e]=rtnData
-        	    			this.$set(this.secondary,e,rtnData)
+        	    	
+        	    			if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
 
+        	    			var text=[];
+        	    			 for (var a = 0; a < this.fine.length; a++) {
+			        	     	if(this.worksheet[e].primary.id==this.fine[a].main){
+			          				text.push(this.fine[a])
+			        				this.$set(this.secondary,e,text);
+			        				}
+        	     }
+        	    			console.log(this.worksheet);
         	    			
      			});
         },
         // 细分类
-        ciclassify(e){   
-        	console.log(this.worksheet[e].secondary);
+        ciclassify(e){ 
         	$.get('{:url("admin/task/classify")}',
-        	    	{
-        	    		
+        	    	{      	    		
         	    		select:2,
         	    		theme_id:this.worksheet[e].id,
         	    		xuan:this.worksheet[e].secondary,
-						// type:this.worksheet[e].secondary.type
+						
         	    	},(rtnData)=>{
-                 	   console.log(rtnData)
-        	    			// this.secondary[e]=rtnData
-        	    			this.$set(this.quantity,e,rtnData) 
+                 	   if(this.worksheet[e].secondary) {
+				          	if(this.worksheet[e].secondary.liangtype==0){
+				          
+				        		this.$set(this.quantity,e,{$liang})	
+				        	}else{
+				        		this.$set(this.quantity,e,{$time})	
+				        		
+				        	}
+				        	console.log(this.quantity)
+				          }
+				          this.worksheet[e].score=rtnData;
+        	    			 // this.$set(this.quantity,e,rtnData) 
+
      			});
+
+ 
         },
         // 时间/数量
         liang(e){
@@ -453,6 +497,11 @@
         	    		select:4,
         	    		theme_id:this.worksheet[e].id,
         	    		job:this.worksheet[e].job
+        	    	},(rtnData)=>{
+        	    		if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
         	    	});
         },
         // 是否完成
@@ -473,6 +522,11 @@
         	    		select:6,
         	    		theme_id:this.worksheet[e].id,
         	    		reasons:this.worksheet[e].reasons
+        	    	},(rtnData)=>{
+        	    		if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
         	    	});
         },
         // 备注
@@ -483,6 +537,11 @@
         	    		select:7,
         	    		theme_id:this.worksheet[e].id,
         	    		remark:this.worksheet[e].remark
+        	    	},(rtnData)=>{
+        	    		if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
         	    	});
         },
         // 统计分数

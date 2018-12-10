@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
 	<name>oa_yxs</name>
+=======
+	<name>oa</name>
+>>>>>>> 6ac23eec1979eda3a5d2f43f82013dfb0633753d
 	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
 		<buildCommand>
+<<<<<<< HEAD
+=======
+			<name>com.aptana.editor.php.aptanaPhpBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+>>>>>>> 6ac23eec1979eda3a5d2f43f82013dfb0633753d
 			<name>com.aptana.ide.core.unifiedBuilder</name>
 			<arguments>
 			</arguments>
@@ -13,10 +25,18 @@
 	</buildSpec>
 	<natures>
 		<nature>com.aptana.projects.webnature</nature>
+<<<<<<< HEAD
 	</natures>
 	<filteredResources>
 		<filter>
 			<id>1544192597137</id>
+=======
+		<nature>com.aptana.editor.php.phpNature</nature>
+	</natures>
+	<filteredResources>
+		<filter>
+			<id>1544180412656</id>
+>>>>>>> 6ac23eec1979eda3a5d2f43f82013dfb0633753d
 			<name></name>
 			<type>26</type>
 			<matcher>

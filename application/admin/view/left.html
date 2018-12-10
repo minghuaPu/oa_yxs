@@ -1,13 +1,12 @@
-<div class="left_menu lbs" id="left_menu">
+<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
-		<li><a href="#" class="glyphicon glyphicon-calendar"><p>工作台</p></a></li>
-		<li><a href="#" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-		<li><a href="#"><p>全功能</p></a></li>
-		<li style="margin-top: 150px;"><a href="#" class="glyphicon glyphicon-tasks"><p>综合报表</p></a></li>
-		<li><a href="#"><p>APP</p></a></li>
-		<li><a href="#" class="glyphicon glyphicon-download-alt"><p>下载</p></a></li>
+		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
+		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
+		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
+		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
+		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
 	</ul>
-	<ul v-if="controller=='Map'" class="Maplist">
+	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="{:url('admin/map/index')}" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
 		<li><a href="{:url('admin/map/visit')}" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
 		<li><a href="{:url('admin/map/field')}" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
@@ -16,7 +15,7 @@
 		<li><a href="{:url('admin/map/check')}" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
 		<li><a href="{:url('admin/map/sign')}" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
 		<li><a href="{:url('admin/map/set')}" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-	</ul>
+	</ul>-->
 </div>
 <script type="text/javascript">
  new Vue({
@@ -33,4 +32,20 @@
         	}
         }
     })
+ function jump(){
+ 	 window.location.href='{:url('admin/index/index')}'
+ }
+ function jump_two(){
+ 	window.location.href='{:url('admin/index/work')}'
+ }
+ function jump_three(){
+ 	window.location.href='{:url('admin/index/finance')}'
+ }
+ function jump_four (){
+ 	window.location.href='{:url('admin/index/department')}'
+ }
+ function jump_five(){
+ 	window.location.href='{:url('admin/index/index')}'
+ }
+
 </script>

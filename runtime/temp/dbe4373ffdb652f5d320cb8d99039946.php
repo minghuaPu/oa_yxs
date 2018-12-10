@@ -1,8 +1,18 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\check.html";i:1523944325;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1525666750;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1543322190;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\work.html";i:1544404632;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1544404632;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1544404632;}*/ ?>
 <!DOCTYPE html>
+
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/work/work.css"/>
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>智慧云办公系统管理</title>
     <!-- CSS公共样式 -->
     <link rel="stylesheet" type="text/css" href="__STATIC__/admin/common/common.css?99">
@@ -349,94 +359,289 @@
         }
     })
 </script>
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css?9">
-	<div class="write_box" id="check">
-		<div class="title" style="margin-bottom: 20px;">
-			<a class="glyphicon glyphicon-ok">工作汇报批改/修改</a>
-			<a href="<?php echo url('index'); ?>" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
-		</div>
-		<?php foreach($check as $check_info): ?>
-		<form action="<?php echo url('update'); ?>?id=<?php echo $check_info['id']; ?>"  method="post" enctype="multipart/form-data">
-			<div class="form-group" style="font-size: 16px;">
-				<?php foreach($user as $userdata): if($userdata['user_cate']=='员工'): ?>
-				<div class="form-group">
-					<label>作业</label>
-					<input type="text" class="form-control" name="title" value="<?php echo $check_info['title']; ?>">
+	<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
+	<ul v-if="controller!='Map'">
+		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
+		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
+		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
+		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
+		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
+	</ul>
+	<!--<ul v-if="controller=='Map'" class="Maplist">
+		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
+		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
+		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
+		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
+		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
+		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
+		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
+		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
+	</ul>-->
+</div>
+<script type="text/javascript">
+ new Vue({
+        el:'#left_menu',
+        data:{
+           controller:"Index"
+        },
+        created(){
+        	this.init();
+        },
+        methods:{
+        	init(){
+                this.controller="<?php echo request()->controller(); ?>";
+        	}
+        }
+    })
+ function jump(){
+ 	 window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+ function jump_two(){
+ 	window.location.href='<?php echo url('admin/index/work'); ?>'
+ }
+ function jump_three(){
+ 	window.location.href='<?php echo url('admin/index/finance'); ?>'
+ }
+ function jump_four (){
+ 	window.location.href='<?php echo url('admin/index/department'); ?>'
+ }
+ function jump_five(){
+ 	window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+
+</script>
+ 
+	<!DOCTYPE html>
+<html>
+	<head>
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
+<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="page" style="z-index: 99;background:white;">
+			<div class="search_box">
+				<div class="iconfont icon-fangdajing"></div>
+				<input type="text" name="search" class="search" placeholder="搜索" />
+			</div>
+			<div class="people_box">
+				<div class="icon">
+					<div class="iconfont icon-geren"></div>
+					<div class="iconfont icon-iconset0337"></div>
+					<div class="iconfont icon-group"></div>
 				</div>
-				<div class="form-group">
-					<label>内容</label>
-					<textarea name="content" id="myEditor" style="height: 280px;width: 100%;" ><?php echo $check_info['content']; ?></textarea>
-				</div>
-				<div class="form-group">
-					<label>附件</label>
-					<input type="file" name="work" class="dropify" data-default-file="__UPLOADS__<?php echo $check_info['work']; ?>">
-				</div>				
-				<?php endif; if($userdata['user_cate']!='员工'): ?>
-				<div class="form-group">
-					<label>名称:</label>
-					<div><?php echo $check_info['title']; ?></div>
-				</div>
-				<div class="form-group">
-					<label>内容:</label>
-					<div><?php echo $check_info['content']; ?></div>
-				</div>
-				<div class="form-group">
-					<label>附件:</label>
-					<div>
-						<a href="__UPLOADS__<?php echo $check_info['work']; ?>">文件</a>
-						<?php echo $check_info['work']; ?>
+				<div class="name_box">
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
 					</div>
 				</div>
-				<div class="form-group">
-					<label>回复：</label>
-					<br>				
-					<textarea name="reply"  style="height: 180px;width: 60%;"  id="reply"><?php echo $check_info['reply']; ?></textarea>
+			</div>
+			<div  class="notice_title">
+				公告栏
+			</div>
+			<div class="notice_box">
+				<div class="notice">
+					<div class="notice_dian"></div>
+					<div class="notice_content">oa系统正式上线</div>
 				</div>
-				<?php endif; endforeach; ?>								
 			</div>
-			<div class="form-group">
-				<input type="submit" class="btn btn-primary" value="提交">
+			<div  class="notice_title">
+				新闻
 			</div>
-		</form>
-		<?php endforeach; ?>
-	</div>
-
-
-<footer class="footer" style="text-align: center;margin-top: 50px;">
-	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
-	&nbsp;
-	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
-		投诉&amp;问题
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
-		微客服
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
-		<i class="md md-speaker-notes m-r-5"></i>
-		订阅号
-	</a>
-	<br>
-	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
-</footer>
-<!-- 底部 -->
-<script type="text/javascript">
-$(document).ready(function(){
-	$(".left_menu ul li").click(function(event){
-		event.preventDefault();
-		console.log($(this).siblings().find('a,p'))
-		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
-			"color":"#5d9cec"})
-		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
-		$(this).find('a,p').css("color","#5d9cec")
-		$(this).siblings().find('a,p').css("color","white")
-	})
-});
-</script>
-</body>
+		</div>
+	</body>
 </html>
-	<script type="text/javascript">
-    	$('.dropify').dropify();
-   		UE.getEditor("myEditor");
-	</script>
+
+
+
+
+
+<style type="text/css">
+.page{
+	width:172px;
+	position:fixed ;
+	right: 0;
+	
+	
+}
+.search_box{
+	display: flex;
+	margin-top:9px;
+	background: #e6e6e6;
+	
+}
+.search_box input{
+	background: #e6e6e6;
+	border: 0px;
+	outline:none 
+}
+.icon{
+	display: flex;
+	margin: 6px 20px ;
+	
+}
+.icon div{
+	font-size: 23px;
+	flex: 1;
+	text-align: center;
+}
+.people{
+	display: flex;
+	align-items: center;
+}
+.name_box{
+	height: 250px;
+	overflow:scroll;
+	overflow-x:visible;
+}
+.people img{
+	width: 26px;
+	height: 26px;
+	border-radius: 26px;	
+}
+.people p{
+    margin-top: 13px;
+    margin-left: 3px;
+}
+.notice_title{
+	text-align: center;
+    padding: 4px 0;
+    font-size: 16px;
+    border-top: 1px solid #cccccc;
+    border-bottom:1px solid #cccccc;
+    font-weight: bold;
+}
+.notice{
+	display: flex;
+}
+.notice_dian{
+	width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: red;
+    margin-top: 5px;
+    margin-left: 7px;
+}
+.notice_box{
+	height: 143px;
+}
+.notice_content{
+	margin-left: 10px;
+    font-size: 11px;
+}
+</style> 
+	</head>
+	<body>
+	
+	<div class="container">
+		<div class="top">
+			<div class="week"> 
+				<div class="week_title">本周工作</div>
+				<div class="img_box" id="main" ></div>
+		    </div>
+		    <div class="month">
+		    	 <div class="week_title">本月汇总</div>
+		    	 <div class="img_box" id="main_two" ></div>
+		    </div>     
+		</div>
+		<div class="bottom">
+			<div class="bottom_title">
+				<div class="title_one">工作文档</div>
+				<div class="title_two">新建文档 +</div>
+				<div class="title_two">本地上传 +</div>
+			</div> 
+			<div class="bottom_table">
+				<table class="table" border="" cellspacing="" cellpadding="">
+					<tr>
+					  <th>全选<input type="checkbox" /></th>
+					  <th>时间</th>
+					  <th>主题</th>
+					  <th>内容</th>
+					  <th>分类</th>
+					  <th>查询</th>
+					  <th>抄作</th>
+					</tr>
+					<tr><td>Data</td></tr>
+				</table>
+			</div>
+		</div>
+		
+		
+		
+		
+		
+		
+	</div>
+	</body>
+</html>
+<script type="text/javascript">
+	    var myChart = echarts.init(document.getElementById('main'));
+        var option = {
+            title: {
+                text: '完成度%',
+               textStyle:{fontSize:10},
+               padding: [ 30,0,0,33]
+            },
+            tooltip: {},
+            legend: {
+                data:['销量']
+            },
+            xAxis: {
+                data: ["星期一","星期二","星期三","星期四","星期五","星期六"]
+            },
+            yAxis: {
+            	max:100
+            },
+            series: [{
+                color:'#28d2ae',
+                type: 'bar',
+                data: [20, 40, 10, 80, 90.5,80]
+            }]
+        };
+        myChart.setOption(option);// 使用刚指定的配置项和数据显示图表。
+        
+        var myChart = echarts.init(document.getElementById('main_two'));
+	    var   option = {
+	    xAxis: {
+	        type: 'category',
+	        data: ['第一周', '第二周', '第三周', '第四周']
+	    },
+	     tooltip: {}, //提示
+	    yAxis: {
+	        type: 'value',
+	        max:100
+	    },
+	    series: [{
+	    	 color:'#28d2ae',
+	        data: [50, 80, 30, 70],
+	        type: 'line',
+	        smooth: true
+	    }]
+	    };
+       myChart.setOption(option);
+</script>

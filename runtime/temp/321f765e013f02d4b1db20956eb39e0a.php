@@ -1,8 +1,10 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:82:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\task\arrange.html";i:1544197893;s:73:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1544063398;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:82:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\task\arrange.html";i:1544197893;s:73:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1544404632;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>智慧云办公系统管理</title>
     <!-- CSS公共样式 -->
     <link rel="stylesheet" type="text/css" href="__STATIC__/admin/common/common.css?99">

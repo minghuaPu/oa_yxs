@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:74:"D:\wamp64\www\OAZ\oa_yxs\public/../application/index\view\login\index.html";i:1544063215;s:66:"D:\wamp64\www\OAZ\oa_yxs\public/../application/index\view\top.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:77:"D:\wampserver\wamp64\www\oa\public/../application/index\view\login\index.html";i:1544063398;s:69:"D:\wampserver\wamp64\www\oa\public/../application/index\view\top.html";i:1544063398;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

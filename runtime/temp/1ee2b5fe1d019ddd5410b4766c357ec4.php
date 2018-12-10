@@ -1,4 +1,8 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"D:\wamp64\www\oa\public/../application/admin\view\gongdan\index.html";i:1525944428;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1525666750;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1516961672;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1543322190;}*/ ?>
+<<<<<<< HEAD:runtime/temp/b7e3e54c838b3873ab2c4997745d373c.php
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:80:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\task\check.html";i:1544195530;s:73:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1544063398;s:74:"D:\wampserver\wamp64\www\oa_yxs\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
+=======
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:65:"D:\new\www\oa\public/../application/admin\view\gongdan\index.html";i:1544086361;s:55:"D:\new\www\oa\public/../application/admin\view\top.html";i:1544086361;s:56:"D:\new\www\oa\public/../application/admin\view\left.html";i:1544257331;s:56:"D:\new\www\oa\public/../application/admin\view\foot.html";i:1544086361;}*/ ?>
+>>>>>>> 6ac23eec1979eda3a5d2f43f82013dfb0633753d:runtime/temp/1ee2b5fe1d019ddd5410b4766c357ec4.php
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -349,16 +353,42 @@
         }
     })
 </script>
+<<<<<<< HEAD:runtime/temp/b7e3e54c838b3873ab2c4997745d373c.php
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css?1">
+	<div class="write_box" id="check">
+		<div class="title" style="margin-bottom: 20px;">
+			<a class="glyphicon glyphicon-ok">工作汇报批改/详情</a>
+			<a href="<?php echo url('index'); ?>" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
+		</div>
+		<?php foreach($check as $check_info): ?>
+		<form action="<?php echo url('update'); ?>?id=<?php echo $check_info['id']; ?>" method="post" enctype="multipart/form-data" onsubmit="return sumbit_sure()">
+			<div class="form-group" style="font-size: 16px;">
+				<?php foreach($user as $userdata): if($userdata['user_cate']=='员工'): ?>
+				<div class="form-group">
+					<label>作业</label>
+					<input type="text" class="form-control" name="title" value="<?php echo $check_info['title']; ?>">
+				</div>
+				<div class="form-group">
+					<label>内容</label>
+					<textarea name="content" id="myEditor" style="height: 280px;width: 100%;" ><?php echo $check_info['content']; ?></textarea>
+				</div>
+				<div class="form-group">
+					<label>附件</label>
+					<input type="file" name="work" class="dropify" data-default-file="__UPLOADS__<?php echo $check_info['work']; ?>">
+				</div>				
+				<?php endif; if($userdata['user_cate']!='员工'): ?>
+				<table v-if="con == 1" class="table" style="text-align: center;"  >
+				<tr>				
+=======
 <div class="left_menu lbs" id="left_menu">
 	<ul v-if="controller!='Map'">
-		<li><a href="#" class="glyphicon glyphicon-calendar"><p>工作台</p></a></li>
-		<li><a href="#" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-		<li><a href="#"><p>全功能</p></a></li>
-		<li style="margin-top: 150px;"><a href="#" class="glyphicon glyphicon-tasks"><p>综合报表</p></a></li>
-		<li><a href="#"><p>APP</p></a></li>
-		<li><a href="#" class="glyphicon glyphicon-download-alt"><p>下载</p></a></li>
+		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
+		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
+		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
+		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
+		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
 	</ul>
-	<ul v-if="controller=='Map'" class="Maplist">
+	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
 		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
 		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
@@ -367,7 +397,7 @@
 		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
 		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
 		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-	</ul>
+	</ul>-->
 </div>
 <script type="text/javascript">
  new Vue({
@@ -384,6 +414,22 @@
         	}
         }
     })
+ function jump(){
+ 	 window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+ function jump_two(){
+ 	window.location.href='<?php echo url('admin/index/work'); ?>'
+ }
+ function jump_three(){
+ 	window.location.href='<?php echo url('admin/index/finance'); ?>'
+ }
+ function jump_four (){
+ 	window.location.href='<?php echo url('admin/index/department'); ?>'
+ }
+ function jump_five(){
+ 	window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+
 </script>
 
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?2">
@@ -403,6 +449,7 @@
 			</ul>
 			<table class="table" style="text-align: center;">
 				<tr>
+>>>>>>> 6ac23eec1979eda3a5d2f43f82013dfb0633753d:runtime/temp/1ee2b5fe1d019ddd5410b4766c357ec4.php
 					<th>编号ID</th>
 					<th>外出时间</th>
 					<th>外出理由</th>
@@ -460,6 +507,57 @@
 				<?php endforeach; ?>
 			</table>
 			
+<<<<<<< HEAD:runtime/temp/b7e3e54c838b3873ab2c4997745d373c.php
+			<div style="width: 100%;height: auto;border: 1px solid #DDDDDD; border-radius: 10px;">
+				<div style="width: 10%;height: 30px;line-height: 30px;color: red;margin-left: 20px;">详情</div>
+				<div style="padding-left: 20px;"><?php echo $check_info['work_require']; ?></div>
+			</div>
+
+			<div style="width: 15%;height: 30px;line-height: 30px;color: cornflowerblue; font-size: 20px;margin-top: 30px;">
+				任务日志
+			</div>
+			<?php foreach($log_list as $loglist_info): ?>
+			<div style="width: 100%;height: 140px;">
+				<div style="width: 12%;height: 35px;background-color: #00A65A;text-align: center;line-height: 35px;border-radius: 10px;">
+					<?php echo $loglist_info['time']; ?>
+				</div>
+				<div style="width: 100%;height: 105px;">
+					<div style="display: inline-block;width: 3px;height: 104px;background-color: #DADADA;margin-left: 70px;float: left;"></div>
+					<div style="width: 90%;height: 90px;border: 1px solid #DADADA;margin-left: 10px;float: left;margin-top: 5px;border-radius: 5px;">
+						<div style="width: 100%;height: 30px;border-bottom: 1px solid #DADADA;">
+							<div style="height: 30px;line-height: 30px;color: #3376B2;font-size: 15px;float: left;">操作人:</div>
+							<div style="width:70%; height: 30px;line-height: 30px;font-size: 13px;float: left;"><?php echo $loglist_info['uname']; ?></div>
+						</div>
+						<div style="height: 60px;font-size: 13px;overflow: hidden;">
+							<?php echo $loglist_info['rw_log']; ?>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<?php endforeach; ?>
+			<div class="<?php echo !empty($check_info['state']) && $check_info['state']==3||$check_info['state']==4?'aa' :''; ?>">
+				<div style="width: 15%;height: 30px;line-height: 30px;color: cornflowerblue; font-size: 20px;margin-top: 30px;">
+					操作
+				</div>
+				<textarea id="caozuo" name="log" style="height: 100px;width: 100%;" value=""></textarea>
+			</div>
+               
+				
+				<?php endif; endforeach; ?>								
+			</div>
+						
+			<div class="form-group <?php echo !empty($check_info['state']) && $check_info['state']==3||$check_info['state']==4?'aa' :''; ?>">
+				<input name="abandon" type="submit" class="btn btn-primary" style="outline:none;" value="提交">
+				 <input name="abandon" type="button" class="btn btn-primary" style="outline:none;" onclick="giveUp()" value="放弃任务">
+				<input name="abandon" type="button" class="btn btn-primary" style="outline:none;" onclick="finish()" value="结束任务">
+				
+			</div>
+			
+			
+		</form>
+		<?php endforeach; ?>
+=======
 			<?php echo $work_list->render(); endif; if($userdata['user_cate']=='经理'): ?>
 			<ul class="list_top">
 				<li></li>
@@ -495,6 +593,7 @@
 			
 			<?php echo $work_list->render(); endif; endforeach; ?>
 		</div>
+>>>>>>> 6ac23eec1979eda3a5d2f43f82013dfb0633753d:runtime/temp/1ee2b5fe1d019ddd5410b4766c357ec4.php
 	</div>
 	<div class="task_right"></div>
 </div>
@@ -532,4 +631,62 @@ $(document).ready(function(){
 });
 </script>
 </body>
+<<<<<<< HEAD:runtime/temp/b7e3e54c838b3873ab2c4997745d373c.php
 </html>
+	<script type="text/javascript">	
+		//操作提交前判定
+		function sumbit_sure(){	
+			var a = $("#caozuo").val();
+				if(a == ''){
+					alert('操作框不能为空！');
+					return false;
+				}else{
+					var cof = confirm('是否要提交！');
+					if(cof==true){
+						return true;
+					}else{
+						return false;
+					}
+				}
+			};
+			//放弃任务
+			function giveUp(){
+				var cof = confirm('是否要提交放弃任务')
+				if(cof){
+					$.post(
+						'<?php echo url('giveUp'); ?>?id=<?php echo $check_info['id']; ?>', 
+						function(e){
+							window.location.reload()
+						}
+					);
+				}
+				
+
+			};
+			//完成任务
+			function finish(){
+				var cof = confirm('是否要提交完成任务')
+				if(cof){
+				$.post(
+						'<?php echo url('finishWork'); ?>?id=<?php echo $check_info['id']; ?>', 
+						function(e){
+							window.location.reload()
+						}
+					);
+				}
+
+			}
+			
+			
+		
+    	$('.dropify').dropify();
+   		UE.getEditor("myEditor");
+	</script>
+	<style type="text/css">
+		.aa{
+			display: none;
+		    }
+	</style>
+=======
+</html>
+>>>>>>> 6ac23eec1979eda3a5d2f43f82013dfb0633753d:runtime/temp/1ee2b5fe1d019ddd5410b4766c357ec4.php

@@ -42,9 +42,14 @@ class Task extends \app\admin\Auth
         
         $main=db('mainclassify')->select();
         $this->assign('main',json_encode($main));
-        
+        $fine=db('fineclassify')->select();
+        $this->assign('fine',json_encode($fine));
+        $liang=db('workingtime')->where('type=0')->select();
+        $time=db('workingtime')->where('type=1')->select();
         $date=date('Y-m-d');
         $this->assign('date',$date); 
+        $this->assign('liang',json_encode($liang)); 
+        $this->assign('time',json_encode($time)); 
         $yuan=db('worksheet')->where("uid=".$user_data['u_id'])->select();
         $yuangong=[];
         foreach ($yuan as $key => $value) {
@@ -90,44 +95,83 @@ class Task extends \app\admin\Auth
             $xuan=input("xuan");
             $up['id']=$xuan;
             $up['type']=input('type');
-            db('worksheet')->where('id='.input('theme_id'))->update(["primary"=>json_encode($up)]);
             $data=db('fineclassify')->where('main='.$xuan)->select();
-            return json($data);
+            if(input('theme_id')){
+                db('worksheet')->where('id='.input('theme_id'))->update(["primary"=>json_encode($up)]);
+                
+            }else{
+                db('worksheet')->insert(["primary"=>json_encode($up),"uid"=>$user_data['u_id'],'time'=>time()]);
+                $list=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
+                return json($list);
+            }
+            
+            
+            
         }
         else if($select==2){
             
-            $up['id']=input('xuan.id');
-            $up['type']=input('xuan.type');
-            $up['main']=input('xuan.main');
-            $up['liangtype']=input('xuan.liangtype');
-            $up['grade']=input('xuan.grade');
-            db('worksheet')->where('id='.input('theme_id'))->update(["secondary"=>json_encode($up)]);
-            $data=db('workingtime')->where('type='.$up['liangtype'])->select();
             
-            return json($data);            
+           
+                $up['id']=input('xuan.id');
+                $up['type']=input('xuan.type');
+                $up['main']=input('xuan.main');
+                $up['liangtype']=input('xuan.liangtype');
+                $up['grade']=input('xuan.grade');
+                db('worksheet')->where('id='.input('theme_id'))->update(["secondary"=>json_encode($up),'score'=>$up['grade']]);
+                  $data=db('worksheet')->where('id='.input('theme_id'))->value('score');
+                return json($data);
+            
+            
+            
+                     
         }
         else if($select==3){
+            $liang=input('liang');
+            $num=db("worksheet")->where('id='.input('theme_id'))->value('score');
+            $dangge=db("worksheet")->where('id='.input('theme_id'))->value('secondary');
+            // json_encode($dangge);
+            echo $dangge ;
             db("worksheet")->where('id='.input('theme_id'))->update(["quantity"=>input('liang')]);
-            $data=db('worksheet')->where('id='.input('theme_id'))->value('secondary');
-            json_decode($data);
-            // $aa=intval($data['grade'])*intval(input('liang'));
-            return json($data);
-        }
+            $data=db('worksheet')->where('id='.input('theme_id'))->value('score');
+                return json($data);
+        } 
         else if($select==4){
-            db("worksheet")->where('id='.input('theme_id'))->update(["job"=>input('job')]);
+            if(input('theme_id')){
+                db("worksheet")->where('id='.input('theme_id'))->update(["job"=>input('job')]);
+            }else{
+                db('worksheet')->insert(["job"=>input('job'),"uid"=>$user_data['u_id'],'time'=>time()]);
+                $list=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
+                return json($list);
+            }
+            
         }
         else if($select==5){
-            db("worksheet")->where('id='.input('theme_id'))->update(["whether"=>input('whether')]);
+           
+              if(input('theme_id')){
+                db("worksheet")->where('id='.input('theme_id'))->update(["whether"=>input('whether')]);
+            }
         }
         else if($select==6){
-            db("worksheet")->where('id='.input('theme_id'))->update(["reasons"=>input('reasons')]);
+            
+              if(input('theme_id')){
+                db("worksheet")->where('id='.input('theme_id'))->update(["reasons"=>input('reasons')]);
+            }else{
+                db('worksheet')->insert(["reasons"=>input('reasons'),"uid"=>$user_data['u_id'],'time'=>time()]);
+                $list=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
+                return json($list);
+            }
         }
         else if($select==7){
-            db("worksheet")->where('id='.input('theme_id'))->update(["remark"=>input('remark')]);
+            
+             if(input('theme_id')){
+                db("worksheet")->where('id='.input('theme_id'))->update(["remark"=>input('remark')]);
+            }else{
+                db('worksheet')->insert(["remark"=>input('remark'),"uid"=>$user_data['u_id'],'time'=>time()]);
+                $list=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
+                return json($list);
+            }
         }
-        else if($select==8){
-            db("worksheet")->where('id='.input('theme_id'))->update(["score"=>input('score')]);
-        }
+      
     } 
     //交作业的页面
 	public function add()
