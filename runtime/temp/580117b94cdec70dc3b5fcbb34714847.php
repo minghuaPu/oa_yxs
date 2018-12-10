@@ -1,11 +1,5 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"D:\wamp64\www\oa\public/../application/admin\view\index\finance.html";i:1544234685;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544427397;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1544427505;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:72:"D:\wamp64\www\oa\public/../application/admin\view\index\information.html";i:1544427478;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1544427062;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544427397;}*/ ?>
 <!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/finance/finance.css"/>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -357,60 +351,6 @@
         }
     })
 </script>
-	
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
-<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
-	<ul v-if="controller!='Map'">
-		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
-		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
-		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
-		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
-		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
-	</ul>
-	<!--<ul v-if="controller=='Map'" class="Maplist">
-		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
-		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
-		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
-		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
-		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
-		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
-		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
-		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-	</ul>-->
-</div>
-<script type="text/javascript">
- new Vue({
-        el:'#left_menu',
-        data:{
-           controller:"Index"
-        },
-        created(){
-        	this.init();
-        },
-        methods:{
-        	init(){
-                this.controller="<?php echo request()->controller(); ?>";
-        	}
-        }
-    })
- function jump(){
- 	 window.location.href='<?php echo url('admin/index/index'); ?>'
- }
- function jump_two(){
- 	window.location.href='<?php echo url('admin/index/work'); ?>'
- }
- function jump_three(){
- 	window.location.href='<?php echo url('admin/index/finance'); ?>'
- }
- function jump_four (){
- 	window.location.href='<?php echo url('admin/index/department'); ?>'
- }
- function jump_five(){
- 	window.location.href='<?php echo url('admin/index/information'); ?>'
- }
-
-</script>
- 
 	<!DOCTYPE html>
 <html>
 	<head>
@@ -419,7 +359,7 @@
 		<title></title>
 	</head>
 	<body>
-		<div class="page" style="z-index: 99;background:white;padding-left: 10px;">
+		<div class="page" style="z-index: 99;background:white;">
 			<div class="search_box">
 				<div class="iconfont icon-fangdajing"></div>
 				<input type="text" name="search" class="search" placeholder="搜索" />
@@ -553,119 +493,127 @@
 	margin-left: 10px;
     font-size: 11px;
 }
-</style> 
-	</head>
-	<body>
-		<div class="container">
-			 <div class="top">
-				<div class="month"> 
-					<div class="month_title">本月收入</div>
-					<div class="img_box" id="main" ></div>
-			    </div>
-			    <div class="year">
-			    	 <div class="year_title">年度收入</div>
-			    	 <div class="img_box" id="main_two" ></div>
-			    </div>     
-			</div>
-			<div class="bottom">
-				   <div class="achievement_title">业绩表现 </div>
-				   <div class="img_box_two" id="main_three" ></div>
-			</div>
-		</div>	
-	</body>
-</html>
+</style>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> 
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
+<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
+	<ul v-if="controller!='Map'">
+		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
+		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
+		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
+		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
+		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
+	</ul>
+	<!--<ul v-if="controller=='Map'" class="Maplist">
+		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
+		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
+		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
+		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
+		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
+		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
+		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
+		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
+	</ul>-->
+</div>
 <script type="text/javascript">
-	var myChart = echarts.init(document.getElementById('main'));
-        var option = {
-            title: {
-                text: '完成度%',
-               textStyle:{fontSize:10},
-               padding: [ 30,0,0,33]
-            },
-            tooltip: {},
-            legend: {
-                data:['本月工作','上月工作']
-            },
-            xAxis: {
-                data: []
-            },
-            yAxis: {
-            	max:100
-            },
-            series: [
-              {
-            barWidth:'45',
-            color:'#28d2ae',
-            name: '本月工作',
-            type: 'bar',
-            data: [50]
+ new Vue({
+        el:'#left_menu',
+        data:{
+           controller:"Index"
         },
-        {   barGap:3,
-        	barWidth:'45',
-        	color:'#dadada',
-            name: '上月工作',
-            type: 'bar',
-            data: [90]
-        }]
-        };
-        myChart.setOption(option);// 使用刚指定的配置项和数据显示图表。
-        
-        var myChart_two = echarts.init(document.getElementById('main_two'));
-	    var   option = {
-	    xAxis: {
-	        type: 'category',
-	        data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
-	    },
-	     tooltip: {
-	     	 trigger: 'axis'
-	     }, //提示
-	       legend: {
-        data:['本年工资','去年工资']
-    },
-	    yAxis: {
-	        type: 'value',
-	        max:100
-	    },
-	    series: [{
-	    	        name: '本年工资',
-			    	color:'#28d2ae',
-			        data: [50, 80, 30, 70,50, 80, 30, 70,50, 80, 30, 70],
-			        type: 'line',
-			        smooth: true
-	            },
-	            {   
-	            	name: '去年工资',
-			    	color:'#dadada',
-			        data: [30, 70, 100, 30,30, 70, 100, 30,30, 70, 100, 30],
-			        type: 'line',
-			        smooth: true
-	             }
-	     
-	    ]
-	    };
-       myChart_two.setOption(option);
-       
-       var myChart_three = echarts.init(document.getElementById('main_three'));
-          var option = {
-            title: {},
-            tooltip: {},
-            legend: {
-                data:['业绩']
-            },
-            xAxis: {
-               
-            },
-            yAxis: {
-            	 data: ["第一季度","第二季度","第三季度","第四季度"]
-            },
-            series: [{
-            	barWidth:'20',
-            	color:'#28d2ae',
-                name: '销量',
-                type: 'bar',
-                data: [5, 20, 36, 10]
-            }]
-        };
-        // 使用刚指定的配置项和数据显示图表。
-        myChart_three.setOption(option);
+        created(){
+        	this.init();
+        },
+        methods:{
+        	init(){
+                this.controller="<?php echo request()->controller(); ?>";
+        	}
+        }
+    })
+ function jump(){
+ 	 window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+ function jump_two(){
+ 	window.location.href='<?php echo url('admin/index/work'); ?>'
+ }
+ function jump_three(){
+ 	window.location.href='<?php echo url('admin/index/finance'); ?>'
+ }
+ function jump_four (){
+ 	window.location.href='<?php echo url('admin/index/department'); ?>'
+ }
+ function jump_five(){
+ 	window.location.href='<?php echo url('admin/index/information'); ?>'
+ }
+
 </script>
+
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
+<style>
+
+</style>
+<div class="container">
+	<div class="content_all">
+		<div class="content_top">
+			<h3>消息中心</h3>
+			<div class="content1">
+				<div>
+				<a href="#"><img src="__STATIC__/admin/index/images/无标题0.png" alt=""></a>
+				<a href="#"><img src="__STATIC__/admin/index/images/无标题1.png" alt=""></a>
+				<a href="#"><img src="__STATIC__/admin/index/images/无标题2.png" alt=""></a>
+				<a href="#"><img src="__STATIC__/admin/index/images/无标题3.png" alt=""></a>
+				<a href="#"><img src="__STATIC__/admin/index/images/无标题4.png" alt=""></a>
+				</div>
+			</div>
+		</div>
+		<div class="content_center">
+			<div class="content2">
+				<h3>公司公告</h3>
+				<div>
+					<img src="__STATIC__/admin/index/images/1544240693(1).jpg" alt="">
+					<img src="__STATIC__/admin/index/images/1544240722(1).jpg" alt="">
+					<p>我校</p>
+					<p>关于</p>
+					<p>三天</p>
+					<p>精神文明</p>
+					<a href="#">查看更多</a>
+				</div>
+			</div>
+			<div class="content3">
+				<h3>公司要闻</h3>
+				<div>
+					<img src="__STATIC__/admin/index/images/1544240743(1).jpg" alt="">
+					<br>
+					<h4>丹桂飘香</h4>
+					<p>舒服法第三方第三方士大夫的说法是否是DVD深V是大V</p>
+					<p>士大夫的所得税大V地奇偶的机构ID减肥的佛vjdoifvdorjoi</p>
+					<p>第三个是改革若干的破空辅导班不仅是改革若干的破空辅导是改革若干的破空辅导是改革若干的破空辅导包括从产品线</p>
+					<a href="#">查看更多</a>
+				</div>
+			</div>
+		</div>
+		<div class="content_bottom">
+			<h3>公司论坛</h3>
+			<div class="content4">
+				<div>
+					<img src="__STATIC__/admin/index/images/1544240768(1).jpg" alt="">
+					<h4>人事专区</h4>
+					<p>导班不仅是改革若干</p>
+					<p>导班不仅是改革若干导班不仅是改革若干</p>
+				</div>
+				<div>
+					<img src="__STATIC__/admin/index/images/1544240795(1).jpg" alt="">
+					<h4>设计专区</h4>
+					<p>导班不仅是改革若干</p>
+					<p>导班不仅是改革若干导班若干导班不仅是改革若干</p>
+				</div>
+				<div>
+					<img src="__STATIC__/admin/index/images/info.jpg" alt="">
+					<h4>闲事杂谈</h4>
+					<p>导班不仅是改革若干</p>
+					<p>导班不仅是改革若干导班不导班不仅是改革若干</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
