@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:69:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544258880;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544239444;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544239601;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544239500;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544081012;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:69:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544258880;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544239444;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544429342;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544429069;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544081012;}*/ ?>
  <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -354,13 +354,12 @@
  	<!DOCTYPE html>
 <html>
 	<head>
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
 <script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
 		<meta charset="UTF-8">
 		<title></title>
 	</head>
 	<body>
-		<div class="page" style="z-index: 99;background:white;">
+		<div class="page" style="z-index: 99;background:white;padding-left: 10px;height:100%">
 			<div class="search_box">
 				<div class="iconfont icon-fangdajing"></div>
 				<input type="text" name="search" class="search" placeholder="搜索" />
@@ -495,7 +494,9 @@
     font-size: 11px;
 }
 </style> 
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> <div class="left_menu lbs" id="left_menu" style="z-index: 99;">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> 
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
+<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
 		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
 		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
@@ -542,7 +543,7 @@
  	window.location.href='<?php echo url('admin/index/department'); ?>'
  }
  function jump_five(){
- 	window.location.href='<?php echo url('admin/index/index'); ?>'
+ 	window.location.href='<?php echo url('admin/index/information'); ?>'
  }
 
 </script>
