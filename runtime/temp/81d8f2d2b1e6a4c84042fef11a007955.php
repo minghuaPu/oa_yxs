@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544432972;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544522414;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -376,7 +376,7 @@
 						<div class="wire"></div>
 						<div class="Employee_footer">
 							<div><span>负责人:</span><span><?php echo $userdata['user_name']; ?></span></div>
-							<div><span>日期:</span><input type="date" v-model='DATE' @change='aa'></div>
+							<div><span>日期:</span><input type="date" v-model='DATE' style="width: 150px" @change='selectDate'></div>
 							
 						</div>
 
@@ -388,6 +388,7 @@
 					</div>
 					<table class="aa" style="text-align: center;" border='1px' width="1000px">
 				<tr bgcolor="#31869b" align="center" style="color: #fff;font-size: 12px;">
+				 
 					<th width="50px">序号</th>
 					<th width="100px">主分类</th>
 					<th width="100px">细分类</th>
@@ -399,15 +400,21 @@
 					<th width="150px">备注</th>
 					<th width="100px">统计分数</th>
 					<th width="50px">操作</th>
+				
 				</tr>
 				
 
 				<tr :bgcolor="index%2 ==0?'':'#fff'" v-for='(item,index) in worksheet'>
+				  
 					<td>
 					  {{index+1}}
 					</td>
 					<td>
-						<select :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.primary' @change='zhuclassify(index)' >
+						<select 
+						:style="index%2 ==0?'background: #b7dee8;':''" 
+						v-model='item.primary' 
+						@change='zhuclassify(index)'    
+						:disabled='disabled'>
 					
 						  <option  v-for="(i,l) in primary"  :value="i" style="text-align: center;">{{i.type}}</option>
 					
@@ -425,7 +432,12 @@
 						
 						 
 					</td>
-					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" @blur='job(index)' v-model="item.job"></td>
+					<td>
+						<div  :style="index%2 ==0?'background: #b7dee8;':''"  v-if='item.cate==0'>{{item.work_name}}</div>
+						<input type="text" :style="index%2 ==0?'background: #b7dee8;':''" @blur='job(index)' v-model="item.job"  v-else>
+						
+					</td>
+
 					<td></td>
 					<td>
 						<select :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.whether' @change='whether(index)'>
@@ -438,7 +450,8 @@
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.reasons' @blur='reasons(index)'></td>
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.remark' @blur='remark(index)'></td>
 					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
-					<td></td>
+					<td><a @click='viewDetails(item.id)' v-if='item.cate==0'>查看详情</a></td>
+					
 				</tr>
 				<?php foreach($bossfenprw as $val): ?>
 				<tr >
@@ -478,7 +491,7 @@
 					<td><input type="text"  ></td>
 					<td><input type="text" ></td>
 					<td><input type="text"  ></td>
-					<td><a href="<?php echo url('check',['id'=>$val['id']]); ?>">查看详情</a></td>
+					<td></td>
 				</tr>
 				<?php endforeach; ?>
 				
@@ -627,9 +640,6 @@
 						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">详情</a></td>
 					</tr>			
 				<?php endforeach; ?>
-				
-				
-				
 			</table>
 			<!-- </div> -->
 			
@@ -745,6 +755,7 @@ $(document).ready(function(){
             secondary:[],
             zongshu:<?php echo $zongshu; ?>,
             con:1,
+            disabled:false,
           	DATE:'<?php echo $date; ?>'
         },
         mounted(){
@@ -778,8 +789,21 @@ $(document).ready(function(){
 		},
        	
      methods:{
-     	aa(){
+     	selectDate(){
      		console.log(this.DATE)
+     		$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{select:8,selectDate:this.DATE,},(rtnData)=>{
+                     if(this.DATE=='<?php echo $date; ?>'){
+                     	console.log(1)
+                     }
+        	    	this.worksheet=rtnData;
+        	    	for (var i = 0; i < this.worksheet.length; i++) {
+        	    		this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary);
+        				this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary);
+        	    	}
+        	    	
+     			});
+
      	},
      	select(){
            this.ok=false
@@ -827,6 +851,9 @@ $(document).ready(function(){
 			        	     	if(this.worksheet[e].primary.id==this.fine[a].main){
 			          				text.push(this.fine[a])
 			        				this.$set(this.secondary,e,text);
+			        				}else{
+			        					text.push()
+			        					this.$set(this.secondary,e,text);
 			        				}
         	     }
         	    			console.log(this.worksheet);
@@ -843,9 +870,9 @@ $(document).ready(function(){
         	    		xuan:this.worksheet[e].secondary,
 						
         	    	},(rtnData)=>{
-                 	   
-				          this.worksheet[e].score=rtnData;
-        	    			 // this.$set(this.quantity,e,rtnData) 
+        	    		this.worksheet[e].score=rtnData
+                 	   this.$set(this.worksheet[e],	"score",rtnData)
+				        
 
      			});
 
@@ -861,7 +888,8 @@ $(document).ready(function(){
         	    		theme_id:this.worksheet[e].id,
         	    		liang:this.worksheet[e].quantity
         	    	},(rtnData)=>{
-                 	   this.worksheet[e].score=rtnData;
+                 	  this.worksheet[e].score=rtnData
+                 	   this.$set(this.worksheet[e],	"score",rtnData)
         	    	});
         },
         // 工作内容
@@ -932,7 +960,7 @@ $(document).ready(function(){
         	    	});
         },
         viewDetails:function(e){
-			window.location.href='<?php echo url('check',['id'=>24]); ?>'
+			window.location.href='check.html?id='+e
         }
         	
          
