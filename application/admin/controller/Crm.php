@@ -22,6 +22,19 @@ class Crm extends \app\admin\Auth
         if(input('companystage_id')>0){
             $where_datastage['companystage_id'] = input('companystage_id');
         }
+ //查询公司分类
+      $list = db('companycate')->select();
+      $this->assign('list',$list);
+        //查询客户来源
+        $user_source = db('usersource')->select();
+        $this->assign('user_source',$user_source);
+        //查询学校名字
+        $school_name = db('school')->select();
+        $this->assign('school_name',$school_name);
+        //查询所报课程
+        $lesson_name = db('lessname')->select();
+        $this->assign('lesson_name',$lesson_name);
+
 
         //查询客户来源
         $usersource_list = db('usersource')->select();
