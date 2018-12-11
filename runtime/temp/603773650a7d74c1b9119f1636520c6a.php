@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\check.html";i:1544430229;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\check.html";i:1544430687;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -395,8 +395,8 @@
 						<?php endif; if($check_info['work_file']==""): ?>
 						<td>无</td>
 						<?php endif; ?>
-						<td><?php echo $check_info['time']; ?></td>
-						<td><?php echo $check_info['lasttime']; ?></td>
+						<td><?php echo date("Y-m-d  H:i:s",$check_info['time']); ?></td>
+						<td><?php echo date("Y-m-d  H:i:s",$check_info['lasttime']); ?></td>
 						<td><?php echo $check_info['work_rank']; ?></td>
 						<?php if($check_info['state']=="1"): ?>
 						<td>已发布待查阅</td>

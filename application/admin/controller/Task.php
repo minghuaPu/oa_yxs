@@ -31,9 +31,21 @@ class Task extends \app\admin\Auth
         
         if($user_data['user_cate']=='老板')
           {
+             $con = input('selectinfo');     
+             $selectlists=db('bossworklist')                                              
+                   ->where("work_name like '%$con%'") 
+                   ->order("id desc")                                        
+                   ->select();                 
+            $this->assign('selectlists',$selectlists);
+            $work_list1  =  db('bossworklist')->order('id desc')->select();
+            $work_listnu = count($work_list1);
             $work_list  =  db('bossworklist')->order('id desc')->paginate(10);
-            $unfinish_list=db("bossworklist")->where('state=3 or state=4')->select();
-            $this->assign('unfinish_list',$unfinish_list); 
+            $unfinish_list1=db("bossworklist")->where('state=3 or state=4')->select();
+            $unfinish_listnu = count($unfinish_list1);
+            $unfinish_list=db("bossworklist")->where('state=3 or state=4')->paginate(10);
+            $this->assign('work_listnu',$work_listnu);
+            $this->assign('unfinish_listnu',$unfinish_listnu);  
+            $this->assign('unfinish_list',$unfinish_list);
         }
         else
             $work_list  =  db('work')->order('id desc')->where("belong",$belong)->where("bumen",$user_data["bumen"])->paginate(10);
@@ -44,18 +56,23 @@ class Task extends \app\admin\Auth
         $this->assign('main',json_encode($main));
         $fine=db('fineclassify')->select();
         $this->assign('fine',json_encode($fine));
-        $liang=db('workingtime')->where('type=0')->select();
-        $time=db('workingtime')->where('type=1')->select();
+       
         $date=date('Y-m-d');
         $this->assign('date',$date); 
-        $this->assign('liang',json_encode($liang)); 
-        $this->assign('time',json_encode($time)); 
+        
         $yuan=db('worksheet')->where("uid=".$user_data['u_id'])->select();
         $yuangong=[];
         foreach ($yuan as $key => $value) {
             if(date('Y-m-d',$value['time'])==$date){
+                $value['cate']=1;
                 $yuangong[]=$value;
             }
+        }
+         $zongshu=0;
+        foreach ($yuangong as $key => $value) {
+            if($value['whether']=='0'){
+                $zongshu+=floatval($value['score']);
+                }
         }
         $time=date('Y-m-d',time());
         $list=db('bossworklist')->select();
@@ -66,7 +83,8 @@ class Task extends \app\admin\Auth
             foreach ($uname as $k => $val) {
                if($val==$user_data['user_name']){
                         if(date('Y-m-d',$value['time'])==$time){
-                            $bossfenprw[]=$value;
+                            $value['cate']=0;
+                            $yuangong[]=$value;
                     }else{
                         $daibanwork[]=$value;
                     }
@@ -74,12 +92,7 @@ class Task extends \app\admin\Auth
             }
             
         }
-        $zongshu=0;
-        foreach ($yuangong as $key => $value) {
-            if($value['whether']=='0'){
-                $zongshu+=floatval($value['score']);
-                }
-        }
+       
         $this->assign('zongshu',$zongshu);
         $this->assign('bossfenprw',$bossfenprw);
         $this->assign('daibanwork',$daibanwork);
@@ -89,16 +102,42 @@ class Task extends \app\admin\Auth
     } 
     public function select(){
 
-         $con = input('searchinfo');     
-         $where = "work_name like '%$con%'";
-         $selectlists=db('bossworklist')                             
-                   ->order("id desc")
-                   ->where('work_name','like',"%".$con."%")  
-                   ->where('status',1)                                         
-                   ->select();
-                   print_r($selectlists);
+         $con = input('info');          
+         $selectlists=db('bossworklist')                                              
+                   ->where("work_name like '%$con%' ") 
+                   ->order("id desc")                                        
+                   ->paginate(10); 
+
          $this->assign('selectlists',$selectlists);
+          return $this->fetch();
+         
     }
+    public function wfb(){
+          $work_list1  =  db('bossworklist')->order('id desc')->select();
+          $work_listnu = count($work_list1);
+          $unfinish_list1=db("bossworklist")->where('state=3 or state=4')->select();
+          $unfinish_listnu = count($unfinish_list1);
+          $work_list  =  db('bossworklist')->order('id desc')->paginate(10);
+          $this->assign('work_list',$work_list);
+          $this->assign('work_listnu',$work_listnu);
+          $this->assign('unfinish_listnu',$unfinish_listnu);
+        return $this->fetch();
+         
+    }
+    public function yjs(){
+         $work_list1  =  db('bossworklist')->order('id desc')->select();
+          $work_listnu = count($work_list1);
+          $unfinish_list1=db("bossworklist")->where('state=3 or state=4')->select();
+          $unfinish_listnu = count($unfinish_list1);
+         $unfinish_list=db("bossworklist")->where('state=3 or state=4')->paginate(10);
+          $this->assign('unfinish_list',$unfinish_list);
+          $this->assign('work_listnu',$work_listnu);
+          $this->assign('unfinish_listnu',$unfinish_listnu);
+
+        return $this->fetch();
+         
+    }
+
     //员工分类
     public function classify(){
         $user_data=Session::get();
@@ -134,14 +173,19 @@ class Task extends \app\admin\Auth
                 $up['id']=input('xuan.id');
                 $up['type']=input('xuan.type');
                 $up['main']=input('xuan.main');
-                $up['liangtype']=input('xuan.liangtype');
+                    
                 $up['grade']=input('xuan.grade');
                 $liang=db('worksheet')->where('id='.input('theme_id'))->value('quantity');
-                if(in_array($up['id'],[1,2,9,10,11,])){
+
+                if(in_array($up['id'],['1','2','6','7','8',])){
                 $bb=$liang*$up['grade'];
-                db("worksheet")->where('id='.input('theme_id'))->update(["score"=>$bb]);
+
+                db("worksheet")->where('id='.input('theme_id'))->update(["secondary"=>json_encode($up),"score"=>$bb]);
+                
+                }else{
+                    db('worksheet')->where('id='.input('theme_id'))->update(["secondary"=>json_encode($up),'score'=>$up['grade']]);
                 }
-                db('worksheet')->where('id='.input('theme_id'))->update(["secondary"=>json_encode($up),'score'=>$up['grade']]);
+                
                   $data=db('worksheet')->where('id='.input('theme_id'))->value('score');
                 return json($data);
             
@@ -155,11 +199,13 @@ class Task extends \app\admin\Auth
 
             $dangge=db("worksheet")->where('id='.input('theme_id'))->value('secondary');
             $ii=json_decode($dangge,true);
-            if(in_array($ii['id'],[1,2,9,10,11,])){
+            if(in_array($ii['id'],['1','2','6','7','8'])){
                 $bb=$liang*$ii['grade'];
-                db("worksheet")->where('id='.input('theme_id'))->update(["score"=>$bb]);
+                db("worksheet")->where('id='.input('theme_id'))->update(["quantity"=>input('liang'),"score"=>$bb]);
+            }else{
+                db("worksheet")->where('id='.input('theme_id'))->update(["quantity"=>input('liang')]);
             }
-            db("worksheet")->where('id='.input('theme_id'))->update(["quantity"=>input('liang')]);
+            
             $data=db('worksheet')->where('id='.input('theme_id'))->value('score');
             return json($data);
         } 
@@ -212,6 +258,17 @@ class Task extends \app\admin\Auth
                 $list=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
                 return json($list);
             }
+        }
+        else if($select==8){
+           
+           $data=db('worksheet')->where('uid='.$user_data['u_id'])->select();
+           $list=[];
+           foreach ($data as $key => $value) {
+              if(date("Y-m-d",$value['time'])==input('selectDate')){
+                $list[]=$value;
+              }
+           }
+           return json($list);
         }
       
     } 
@@ -395,6 +452,7 @@ class Task extends \app\admin\Auth
         $work_name = input('work_name');
         $urgency = input('urgency');
         $content = input('content');
+        $work_file = '';
         $executerid = input('executerid');
         $lasttime = input('lasttime');
         $work=request()->file('work_require');
@@ -403,6 +461,7 @@ class Task extends \app\admin\Auth
             if($info){
                 $work_file = $info->getSaveName();
             }else{
+
                  echo $info->getError();
             }
         }

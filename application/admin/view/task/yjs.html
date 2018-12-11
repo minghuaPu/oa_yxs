@@ -1,0 +1,300 @@
+{include file="top"}
+
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
+<div class="task">
+	<div class="task_left"></div>
+	<div class="task_box">
+		<div class="task_title">
+			<span class="glyphicon glyphicon-list-alt pull-left"></span>
+			<h4>TASK员工任务管理</h4>
+		</div>
+		<div class="task_content">
+			
+			<ul class="list_top">
+				<li><a href="{:url('arrange')}"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
+				
+				<li style="width: 0%;">
+					 <div class="input-group pull-left">
+                            <input type="text" class="form-control pull-left" placeholder="输入任务名称" id="selectinfo">
+                        </div>
+                        <button class="btn btn-group pull-left" style="cursor: pointer;width: 70px;height: 35px; outline: none;" @click="select" >搜索</button>  
+				</li>
+			</ul>
+            
+			
+				<a class="btn btn-default" href="{:url('index')}">待我处理({$work_listnu})</a>
+                <a class="btn btn-default" href="{:url('wfb')}">我发布的任务({$work_listnu})</a>
+                <a class="btn btn-default" style="background-color: #7BB0DE" href="{:url('yjs')}">已结束的任务({$unfinish_listnu})</a>
+			
+			
+	
+			 <table  class="table" style="text-align: center;"  >
+				<tr>
+					<th>排序</th>
+					<th>编号ID</th>
+					<th>对接人</th>
+					<th>任务名称</th>
+					
+					<th>附件</th>
+					<th>部门</th>
+					<th>添加时间</th>
+					<th>截止时间</th>
+					<th>任务级别</th>
+					<th>状态</th>
+					<th>详情</th>
+				</tr>
+				
+				{foreach $unfinish_list as $info}
+					<tr >
+						<td>2</td>
+						<td>{$info.id}</td>
+						
+						<td>{$info.execute_id}</td>
+						<td>{$info.work_name}</td>
+						
+						{if $info.work_file!=""}
+						<td><a href="__UPLOADS__{$info.work_file}">点击查看</a></td>
+						{/if}
+						{if $info.work_file==""}
+						<td>无</td>
+						{/if}
+						<td></td>
+						<td>{$info.time|date="Y-m-d  H:i:s",###}</td>
+						<td>{$info.lasttime|date="Y-m-d  H:i:s",###}</td>
+						<td>{$info.work_rank}</td>
+						{if $info.state=="1"}
+						<td>已发布待查阅</td>
+						{/if}
+						{if $info.state=="2"}
+						<td>已查阅</td>
+						{/if}
+						{if $info.state=="3"}
+						<td>发起人已放弃</td>
+						{/if}
+						{if $info.state=="4"}
+						<td>任务已完成</td>
+						{/if}
+						
+						<td><a class="btn btn-default" href="{:url('check',['id'=>$info.id])}">详情</a></td>
+					</tr>			
+				{/foreach}
+				
+				
+				
+			</table>
+			
+			
+			
+			<div  style="text-align: center;">{$unfinish_list->render()}</div>
+			
+			<ul class="list_bottom">
+				<li><a href="{:url('look')}"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
+			</ul>
+			
+		</div>
+	</div>
+	<div class="task_right"></div>
+</div>
+{include file="foot"}
+
+<script>
+ 	// 第二步：定义路由，也就是每个路由应该映射一个组件
+ 	
+	new Vue({
+        el: ".task",
+        data: {
+        	ok:true,
+        	pageshow:true,
+            
+            secondary:[],
+           
+            con:1,
+          	
+        },
+        mounted(){
+        	console.log(this.DATE)	
+        	console.log(this.worksheet);
+        	if(this.worksheet.length<8){
+        		var num=8-this.worksheet.length;
+        		for (var i = 0; i < num; i++) {
+        			this.worksheet.push({});
+        		}
+        		
+        		
+        	}
+        	for (var i = 0; i < this.worksheet.length; i++) {
+        	this.secondary.push([])
+            
+        	this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary);
+        	this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary);
+        		for (var a = 0; a < this.fine.length; a++) {
+        	     if(this.worksheet[i].primary.id==this.fine[a].main){
+          				this.secondary[i].push(this.fine[a])
+        			}
+        	    }
+        	   
+        		
+        	}
+   
+        	console.log(this.secondary);
+        	console.log(this.worksheet);
+         			
+		},
+       	
+     methods:{
+     	
+     	aa(){
+     		console.log(this.DATE)
+     	},
+        select(){
+
+            var selinfo = $('#selectinfo').val();
+            if(selinfo){
+                window.location.href="select.html?info="+selinfo;
+            }else{
+                return false;
+            }
+            
+        },
+        // 主分类
+        zhuclassify(e){
+     		console.log(this.worksheet[e].primary)
+        	    $.get('{:url("admin/task/classify")}',
+        	    	{
+	
+	        	    	select:1,
+	        	    	theme_id:this.worksheet[e].id,
+	        	    	xuan:this.worksheet[e].primary.id,
+	        	    	type:this.worksheet[e].primary.type
+        	    	},(rtnData)=>{     
+        	    	
+        	    			console.log(rtnData)
+        	    			if(rtnData!=='false'){
+        	    				console.log(1)
+        	    			rtnData.primary=JSON.parse(rtnData.primary)
+        	    			console.log(rtnData)
+        	    				this.worksheet[e]=rtnData
+        	    			}
+        	    			
+
+        	    			var text=[];
+        	    			 for (var a = 0; a < this.fine.length; a++) {
+			        	     	if(this.worksheet[e].primary.id==this.fine[a].main){
+			          				text.push(this.fine[a])
+			        				this.$set(this.secondary,e,text);
+			        				}
+        	     }
+        	    			console.log(this.worksheet);
+        	    			
+     			});
+        },
+        // 细分类
+        ciclassify(e){ 
+        	console.log(this.worksheet[e].id);
+        	$.get('{:url("admin/task/classify")}',
+        	    	{      	    		
+        	    		select:2,
+        	    		theme_id:this.worksheet[e].id,
+        	    		xuan:this.worksheet[e].secondary,
+						
+        	    	},(rtnData)=>{
+                 	   
+				          this.worksheet[e].score=rtnData;
+        	    			 // this.$set(this.quantity,e,rtnData) 
+
+     			});
+
+ 
+        },
+        // 时间/数量
+        liang(e){
+        	console.log(this.worksheet[e].quantity);
+        	$.get('{:url("admin/task/classify")}',
+        	    	{
+        	    		
+        	    		select:3,
+        	    		theme_id:this.worksheet[e].id,
+        	    		liang:this.worksheet[e].quantity
+        	    	},(rtnData)=>{
+                 	   this.worksheet[e].score=rtnData;
+        	    	});
+        },
+        // 工作内容
+        job(e){
+        		$.get('{:url("admin/task/classify")}',
+        	    	{
+        	    		
+        	    		select:4,
+        	    		theme_id:this.worksheet[e].id,
+        	    		job:this.worksheet[e].job
+        	    	},(rtnData)=>{
+        	    		if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
+        	    	});
+        },
+        // 是否完成
+        whether(e){
+        		$.get('{:url("admin/task/classify")}',
+        	    	{
+        	    		
+        	    		select:5,
+        	    		theme_id:this.worksheet[e].id,
+        	    		whether:this.worksheet[e].whether
+        	    	},(rtnData)=>{
+        	    		this.zongshu=rtnData
+        	    	});
+        },
+        //未完成原因 
+        reasons(e){
+ 				$.get('{:url("admin/task/classify")}',
+        	    	{
+        	    		
+        	    		select:6,
+        	    		theme_id:this.worksheet[e].id,
+        	    		reasons:this.worksheet[e].reasons
+        	    	},(rtnData)=>{
+        	    		if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
+        	    	});
+        },
+        // 备注
+         remark(e){
+         			$.get('{:url("admin/task/classify")}',
+        	    	{
+        	    		
+        	    		select:7,
+        	    		theme_id:this.worksheet[e].id,
+        	    		remark:this.worksheet[e].remark
+        	    	},(rtnData)=>{
+        	    		if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
+        	    	});
+        },
+        // 统计分数
+         score(e){
+			$.get('{:url("admin/task/classify")}',
+   	    			{
+       	    		
+      	    		select:8,
+      	    		theme_id:this.worksheet[e].id,
+       	    		score:this.worksheet[e].score
+        	    	});
+        },
+        viewDetails:function(e){
+			window.location.href='{:url('check',['id'=>24])}'
+        }
+        	
+         
+
+        }         
+    })
+</script>
+<style>
+
+</style>

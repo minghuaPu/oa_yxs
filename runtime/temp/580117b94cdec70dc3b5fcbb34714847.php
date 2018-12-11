@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:67:"D:\wamp64\www\oa\public/../application/admin\view\task\arrange.html";i:1544522989;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:72:"D:\wamp64\www\oa\public/../application/admin\view\index\information.html";i:1544427491;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1544427505;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544427397;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -351,108 +351,269 @@
         }
     })
 </script>
-<link rel="stylesheet" type="text/css" href="__STATIC__/library/dropify-master/dist/css/dropify.min.css">
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css?3">
-<link rel="stylesheet" type="text/css" href="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.css" />
-<link rel="stylesheet" type="text/css" href="__STATIC__/library/bootstrap/bootstrap-select.min.css" />
-<div class="write_box">
-    <div class="title">
-        <a class="glyphicon glyphicon-list">布置任务</a>
-        <a href="<?php echo url('index'); ?>" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
-    </div>
-    <h3 class="time_now"><?php echo $time; ?></h3>
-    <div class="from_box">
-        <form action="<?php echo url('save2'); ?>" class="form" method="post" enctype="multipart/form-data" onsubmit="return beforesend()">
-            <div class="form-group">
-                <div class="form-group">
-                    <label>任务</label>
-                    <input id="workname" type="text" class="form-control" name="work_name" value="">
-                </div>
-                <div class="form-group">
-                    <label>任务附件</label>
-                    <input type="file" name="work_require" class="dropify"></input>
-                </div>
-                <div class="form-group">
-                    <label>任务详情</label>
-                    <textarea name="content" id="myEditor" style="height: 200px;width: 100%;"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>对接人</label>
-                    <input type="text" name="executerid" id="executer" value="" class="abc" style="display: none;"></input>
-                    <select id="approverq" class="selectpicker" multiple name="executor">
-                        <?php foreach($userid_list as $key=>$info): ?>
-                        <option value="<?php echo $info['user_name']; ?>"><?php echo $info['user_name']; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>任务级别</label>
-                    <select name="urgency" style="width: 200px;margin-top: 20px;height: 30px;border-radius: 10px;outline:none;">
-                        <option>今天</option>
-                        <option>代办</option>
-                        <option>紧急</option>
-                        <option>加急</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>截止时间</label>
-                    <div class='input-group date' style="width:200px" id='datetimepicker'>
-                        <input id="time" type='text' class="form-control" name="lasttime" />
-                        <span class="input-group-addon" style="margin-left: -200px;">
-						                        <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="提交" onclick="fun()">
-                </div>
-                <div style="width: 100%;height: 200px;"></div>
-        </form>
-    </div>
-</div>
-<script type="text/javascript" src="__STATIC__/library/dropify-master/dist/js/dropify.min.js"></script>
-<!-- 配置文件 -->
-<script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.config.js"></script>
-<!-- 编辑器源码文件 -->
-<script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.all.min.js"></script>
-<script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-select.min.js"></script>
-<script type="text/javascript" src="__STATIC__/library/bootstrap/defaults-zh_CN.min.js"></script>
-<script type="text/javascript">
-function beforesend() {
-
-    if ($('#workname').val() == '') {
-        alert('任务不能为空');
-        return false;
-    } else if ($('#approverq').val() == '') {
-        alert('对接人不能为空');
-        return false;
-    } else if ($('#time').val() == '') {
-        alert('截止时间不能为空');
-        return false;
-    } else {
-        return true;
-    }
-};
-
-function fun() {
-
-    var str = [];
-    var obj = document.getElementById("approverq");
-    for (var i = 0; i < obj.options.length; i++) {
-        if (obj.options[i].selected) {
-            str.push(obj.options[i].value); // 收集选中项
-        }
-    }
-    $("#executer").val(str);
-};
-
-$('#datetimepicker').datetimepicker({
-
-});
-$('.dropify').dropify();
-UE.getEditor("myEditor");
-</script>
-</body>
-
+	<!DOCTYPE html>
+<html>
+	<head>
+<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="page" style="z-index: 99;background:white;padding-left: 10px;">
+			<div class="search_box">
+				<div class="iconfont icon-fangdajing"></div>
+				<input type="text" name="search" class="search" placeholder="搜索" />
+			</div>
+			<div class="people_box">
+				<div class="icon">
+					<div class="iconfont icon-geren"></div>
+					<div class="iconfont icon-iconset0337"></div>
+					<div class="iconfont icon-group"></div>
+				</div>
+				<div class="name_box">
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+					
+					<div class="people">
+						<img src="__STATIC__/admin/tx.jpg"/>
+						<p>张总</p>
+					</div>
+				</div>
+			</div>
+			<div  class="notice_title">
+				公告栏
+			</div>
+			<div class="notice_box">
+				<div class="notice">
+					<div class="notice_dian"></div>
+					<div class="notice_content">oa系统正式上线</div>
+				</div>
+			</div>
+			<div  class="notice_title">
+				新闻
+			</div>
+		</div>
+	</body>
 </html>
+
+
+
+
+
+<style type="text/css">
+.page{
+	width:172px;
+	position:fixed ;
+	right: 0;
+	
+	
+}
+.search_box{
+	display: flex;
+	margin-top:9px;
+	background: #e6e6e6;
+	
+}
+.search_box input{
+	background: #e6e6e6;
+	border: 0px;
+	outline:none 
+}
+.icon{
+	display: flex;
+	margin: 6px 20px ;
+	
+}
+.icon div{
+	font-size: 23px;
+	flex: 1;
+	text-align: center;
+}
+.people{
+	display: flex;
+	align-items: center;
+}
+.name_box{
+	height: 250px;
+	overflow:scroll;
+	overflow-x:visible;
+}
+.people img{
+	width: 26px;
+	height: 26px;
+	border-radius: 26px;	
+}
+.people p{
+    margin-top: 13px;
+    margin-left: 3px;
+}
+.notice_title{
+	text-align: center;
+    padding: 4px 0;
+    font-size: 16px;
+    border-top: 1px solid #cccccc;
+    border-bottom:1px solid #cccccc;
+    font-weight: bold;
+}
+.notice{
+	display: flex;
+}
+.notice_dian{
+	width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: red;
+    margin-top: 5px;
+    margin-left: 7px;
+}
+.notice_box{
+	height: 143px;
+}
+.notice_content{
+	margin-left: 10px;
+    font-size: 11px;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> 
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
+<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
+	<ul v-if="controller!='Map'">
+		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
+		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
+		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
+		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
+		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
+	</ul>
+	<!--<ul v-if="controller=='Map'" class="Maplist">
+		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
+		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
+		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
+		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
+		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
+		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
+		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
+		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
+	</ul>-->
+</div>
+<script type="text/javascript">
+ new Vue({
+        el:'#left_menu',
+        data:{
+           controller:"Index"
+        },
+        created(){
+        	this.init();
+        },
+        methods:{
+        	init(){
+                this.controller="<?php echo request()->controller(); ?>";
+        	}
+        }
+    })
+ function jump(){
+ 	 window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+ function jump_two(){
+ 	window.location.href='<?php echo url('admin/index/work'); ?>'
+ }
+ function jump_three(){
+ 	window.location.href='<?php echo url('admin/index/finance'); ?>'
+ }
+ function jump_four (){
+ 	window.location.href='<?php echo url('admin/index/department'); ?>'
+ }
+ function jump_five(){
+ 	window.location.href='<?php echo url('admin/index/information'); ?>'
+ }
+
+</script>
+
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
+<style>
+
+</style>
+<div class="container">
+	<div class="content_all">
+		<div class="content_top">
+			<h3>消息中心</h3>
+			<div class="content1">
+				<div>
+				<a href="#"><img src="__STATIC__/admin/index/images/无标题0.png" alt=""></a>
+				<a href="#"><img src="__STATIC__/admin/index/images/无标题1.png" alt=""></a>
+				<a href="#"><img src="__STATIC__/admin/index/images/无标题2.png" alt=""></a>
+				<a href="#"><img src="__STATIC__/admin/index/images/无标题3.png" alt=""></a>
+				<a href="#"><img src="__STATIC__/admin/index/images/无标题4.png" alt=""></a>
+				</div>
+			</div>
+		</div>
+		<div class="content_center">
+			<div class="content2">
+				<h3>公司公告</h3>
+				<div>
+					<img src="__STATIC__/admin/index/images/1544240693(1).jpg" alt="">
+					<img src="__STATIC__/admin/index/images/1544240722(1).jpg" alt="">
+					<p>我校</p>
+					<p>关于</p>
+					<p>三天</p>
+					<p>精神文明</p>
+					<a href="#">查看更多</a>
+				</div>
+			</div>
+			<div class="content3">
+				<h3>公司要闻</h3>
+				<div>
+					<img src="__STATIC__/admin/index/images/1544240743(1).jpg" alt="">
+					<br>
+					<h4>丹桂飘香</h4>
+					<p>舒服法第三方第三方士大夫的说法是否是DVD深V是大V</p>
+					<p>士大夫的所得税大V地奇偶的机构ID减肥的佛vjdoifvdorjoi</p>
+					<p>第三个是改革若干的破空辅导班不仅是改革若干的破空辅导是改革若干的破空辅导是改革若干的破空辅导包括从产品线</p>
+					<a href="#">查看更多</a>
+				</div>
+			</div>
+		</div>
+		<div class="content_bottom">
+			<h3>公司论坛</h3>
+			<div class="content4">
+				<div>
+					<img src="__STATIC__/admin/index/images/1544240768(1).jpg" alt="">
+					<h4>人事专区</h4>
+					<p>导班不仅是改革若干</p>
+					<p>导班不仅是改革若干导班不仅是改革若干</p>
+				</div>
+				<div>
+					<img src="__STATIC__/admin/index/images/1544240795(1).jpg" alt="">
+					<h4>设计专区</h4>
+					<p>导班不仅是改革若干</p>
+					<p>导班不仅是改革若干导班若干导班不仅是改革若干</p>
+				</div>
+				<div>
+					<img src="__STATIC__/admin/index/images/info.jpg" alt="">
+					<h4>闲事杂谈</h4>
+					<p>导班不仅是改革若干</p>
+					<p>导班不仅是改革若干导班不导班不仅是改革若干</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

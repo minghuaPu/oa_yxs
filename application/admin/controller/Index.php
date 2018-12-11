@@ -75,6 +75,78 @@ class Index extends \app\admin\Auth
     	return $this->fetch();
     }
     public function information(){
+    	
         return $this->fetch();
     }
+	public function stock(){     //库存的数据
+		$list=db("steel")->field('category,id')->select();  //材料名字
+		$this->assign('list',json_encode($list));
+	     
+		$list_qb=db("steel")->field('material,shape,diameter,length,weight,numbers')->select();  
+		$series = [];
+ 
+		foreach($list_qb as $key=>$value){
+			foreach($value as $k=>$v){
+				if($k=='material'){
+
+					$series[$k]['name'] = '材质';
+
+				}elseif($k=='shape'){
+
+					$series[$k]['name'] = '形状';
+				}
+				elseif($k=='diameter'){
+
+					$series[$k]['name'] = '直径';
+				}
+				elseif($k=='length'){
+
+					$series[$k]['name'] = '长度';
+				}
+				elseif($k=='weight'){
+
+					$series[$k]['name'] = '重量';
+				}
+				elseif($k=='numbers'){
+					$series[$k]['name'] = '数量';
+				};
+				
+				$series[$k]['data'][] = $v;
+				$series[$k]['type'] = 'bar';
+				
+			}
+		};
+//		print_r($list_qb);exit();
+		$this->assign('series',json_encode(array_values($series)));
+		 
+        return $this->fetch();
+    }
+	public function save(){   //保存库存修改的数据
+	     $value =input('keep');
+		 $id = input('id');
+		 $leibie= input('lb');
+		 
+		 if($leibie == '形状'){
+		 	$leibie="shape";
+		 }
+		 elseif($leibie == '材质'){
+		 	$leibie="material";
+		 }
+		 elseif($leibie == '直径'){
+		 	$leibie="diameter";
+		 }
+		 elseif($leibie == '长度'){
+		 	$leibie="length";
+		 }
+		 elseif($leibie == '重量'){
+		 	$leibie="weight";
+		 }
+		 elseif($leibie == '数量'){
+		 	$leibie="numbers";
+		 } ;
+		 
+		 db('steel')->where("id=$id")->update(["$leibie"=>"$value"]);
+		
+		 $this->success('修改成功',url('stock'));
+	}
 }

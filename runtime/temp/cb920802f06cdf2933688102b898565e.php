@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:67:"D:\wamp64\www\oa\public/../application/admin\view\task\arrange.html";i:1544522989;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:77:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\select.html";i:1544521112;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -351,108 +351,323 @@
         }
     })
 </script>
-<link rel="stylesheet" type="text/css" href="__STATIC__/library/dropify-master/dist/css/dropify.min.css">
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css?3">
-<link rel="stylesheet" type="text/css" href="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.css" />
-<link rel="stylesheet" type="text/css" href="__STATIC__/library/bootstrap/bootstrap-select.min.css" />
-<div class="write_box">
-    <div class="title">
-        <a class="glyphicon glyphicon-list">布置任务</a>
-        <a href="<?php echo url('index'); ?>" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
-    </div>
-    <h3 class="time_now"><?php echo $time; ?></h3>
-    <div class="from_box">
-        <form action="<?php echo url('save2'); ?>" class="form" method="post" enctype="multipart/form-data" onsubmit="return beforesend()">
-            <div class="form-group">
-                <div class="form-group">
-                    <label>任务</label>
-                    <input id="workname" type="text" class="form-control" name="work_name" value="">
-                </div>
-                <div class="form-group">
-                    <label>任务附件</label>
-                    <input type="file" name="work_require" class="dropify"></input>
-                </div>
-                <div class="form-group">
-                    <label>任务详情</label>
-                    <textarea name="content" id="myEditor" style="height: 200px;width: 100%;"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>对接人</label>
-                    <input type="text" name="executerid" id="executer" value="" class="abc" style="display: none;"></input>
-                    <select id="approverq" class="selectpicker" multiple name="executor">
-                        <?php foreach($userid_list as $key=>$info): ?>
-                        <option value="<?php echo $info['user_name']; ?>"><?php echo $info['user_name']; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>任务级别</label>
-                    <select name="urgency" style="width: 200px;margin-top: 20px;height: 30px;border-radius: 10px;outline:none;">
-                        <option>今天</option>
-                        <option>代办</option>
-                        <option>紧急</option>
-                        <option>加急</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>截止时间</label>
-                    <div class='input-group date' style="width:200px" id='datetimepicker'>
-                        <input id="time" type='text' class="form-control" name="lasttime" />
-                        <span class="input-group-addon" style="margin-left: -200px;">
-						                        <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="提交" onclick="fun()">
-                </div>
-                <div style="width: 100%;height: 200px;"></div>
-        </form>
-    </div>
+
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
+<div class="task">
+	<div class="task_left"></div>
+	<div class="task_box">
+		<div class="task_title">
+			<span class="glyphicon glyphicon-list-alt pull-left"></span>
+			<h4>TASK员工任务管理</h4>
+		</div>
+		<div class="task_content">
+			
+			<ul class="list_top">
+				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
+				
+				<li style="width: 0%;">
+					 
+					 	<div class="input-group pull-left">
+                            <input type="text" class="form-control pull-left" placeholder="输入任务名称" id="selectinfo">
+                        </div>
+                        <button class="btn btn-group pull-left" style="cursor: pointer;width: 70px;height: 35px; outline: none;" @click="select" >搜索</button>  
+					 
+				</li>
+			</ul>
+            
+
+			 <table  class="table" style="text-align: center;"  >
+				<tr>
+					<th>排序</th>
+					<th>编号ID</th>
+					<th>对接人</th>
+					<th>任务名称</th>
+					
+					<th>附件</th>
+					<th>部门</th>
+					<th>添加时间</th>
+					<th>截止时间</th>
+					<th>任务级别</th>
+					<th>状态</th>
+					<th>详情</th>
+				</tr>
+				
+				<?php foreach($selectlists as $info): ?>
+					<tr >
+						<td>2</td>
+						<td><?php echo $info['id']; ?></td>
+						
+						<td><?php echo $info['execute_id']; ?></td>
+						<td><?php echo $info['work_name']; ?></td>
+						
+						<?php if($info['work_file']!=""): ?>
+						<td><a href="__UPLOADS__<?php echo $info['work_file']; ?>">点击查看</a></td>
+						<?php endif; if($info['work_file']==""): ?>
+						<td>无</td>
+						<?php endif; ?>
+						<td></td>
+						<td><?php echo date("Y-m-d  H:i:s",$info['time']); ?></td>
+						<td><?php echo date("Y-m-d  H:i:s",$info['lasttime']); ?></td>
+						<td><?php echo $info['work_rank']; ?></td>
+						<?php if($info['state']=="1"): ?>
+						<td>已发布待查阅</td>
+						<?php endif; if($info['state']=="2"): ?>
+						<td>已查阅</td>
+						<?php endif; if($info['state']=="3"): ?>
+						<td>发起人已放弃</td>
+						<?php endif; if($info['state']=="4"): ?>
+						<td>任务已完成</td>
+						<?php endif; ?>
+						
+						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">详情</a></td>
+					</tr>			
+				<?php endforeach; ?>
+				
+				
+				
+			</table>
+			
+			
+			
+			<div  style="text-align: center;"><?php echo $selectlists->render(); ?></div>
+			
+			<ul class="list_bottom">
+				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
+			</ul>
+			
+		</div>
+	</div>
+	<div class="task_right"></div>
 </div>
-<script type="text/javascript" src="__STATIC__/library/dropify-master/dist/js/dropify.min.js"></script>
-<!-- 配置文件 -->
-<script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.config.js"></script>
-<!-- 编辑器源码文件 -->
-<script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.all.min.js"></script>
-<script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-select.min.js"></script>
-<script type="text/javascript" src="__STATIC__/library/bootstrap/defaults-zh_CN.min.js"></script>
+
+<footer class="footer" style="text-align: center;margin-top: 50px;">
+	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
+	&nbsp;
+	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
+		投诉&amp;问题
+	</a>
+	&nbsp;&nbsp;
+	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
+		微客服
+	</a>
+	&nbsp;&nbsp;
+	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
+		<i class="md md-speaker-notes m-r-5"></i>
+		订阅号
+	</a>
+	<br>
+	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
+</footer>
+<!-- 底部 -->
 <script type="text/javascript">
-function beforesend() {
-
-    if ($('#workname').val() == '') {
-        alert('任务不能为空');
-        return false;
-    } else if ($('#approverq').val() == '') {
-        alert('对接人不能为空');
-        return false;
-    } else if ($('#time').val() == '') {
-        alert('截止时间不能为空');
-        return false;
-    } else {
-        return true;
-    }
-};
-
-function fun() {
-
-    var str = [];
-    var obj = document.getElementById("approverq");
-    for (var i = 0; i < obj.options.length; i++) {
-        if (obj.options[i].selected) {
-            str.push(obj.options[i].value); // 收集选中项
-        }
-    }
-    $("#executer").val(str);
-};
-
-$('#datetimepicker').datetimepicker({
-
+$(document).ready(function(){
+	$(".left_menu ul li").click(function(event){
+		event.preventDefault();
+		console.log($(this).siblings().find('a,p'))
+		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
+			"color":"#5d9cec"})
+		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
+		$(this).find('a,p').css("color","#5d9cec")
+		$(this).siblings().find('a,p').css("color","white")
+	})
 });
-$('.dropify').dropify();
-UE.getEditor("myEditor");
 </script>
 </body>
-
 </html>
+
+<script>
+ 	// 第二步：定义路由，也就是每个路由应该映射一个组件
+ 	
+	new Vue({
+        el: ".task",
+        data: {
+        	ok:true,
+        	pageshow:true,
+            
+            secondary:[],
+   	
+        },
+        mounted(){
+        	console.log(this.DATE)	
+        	console.log(this.worksheet);
+        	if(this.worksheet.length<8){
+        		var num=8-this.worksheet.length;
+        		for (var i = 0; i < num; i++) {
+        			this.worksheet.push({});
+        		}
+        		
+        		
+        	}
+        	for (var i = 0; i < this.worksheet.length; i++) {
+        	this.secondary.push([])
+            
+        	this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary);
+        	this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary);
+        		for (var a = 0; a < this.fine.length; a++) {
+        	     if(this.worksheet[i].primary.id==this.fine[a].main){
+          				this.secondary[i].push(this.fine[a])
+        			}
+        	    }
+        	   
+        		
+        	}
+   
+        	console.log(this.secondary);
+        	console.log(this.worksheet);
+         			
+		},
+       	
+     methods:{
+        select(){
+            var selinfo = $('#selectinfo').val();
+            if(selinfo){
+                window.location.href="select.html?info="+selinfo;
+            }else{
+                return false;
+            }
+        },
+     	aa(){
+     		console.log(this.DATE)
+     	},  	
+        // 主分类
+        zhuclassify(e){
+     		console.log(this.worksheet[e].primary)
+        	    $.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+	
+	        	    	select:1,
+	        	    	theme_id:this.worksheet[e].id,
+	        	    	xuan:this.worksheet[e].primary.id,
+	        	    	type:this.worksheet[e].primary.type
+        	    	},(rtnData)=>{     
+        	    	
+        	    			console.log(rtnData)
+        	    			if(rtnData!=='false'){
+        	    				console.log(1)
+        	    			rtnData.primary=JSON.parse(rtnData.primary)
+        	    			console.log(rtnData)
+        	    				this.worksheet[e]=rtnData
+        	    			}
+        	    			
+
+        	    			var text=[];
+        	    			 for (var a = 0; a < this.fine.length; a++) {
+			        	     	if(this.worksheet[e].primary.id==this.fine[a].main){
+			          				text.push(this.fine[a])
+			        				this.$set(this.secondary,e,text);
+			        				}
+        	     }
+        	    			console.log(this.worksheet);
+        	    			
+     			});
+        },
+        // 细分类
+        ciclassify(e){ 
+        	console.log(this.worksheet[e].id);
+        	$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{      	    		
+        	    		select:2,
+        	    		theme_id:this.worksheet[e].id,
+        	    		xuan:this.worksheet[e].secondary,
+						
+        	    	},(rtnData)=>{
+                 	   
+				          this.worksheet[e].score=rtnData;
+        	    			 // this.$set(this.quantity,e,rtnData) 
+
+     			});
+
+ 
+        },
+        // 时间/数量
+        liang(e){
+        	console.log(this.worksheet[e].quantity);
+        	$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+        	    		
+        	    		select:3,
+        	    		theme_id:this.worksheet[e].id,
+        	    		liang:this.worksheet[e].quantity
+        	    	},(rtnData)=>{
+                 	   this.worksheet[e].score=rtnData;
+        	    	});
+        },
+        // 工作内容
+        job(e){
+        		$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+        	    		
+        	    		select:4,
+        	    		theme_id:this.worksheet[e].id,
+        	    		job:this.worksheet[e].job
+        	    	},(rtnData)=>{
+        	    		if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
+        	    	});
+        },
+        // 是否完成
+        whether(e){
+        		$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+        	    		
+        	    		select:5,
+        	    		theme_id:this.worksheet[e].id,
+        	    		whether:this.worksheet[e].whether
+        	    	},(rtnData)=>{
+        	    		this.zongshu=rtnData
+        	    	});
+        },
+        //未完成原因 
+        reasons(e){
+ 				$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+        	    		
+        	    		select:6,
+        	    		theme_id:this.worksheet[e].id,
+        	    		reasons:this.worksheet[e].reasons
+        	    	},(rtnData)=>{
+        	    		if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
+        	    	});
+        },
+        // 备注
+         remark(e){
+         			$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+        	    		
+        	    		select:7,
+        	    		theme_id:this.worksheet[e].id,
+        	    		remark:this.worksheet[e].remark
+        	    	},(rtnData)=>{
+        	    		if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
+        	    	});
+        },
+        // 统计分数
+         score(e){
+			$.get('<?php echo url("admin/task/classify"); ?>',
+   	    			{
+       	    		
+      	    		select:8,
+      	    		theme_id:this.worksheet[e].id,
+       	    		score:this.worksheet[e].score
+        	    	});
+        },
+        viewDetails:function(e){
+			window.location.href='<?php echo url('check',['id'=>24]); ?>'
+        }
+        	
+         
+
+        }         
+    })
+</script>
+<style>
+
+</style>

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:71:"D:\wamp64\www\oa\public/../application/admin\view\index\department.html";i:1544407078;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544427062;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1544427062;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:71:"D:\wamp64\www\oa\public/../application/admin\view\index\department.html";i:1544427505;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544427397;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1544427505;}*/ ?>
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/department/department.css"/>
 <html>
@@ -406,7 +406,7 @@
  	window.location.href='<?php echo url('admin/index/department'); ?>'
  }
  function jump_five(){
- 	window.location.href='<?php echo url('admin/index/index'); ?>'
+ 	window.location.href='<?php echo url('admin/index/information'); ?>'
  }
 
 </script>
@@ -419,7 +419,7 @@
 		<title></title>
 	</head>
 	<body>
-		<div class="page" style="z-index: 99;background:white;">
+		<div class="page" style="z-index: 99;background:white;padding-left: 10px;">
 			<div class="search_box">
 				<div class="iconfont icon-fangdajing"></div>
 				<input type="text" name="search" class="search" placeholder="搜索" />
@@ -715,7 +715,7 @@
                
             },
             yAxis: {
-            	 data: ["设计部  张三","设计部  李四","设计部  王五","设计部  弘毅"]
+            	 data: ["设计部  张三","设计部  李四","设计部  王豹","设计部  弘毅"]
             },
             grid: {
 		        left: '3%',
