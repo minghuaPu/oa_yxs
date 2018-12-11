@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:72:"D:\wamp64\www\oa\public/../application/admin\view\index\information.html";i:1544427491;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1544427505;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544427397;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:66:"D:\wamp64\www\oa\public/../application/admin\view\bumen\index.html";i:1544063215;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544427397;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -350,151 +350,7 @@
             }
         }
     })
-</script>
-	<!DOCTYPE html>
-<html>
-	<head>
-<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<div class="page" style="z-index: 99;background:white;padding-left: 10px;">
-			<div class="search_box">
-				<div class="iconfont icon-fangdajing"></div>
-				<input type="text" name="search" class="search" placeholder="搜索" />
-			</div>
-			<div class="people_box">
-				<div class="icon">
-					<div class="iconfont icon-geren"></div>
-					<div class="iconfont icon-iconset0337"></div>
-					<div class="iconfont icon-group"></div>
-				</div>
-				<div class="name_box">
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				公告栏
-			</div>
-			<div class="notice_box">
-				<div class="notice">
-					<div class="notice_dian"></div>
-					<div class="notice_content">oa系统正式上线</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				新闻
-			</div>
-		</div>
-	</body>
-</html>
-
-
-
-
-
-<style type="text/css">
-.page{
-	width:172px;
-	position:fixed ;
-	right: 0;
-	
-	
-}
-.search_box{
-	display: flex;
-	margin-top:9px;
-	background: #e6e6e6;
-	
-}
-.search_box input{
-	background: #e6e6e6;
-	border: 0px;
-	outline:none 
-}
-.icon{
-	display: flex;
-	margin: 6px 20px ;
-	
-}
-.icon div{
-	font-size: 23px;
-	flex: 1;
-	text-align: center;
-}
-.people{
-	display: flex;
-	align-items: center;
-}
-.name_box{
-	height: 250px;
-	overflow:scroll;
-	overflow-x:visible;
-}
-.people img{
-	width: 26px;
-	height: 26px;
-	border-radius: 26px;	
-}
-.people p{
-    margin-top: 13px;
-    margin-left: 3px;
-}
-.notice_title{
-	text-align: center;
-    padding: 4px 0;
-    font-size: 16px;
-    border-top: 1px solid #cccccc;
-    border-bottom:1px solid #cccccc;
-    font-weight: bold;
-}
-.notice{
-	display: flex;
-}
-.notice_dian{
-	width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: red;
-    margin-top: 5px;
-    margin-left: 7px;
-}
-.notice_box{
-	height: 143px;
-}
-.notice_content{
-	margin-left: 10px;
-    font-size: 11px;
-}
-</style>
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> 
+</script> 
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
 <div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
@@ -548,72 +404,76 @@
 
 </script>
 
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
-<style>
-
-</style>
-<div class="container">
-	<div class="content_all">
-		<div class="content_top">
-			<h3>消息中心</h3>
-			<div class="content1">
-				<div>
-				<a href="#"><img src="__STATIC__/admin/index/images/无标题0.png" alt=""></a>
-				<a href="#"><img src="__STATIC__/admin/index/images/无标题1.png" alt=""></a>
-				<a href="#"><img src="__STATIC__/admin/index/images/无标题2.png" alt=""></a>
-				<a href="#"><img src="__STATIC__/admin/index/images/无标题3.png" alt=""></a>
-				<a href="#"><img src="__STATIC__/admin/index/images/无标题4.png" alt=""></a>
-				</div>
-			</div>
-		</div>
-		<div class="content_center">
-			<div class="content2">
-				<h3>公司公告</h3>
-				<div>
-					<img src="__STATIC__/admin/index/images/1544240693(1).jpg" alt="">
-					<img src="__STATIC__/admin/index/images/1544240722(1).jpg" alt="">
-					<p>我校</p>
-					<p>关于</p>
-					<p>三天</p>
-					<p>精神文明</p>
-					<a href="#">查看更多</a>
-				</div>
-			</div>
-			<div class="content3">
-				<h3>公司要闻</h3>
-				<div>
-					<img src="__STATIC__/admin/index/images/1544240743(1).jpg" alt="">
-					<br>
-					<h4>丹桂飘香</h4>
-					<p>舒服法第三方第三方士大夫的说法是否是DVD深V是大V</p>
-					<p>士大夫的所得税大V地奇偶的机构ID减肥的佛vjdoifvdorjoi</p>
-					<p>第三个是改革若干的破空辅导班不仅是改革若干的破空辅导是改革若干的破空辅导是改革若干的破空辅导包括从产品线</p>
-					<a href="#">查看更多</a>
-				</div>
-			</div>
-		</div>
-		<div class="content_bottom">
-			<h3>公司论坛</h3>
-			<div class="content4">
-				<div>
-					<img src="__STATIC__/admin/index/images/1544240768(1).jpg" alt="">
-					<h4>人事专区</h4>
-					<p>导班不仅是改革若干</p>
-					<p>导班不仅是改革若干导班不仅是改革若干</p>
-				</div>
-				<div>
-					<img src="__STATIC__/admin/index/images/1544240795(1).jpg" alt="">
-					<h4>设计专区</h4>
-					<p>导班不仅是改革若干</p>
-					<p>导班不仅是改革若干导班若干导班不仅是改革若干</p>
-				</div>
-				<div>
-					<img src="__STATIC__/admin/index/images/info.jpg" alt="">
-					<h4>闲事杂谈</h4>
-					<p>导班不仅是改革若干</p>
-					<p>导班不仅是改革若干导班不导班不仅是改革若干</p>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="container" style="background: #fff">
+    <h3>录入/修改公司部门</h3>
+    <?php if(\think\Session::get('user_cate')=='老板'): ?>
+    <form action="<?php echo url('update_bumen'); ?>" class="form" method="post" enctype="multipart/form-data">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr class="success">
+                <th>序号</th>
+                <th>部门名称</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($list as $info_cate): ?>
+            <tr>
+                <td><?php echo $info_cate['id']; ?></td>
+                <td>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name" value="<?php echo $info_cate['bumen_name']; ?>" name="bumen[<?php echo $info_cate['id']; ?>]">
+                    </div>
+                </td>
+  
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <div  style="">
+       <div style="text-align: center;" class="form-group"><input type="submit" class="btn btn-success" style="width: 150px;float: left;margin-left: 400px"></div>
+       <a href="<?php echo url('addbumen',['id'=>\think\Session::get('u_belong')]); ?>" type="button" class="btn btn-primary" style="width: 150px; margin-left: 50px">增加</a>
+       <a href="<?php echo url('admin/index/index'); ?>" type="button" class="btn btn-info" style="width: 150px; margin-left: 50px">返回</a>
+    </div>
+    </form>
+    <?php echo $list->render(); ?>
 </div>
+<?php endif; if(\think\Session::get('user_cate')!='老板'): ?>
+<div>
+    您的身份为<?php echo \think\Session::get('user_cate'); ?>,暂时无权限进行此操作
+</div>
+<?php endif; ?>
+
+<footer class="footer" style="text-align: center;margin-top: 50px;">
+	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
+	&nbsp;
+	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
+		投诉&amp;问题
+	</a>
+	&nbsp;&nbsp;
+	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
+		微客服
+	</a>
+	&nbsp;&nbsp;
+	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
+		<i class="md md-speaker-notes m-r-5"></i>
+		订阅号
+	</a>
+	<br>
+	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
+</footer>
+<!-- 底部 -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".left_menu ul li").click(function(event){
+		event.preventDefault();
+		console.log($(this).siblings().find('a,p'))
+		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
+			"color":"#5d9cec"})
+		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
+		$(this).find('a,p').css("color","#5d9cec")
+		$(this).siblings().find('a,p').css("color","white")
+	})
+});
+</script>
+</body>
+</html>

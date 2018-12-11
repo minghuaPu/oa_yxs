@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\check.html";i:1544426694;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\check.html";i:1544430918;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -351,7 +351,7 @@
         }
     })
 </script>
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css?1">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css">
 	<div class="write_box" id="check">
 		<div class="title" style="margin-bottom: 20px;">
 			<a class="glyphicon glyphicon-ok">工作汇报批改/详情</a>
@@ -390,13 +390,13 @@
 						<td><?php echo $check_info['id']; ?></td>
 						<td><?php echo $check_info['execute_id']; ?></td>
 						<td><?php echo $check_info['work_name']; ?></td>
-						<?php if($check_info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $check_info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($check_info['work_require']==""): ?>
+						<?php if($check_info['work_file']!=""): ?>
+						<td><a href="__UPLOADS__<?php echo $check_info['work_file']; ?>">点击查看</a></td>
+						<?php endif; if($check_info['work_file']==""): ?>
 						<td>无</td>
 						<?php endif; ?>
-						<td><?php echo $check_info['time']; ?></td>
-						<td><?php echo $check_info['lasttime']; ?></td>
+						<td><?php echo date("Y-m-d  H:i:s",$check_info['time']); ?></td>
+						<td><?php echo date("Y-m-d  H:i:s",$check_info['lasttime']); ?></td>
 						<td><?php echo $check_info['work_rank']; ?></td>
 						<?php if($check_info['state']=="1"): ?>
 						<td>已发布待查阅</td>

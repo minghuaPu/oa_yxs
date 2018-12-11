@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:75:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\look.html";i:1544198158;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:75:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\look.html";i:1544198158;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1544430005;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -351,6 +351,8 @@
         }
     })
 </script>
+
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
 <div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
 		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
@@ -398,7 +400,7 @@
  	window.location.href='<?php echo url('admin/index/department'); ?>'
  }
  function jump_five(){
- 	window.location.href='<?php echo url('admin/index/index'); ?>'
+ 	window.location.href='<?php echo url('admin/index/information'); ?>'
  }
 
 </script>

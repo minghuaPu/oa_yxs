@@ -27,7 +27,7 @@
 						<div class="wire"></div>
 						<div class="Employee_footer">
 							<div><span>负责人:</span><span>{$userdata.user_name}</span></div>
-							<div><span>日期:</span><span>{$date}</span></div>
+							<div><span>日期:</span><input type="date" v-model='DATE' style="width: 150px" @change='selectDate'></div>
 							
 						</div>
 
@@ -39,6 +39,7 @@
 					</div>
 					<table class="aa" style="text-align: center;" border='1px' width="1000px">
 				<tr bgcolor="#31869b" align="center" style="color: #fff;font-size: 12px;">
+				 
 					<th width="50px">序号</th>
 					<th width="100px">主分类</th>
 					<th width="100px">细分类</th>
@@ -50,15 +51,21 @@
 					<th width="150px">备注</th>
 					<th width="100px">统计分数</th>
 					<th width="50px">操作</th>
+				
 				</tr>
 				
 
 				<tr :bgcolor="index%2 ==0?'':'#fff'" v-for='(item,index) in worksheet'>
+				  
 					<td>
 					  {{index+1}}
 					</td>
 					<td>
-						<select :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.primary' @change='zhuclassify(index)' >
+						<select 
+						:style="index%2 ==0?'background: #b7dee8;':''" 
+						v-model='item.primary' 
+						@change='zhuclassify(index)'    
+						:disabled='disabled'>
 					
 						  <option  v-for="(i,l) in primary"  :value="i" style="text-align: center;">{{i.type}}</option>
 					
@@ -76,7 +83,12 @@
 						
 						 
 					</td>
-					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" @blur='job(index)' v-model="item.job"></td>
+					<td>
+						<div  :style="index%2 ==0?'background: #b7dee8;':''"  v-if='item.cate==0'>{{item.work_name}}</div>
+						<input type="text" :style="index%2 ==0?'background: #b7dee8;':''" @blur='job(index)' v-model="item.job"  v-else>
+						
+					</td>
+
 					<td></td>
 					<td>
 						<select :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.whether' @change='whether(index)'>
@@ -89,7 +101,8 @@
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.reasons' @blur='reasons(index)'></td>
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.remark' @blur='remark(index)'></td>
 					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
-					<td></td>
+					<td><a @click='viewDetails(item.id)' v-if='item.cate==0'>查看详情</a></td>
+					
 				</tr>
 				{foreach $bossfenprw as $val}
 				<tr >
@@ -129,7 +142,7 @@
 					<td><input type="text"  ></td>
 					<td><input type="text" ></td>
 					<td><input type="text"  ></td>
-					<td><a href="{:url('check',['id'=>$val.id])}">查看详情</a></td>
+					<td></td>
 				</tr>
 				{/foreach}
 				
@@ -167,28 +180,26 @@
 			<ul class="list_top">
 				<li><a href="{:url('arrange')}"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
 				
-				<!-- <li style="width: 0%;">
-					 <form action="{:url('select')}" class="form">
+				<li style="width: 0%;">
+					
 					 	<div class="input-group pull-left">
-					 		<input type="text" class="form-control pull-left" placeholder="输入任务名称" name="selectinfo">
+					 		<input type="text" class="form-control pull-left" placeholder="输入任务名称" id="selectinfo">
 					 	</div>
-					 	<input type="submit" class="btn btn-group pull-left" style="cursor: pointer;width: 70px;outline: none;" @click="select" value="搜索">
-					 </form>
-				</li> -->
+					 	<button class="btn btn-group pull-left" style="cursor: pointer;width: 70px;height: 35px; outline: none;" @click="select" >搜索</button>  
+					 
+				</li>
 			</ul>
+    
+				<a class="btn btn-default" style="background-color: #7BB0DE" href="{:url('index')}">待我处理({$work_listnu})</a>
+				<a class="btn btn-default" href="{:url('wfb')}">我发布的任务({$work_listnu})</a>
+				<a class="btn btn-default" href="{:url('yjs')}">已结束的任务({$unfinish_listnu})</a>						
+			<table  class="table" style="text-align: center;"  >
 
-			<!-- <div v-if="ok"> -->
-			<button class="btn btn-default" @click="turn1">待我处理({$work_listnu})</button>
-			<button class="btn btn-default" @click="turn1">我发布的任务({$work_listnu})</button>
-			<button class="btn btn-default" @click="turn2">已结束的任务({$unfinish_list|count})</button>
-			
-			<table v-if="con == 1" class="table" style="text-align: center;"  >
 				<tr>
 					<th>排序</th>
 					<th>编号ID</th>
 					<th>对接人</th>
-					<th>任务名称</th>
-					
+					<th>任务名称</th>					
 					<th>附件</th>
 					<th>部门</th>
 					<th>添加时间</th>
@@ -231,69 +242,14 @@
 						
 						<td><a class="btn btn-default" href="{:url('check',['id'=>$info.id])}">详情</a></td>
 					</tr>			
-				{/foreach}
-				
-				
-				
-			</table>
-			<table v-if="con == 2" class="table" style="text-align: center;"  >
-				<tr>
-					<th>排序</th>
-					<th>编号ID</th>
-					<th>对接人</th>
-					<th>任务名称</th>
-					
-					<th>附件</th>
-					<th>部门</th>
-					<th>添加时间</th>
-					<th>截止时间</th>
-					<th>任务级别</th>
-					<th>状态</th>
-					<th>详情</th>
-				</tr>
-				
-				{foreach $unfinish_list as $info}
-					<tr >
-						<td>2</td>
-						<td>{$info.id}</td>
-						
-						<td>{$info.execute_id}</td>
-						<td>{$info.work_name}</td>
-						
-						{if $info.work_file!=""}
-						<td><a href="__UPLOADS__{$info.work_file}">点击查看</a></td>
-						{/if}
-						{if $info.work_file==""}
-						<td>无</td>
-						{/if}
-						<td></td>
-						<td>{$info.time|date="Y-m-d  H:i:s",###}</td>
-						<td>{$info.lasttime|date="Y-m-d  H:i:s",###}</td>
-						<td>{$info.work_rank}</td>
-						{if $info.state=="1"}
-						<td>已发布待查阅</td>
-						{/if}
-						{if $info.state=="2"}
-						<td>已查阅</td>
-						{/if}
-						{if $info.state=="3"}
-						<td>发起人已放弃</td>
-						{/if}
-						{if $info.state=="4"}
-						<td>任务已完成</td>
-						{/if}
-						
-						<td><a class="btn btn-default" href="{:url('check',['id'=>$info.id])}">详情</a></td>
-					</tr>			
-				{/foreach}
-				
-				
-				
-			</table>
-			<!-- </div> -->
+ 
+				{/foreach}				
+			</table>		
+			<div  style="text-align: center;">{$work_list->render()}</div>
 			
+
 			
-			<div style="text-align: center;">{$work_list->render()}</div>
+			 
 			<ul class="list_bottom">
 				<li><a href="{:url('look')}"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
 			</ul>
@@ -368,17 +324,21 @@
 	new Vue({
         el: ".task",
         data: {
-        	ok:true,
+        	
             worksheet:{$yuangong}, 
             primary : {$main},
             worklist:[{$work_list}],
             fine:{$fine},
             secondary:[],
             zongshu:{$zongshu},
-            con:1,
-          
+
+       
+            disabled:false,
+
+          	DATE:'{$date}'
         },
         mounted(){
+        	console.log(this.DATE)	
         	console.log(this.worksheet);
         	if(this.worksheet.length<8){
         		var num=8-this.worksheet.length;
@@ -404,18 +364,37 @@
    
         	console.log(this.secondary);
         	console.log(this.worksheet);
-         				
+         			
 		},
        	
      methods:{
+ 
+     	
+     	selectDate(){ 
+     		console.log(this.DATE)
+     		$.get('{:url("admin/task/classify")}',
+        	    	{select:8,selectDate:this.DATE,},(rtnData)=>{
+                     if(this.DATE=='{$date}'){
+                     	console.log(1)
+                     }
+        	    	this.worksheet=rtnData;
+        	    	for (var i = 0; i < this.worksheet.length; i++) {
+        	    		this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary);
+        				this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary);
+        	    	}
+        	    	
+     			});
+
+     	},
      	select(){
-           this.ok=false
-     	},
-     	turn1(){
-     		this.con=1
-     	},
-     	turn2(){
-     		this.con=2
+
+     		var selinfo = $('#selectinfo').val();
+     		if(selinfo){
+     			window.location.href="select.html?info="+selinfo;
+     		}else{
+     			return false;
+     		}
+            
      	},
      	// 添加
      	add(){
@@ -454,6 +433,9 @@
 			        	     	if(this.worksheet[e].primary.id==this.fine[a].main){
 			          				text.push(this.fine[a])
 			        				this.$set(this.secondary,e,text);
+			        				}else{
+			        					text.push()
+			        					this.$set(this.secondary,e,text);
 			        				}
         	     }
         	    			console.log(this.worksheet);
@@ -470,9 +452,9 @@
         	    		xuan:this.worksheet[e].secondary,
 						
         	    	},(rtnData)=>{
-                 	   
-				          this.worksheet[e].score=rtnData;
-        	    			 // this.$set(this.quantity,e,rtnData) 
+        	    		this.worksheet[e].score=rtnData
+                 	   this.$set(this.worksheet[e],	"score",rtnData)
+				        
 
      			});
 
@@ -488,7 +470,8 @@
         	    		theme_id:this.worksheet[e].id,
         	    		liang:this.worksheet[e].quantity
         	    	},(rtnData)=>{
-                 	   this.worksheet[e].score=rtnData;
+                 	  this.worksheet[e].score=rtnData
+                 	   this.$set(this.worksheet[e],	"score",rtnData)
         	    	});
         },
         // 工作内容
@@ -559,7 +542,7 @@
         	    	});
         },
         viewDetails:function(e){
-			window.location.href='{:url('check',['id'=>24])}'
+			window.location.href='check.html?id='+e
         }
         	
          

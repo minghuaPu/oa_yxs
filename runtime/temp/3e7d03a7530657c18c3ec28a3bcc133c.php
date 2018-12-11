@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544432146;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544521074;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -376,7 +376,8 @@
 						<div class="wire"></div>
 						<div class="Employee_footer">
 							<div><span>负责人:</span><span><?php echo $userdata['user_name']; ?></span></div>
-							<div><span>日期:</span><span><?php echo $date; ?></span></div>
+							<div><span>日期:</span><input type="date" v-model='DATE' @change='aa'></div>
+							
 						</div>
 
 					</div>
@@ -515,28 +516,25 @@
 			<ul class="list_top">
 				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
 				
-				<!-- <li style="width: 0%;">
-					 <form action="<?php echo url('select'); ?>" class="form">
+				<li style="width: 0%;">
+					
 					 	<div class="input-group pull-left">
-					 		<input type="text" class="form-control pull-left" placeholder="输入任务名称" name="selectinfo">
+					 		<input type="text" class="form-control pull-left" placeholder="输入任务名称" id="selectinfo">
 					 	</div>
-					 	<input type="submit" class="btn btn-group pull-left" style="cursor: pointer;width: 70px;outline: none;" @click="select" value="搜索">
-					 </form>
-				</li> -->
+					 	<button class="btn btn-group pull-left" style="cursor: pointer;width: 70px;height: 35px; outline: none;" @click="select" >搜索</button>  
+					 
+				</li>
 			</ul>
-
-			<!-- <div v-if="ok"> -->
-			<button class="btn btn-default" @click="turn1">待我处理(<?php echo $work_listnu; ?>)</button>
-			<button class="btn btn-default" @click="turn1">我发布的任务(<?php echo $work_listnu; ?>)</button>
-			<button class="btn btn-default" @click="turn2">已结束的任务(<?php echo count($unfinish_list); ?>)</button>
-			
-			<table v-if="con == 1" class="table" style="text-align: center;"  >
+            
+				<a class="btn btn-default" style="background-color: #7BB0DE" href="<?php echo url('index'); ?>">待我处理(<?php echo $work_listnu; ?>)</a>
+				<a class="btn btn-default" href="<?php echo url('wfb'); ?>">我发布的任务(<?php echo $work_listnu; ?>)</a>
+				<a class="btn btn-default" href="<?php echo url('yjs'); ?>">已结束的任务(<?php echo $unfinish_listnu; ?>)</a>						
+			<table  class="table" style="text-align: center;"  >
 				<tr>
 					<th>排序</th>
 					<th>编号ID</th>
 					<th>对接人</th>
-					<th>任务名称</th>
-					
+					<th>任务名称</th>					
 					<th>附件</th>
 					<th>部门</th>
 					<th>添加时间</th>
@@ -575,65 +573,13 @@
 						
 						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">详情</a></td>
 					</tr>			
-				<?php endforeach; ?>
-				
-				
-				
-			</table>
-			<table v-if="con == 2" class="table" style="text-align: center;"  >
-				<tr>
-					<th>排序</th>
-					<th>编号ID</th>
-					<th>对接人</th>
-					<th>任务名称</th>
-					
-					<th>附件</th>
-					<th>部门</th>
-					<th>添加时间</th>
-					<th>截止时间</th>
-					<th>任务级别</th>
-					<th>状态</th>
-					<th>详情</th>
-				</tr>
-				
-				<?php foreach($unfinish_list as $info): ?>
-					<tr >
-						<td>2</td>
-						<td><?php echo $info['id']; ?></td>
-						
-						<td><?php echo $info['execute_id']; ?></td>
-						<td><?php echo $info['work_name']; ?></td>
-						
-						<?php if($info['work_file']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $info['work_file']; ?>">点击查看</a></td>
-						<?php endif; if($info['work_file']==""): ?>
-						<td>无</td>
-						<?php endif; ?>
-						<td></td>
-						<td><?php echo date("Y-m-d  H:i:s",$info['time']); ?></td>
-						<td><?php echo date("Y-m-d  H:i:s",$info['lasttime']); ?></td>
-						<td><?php echo $info['work_rank']; ?></td>
-						<?php if($info['state']=="1"): ?>
-						<td>已发布待查阅</td>
-						<?php endif; if($info['state']=="2"): ?>
-						<td>已查阅</td>
-						<?php endif; if($info['state']=="3"): ?>
-						<td>发起人已放弃</td>
-						<?php endif; if($info['state']=="4"): ?>
-						<td>任务已完成</td>
-						<?php endif; ?>
-						
-						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">详情</a></td>
-					</tr>			
-				<?php endforeach; ?>
-				
-				
-				
-			</table>
-			<!-- </div> -->
+				<?php endforeach; ?>				
+			</table>		
+			<div  style="text-align: center;"><?php echo $work_list->render(); ?></div>
+			
+
 			
 			
-			<div style="text-align: center;"><?php echo $work_list->render(); ?></div>
 			<ul class="list_bottom">
 				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
 			</ul>
@@ -736,17 +682,18 @@ $(document).ready(function(){
 	new Vue({
         el: ".task",
         data: {
-        	ok:true,
+        	
             worksheet:<?php echo $yuangong; ?>, 
             primary : <?php echo $main; ?>,
             worklist:[<?php echo $work_list; ?>],
             fine:<?php echo $fine; ?>,
             secondary:[],
             zongshu:<?php echo $zongshu; ?>,
-            con:1,
-          
+            
+          	DATE:'<?php echo $date; ?>'
         },
         mounted(){
+        	console.log(this.DATE)	
         	console.log(this.worksheet);
         	if(this.worksheet.length<8){
         		var num=8-this.worksheet.length;
@@ -772,18 +719,23 @@ $(document).ready(function(){
    
         	console.log(this.secondary);
         	console.log(this.worksheet);
-         				
+         			
 		},
        	
      methods:{
+     	
+     	aa(){
+     		console.log(this.DATE)
+     	},
      	select(){
-           this.ok=false
-     	},
-     	turn1(){
-     		this.con=1
-     	},
-     	turn2(){
-     		this.con=2
+
+     		var selinfo = $('#selectinfo').val();
+     		if(selinfo){
+     			window.location.href="select.html?info="+selinfo;
+     		}else{
+     			return false;
+     		}
+            
      	},
      	// 添加
      	add(){
