@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544522414;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544523650;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -529,28 +529,26 @@
 			<ul class="list_top">
 				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
 				
-				<!-- <li style="width: 0%;">
-					 <form action="<?php echo url('select'); ?>" class="form">
+				<li style="width: 0%;">
+					
 					 	<div class="input-group pull-left">
-					 		<input type="text" class="form-control pull-left" placeholder="输入任务名称" name="selectinfo">
+					 		<input type="text" class="form-control pull-left" placeholder="输入任务名称" id="selectinfo">
 					 	</div>
-					 	<input type="submit" class="btn btn-group pull-left" style="cursor: pointer;width: 70px;outline: none;" @click="select" value="搜索">
-					 </form>
-				</li> -->
+					 	<button class="btn btn-group pull-left" style="cursor: pointer;width: 70px;height: 35px; outline: none;" @click="select" >搜索</button>  
+					 
+				</li>
 			</ul>
+    
+				<a class="btn btn-default" style="background-color: #7BB0DE" href="<?php echo url('index'); ?>">待我处理(<?php echo $work_listnu; ?>)</a>
+				<a class="btn btn-default" href="<?php echo url('wfb'); ?>">我发布的任务(<?php echo $work_listnu; ?>)</a>
+				<a class="btn btn-default" href="<?php echo url('yjs'); ?>">已结束的任务(<?php echo $unfinish_listnu; ?>)</a>						
+			<table  class="table" style="text-align: center;"  >
 
-			<!-- <div v-if="ok"> -->
-			<button class="btn btn-default" @click="turn1">待我处理(<?php echo count($work_list); ?>)</button>
-			<button class="btn btn-default" @click="turn1">我发布的任务(<?php echo count($work_list); ?>)</button>
-			<button class="btn btn-default" @click="turn2">已结束的任务(<?php echo count($unfinish_list); ?>)</button>
-			
-			<table v-if="con == 1" class="table" style="text-align: center;"  >
 				<tr>
 					<th>排序</th>
 					<th>编号ID</th>
 					<th>对接人</th>
-					<th>任务名称</th>
-					
+					<th>任务名称</th>					
 					<th>附件</th>
 					<th>部门</th>
 					<th>添加时间</th>
@@ -589,62 +587,14 @@
 						
 						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">详情</a></td>
 					</tr>			
-				<?php endforeach; ?>
-				
-				
-				
-			</table>
-			<table v-if="con == 2" class="table" style="text-align: center;"  >
-				<tr>
-					<th>排序</th>
-					<th>编号ID</th>
-					<th>对接人</th>
-					<th>任务名称</th>
-					
-					<th>附件</th>
-					<th>部门</th>
-					<th>添加时间</th>
-					<th>截止时间</th>
-					<th>任务级别</th>
-					<th>状态</th>
-					<th>详情</th>
-				</tr>
-				
-				<?php foreach($unfinish_list as $info): ?>
-					<tr >
-						<td>2</td>
-						<td><?php echo $info['id']; ?></td>
-						
-						<td><?php echo $info['execute_id']; ?></td>
-						<td><?php echo $info['work_name']; ?></td>
-						
-						<?php if($info['work_file']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $info['work_file']; ?>">点击查看</a></td>
-						<?php endif; if($info['work_file']==""): ?>
-						<td>无</td>
-						<?php endif; ?>
-						<td></td>
-						<td><?php echo date("Y-m-d  H:i:s",$info['time']); ?></td>
-						<td><?php echo date("Y-m-d  H:i:s",$info['lasttime']); ?></td>
-						<td><?php echo $info['work_rank']; ?></td>
-						<?php if($info['state']=="1"): ?>
-						<td>已发布待查阅</td>
-						<?php endif; if($info['state']=="2"): ?>
-						<td>已查阅</td>
-						<?php endif; if($info['state']=="3"): ?>
-						<td>发起人已放弃</td>
-						<?php endif; if($info['state']=="4"): ?>
-						<td>任务已完成</td>
-						<?php endif; ?>
-						
-						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">详情</a></td>
-					</tr>			
-				<?php endforeach; ?>
-			</table>
-			<!-- </div> -->
+ 
+				<?php endforeach; ?>				
+			</table>		
+			<div  style="text-align: center;"><?php echo $work_list->render(); ?></div>
 			
+
 			
-			<?php echo $work_list->render(); ?>
+			 
 			<ul class="list_bottom">
 				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
 			</ul>
@@ -747,15 +697,17 @@ $(document).ready(function(){
 	new Vue({
         el: ".task",
         data: {
-        	ok:true,
+        	
             worksheet:<?php echo $yuangong; ?>, 
             primary : <?php echo $main; ?>,
             worklist:[<?php echo $work_list; ?>],
             fine:<?php echo $fine; ?>,
             secondary:[],
             zongshu:<?php echo $zongshu; ?>,
-            con:1,
+
+       
             disabled:false,
+
           	DATE:'<?php echo $date; ?>'
         },
         mounted(){
@@ -789,7 +741,9 @@ $(document).ready(function(){
 		},
        	
      methods:{
-     	selectDate(){
+ 
+     	
+     	selectDate(){ 
      		console.log(this.DATE)
      		$.get('<?php echo url("admin/task/classify"); ?>',
         	    	{select:8,selectDate:this.DATE,},(rtnData)=>{
@@ -806,13 +760,14 @@ $(document).ready(function(){
 
      	},
      	select(){
-           this.ok=false
-     	},
-     	turn1(){
-     		this.con=1
-     	},
-     	turn2(){
-     		this.con=2
+
+     		var selinfo = $('#selectinfo').val();
+     		if(selinfo){
+     			window.location.href="select.html?info="+selinfo;
+     		}else{
+     			return false;
+     		}
+            
      	},
      	// 添加
      	add(){

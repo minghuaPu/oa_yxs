@@ -186,21 +186,12 @@
 					 
 				</li>
 			</ul>
-<<<<<<< HEAD
-
-			<!-- <div v-if="ok"> -->
-			<button class="btn btn-default" @click="turn1">待我处理({$work_list|count})</button>
-			<button class="btn btn-default" @click="turn1">我发布的任务({$work_list|count})</button>
-			<button class="btn btn-default" @click="turn2">已结束的任务({$unfinish_list|count})</button>
-			
-			<table v-if="con == 1" class="table" style="text-align: center;"  >
-=======
-            
+    
 				<a class="btn btn-default" style="background-color: #7BB0DE" href="{:url('index')}">待我处理({$work_listnu})</a>
 				<a class="btn btn-default" href="{:url('wfb')}">我发布的任务({$work_listnu})</a>
 				<a class="btn btn-default" href="{:url('yjs')}">已结束的任务({$unfinish_listnu})</a>						
 			<table  class="table" style="text-align: center;"  >
->>>>>>> 6b10ced183126015adb175c742fa2dc2833a28fe
+
 				<tr>
 					<th>排序</th>
 					<th>编号ID</th>
@@ -248,76 +239,14 @@
 						
 						<td><a class="btn btn-default" href="{:url('check',['id'=>$info.id])}">详情</a></td>
 					</tr>			
-<<<<<<< HEAD
-				{/foreach}
-				
-				
-				
-			</table>
-			<table v-if="con == 2" class="table" style="text-align: center;"  >
-				<tr>
-					<th>排序</th>
-					<th>编号ID</th>
-					<th>对接人</th>
-					<th>任务名称</th>
-					
-					<th>附件</th>
-					<th>部门</th>
-					<th>添加时间</th>
-					<th>截止时间</th>
-					<th>任务级别</th>
-					<th>状态</th>
-					<th>详情</th>
-				</tr>
-				
-				{foreach $unfinish_list as $info}
-					<tr >
-						<td>2</td>
-						<td>{$info.id}</td>
-						
-						<td>{$info.execute_id}</td>
-						<td>{$info.work_name}</td>
-						
-						{if $info.work_file!=""}
-						<td><a href="__UPLOADS__{$info.work_file}">点击查看</a></td>
-						{/if}
-						{if $info.work_file==""}
-						<td>无</td>
-						{/if}
-						<td></td>
-						<td>{$info.time|date="Y-m-d  H:i:s",###}</td>
-						<td>{$info.lasttime|date="Y-m-d  H:i:s",###}</td>
-						<td>{$info.work_rank}</td>
-						{if $info.state=="1"}
-						<td>已发布待查阅</td>
-						{/if}
-						{if $info.state=="2"}
-						<td>已查阅</td>
-						{/if}
-						{if $info.state=="3"}
-						<td>发起人已放弃</td>
-						{/if}
-						{if $info.state=="4"}
-						<td>任务已完成</td>
-						{/if}
-						
-						<td><a class="btn btn-default" href="{:url('check',['id'=>$info.id])}">详情</a></td>
-					</tr>			
-				{/foreach}
-			</table>
-			<!-- </div> -->
-			
-			
-			{$work_list->render()}
-=======
+ 
 				{/foreach}				
 			</table>		
 			<div  style="text-align: center;">{$work_list->render()}</div>
 			
 
 			
-			
->>>>>>> 6b10ced183126015adb175c742fa2dc2833a28fe
+			 
 			<ul class="list_bottom">
 				<li><a href="{:url('look')}"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
 			</ul>
@@ -400,12 +329,10 @@
             fine:{$fine},
             secondary:[],
             zongshu:{$zongshu},
-<<<<<<< HEAD
-            con:1,
+
+       
             disabled:false,
-=======
-            
->>>>>>> 6b10ced183126015adb175c742fa2dc2833a28fe
+
           	DATE:'{$date}'
         },
         mounted(){
@@ -439,12 +366,9 @@
 		},
        	
      methods:{
-<<<<<<< HEAD
-     	selectDate(){
-=======
+ 
      	
-     	aa(){
->>>>>>> 6b10ced183126015adb175c742fa2dc2833a28fe
+     	selectDate(){ 
      		console.log(this.DATE)
      		$.get('{:url("admin/task/classify")}',
         	    	{select:8,selectDate:this.DATE,},(rtnData)=>{
