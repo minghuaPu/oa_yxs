@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544404632;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544432146;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -351,57 +351,6 @@
         }
     })
 </script>
-<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
-	<ul v-if="controller!='Map'">
-		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
-		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
-		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
-		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
-		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
-	</ul>
-	<!--<ul v-if="controller=='Map'" class="Maplist">
-		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
-		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
-		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
-		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
-		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
-		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
-		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
-		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-	</ul>-->
-</div>
-<script type="text/javascript">
- new Vue({
-        el:'#left_menu',
-        data:{
-           controller:"Index"
-        },
-        created(){
-        	this.init();
-        },
-        methods:{
-        	init(){
-                this.controller="<?php echo request()->controller(); ?>";
-        	}
-        }
-    })
- function jump(){
- 	 window.location.href='<?php echo url('admin/index/index'); ?>'
- }
- function jump_two(){
- 	window.location.href='<?php echo url('admin/index/work'); ?>'
- }
- function jump_three(){
- 	window.location.href='<?php echo url('admin/index/finance'); ?>'
- }
- function jump_four (){
- 	window.location.href='<?php echo url('admin/index/department'); ?>'
- }
- function jump_five(){
- 	window.location.href='<?php echo url('admin/index/index'); ?>'
- }
-
-</script>
 
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
 <div class="task">
@@ -415,10 +364,10 @@
 			<?php foreach($user as $userdata): ?>
 			<!-- 学生身份作业管理 -->
 			<?php if($userdata['user_cate']=='员工'): ?>
-			<ul class="list_top">
+		<!-- 	<ul class="list_top">
 				<li><a href="<?php echo url('add'); ?>"><span class="glyphicon glyphicon-pencil"></span>提交汇报</a></li>
 				<li><a href="<?php echo url('read'); ?>"><span class="glyphicon glyphicon-pencil"></span>查看任务</a></li>
-			</ul>
+			</ul> -->
 			<div class="table_box">
 				<div class="Employee_box">
 					<div class="Employee_left">
@@ -433,7 +382,7 @@
 					</div>
 					<div class="Employee_right">
 						<div class="font">完成情况</div>
-						<div class="Score"><div class="fens"><div class="se"></div><div class="fen">66.6分</div></div></div>
+						<div class="Score"><div class="fens"><div class="se" :style="'height:'+zongshu+'%'"></div><div class="fen">{{zongshu}}分</div></div></div>
 						
 					</div>
 					<table class="aa" style="text-align: center;" border='1px' width="1000px">
@@ -471,9 +420,8 @@
 					  </select>
 					</td>
 					<td quantity>
-						<select :style="index%2 ==0?'background: #b7dee8;':''"  v-model='item.quantity' @change='liang(index)'>
-					    
-						  <option v-for="(s,sl) in quantity[index]"  style="text-align: center;">{{s.time}}</option>
+						<input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.quantity' @blur='liang(index)'>
+						
 						 
 					</td>
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" @blur='job(index)' v-model="item.job"></td>
@@ -489,7 +437,7 @@
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.reasons' @blur='reasons(index)'></td>
 					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.remark' @blur='remark(index)'></td>
 					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
-					<td><a href="">查看详情</a></td>
+					<td></td>
 				</tr>
 				<?php foreach($bossfenprw as $val): ?>
 				<tr >
@@ -529,7 +477,7 @@
 					<td><input type="text"  ></td>
 					<td><input type="text" ></td>
 					<td><input type="text"  ></td>
-					<td><a href="">查看详情</a></td>
+					<td><a href="<?php echo url('check',['id'=>$val['id']]); ?>">查看详情</a></td>
 				</tr>
 				<?php endforeach; ?>
 				
@@ -567,17 +515,19 @@
 			<ul class="list_top">
 				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
 				
-				<li style="width: 0%;">
-					 <form action="<?php echo url('index'); ?>" class="form">
+				<!-- <li style="width: 0%;">
+					 <form action="<?php echo url('select'); ?>" class="form">
 					 	<div class="input-group pull-left">
-					 		<input type="text" class="form-control pull-left" placeholder="输入员工名称" name="user_name">
+					 		<input type="text" class="form-control pull-left" placeholder="输入任务名称" name="selectinfo">
 					 	</div>
-					 	<input type="submit" class="btn btn-group pull-left" style="cursor: pointer;" value="搜索">
+					 	<input type="submit" class="btn btn-group pull-left" style="cursor: pointer;width: 70px;outline: none;" @click="select" value="搜索">
 					 </form>
-				</li>
+				</li> -->
 			</ul>
-			<button class="btn btn-default" @click="turn1">待我处理(<?php echo count($work_list); ?>)</button>
-			<button class="btn btn-default" @click="turn1">我发布的任务(<?php echo count($work_list); ?>)</button>
+
+			<!-- <div v-if="ok"> -->
+			<button class="btn btn-default" @click="turn1">待我处理(<?php echo $work_listnu; ?>)</button>
+			<button class="btn btn-default" @click="turn1">我发布的任务(<?php echo $work_listnu; ?>)</button>
 			<button class="btn btn-default" @click="turn2">已结束的任务(<?php echo count($unfinish_list); ?>)</button>
 			
 			<table v-if="con == 1" class="table" style="text-align: center;"  >
@@ -586,7 +536,7 @@
 					<th>编号ID</th>
 					<th>对接人</th>
 					<th>任务名称</th>
-					<th>内容</th>
+					
 					<th>附件</th>
 					<th>部门</th>
 					<th>添加时间</th>
@@ -603,10 +553,10 @@
 						
 						<td><?php echo $info['execute_id']; ?></td>
 						<td><?php echo $info['work_name']; ?></td>
-						<td><?php echo $info['work_file']; ?></td>
-						<?php if($info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($info['work_require']==""): ?>
+						
+						<?php if($info['work_file']!=""): ?>
+						<td><a href="__UPLOADS__<?php echo $info['work_file']; ?>">点击查看</a></td>
+						<?php endif; if($info['work_file']==""): ?>
 						<td>无</td>
 						<?php endif; ?>
 						<td></td>
@@ -636,7 +586,7 @@
 					<th>编号ID</th>
 					<th>对接人</th>
 					<th>任务名称</th>
-					<th>内容</th>
+					
 					<th>附件</th>
 					<th>部门</th>
 					<th>添加时间</th>
@@ -653,15 +603,15 @@
 						
 						<td><?php echo $info['execute_id']; ?></td>
 						<td><?php echo $info['work_name']; ?></td>
-						<td><?php echo $info['work_file']; ?></td>
-						<?php if($info['work_require']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $info['work_require']; ?>">点击查看</a></td>
-						<?php endif; if($info['work_require']==""): ?>
+						
+						<?php if($info['work_file']!=""): ?>
+						<td><a href="__UPLOADS__<?php echo $info['work_file']; ?>">点击查看</a></td>
+						<?php endif; if($info['work_file']==""): ?>
 						<td>无</td>
 						<?php endif; ?>
 						<td></td>
-						<td><?php echo $info['time']; ?></td>
-						<td><?php echo $info['lasttime']; ?></td>
+						<td><?php echo date("Y-m-d  H:i:s",$info['time']); ?></td>
+						<td><?php echo date("Y-m-d  H:i:s",$info['lasttime']); ?></td>
 						<td><?php echo $info['work_rank']; ?></td>
 						<?php if($info['state']=="1"): ?>
 						<td>已发布待查阅</td>
@@ -680,11 +630,12 @@
 				
 				
 			</table>
+			<!-- </div> -->
 			
-			<?php echo $work_list->render(); ?>
+			
+			<div style="text-align: center;"><?php echo $work_list->render(); ?></div>
 			<ul class="list_bottom">
 				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
-				
 			</ul>
 			<?php endif; if($userdata['user_cate']=='经理'): ?>
 			<ul class="list_top">
@@ -785,11 +736,13 @@ $(document).ready(function(){
 	new Vue({
         el: ".task",
         data: {
+        	ok:true,
             worksheet:<?php echo $yuangong; ?>, 
             primary : <?php echo $main; ?>,
+            worklist:[<?php echo $work_list; ?>],
             fine:<?php echo $fine; ?>,
             secondary:[],
-            quantity:[],
+            zongshu:<?php echo $zongshu; ?>,
             con:1,
           
         },
@@ -805,28 +758,27 @@ $(document).ready(function(){
         	}
         	for (var i = 0; i < this.worksheet.length; i++) {
         	this.secondary.push([])
-            this.quantity.push([])
+            
         	this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary);
         	this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary);
-        	     for (var a = 0; a < this.fine.length; a++) {
-        	     	if(this.worksheet[i].primary.id==this.fine[a].main){
+        		for (var a = 0; a < this.fine.length; a++) {
+        	     if(this.worksheet[i].primary.id==this.fine[a].main){
           				this.secondary[i].push(this.fine[a])
-        				}
-        	     }
-        			if(this.worksheet[i].secondary.liangtype==0){
-        				this.$set(this.quantity,i,<?php echo $liang; ?>)	
-        			}else{
-        				this.$set(this.quantity,i,<?php echo $time; ?>)	
         			}
+        	    }
+        	   
         		
-      		
         	}
+   
         	console.log(this.secondary);
-        	
+        	console.log(this.worksheet);
          				
 		},
        	
      methods:{
+     	select(){
+           this.ok=false
+     	},
      	turn1(){
      		this.con=1
      	},
@@ -856,10 +808,14 @@ $(document).ready(function(){
 	        	    	type:this.worksheet[e].primary.type
         	    	},(rtnData)=>{     
         	    	
-        	    			if(!rtnData){
+        	    			console.log(rtnData)
+        	    			if(rtnData!=='false'){
         	    				console.log(1)
+        	    			rtnData.primary=JSON.parse(rtnData.primary)
+        	    			console.log(rtnData)
         	    				this.worksheet[e]=rtnData
         	    			}
+        	    			
 
         	    			var text=[];
         	    			 for (var a = 0; a < this.fine.length; a++) {
@@ -874,6 +830,7 @@ $(document).ready(function(){
         },
         // 细分类
         ciclassify(e){ 
+        	console.log(this.worksheet[e].id);
         	$.get('<?php echo url("admin/task/classify"); ?>',
         	    	{      	    		
         	    		select:2,
@@ -881,16 +838,7 @@ $(document).ready(function(){
         	    		xuan:this.worksheet[e].secondary,
 						
         	    	},(rtnData)=>{
-                 	   if(this.worksheet[e].secondary) {
-				          	if(this.worksheet[e].secondary.liangtype==0){
-				          
-				        		this.$set(this.quantity,e,<?php echo $liang; ?>)	
-				        	}else{
-				        		this.$set(this.quantity,e,<?php echo $time; ?>)	
-				        		
-				        	}
-				        	console.log(this.quantity)
-				          }
+                 	   
 				          this.worksheet[e].score=rtnData;
         	    			 // this.$set(this.quantity,e,rtnData) 
 
@@ -908,7 +856,7 @@ $(document).ready(function(){
         	    		theme_id:this.worksheet[e].id,
         	    		liang:this.worksheet[e].quantity
         	    	},(rtnData)=>{
-                 	   
+                 	   this.worksheet[e].score=rtnData;
         	    	});
         },
         // 工作内容
@@ -934,6 +882,8 @@ $(document).ready(function(){
         	    		select:5,
         	    		theme_id:this.worksheet[e].id,
         	    		whether:this.worksheet[e].whether
+        	    	},(rtnData)=>{
+        	    		this.zongshu=rtnData
         	    	});
         },
         //未完成原因 
@@ -976,7 +926,9 @@ $(document).ready(function(){
        	    		score:this.worksheet[e].score
         	    	});
         },
-
+        viewDetails:function(e){
+			window.location.href='<?php echo url('check',['id'=>24]); ?>'
+        }
         	
          
 
@@ -984,5 +936,5 @@ $(document).ready(function(){
     })
 </script>
 <style>
-	
+
 </style>

@@ -31,9 +31,12 @@ class Task extends \app\admin\Auth
         
         if($user_data['user_cate']=='老板')
           {
+            $work_list1  =  db('bossworklist')->order('id desc')->select();
+            $work_listnu = count($work_list1);
             $work_list  =  db('bossworklist')->order('id desc')->paginate(10);
             $unfinish_list=db("bossworklist")->where('state=3 or state=4')->select();
-            $this->assign('unfinish_list',$unfinish_list); 
+            $this->assign('work_listnu',$work_listnu); 
+            $this->assign('unfinish_list',$unfinish_list);
         }
         else
             $work_list  =  db('work')->order('id desc')->where("belong",$belong)->where("bumen",$user_data["bumen"])->paginate(10);
@@ -87,6 +90,18 @@ class Task extends \app\admin\Auth
 
         return $this->fetch();
     } 
+    public function select(){
+
+         $con = input('searchinfo');     
+         $where = "work_name like '%$con%'";
+         $selectlists=db('bossworklist')                             
+                   ->order("id desc")
+                   ->where('work_name','like',"%".$con."%")  
+                   ->where('status',1)                                         
+                   ->select();
+                   print_r($selectlists);
+         $this->assign('selectlists',$selectlists);
+    }
     //员工分类
     public function classify(){
         $user_data=Session::get();
@@ -381,11 +396,19 @@ class Task extends \app\admin\Auth
        $user_data=Session::get();
         $u_id = $user_data["u_id"];
         $work_name = input('work_name');
-        $work_file = input('work_require');
         $urgency = input('urgency');
         $content = input('content');
         $executerid = input('executerid');
         $lasttime = input('lasttime');
+        $work=request()->file('work_require');
+        if($work){
+            $info = $work->move(ROOT_PATH.'/public/uploads');
+            if($info){
+                $work_file = $info->getSaveName();
+            }else{
+                 echo $info->getError();
+            }
+        }
          db('bossworklist')->insert([
             'work_name'=>$work_name,
             'work_file'=>$work_file,

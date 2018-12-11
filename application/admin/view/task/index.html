@@ -1,5 +1,9 @@
 {include file="top"}
+<<<<<<< HEAD
 {include file="left"}
+=======
+
+>>>>>>> e8ae6f9fdd3536065c36320bd3e2176674ac877b
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
 <div class="task" style="margin-top:10px;">
 	<div class="container">
@@ -24,6 +28,7 @@
 						<div class="Employee_footer">
 							<div><span>负责人:</span><span>{$userdata.user_name}</span></div>
 							<div><span>日期:</span><span>{$date}</span></div>
+							
 						</div>
 
 					</div>
@@ -162,17 +167,19 @@
 			<ul class="list_top">
 				<li><a href="{:url('arrange')}"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
 				
-				<li style="width: 0%;">
-					 <form action="{:url('index')}" class="form">
+				<!-- <li style="width: 0%;">
+					 <form action="{:url('select')}" class="form">
 					 	<div class="input-group pull-left">
-					 		<input type="text" class="form-control pull-left" placeholder="输入员工名称" name="user_name">
+					 		<input type="text" class="form-control pull-left" placeholder="输入任务名称" name="selectinfo">
 					 	</div>
-					 	<input type="submit" class="btn btn-group pull-left" style="cursor: pointer;" value="搜索">
+					 	<input type="submit" class="btn btn-group pull-left" style="cursor: pointer;width: 70px;outline: none;" @click="select" value="搜索">
 					 </form>
-				</li>
+				</li> -->
 			</ul>
-			<button class="btn btn-default" @click="turn1">待我处理({$work_list|count})</button>
-			<button class="btn btn-default" @click="turn1">我发布的任务({$work_list|count})</button>
+
+			<!-- <div v-if="ok"> -->
+			<button class="btn btn-default" @click="turn1">待我处理({$work_listnu})</button>
+			<button class="btn btn-default" @click="turn1">我发布的任务({$work_listnu})</button>
 			<button class="btn btn-default" @click="turn2">已结束的任务({$unfinish_list|count})</button>
 			
 			<table v-if="con == 1" class="table" style="text-align: center;"  >
@@ -181,7 +188,7 @@
 					<th>编号ID</th>
 					<th>对接人</th>
 					<th>任务名称</th>
-					<th>内容</th>
+					
 					<th>附件</th>
 					<th>部门</th>
 					<th>添加时间</th>
@@ -198,11 +205,11 @@
 						
 						<td>{$info.execute_id}</td>
 						<td>{$info.work_name}</td>
-						<td>{$info.work_file}</td>
-						{if $info.work_require!=""}
-						<td><a href="__UPLOADS__{$info.work_require}">点击查看</a></td>
+						
+						{if $info.work_file!=""}
+						<td><a href="__UPLOADS__{$info.work_file}">点击查看</a></td>
 						{/if}
-						{if $info.work_require==""}
+						{if $info.work_file==""}
 						<td>无</td>
 						{/if}
 						<td></td>
@@ -235,7 +242,7 @@
 					<th>编号ID</th>
 					<th>对接人</th>
 					<th>任务名称</th>
-					<th>内容</th>
+					
 					<th>附件</th>
 					<th>部门</th>
 					<th>添加时间</th>
@@ -252,11 +259,11 @@
 						
 						<td>{$info.execute_id}</td>
 						<td>{$info.work_name}</td>
-						<td>{$info.work_file}</td>
-						{if $info.work_require!=""}
-						<td><a href="__UPLOADS__{$info.work_require}">点击查看</a></td>
+						
+						{if $info.work_file!=""}
+						<td><a href="__UPLOADS__{$info.work_file}">点击查看</a></td>
 						{/if}
-						{if $info.work_require==""}
+						{if $info.work_file==""}
 						<td>无</td>
 						{/if}
 						<td></td>
@@ -283,11 +290,12 @@
 				
 				
 			</table>
+			<!-- </div> -->
 			
-			{$work_list->render()}
+			
+			<div style="text-align: center;">{$work_list->render()}</div>
 			<ul class="list_bottom">
 				<li><a href="{:url('look')}"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
-				
 			</ul>
 			{/if}
 
@@ -360,8 +368,10 @@
 	new Vue({
         el: ".task",
         data: {
+        	ok:true,
             worksheet:{$yuangong}, 
             primary : {$main},
+            worklist:[{$work_list}],
             fine:{$fine},
             secondary:[],
             zongshu:{$zongshu},
@@ -398,6 +408,9 @@
 		},
        	
      methods:{
+     	select(){
+           this.ok=false
+     	},
      	turn1(){
      		this.con=1
      	},
