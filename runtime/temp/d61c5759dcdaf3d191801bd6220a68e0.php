@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544521074;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:74:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\yjs.html";i:1544521229;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -361,180 +361,32 @@
 			<h4>TASK员工任务管理</h4>
 		</div>
 		<div class="task_content">
-			<?php foreach($user as $userdata): ?>
-			<!-- 学生身份作业管理 -->
-			<?php if($userdata['user_cate']=='员工'): ?>
-		<!-- 	<ul class="list_top">
-				<li><a href="<?php echo url('add'); ?>"><span class="glyphicon glyphicon-pencil"></span>提交汇报</a></li>
-				<li><a href="<?php echo url('read'); ?>"><span class="glyphicon glyphicon-pencil"></span>查看任务</a></li>
-			</ul> -->
-			<div class="table_box">
-				<div class="Employee_box">
-					<div class="Employee_left">
-						<div class="add" @click='add'>+</div>
-						<div class="Employee_head">工作表</div>
-						<div class="wire"></div>
-						<div class="Employee_footer">
-							<div><span>负责人:</span><span><?php echo $userdata['user_name']; ?></span></div>
-							<div><span>日期:</span><input type="date" v-model='DATE' @change='aa'></div>
-							
-						</div>
-
-					</div>
-					<div class="Employee_right">
-						<div class="font">完成情况</div>
-						<div class="Score"><div class="fens"><div class="se" :style="'height:'+zongshu+'%'"></div><div class="fen">{{zongshu}}分</div></div></div>
-						
-					</div>
-					<table class="aa" style="text-align: center;" border='1px' width="1000px">
-				<tr bgcolor="#31869b" align="center" style="color: #fff;font-size: 12px;">
-					<th width="50px">序号</th>
-					<th width="100px">主分类</th>
-					<th width="100px">细分类</th>
-					<th width="60px">数量/时间</th>
-					<th width="200px">工作内容</th>
-					<th width="50px"></th>
-					<th width="50px">是否完成</th>
-					<th width="150px">未完成原因</th>
-					<th width="150px">备注</th>
-					<th width="100px">统计分数</th>
-					<th width="50px">操作</th>
-				</tr>
-				
-
-				<tr :bgcolor="index%2 ==0?'':'#fff'" v-for='(item,index) in worksheet'>
-					<td>
-					  {{index+1}}
-					</td>
-					<td>
-						<select :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.primary' @change='zhuclassify(index)' >
-					
-						  <option  v-for="(i,l) in primary"  :value="i" style="text-align: center;">{{i.type}}</option>
-					
-					  </select>
-					</td>
-					<td>
-						<select :style="index%2 ==0?'background: #b7dee8;':''"  v-model='item.secondary' @change='ciclassify(index)'>
-					    
-						  <option v-for="(c,cl) in secondary[index]" :value ="c" style="text-align: center;">{{c.type}}</option>
-						 
-					  </select>
-					</td>
-					<td quantity>
-						<input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.quantity' @blur='liang(index)'>
-						
-						 
-					</td>
-					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" @blur='job(index)' v-model="item.job"></td>
-					<td></td>
-					<td>
-						<select :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.whether' @change='whether(index)'>
-						
-						  <option value ="0" >是</option>
-						  <option value ="1" >否</option>
-					  </select>
-
-					</td>
-					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.reasons' @blur='reasons(index)'></td>
-					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.remark' @blur='remark(index)'></td>
-					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
-					<td></td>
-				</tr>
-				<?php foreach($bossfenprw as $val): ?>
-				<tr >
-					<td>
-					  2
-					</td>
-					<td>
-						<select >
-					
-						  <option  style="text-align: center;"></option>
-					
-					  </select>
-					</td>
-					<td>
-						<select  >
-					    
-						  <option  style="text-align: center;"></option>
-						 
-					  </select>
-					</td>
-					<td >
-						<select   >
-					    
-						  <option  style="text-align: center;"></option>
-						 
-					</td>
-					<td><input type="text" value="<?php echo $val['work_name']; ?>"></td>
-					<td></td>
-					<td>
-						<select >
-						
-						  <option value ="0" >是</option>
-						  <option value ="1" >否</option>
-					  </select>
-
-					</td>
-					<td><input type="text"  ></td>
-					<td><input type="text" ></td>
-					<td><input type="text"  ></td>
-					<td><a href="<?php echo url('check',['id'=>$val['id']]); ?>">查看详情</a></td>
-				</tr>
-				<?php endforeach; ?>
-				
-				
-			</table>
-			<div class="backlog">待办工作</div>
-			<table class="aa" style="text-align: center;" border='1px' width="1000px">
-				<tr bgcolor="#31869b" align="center" style="color: #fff;font-size: 12px;">
-					<th width="50px">序号</th>
-					<th width="150px">开始时间</th>
-					<th width="300px">任务名称</th>
-					<th width="150px">要求完成时间</th>
-					<th width="250px">备注</th>
-					<th ></th>
-					<th ></th>
-				</tr>
-				<?php foreach($daibanwork as $key=>$val): ?>
-				<tr>
-					<td> <?php echo $key+1; ?></td>
-					<td ><?php echo date("Y-m-d  H:i:s",$val['time']); ?></td>
-					<td ><?php echo $val['work_name']; ?></td>
-					<td ><?php echo date("Y-m-d  H:i:s",$val['lasttime']); ?></td>
-					<td >任务类别：<?php echo $val['work_rank']; ?></td>
-					<td ></td>
-					<td ></td>
-				</tr>
-				<?php endforeach; ?>
-			</table>
-				</div>
 			
-			</div>
-			<?php endif; ?>
-			<!-- 非学生身份管理作业 -->
-			<?php if($userdata['user_cate']=='老板'): ?>
 			<ul class="list_top">
 				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
 				
 				<li style="width: 0%;">
-					
-					 	<div class="input-group pull-left">
-					 		<input type="text" class="form-control pull-left" placeholder="输入任务名称" id="selectinfo">
-					 	</div>
-					 	<button class="btn btn-group pull-left" style="cursor: pointer;width: 70px;height: 35px; outline: none;" @click="select" >搜索</button>  
-					 
+					 <div class="input-group pull-left">
+                            <input type="text" class="form-control pull-left" placeholder="输入任务名称" id="selectinfo">
+                        </div>
+                        <button class="btn btn-group pull-left" style="cursor: pointer;width: 70px;height: 35px; outline: none;" @click="select" >搜索</button>  
 				</li>
 			</ul>
             
-				<a class="btn btn-default" style="background-color: #7BB0DE" href="<?php echo url('index'); ?>">待我处理(<?php echo $work_listnu; ?>)</a>
-				<a class="btn btn-default" href="<?php echo url('wfb'); ?>">我发布的任务(<?php echo $work_listnu; ?>)</a>
-				<a class="btn btn-default" href="<?php echo url('yjs'); ?>">已结束的任务(<?php echo $unfinish_listnu; ?>)</a>						
-			<table  class="table" style="text-align: center;"  >
+			
+				<a class="btn btn-default" href="<?php echo url('index'); ?>">待我处理(<?php echo $work_listnu; ?>)</a>
+                <a class="btn btn-default" href="<?php echo url('wfb'); ?>">我发布的任务(<?php echo $work_listnu; ?>)</a>
+                <a class="btn btn-default" style="background-color: #7BB0DE" href="<?php echo url('yjs'); ?>">已结束的任务(<?php echo $unfinish_listnu; ?>)</a>
+			
+			
+	
+			 <table  class="table" style="text-align: center;"  >
 				<tr>
 					<th>排序</th>
 					<th>编号ID</th>
 					<th>对接人</th>
-					<th>任务名称</th>					
+					<th>任务名称</th>
+					
 					<th>附件</th>
 					<th>部门</th>
 					<th>添加时间</th>
@@ -544,9 +396,9 @@
 					<th>详情</th>
 				</tr>
 				
-				<?php foreach($work_list as $key=>$info): ?>
+				<?php foreach($unfinish_list as $info): ?>
 					<tr >
-						<td>50</td>
+						<td>2</td>
 						<td><?php echo $info['id']; ?></td>
 						
 						<td><?php echo $info['execute_id']; ?></td>
@@ -573,69 +425,20 @@
 						
 						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">详情</a></td>
 					</tr>			
-				<?php endforeach; ?>				
-			</table>		
-			<div  style="text-align: center;"><?php echo $work_list->render(); ?></div>
-			
-
-			
-			
-			<ul class="list_bottom">
-				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
-			</ul>
-			<?php endif; if($userdata['user_cate']=='经理'): ?>
-			<ul class="list_top">
-				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
-				<li><a href="<?php echo url('read'); ?>"><span class="glyphicon glyphicon-list"></span>查看任务</a></li>
-				<li style="width: 0%;">
-					 <form action="<?php echo url('index'); ?>" class="form">
-					 	<div class="input-group pull-left">
-					 		<input type="text" class="form-control pull-left" placeholder="输入员工名称" name="user_name">
-					 	</div>
-					 	<input type="submit" class="btn btn-group pull-left" style="cursor: pointer;" value="搜索">
-					 </form>
-				</li>
-			</ul>
-			<table class="table" style="text-align: center;">
-				<tr>
-					<th>编号ID</th>
-					<th>员工</th>
-					<th>名称</th>
-					<th>内容</th>
-					<th>附件</th>
-					<th>部门</th>
-					<th>添加时间</th>
-					<th>回复</th>
-					<th>操作</th>
-				</tr>
-				<?php foreach($work_list as $info): ?>
-					<tr >
-						<td><?php echo $info['id']; ?></td>
-						<?php foreach($user_list as $user): if($user['id']==$info['u_id']): ?>	
-						<td><?php echo $user['user_name']; ?></td>
-						<?php endif; endforeach; ?>	
-						<td><?php echo $info['title']; ?></td>
-						<td><?php echo $info['content']; ?></td>
-						<?php if($info['work']!=""): ?>
-						<td><a href="__UPLOADS__<td><?php echo $info['bumen']; ?></td><?php echo $info['work']; ?>">点击查看</a></td>
-						<?php endif; if($info['work']==""): ?>
-						<td>无</td>
-						<?php endif; ?>
-                        <td><?php echo $info['bumen']; ?></td>
-						<td><?php echo $info['time']; ?></td>
-						<td><?php echo $info['reply']; ?></td>
-						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">批改</a></td>
-					</tr>			
 				<?php endforeach; ?>
+				
+				
+				
 			</table>
 			
-			<?php echo $work_list->render(); ?>
+			
+			
+			<div  style="text-align: center;"><?php echo $unfinish_list->render(); ?></div>
+			
 			<ul class="list_bottom">
 				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-list"></span>汇总</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-download-alt"></span>作业导出</a></li>
 			</ul>
-			<?php endif; endforeach; ?>
+			
 		</div>
 	</div>
 	<div class="task_right"></div>
@@ -682,15 +485,13 @@ $(document).ready(function(){
 	new Vue({
         el: ".task",
         data: {
-        	
-            worksheet:<?php echo $yuangong; ?>, 
-            primary : <?php echo $main; ?>,
-            worklist:[<?php echo $work_list; ?>],
-            fine:<?php echo $fine; ?>,
-            secondary:[],
-            zongshu:<?php echo $zongshu; ?>,
+        	ok:true,
+        	pageshow:true,
             
-          	DATE:'<?php echo $date; ?>'
+            secondary:[],
+           
+            con:1,
+          	
         },
         mounted(){
         	console.log(this.DATE)	
@@ -727,27 +528,16 @@ $(document).ready(function(){
      	aa(){
      		console.log(this.DATE)
      	},
-     	select(){
+        select(){
 
-     		var selinfo = $('#selectinfo').val();
-     		if(selinfo){
-     			window.location.href="select.html?info="+selinfo;
-     		}else{
-     			return false;
-     		}
+            var selinfo = $('#selectinfo').val();
+            if(selinfo){
+                window.location.href="select.html?info="+selinfo;
+            }else{
+                return false;
+            }
             
-     	},
-     	// 添加
-     	add(){
-     		console.log(this.aa)
-     		// this.worksheet.push({primary:<?php echo $main; ?>,secondary:[]})
-     		$.get('<?php echo url("admin/task/classify"); ?>',
-        	    	{select:0,},(rtnData)=>{
-        	    		
-                 	   this.worksheet.push(rtnData)
-                 	   	console.log(this.worksheet)
-     			});
-     	},
+        },
         // 主分类
         zhuclassify(e){
      		console.log(this.worksheet[e].primary)

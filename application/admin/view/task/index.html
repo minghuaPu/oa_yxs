@@ -177,15 +177,16 @@
 			<ul class="list_top">
 				<li><a href="{:url('arrange')}"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
 				
-				<!-- <li style="width: 0%;">
-					 <form action="{:url('select')}" class="form">
+				<li style="width: 0%;">
+					
 					 	<div class="input-group pull-left">
-					 		<input type="text" class="form-control pull-left" placeholder="输入任务名称" name="selectinfo">
+					 		<input type="text" class="form-control pull-left" placeholder="输入任务名称" id="selectinfo">
 					 	</div>
-					 	<input type="submit" class="btn btn-group pull-left" style="cursor: pointer;width: 70px;outline: none;" @click="select" value="搜索">
-					 </form>
-				</li> -->
+					 	<button class="btn btn-group pull-left" style="cursor: pointer;width: 70px;height: 35px; outline: none;" @click="select" >搜索</button>  
+					 
+				</li>
 			</ul>
+<<<<<<< HEAD
 
 			<!-- <div v-if="ok"> -->
 			<button class="btn btn-default" @click="turn1">待我处理({$work_list|count})</button>
@@ -193,12 +194,18 @@
 			<button class="btn btn-default" @click="turn2">已结束的任务({$unfinish_list|count})</button>
 			
 			<table v-if="con == 1" class="table" style="text-align: center;"  >
+=======
+            
+				<a class="btn btn-default" style="background-color: #7BB0DE" href="{:url('index')}">待我处理({$work_listnu})</a>
+				<a class="btn btn-default" href="{:url('wfb')}">我发布的任务({$work_listnu})</a>
+				<a class="btn btn-default" href="{:url('yjs')}">已结束的任务({$unfinish_listnu})</a>						
+			<table  class="table" style="text-align: center;"  >
+>>>>>>> 6b10ced183126015adb175c742fa2dc2833a28fe
 				<tr>
 					<th>排序</th>
 					<th>编号ID</th>
 					<th>对接人</th>
-					<th>任务名称</th>
-					
+					<th>任务名称</th>					
 					<th>附件</th>
 					<th>部门</th>
 					<th>添加时间</th>
@@ -241,6 +248,7 @@
 						
 						<td><a class="btn btn-default" href="{:url('check',['id'=>$info.id])}">详情</a></td>
 					</tr>			
+<<<<<<< HEAD
 				{/foreach}
 				
 				
@@ -301,6 +309,15 @@
 			
 			
 			{$work_list->render()}
+=======
+				{/foreach}				
+			</table>		
+			<div  style="text-align: center;">{$work_list->render()}</div>
+			
+
+			
+			
+>>>>>>> 6b10ced183126015adb175c742fa2dc2833a28fe
 			<ul class="list_bottom">
 				<li><a href="{:url('look')}"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
 			</ul>
@@ -376,15 +393,19 @@
 	new Vue({
         el: ".task",
         data: {
-        	ok:true,
+        	
             worksheet:{$yuangong}, 
             primary : {$main},
             worklist:[{$work_list}],
             fine:{$fine},
             secondary:[],
             zongshu:{$zongshu},
+<<<<<<< HEAD
             con:1,
             disabled:false,
+=======
+            
+>>>>>>> 6b10ced183126015adb175c742fa2dc2833a28fe
           	DATE:'{$date}'
         },
         mounted(){
@@ -418,7 +439,12 @@
 		},
        	
      methods:{
+<<<<<<< HEAD
      	selectDate(){
+=======
+     	
+     	aa(){
+>>>>>>> 6b10ced183126015adb175c742fa2dc2833a28fe
      		console.log(this.DATE)
      		$.get('{:url("admin/task/classify")}',
         	    	{select:8,selectDate:this.DATE,},(rtnData)=>{
@@ -435,13 +461,14 @@
 
      	},
      	select(){
-           this.ok=false
-     	},
-     	turn1(){
-     		this.con=1
-     	},
-     	turn2(){
-     		this.con=2
+
+     		var selinfo = $('#selectinfo').val();
+     		if(selinfo){
+     			window.location.href="select.html?info="+selinfo;
+     		}else{
+     			return false;
+     		}
+            
      	},
      	// 添加
      	add(){
