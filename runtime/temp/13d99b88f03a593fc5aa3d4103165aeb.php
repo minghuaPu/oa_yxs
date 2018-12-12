@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:79:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\gongdan\index.html";i:1544063398;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:79:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\gongdan\index.html";i:1544605260;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1544605628;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -351,13 +351,40 @@
         }
     })
 </script>
+
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
+
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
 <div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
 		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
 		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
+		  <li @click="isShow"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px;"><p>产品检查</p></a>
+            <ul v-if="six">
+                <li>
+                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>粗加工</p></a>
+                </li>
+                <li>
+                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>热处理</p></a>
+                </li>
+                <li>
+                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>锻造车间</p></a>
+                </li>
+                <li>
+                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>包装检验</p></a>
+                </li>
+                <li>
+                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>精加工</p></a>
+                </li>
+                <li>
+                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>其他</p></a>
+                </li>
+            </ul>
+        </li>
 		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
 		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
 		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
+	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
 	</ul>
 	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
@@ -374,6 +401,7 @@
  new Vue({
         el:'#left_menu',
         data:{
+        	six:false,
            controller:"Index"
         },
         created(){
@@ -382,7 +410,10 @@
         methods:{
         	init(){
                 this.controller="<?php echo request()->controller(); ?>";
-        	}
+        	},
+        	 isShow(){
+        	this.six=!this.six;
+        }
         }
     })
  function jump(){
@@ -398,15 +429,17 @@
  	window.location.href='<?php echo url('admin/index/department'); ?>'
  }
  function jump_five(){
- 	window.location.href='<?php echo url('admin/index/index'); ?>'
+ 	window.location.href='<?php echo url('admin/index/information'); ?>'
+ }
+  function jump_six(){
+ 	window.location.href='<?php echo url('admin/index/stock'); ?>'
  }
 
 </script>
 
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?2">
-<div class="task">
-	<div class="task_left"></div>
-	<div class="task_box">
+<div class="task" style="margin-top: 10px;">
+	<div class="container">
 		<div class="task_title">
 			<span class="glyphicon glyphicon-list-alt pull-left"></span>
 			<h4>TASK员工外勤工单管理</h4>
@@ -513,7 +546,7 @@
 			<?php echo $work_list->render(); endif; endforeach; ?>
 		</div>
 	</div>
-	<div class="task_right"></div>
+
 </div>
 
 <footer class="footer" style="text-align: center;margin-top: 50px;">

@@ -78,11 +78,7 @@ class Index extends \app\admin\Auth
     	
         return $this->fetch();
     }
-<<<<<<< HEAD
-    public function cjg(){
-        return $this->fetch();
-    }
-=======
+
 	public function stock(){     //库存的数据
 		$list=db("steel")->field('category,id')->select();  //材料名字
 		$this->assign('list',json_encode($list));
@@ -154,5 +150,5 @@ class Index extends \app\admin\Auth
 		
 		 $this->success('修改成功',url('stock'));
 	}
->>>>>>> 0f2878cad5fee7060e979bf024098bd3811cd4bf
+
 }

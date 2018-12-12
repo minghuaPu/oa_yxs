@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:79:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\finance.html";i:1544404632;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1544604519;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1544430005;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:79:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\finance.html";i:1544404632;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1544605628;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1544605260;}*/ ?>
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/finance/finance.css"/>
 <html>
@@ -359,14 +359,16 @@
 </script>
 	
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
+
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
 <div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
 		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
 		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
-		  <li @click="isShow"><a class="iconfont icon-gongzuo" style="padding-top:-2px"><p>产品检查</p></a>
+		  <li @click="isShow"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px;"><p>产品检查</p></a>
             <ul v-if="six">
                 <li>
-                    <a href="<?php echo url('admin/index/cjg'); ?>" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>粗加工</p></a>
+                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>粗加工</p></a>
                 </li>
                 <li>
                     <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>热处理</p></a>
@@ -388,6 +390,7 @@
 		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
 		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
 		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
+	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
 	</ul>
 	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
@@ -434,6 +437,9 @@
  function jump_five(){
  	window.location.href='<?php echo url('admin/index/information'); ?>'
  }
+  function jump_six(){
+ 	window.location.href='<?php echo url('admin/index/stock'); ?>'
+ }
 
 </script>
  
@@ -445,7 +451,7 @@
 		<title></title>
 	</head>
 	<body>
-		<div class="page" style="z-index: 99;background:white;padding-left: 10px;">
+		<div class="page" style="z-index: 99;background:white;padding-left: 10px;height:100%">
 			<div class="search_box">
 				<div class="iconfont icon-fangdajing"></div>
 				<input type="text" name="search" class="search" placeholder="搜索" />

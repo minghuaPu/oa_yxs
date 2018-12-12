@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544577458;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544606144;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -363,10 +363,10 @@
             <?php foreach($user as $userdata): ?>
             <!-- 学生身份作业管理 -->
             <?php if($userdata['user_cate']=='员工'): ?>
-            <!-- 	<ul class="list_top">
-				<li><a href="<?php echo url('add'); ?>"><span class="glyphicon glyphicon-pencil"></span>提交汇报</a></li>
-				<li><a href="<?php echo url('read'); ?>"><span class="glyphicon glyphicon-pencil"></span>查看任务</a></li>
-			</ul> -->
+            <!--    <ul class="list_top">
+                <li><a href="<?php echo url('add'); ?>"><span class="glyphicon glyphicon-pencil"></span>提交汇报</a></li>
+                <li><a href="<?php echo url('read'); ?>"><span class="glyphicon glyphicon-pencil"></span>查看任务</a></li>
+            </ul> -->
             <div class="table_box">
                 <div class="Employee_box">
                     <div class="Employee_left">
@@ -653,13 +653,12 @@ $(document).ready(function(){
 new Vue({
     el: ".task",
     data: {
-
-        worksheet: { $yuangong },
-        primary: { $main },
-        worklist: [{ $work_list }],
-        fine: { $fine },
+        worksheet: <?php echo $yuangong; ?>,
+        primary: <?php echo $main; ?>,
+        worklist: [<?php echo $work_list; ?>],
+        fine: <?php echo $fine; ?>,
         secondary: [],
-        zongshu: { $zongshu },
+        zongshu: <?php echo $zongshu; ?>,
 
 
         disabled: false,
