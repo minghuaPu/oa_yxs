@@ -1,4 +1,4 @@
-{include file="top"}
+    {include file="top"}
 
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
 <div class="task">
@@ -108,35 +108,7 @@
             con:1,
           	
         },
-        mounted(){
-        	console.log(this.DATE)	
-        	console.log(this.worksheet);
-        	if(this.worksheet.length<8){
-        		var num=8-this.worksheet.length;
-        		for (var i = 0; i < num; i++) {
-        			this.worksheet.push({});
-        		}
-        		
-        		
-        	}
-        	for (var i = 0; i < this.worksheet.length; i++) {
-        	this.secondary.push([])
-            
-        	this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary);
-        	this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary);
-        		for (var a = 0; a < this.fine.length; a++) {
-        	     if(this.worksheet[i].primary.id==this.fine[a].main){
-          				this.secondary[i].push(this.fine[a])
-        			}
-        	    }
-        	   
-        		
-        	}
-   
-        	console.log(this.secondary);
-        	console.log(this.worksheet);
-         			
-		},
+        
        	
      methods:{
      	
@@ -156,139 +128,7 @@
      
      	
      	
-        // 主分类
-        zhuclassify(e){
-     		console.log(this.worksheet[e].primary)
-        	    $.get('{:url("admin/task/classify")}',
-        	    	{
-	
-	        	    	select:1,
-	        	    	theme_id:this.worksheet[e].id,
-	        	    	xuan:this.worksheet[e].primary.id,
-	        	    	type:this.worksheet[e].primary.type
-        	    	},(rtnData)=>{     
-        	    	
-        	    			console.log(rtnData)
-        	    			if(rtnData!=='false'){
-        	    				console.log(1)
-        	    			rtnData.primary=JSON.parse(rtnData.primary)
-        	    			console.log(rtnData)
-        	    				this.worksheet[e]=rtnData
-        	    			}
-        	    			
-
-        	    			var text=[];
-        	    			 for (var a = 0; a < this.fine.length; a++) {
-			        	     	if(this.worksheet[e].primary.id==this.fine[a].main){
-			          				text.push(this.fine[a])
-			        				this.$set(this.secondary,e,text);
-			        				}
-        	     }
-        	    			console.log(this.worksheet);
-        	    			
-     			});
-        },
-        // 细分类
-        ciclassify(e){ 
-        	console.log(this.worksheet[e].id);
-        	$.get('{:url("admin/task/classify")}',
-        	    	{      	    		
-        	    		select:2,
-        	    		theme_id:this.worksheet[e].id,
-        	    		xuan:this.worksheet[e].secondary,
-						
-        	    	},(rtnData)=>{
-                 	   
-				          this.worksheet[e].score=rtnData;
-        	    			 // this.$set(this.quantity,e,rtnData) 
-
-     			});
-
- 
-        },
-        // 时间/数量
-        liang(e){
-        	console.log(this.worksheet[e].quantity);
-        	$.get('{:url("admin/task/classify")}',
-        	    	{
-        	    		
-        	    		select:3,
-        	    		theme_id:this.worksheet[e].id,
-        	    		liang:this.worksheet[e].quantity
-        	    	},(rtnData)=>{
-                 	   this.worksheet[e].score=rtnData;
-        	    	});
-        },
-        // 工作内容
-        job(e){
-        		$.get('{:url("admin/task/classify")}',
-        	    	{
-        	    		
-        	    		select:4,
-        	    		theme_id:this.worksheet[e].id,
-        	    		job:this.worksheet[e].job
-        	    	},(rtnData)=>{
-        	    		if(!rtnData){
-        	    				console.log(1)
-        	    				this.worksheet[e]=rtnData
-        	    			}
-        	    	});
-        },
-        // 是否完成
-        whether(e){
-        		$.get('{:url("admin/task/classify")}',
-        	    	{
-        	    		
-        	    		select:5,
-        	    		theme_id:this.worksheet[e].id,
-        	    		whether:this.worksheet[e].whether
-        	    	},(rtnData)=>{
-        	    		this.zongshu=rtnData
-        	    	});
-        },
-        //未完成原因 
-        reasons(e){
- 				$.get('{:url("admin/task/classify")}',
-        	    	{
-        	    		
-        	    		select:6,
-        	    		theme_id:this.worksheet[e].id,
-        	    		reasons:this.worksheet[e].reasons
-        	    	},(rtnData)=>{
-        	    		if(!rtnData){
-        	    				console.log(1)
-        	    				this.worksheet[e]=rtnData
-        	    			}
-        	    	});
-        },
-        // 备注
-         remark(e){
-         			$.get('{:url("admin/task/classify")}',
-        	    	{
-        	    		
-        	    		select:7,
-        	    		theme_id:this.worksheet[e].id,
-        	    		remark:this.worksheet[e].remark
-        	    	},(rtnData)=>{
-        	    		if(!rtnData){
-        	    				console.log(1)
-        	    				this.worksheet[e]=rtnData
-        	    			}
-        	    	});
-        },
-        // 统计分数
-         score(e){
-			$.get('{:url("admin/task/classify")}',
-   	    			{
-       	    		
-      	    		select:8,
-      	    		theme_id:this.worksheet[e].id,
-       	    		score:this.worksheet[e].score
-        	    	});
-        },
-        viewDetails:function(e){
-			window.location.href='{:url('check',['id'=>24])}'
-        }
+       
         	
          
 

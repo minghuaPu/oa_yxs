@@ -1,7 +1,7 @@
 {include file="top"}
-
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
 <div class="task">
+
 	<div class="task_left"></div>
 	<div class="task_box">
 		<div class="task_title">
@@ -313,28 +313,29 @@
 		</div>
 	</div>
 	<div class="task_right"></div>
+
 </div>
 {include file="foot"}
-
 <script>
- 	// 第二步：定义路由，也就是每个路由应该映射一个组件
- 	
-	new Vue({
-        el: ".task",
-        data: {
-        	
-            worksheet:{$yuangong}, 
-            primary : {$main},
-            worklist:[{$work_list}],
-            fine:{$fine},
-            secondary:[],
-            zongshu:{$zongshu},
+// 第二步：定义路由，也就是每个路由应该映射一个组件
 
-       
-            disabled:false,
+new Vue({
+    el: ".task",
+    data: {
+        worksheet:{$yuangong},
+        primary:{$main},
+        worklist:[{$work_list}],
+        fine:{$fine},
+        secondary:[],
+        zongshu:{$zongshu},
 
-          	DATE:'{$date}'
-        },
+
+        disabled:false,
+
+        DATE:'{$date}'
+    },
+    
+
         mounted(){
         	console.log(this.DATE)	
         	console.log(this.worksheet);
@@ -441,40 +442,40 @@
         	    			console.log(this.worksheet);
         	    			
      			});
+
         },
         // 细分类
-        ciclassify(e){ 
-        	console.log(this.worksheet[e].id);
-        	$.get('{:url("admin/task/classify")}',
-        	    	{      	    		
-        	    		select:2,
-        	    		theme_id:this.worksheet[e].id,
-        	    		xuan:this.worksheet[e].secondary,
-						
-        	    	},(rtnData)=>{
-        	    		this.worksheet[e].score=rtnData
-                 	   this.$set(this.worksheet[e],	"score",rtnData)
-				        
+        ciclassify(e) {
+            console.log(this.worksheet[e].id);
+            $.get('{:url("admin/task/classify")}', {
+                select: 2,
+                theme_id: this.worksheet[e].id,
+                xuan: this.worksheet[e].secondary,
 
-     			});
+            }, (rtnData) => {
+                this.worksheet[e].score = rtnData
+                this.$set(this.worksheet[e], "score", rtnData)
 
- 
+
+            });
+
+
         },
         // 时间/数量
-        liang(e){
-        	console.log(this.worksheet[e].quantity);
-        	$.get('{:url("admin/task/classify")}',
-        	    	{
-        	    		
-        	    		select:3,
-        	    		theme_id:this.worksheet[e].id,
-        	    		liang:this.worksheet[e].quantity
-        	    	},(rtnData)=>{
-                 	  this.worksheet[e].score=rtnData
-                 	   this.$set(this.worksheet[e],	"score",rtnData)
-        	    	});
+        liang(e) {
+            console.log(this.worksheet[e].quantity);
+            $.get('{:url("admin/task/classify")}', {
+
+                select: 3,
+                theme_id: this.worksheet[e].id,
+                liang: this.worksheet[e].quantity
+            }, (rtnData) => {
+                this.worksheet[e].score = rtnData
+                this.$set(this.worksheet[e], "score", rtnData)
+            });
         },
         // 工作内容
+
         job(e){
         	console.log(this.worksheet);
         		$.get('{:url("admin/task/classify")}',
@@ -491,20 +492,21 @@
         	    			}
         	    			console.log(this.worksheet);
         	    	});
+
         },
         // 是否完成
-        whether(e){
-        		$.get('{:url("admin/task/classify")}',
-        	    	{
-        	    		
-        	    		select:5,
-        	    		theme_id:this.worksheet[e].id,
-        	    		whether:this.worksheet[e].whether
-        	    	},(rtnData)=>{
-        	    		this.zongshu=rtnData
-        	    	});
+        whether(e) {
+            $.get('{:url("admin/task/classify")}', {
+
+                select: 5,
+                theme_id: this.worksheet[e].id,
+                whether: this.worksheet[e].whether
+            }, (rtnData) => {
+                this.zongshu = rtnData
+            });
         },
         //未完成原因 
+
         reasons(e){
         	console.log(this.worksheet[e])
  				$.get('{:url("admin/task/classify")}',
@@ -536,26 +538,25 @@
         	    				this.$set(this.worksheet,e,rtnData)
         	    			}
         	    	});
+
         },
         // 统计分数
-         score(e){
-			$.get('{:url("admin/task/classify")}',
-   	    			{
-       	    		
-      	    		select:8,
-      	    		theme_id:this.worksheet[e].id,
-       	    		score:this.worksheet[e].score
-        	    	});
-        },
-        viewDetails:function(e){
-			window.location.href='check.html?id='+e
-        }
-        	
-         
+        score(e) {
+            $.get('{:url("admin/task/classify")}', {
 
-        }         
-    })
+                select: 8,
+                theme_id: this.worksheet[e].id,
+                score: this.worksheet[e].score
+            });
+        },
+        viewDetails: function(e) {
+            window.location.href = 'check.html?id=' + e
+        }
+
+
+
+    }
+})
 </script>
 <style>
-
 </style>
