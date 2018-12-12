@@ -1,5 +1,5 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:69:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544258880;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544239444;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544435670;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544437184;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544081012;}*/ ?>
- <!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:75:"E:\BC\wamp64\www\oa\public/../application/admin\view\information\index.html";i:1544432020;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544239444;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544429069;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544081012;}*/ ?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -351,153 +351,8 @@
         }
     })
 </script>
- 	<!DOCTYPE html>
-<html>
-	<head>
-<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<div class="page" style="z-index: 99;background:white;padding-left: 10px;height:100%">
-			<div class="search_box">
-				<div class="iconfont icon-fangdajing"></div>
-				<input type="text" name="search" class="search" placeholder="搜索" />
-			</div>
-			<div class="people_box">
-				<div class="icon">
-					<div class="iconfont icon-geren"></div>
-					<div class="iconfont icon-iconset0337"></div>
-					<div class="iconfont icon-group"></div>
-				</div>
-				<div class="name_box">
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				公告栏
-			</div>
-			<div class="notice_box">
-				<div class="notice">
-					<div class="notice_dian"></div>
-					<div class="notice_content">oa系统正式上线</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				新闻
-			</div>
-		</div>
-	</body>
-</html>
 
-
-
-
-
-<style type="text/css">
-.page{
-	width:172px;
-	position:fixed ;
-	right: 0;
-	
-	
-}
-.search_box{
-	display: flex;
-	margin-top:9px;
-	background: #e6e6e6;
-	
-}
-.search_box input{
-	background: #e6e6e6;
-	border: 0px;
-	outline:none 
-}
-.icon{
-	display: flex;
-	margin: 6px 20px ;
-	
-}
-.icon div{
-	font-size: 23px;
-	flex: 1;
-	text-align: center;
-}
-.people{
-	display: flex;
-	align-items: center;
-}
-.name_box{
-	height: 250px;
-	overflow:scroll;
-	overflow-x:visible;
-}
-.people img{
-	width: 26px;
-	height: 26px;
-	border-radius: 26px;	
-}
-.people p{
-    margin-top: 13px;
-    margin-left: 3px;
-}
-.notice_title{
-	text-align: center;
-    padding: 4px 0;
-    font-size: 16px;
-    border-top: 1px solid #cccccc;
-    border-bottom:1px solid #cccccc;
-    font-weight: bold;
-}
-.notice{
-	display: flex;
-}
-.notice_dian{
-	width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: red;
-    margin-top: 5px;
-    margin-left: 7px;
-}
-.notice_box{
-	height: 143px;
-}
-.notice_content{
-	margin-left: 10px;
-    font-size: 11px;
-}
-</style> 
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> 
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
-
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
 <div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
 		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
@@ -505,7 +360,6 @@
 		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
 		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
 		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
-	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
 	</ul>
 	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
@@ -548,46 +402,103 @@
  function jump_five(){
  	window.location.href='<?php echo url('admin/index/information'); ?>'
  }
-  function jump_six(){
- 	window.location.href='<?php echo url('admin/index/stock'); ?>'
- }
 
 </script>
 
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
-<style>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?2">
+<div  style="height: 10px;"></div>
+<div class="container" >
+	
+	<div class="row" >
+		<div class="task_title">
+			<span class="glyphicon glyphicon-list-alt pull-left"></span>
+			<h4>员工信息管理</h4>
+		</div>
+		<div class="task_content">
+			<?php foreach($user as $userdata): ?>
+			<!-- 学生身份作业管理 -->
+			<?php if($userdata['user_cate']=='员工'): ?>
+			<table class="table" style="text-align: center;">
+				<tr>
+					<th>编号ID</th>
+					<th>用户姓名</th>
+					<th>用户密码</th>
+					<th>部门</th>
+					<th>所属公司id</th>
+					<th>操作</th>
+				</tr>
+				<?php foreach($work_list as $info): ?>
+				<tr >
+					<td><?php echo $info['id']; ?></td>
+					<td><?php echo $info['user_name']; ?></td>
+					<td><?php echo $info['password']; ?></td>
+						<td><?php echo $info['bumen']; ?></td>
+					<td><?php echo $info['belong']; ?></td>
+					<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">查看详细</a></td>
+			
 
-</style> 
-<div class="container">
-<div class="index_content_center">
-    <div class="center_1">
-    <div class="center_1a">
-        <div></div>
-    </div> 
-    <h3 style="margin-bottom: 0.1em;"><strong>张三</strong></h3>
-    <p style="font-size: 1em;"><strong>设计部-中级设计师</strong></p>
-    <button class="button1"><strong>打卡</strong></button>
-    <button class="button2"><strong>补卡</strong></button>
-    </div>
-    <div class="center_2">
-          <div class="center_2a">
-              <h3>员工请假</h3>
-          </div>
-          <div class="cneter_2b"><h3>始 ：2017-12-2<i></i></h3></div>
-          <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/1544153282(1).png" alt=""></div>
-          <div class="cneter_2b"><h3>至 ：2017-4-5<i></i></h3></div>
-          <textarea rows="10" cols="30" placeholder="请假说明"></textarea> 
-          <div class="cneter_2c"><a href="#" class="cneter_2ca">提交</a></div>
-    </div>
-    <div class="cneter_3" style="margin-right: 2%"><h3>打卡日历<span><i></i>2017 年 9 月<i></i></span></h3></div>
-    <div class="cneter_3"><h3>考勤统计</h3></div>
-    <div class="cneter_4" style="margin-right: 2%"></div>
-    <div class="cneter_4"></div>
-</div>   
+				</tr>
+				<?php endforeach; ?>
+			</table>
+			<?php endif; ?>
+			<!-- 非学生身份管理作业 -->
+			<?php if($userdata['user_cate']=='老板'): ?>
+			<ul class="list_top">
+				<li></li>
+				<li></li>
+				
+			</ul>
+			<table class="table" style="text-align: center;">
+				<tr>
+					<th>用户ID</th>
+					<th>员工名字</th>
+					<th>所属部门</th>
+					<th>身份</th>
+					<th>操作</th>
+				</tr>
+				<?php foreach($work_list as $info): ?>
+					<tr >
+						<td><?php echo $info['id']; ?></td>
+					
+						<td><?php echo $info['user_name']; ?></td>
+						<td><?php echo $info['bumen']; ?></td>
+						<td><?php echo $info['user_cate']; ?></td>
+						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">查看详细</a></td>
+					</tr>			
+				<?php endforeach; ?>
+			</table>
+			
+			<?php echo $work_list->render(); endif; if($userdata['user_cate']=='经理'): ?>
+			<ul class="list_top">
+				<li></li>
+				<li></li>
+				
+			</ul>
+			<table class="table" style="text-align: center;">
+				<tr>
+					<th>用户ID</th>
+					<th>员工名字</th>
+					<th>所属部门</th>
+					<th>身份</th>
+					<th>操作</th>
+				</tr>
+				<?php foreach($work_list as $info): ?>
+					<tr >
+						<td><?php echo $info['id']; ?></td>
+					
+						<td><?php echo $info['user_name']; ?></td>
+						<td><?php echo $info['bumen']; ?></td>
+						<td><?php echo $info['user_cate']; ?></td>
+						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">查看详细</a></td>
+					</tr>			
+				<?php endforeach; ?>
+			</table>
+			
+			<?php echo $work_list->render(); endif; endforeach; ?>
+		</div>
+	</div>
+
 </div>
-    
-<!-- 模态框结束 -->
-<script type="text/javascript" src="__STATIC__/admin/index/js/index.js?126"></script>
 
 <footer class="footer" style="text-align: center;margin-top: 50px;">
 	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 

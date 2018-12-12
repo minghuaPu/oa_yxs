@@ -1,5 +1,60 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:69:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544258880;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544239444;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544435670;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544437184;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544081012;}*/ ?>
- <!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:67:"E:\BC\wamp64\www\oa\public/../application/admin\view\map\index.html";i:1544432742;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544429069;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544239444;}*/ ?>
+
+
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
+<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
+	<ul v-if="controller!='Map'">
+		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
+		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
+		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
+		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
+		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
+	</ul>
+	<!--<ul v-if="controller=='Map'" class="Maplist">
+		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
+		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
+		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
+		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
+		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
+		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
+		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
+		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
+	</ul>-->
+</div>
+<script type="text/javascript">
+ new Vue({
+        el:'#left_menu',
+        data:{
+           controller:"Index"
+        },
+        created(){
+        	this.init();
+        },
+        methods:{
+        	init(){
+                this.controller="<?php echo request()->controller(); ?>";
+        	}
+        }
+    })
+ function jump(){
+ 	 window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+ function jump_two(){
+ 	window.location.href='<?php echo url('admin/index/work'); ?>'
+ }
+ function jump_three(){
+ 	window.location.href='<?php echo url('admin/index/finance'); ?>'
+ }
+ function jump_four (){
+ 	window.location.href='<?php echo url('admin/index/department'); ?>'
+ }
+ function jump_five(){
+ 	window.location.href='<?php echo url('admin/index/information'); ?>'
+ }
+
+</script>
+ 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -351,275 +406,95 @@
         }
     })
 </script>
- 	<!DOCTYPE html>
-<html>
-	<head>
-<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<div class="page" style="z-index: 99;background:white;padding-left: 10px;height:100%">
-			<div class="search_box">
-				<div class="iconfont icon-fangdajing"></div>
-				<input type="text" name="search" class="search" placeholder="搜索" />
-			</div>
-			<div class="people_box">
-				<div class="icon">
-					<div class="iconfont icon-geren"></div>
-					<div class="iconfont icon-iconset0337"></div>
-					<div class="iconfont icon-group"></div>
-				</div>
-				<div class="name_box">
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				公告栏
-			</div>
-			<div class="notice_box">
-				<div class="notice">
-					<div class="notice_dian"></div>
-					<div class="notice_content">oa系统正式上线</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				新闻
-			</div>
-		</div>
-	</body>
-</html>
-
-
-
-
-
-<style type="text/css">
-.page{
-	width:172px;
-	position:fixed ;
-	right: 0;
-	
-	
-}
-.search_box{
-	display: flex;
-	margin-top:9px;
-	background: #e6e6e6;
-	
-}
-.search_box input{
-	background: #e6e6e6;
-	border: 0px;
-	outline:none 
-}
-.icon{
-	display: flex;
-	margin: 6px 20px ;
-	
-}
-.icon div{
-	font-size: 23px;
-	flex: 1;
-	text-align: center;
-}
-.people{
-	display: flex;
-	align-items: center;
-}
-.name_box{
-	height: 250px;
-	overflow:scroll;
-	overflow-x:visible;
-}
-.people img{
-	width: 26px;
-	height: 26px;
-	border-radius: 26px;	
-}
-.people p{
-    margin-top: 13px;
-    margin-left: 3px;
-}
-.notice_title{
-	text-align: center;
-    padding: 4px 0;
-    font-size: 16px;
-    border-top: 1px solid #cccccc;
-    border-bottom:1px solid #cccccc;
-    font-weight: bold;
-}
-.notice{
-	display: flex;
-}
-.notice_dian{
-	width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: red;
-    margin-top: 5px;
-    margin-left: 7px;
-}
-.notice_box{
-	height: 143px;
-}
-.notice_content{
-	margin-left: 10px;
-    font-size: 11px;
-}
-</style> 
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> 
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
-
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
-<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
-	<ul v-if="controller!='Map'">
-		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
-		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
-		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
-		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
-		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
-	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
-	</ul>
-	<!--<ul v-if="controller=='Map'" class="Maplist">
-		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
-		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
-		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
-		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
-		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
-		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
-		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
-		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-	</ul>-->
-</div>
-<script type="text/javascript">
- new Vue({
-        el:'#left_menu',
-        data:{
-           controller:"Index"
-        },
-        created(){
-        	this.init();
-        },
-        methods:{
-        	init(){
-                this.controller="<?php echo request()->controller(); ?>";
-        	}
-        }
-    })
- function jump(){
- 	 window.location.href='<?php echo url('admin/index/index'); ?>'
- }
- function jump_two(){
- 	window.location.href='<?php echo url('admin/index/work'); ?>'
- }
- function jump_three(){
- 	window.location.href='<?php echo url('admin/index/finance'); ?>'
- }
- function jump_four (){
- 	window.location.href='<?php echo url('admin/index/department'); ?>'
- }
- function jump_five(){
- 	window.location.href='<?php echo url('admin/index/information'); ?>'
- }
-  function jump_six(){
- 	window.location.href='<?php echo url('admin/index/stock'); ?>'
- }
-
-</script>
-
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
-<style>
-
-</style> 
-<div class="container">
-<div class="index_content_center">
-    <div class="center_1">
-    <div class="center_1a">
-        <div></div>
-    </div> 
-    <h3 style="margin-bottom: 0.1em;"><strong>张三</strong></h3>
-    <p style="font-size: 1em;"><strong>设计部-中级设计师</strong></p>
-    <button class="button1"><strong>打卡</strong></button>
-    <button class="button2"><strong>补卡</strong></button>
+<div class="top" style="height: 60px;width: 80%;margin-left:12.5%;">
+    <h3 style="">欢迎使用打天下</h3>
+    <p>
+        定位用户许可：
+        <span class="text-primary m-r-10" style="color:#94c4fb">30</span>
+        &nbsp;&nbsp;&nbsp;已经设置:
+        <span class="text-primary m-r-10" style="color:#94c4fb">&nbsp;&nbsp;&nbsp;0</span>
+    </p>
+    <p> <strong>定位用户：</strong>
+        <a href="">boss</a>
+    </p>
+    <p style="text-align: center;margin-top: 15 px"> <strong>打天下工作台-定位用户最近位置：</strong>
+        图中定位点取用时间最新的数据(包含：拜访定位、照片定位、轨迹定位和考勤定位)
+    </p>
+    <div class="container"  style="width:100%;height:500px; margin-top:20px; border: 1px solid #ccc;background: #fff" >
+        <div class="container" style="width:98.5%;height:460px;border: 1px solid #ccc; margin-top: 20px;overflow: hidden" >
+            <div style="width:100%;height:100%">
+                <div id="allmap" style="height: 100%;"></div>
+            </div>
+        </div>
+        <footer class="footer" style="text-align: center;margin-top: 50px;">
+            热线: <b>4000-80-4000 400-960-9606</b>
+            &nbsp;&nbsp;网站: <b><a href="http://www.xtools.cn" target="_blank">www.xtools.cn</a></b>
+            &nbsp;
+            <a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://www.xtools.cn/about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
+                投诉&amp;问题
+            </a>
+            &nbsp;&nbsp;
+            <a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
+                微客服
+            </a>
+            &nbsp;&nbsp;
+            <a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
+                <i class="md md-speaker-notes m-r-5"></i>
+                订阅号
+            </a>
+            <br>
+            Copyright © 2004-2017 &nbsp;北京沃力森信息技术有限公司&nbsp;&nbsp;  Beijing Volitation Information Technology Co.,ltd
+        </footer>
+        <!-- 底部 -->
     </div>
-    <div class="center_2">
-          <div class="center_2a">
-              <h3>员工请假</h3>
-          </div>
-          <div class="cneter_2b"><h3>始 ：2017-12-2<i></i></h3></div>
-          <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/1544153282(1).png" alt=""></div>
-          <div class="cneter_2b"><h3>至 ：2017-4-5<i></i></h3></div>
-          <textarea rows="10" cols="30" placeholder="请假说明"></textarea> 
-          <div class="cneter_2c"><a href="#" class="cneter_2ca">提交</a></div>
-    </div>
-    <div class="cneter_3" style="margin-right: 2%"><h3>打卡日历<span><i></i>2017 年 9 月<i></i></span></h3></div>
-    <div class="cneter_3"><h3>考勤统计</h3></div>
-    <div class="cneter_4" style="margin-right: 2%"></div>
-    <div class="cneter_4"></div>
-</div>   
-</div>
-    
-<!-- 模态框结束 -->
-<script type="text/javascript" src="__STATIC__/admin/index/js/index.js?126"></script>
-
-<footer class="footer" style="text-align: center;margin-top: 50px;">
-	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
-	&nbsp;
-	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
-		投诉&amp;问题
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
-		微客服
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
-		<i class="md md-speaker-notes m-r-5"></i>
-		订阅号
-	</a>
-	<br>
-	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
-</footer>
-<!-- 底部 -->
-<script type="text/javascript">
-$(document).ready(function(){
-	$(".left_menu ul li").click(function(event){
-		event.preventDefault();
-		console.log($(this).siblings().find('a,p'))
-		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
-			"color":"#5d9cec"})
-		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
-		$(this).find('a,p').css("color","#5d9cec")
-		$(this).siblings().find('a,p').css("color","white")
-	})
-});
-</script>
 </body>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=RLG68MPH7d0OZMp6GM21BMWrPOqVRXFZ"></script>
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");    // 创建Map实例
+    map.setMapStyle({style:'hardedge'});
+    var geolocation = new BMap.Geolocation();
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+    //添加地图类型控件
+    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    geolocation.getCurrentPosition(function(r){
+        var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+        var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+        var top_right_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}); //右上角，仅包含平移和缩放按钮
+        var overView = new BMap.OverviewMapControl();
+        var overViewOpen = new BMap.OverviewMapControl({isOpen:true, anchor: BMAP_ANCHOR_BOTTOM_RIGHT});
+        map.addControl(top_left_control);
+        map.addControl(top_left_navigation);
+        map.addControl(top_right_navigation);
+        map.addControl(overView);          //添加默认缩略地图控件
+        map.addControl(overViewOpen);      //右下角，打开
+        map.centerAndZoom(new BMap.Point(r.longitude, r.latitude), 20);  //
+        var marker2 = new BMap.Marker(new BMap.Point(r.longitude, r.latitude));
+        map.addOverlay(marker2);
+        marker2.enableDragging();
+        marker2.addEventListener("dragging",getAttr);
+        marker2.addEventListener("click",saveAttr);
+        function getAttr(){
+            var p = marker2.getPosition();       //获取marker的位置
+
+        };
+        function saveAttr(){
+            var p = marker2.getPosition();
+            if(confirm("亲爱的"+'<?php echo \think\Session::get('user_name'); ?>'+",您目前的经度为："+p.lng+",纬度为："+p.lat+"确认签到吗")){
+                    $.get('<?php echo url("admin/map/addmap"); ?>',{lng:p.lng,lat:p.lat,uid:<?php echo \think\Session::get('u_id'); ?>},(res)=>{
+                        console.log(res)
+                        if(res==false){
+                            alert("您今天已经签到过了");
+                        }
+                        else
+                        {
+                            alert("签到成功");
+                        }
+                    });
+                    
+            }//获取marker的位置         
+    }
+})
+</script>
 </html>

@@ -1,5 +1,5 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:69:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544258880;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544239444;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544435670;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544437184;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544081012;}*/ ?>
- <!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"E:\BC\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544432496;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544239444;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544429069;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544081012;}*/ ?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -351,153 +351,8 @@
         }
     })
 </script>
- 	<!DOCTYPE html>
-<html>
-	<head>
-<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<div class="page" style="z-index: 99;background:white;padding-left: 10px;height:100%">
-			<div class="search_box">
-				<div class="iconfont icon-fangdajing"></div>
-				<input type="text" name="search" class="search" placeholder="搜索" />
-			</div>
-			<div class="people_box">
-				<div class="icon">
-					<div class="iconfont icon-geren"></div>
-					<div class="iconfont icon-iconset0337"></div>
-					<div class="iconfont icon-group"></div>
-				</div>
-				<div class="name_box">
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				公告栏
-			</div>
-			<div class="notice_box">
-				<div class="notice">
-					<div class="notice_dian"></div>
-					<div class="notice_content">oa系统正式上线</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				新闻
-			</div>
-		</div>
-	</body>
-</html>
 
-
-
-
-
-<style type="text/css">
-.page{
-	width:172px;
-	position:fixed ;
-	right: 0;
-	
-	
-}
-.search_box{
-	display: flex;
-	margin-top:9px;
-	background: #e6e6e6;
-	
-}
-.search_box input{
-	background: #e6e6e6;
-	border: 0px;
-	outline:none 
-}
-.icon{
-	display: flex;
-	margin: 6px 20px ;
-	
-}
-.icon div{
-	font-size: 23px;
-	flex: 1;
-	text-align: center;
-}
-.people{
-	display: flex;
-	align-items: center;
-}
-.name_box{
-	height: 250px;
-	overflow:scroll;
-	overflow-x:visible;
-}
-.people img{
-	width: 26px;
-	height: 26px;
-	border-radius: 26px;	
-}
-.people p{
-    margin-top: 13px;
-    margin-left: 3px;
-}
-.notice_title{
-	text-align: center;
-    padding: 4px 0;
-    font-size: 16px;
-    border-top: 1px solid #cccccc;
-    border-bottom:1px solid #cccccc;
-    font-weight: bold;
-}
-.notice{
-	display: flex;
-}
-.notice_dian{
-	width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: red;
-    margin-top: 5px;
-    margin-left: 7px;
-}
-.notice_box{
-	height: 143px;
-}
-.notice_content{
-	margin-left: 10px;
-    font-size: 11px;
-}
-</style> 
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> 
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
-
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
 <div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
 		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
@@ -505,7 +360,6 @@
 		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
 		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
 		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
-	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
 	</ul>
 	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
@@ -548,46 +402,346 @@
  function jump_five(){
  	window.location.href='<?php echo url('admin/index/information'); ?>'
  }
-  function jump_six(){
- 	window.location.href='<?php echo url('admin/index/stock'); ?>'
- }
 
 </script>
 
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
-<style>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
+<div class="task" style="margin-top: 10px;">
+	<div class="container">
+		<div class="task_title">
+			<span class="glyphicon glyphicon-list-alt pull-left"></span>
+			<h4>TASK员工任务管理</h4>
+		</div>
+		<div class="task_content">
+			<?php foreach($user as $userdata): ?>
+			<!-- 学生身份作业管理 -->
+			<?php if($userdata['user_cate']=='员工'): ?>
+		<!-- 	<ul class="list_top">
+				<li><a href="<?php echo url('add'); ?>"><span class="glyphicon glyphicon-pencil"></span>提交汇报</a></li>
+				<li><a href="<?php echo url('read'); ?>"><span class="glyphicon glyphicon-pencil"></span>查看任务</a></li>
+			</ul> -->
+			<div class="table_box">
+				<div class="Employee_box">
+					<div class="Employee_left">
+						<div class="add" @click='add'>+</div>
+						<div class="Employee_head">工作表</div>
+						<div class="wire"></div>
+						<div class="Employee_footer">
+							<div><span>负责人:</span><span><?php echo $userdata['user_name']; ?></span></div>
+							<div><span>日期:</span><span><?php echo $date; ?></span></div>
+						</div>
 
-</style> 
-<div class="container">
-<div class="index_content_center">
-    <div class="center_1">
-    <div class="center_1a">
-        <div></div>
-    </div> 
-    <h3 style="margin-bottom: 0.1em;"><strong>张三</strong></h3>
-    <p style="font-size: 1em;"><strong>设计部-中级设计师</strong></p>
-    <button class="button1"><strong>打卡</strong></button>
-    <button class="button2"><strong>补卡</strong></button>
-    </div>
-    <div class="center_2">
-          <div class="center_2a">
-              <h3>员工请假</h3>
-          </div>
-          <div class="cneter_2b"><h3>始 ：2017-12-2<i></i></h3></div>
-          <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/1544153282(1).png" alt=""></div>
-          <div class="cneter_2b"><h3>至 ：2017-4-5<i></i></h3></div>
-          <textarea rows="10" cols="30" placeholder="请假说明"></textarea> 
-          <div class="cneter_2c"><a href="#" class="cneter_2ca">提交</a></div>
-    </div>
-    <div class="cneter_3" style="margin-right: 2%"><h3>打卡日历<span><i></i>2017 年 9 月<i></i></span></h3></div>
-    <div class="cneter_3"><h3>考勤统计</h3></div>
-    <div class="cneter_4" style="margin-right: 2%"></div>
-    <div class="cneter_4"></div>
-</div>   
+					</div>
+					<div class="Employee_right">
+						<div class="font">完成情况</div>
+						<div class="Score"><div class="fens"><div class="se" :style="'height:'+zongshu+'%'"></div><div class="fen">{{zongshu}}分</div></div></div>
+						
+					</div>
+					<table class="aa" style="text-align: center;" border='1px' width="1000px">
+				<tr bgcolor="#31869b" align="center" style="color: #fff;font-size: 12px;">
+					<th width="50px">序号</th>
+					<th width="100px">主分类</th>
+					<th width="100px">细分类</th>
+					<th width="60px">数量/时间</th>
+					<th width="200px">工作内容</th>
+					<th width="50px"></th>
+					<th width="50px">是否完成</th>
+					<th width="150px">未完成原因</th>
+					<th width="150px">备注</th>
+					<th width="100px">统计分数</th>
+					<th width="50px">操作</th>
+				</tr>
+				
+
+				<tr :bgcolor="index%2 ==0?'':'#fff'" v-for='(item,index) in worksheet'>
+					<td>
+					  {{index+1}}
+					</td>
+					<td>
+						<select :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.primary' @change='zhuclassify(index)' >
+					
+						  <option  v-for="(i,l) in primary"  :value="i" style="text-align: center;">{{i.type}}</option>
+					
+					  </select>
+					</td>
+					<td>
+						<select :style="index%2 ==0?'background: #b7dee8;':''"  v-model='item.secondary' @change='ciclassify(index)'>
+					    
+						  <option v-for="(c,cl) in secondary[index]" :value ="c" style="text-align: center;">{{c.type}}</option>
+						 
+					  </select>
+					</td>
+					<td quantity>
+						<input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.quantity' @blur='liang(index)'>
+						
+						 
+					</td>
+					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" @blur='job(index)' v-model="item.job"></td>
+					<td></td>
+					<td>
+						<select :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.whether' @change='whether(index)'>
+						
+						  <option value ="0" >是</option>
+						  <option value ="1" >否</option>
+					  </select>
+
+					</td>
+					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.reasons' @blur='reasons(index)'></td>
+					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.remark' @blur='remark(index)'></td>
+					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
+					<td></td>
+				</tr>
+				<?php foreach($bossfenprw as $val): ?>
+				<tr >
+					<td>
+					  2
+					</td>
+					<td>
+						<select >
+					
+						  <option  style="text-align: center;"></option>
+					
+					  </select>
+					</td>
+					<td>
+						<select  >
+					    
+						  <option  style="text-align: center;"></option>
+						 
+					  </select>
+					</td>
+					<td >
+						<select   >
+					    
+						  <option  style="text-align: center;"></option>
+						 
+					</td>
+					<td><input type="text" value="<?php echo $val['work_name']; ?>"></td>
+					<td></td>
+					<td>
+						<select >
+						
+						  <option value ="0" >是</option>
+						  <option value ="1" >否</option>
+					  </select>
+
+					</td>
+					<td><input type="text"  ></td>
+					<td><input type="text" ></td>
+					<td><input type="text"  ></td>
+					<td><a href="<?php echo url('check',['id'=>$val['id']]); ?>">查看详情</a></td>
+				</tr>
+				<?php endforeach; ?>
+				
+				
+			</table>
+			<div class="backlog">待办工作</div>
+			<table class="aa" style="text-align: center;" border='1px' width="1000px">
+				<tr bgcolor="#31869b" align="center" style="color: #fff;font-size: 12px;">
+					<th width="50px">序号</th>
+					<th width="150px">开始时间</th>
+					<th width="300px">任务名称</th>
+					<th width="150px">要求完成时间</th>
+					<th width="250px">备注</th>
+					<th ></th>
+					<th ></th>
+				</tr>
+				<?php foreach($daibanwork as $key=>$val): ?>
+				<tr>
+					<td> <?php echo $key+1; ?></td>
+					<td ><?php echo date("Y-m-d  H:i:s",$val['time']); ?></td>
+					<td ><?php echo $val['work_name']; ?></td>
+					<td ><?php echo date("Y-m-d  H:i:s",$val['lasttime']); ?></td>
+					<td >任务类别：<?php echo $val['work_rank']; ?></td>
+					<td ></td>
+					<td ></td>
+				</tr>
+				<?php endforeach; ?>
+			</table>
+				</div>
+			
+			</div>
+			<?php endif; ?>
+			<!-- 非学生身份管理作业 -->
+			<?php if($userdata['user_cate']=='老板'): ?>
+			<ul class="list_top">
+				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
+				
+				<li style="width: 0%;">
+					 <form action="<?php echo url('index'); ?>" class="form">
+					 	<div class="input-group pull-left">
+					 		<input type="text" class="form-control pull-left" placeholder="输入员工名称" name="user_name">
+					 	</div>
+					 	<input type="submit" class="btn btn-group pull-left" style="cursor: pointer;" value="搜索">
+					 </form>
+				</li>
+			</ul>
+			<button class="btn btn-default" @click="turn1">待我处理(<?php echo count($work_list); ?>)</button>
+			<button class="btn btn-default" @click="turn1">我发布的任务(<?php echo count($work_list); ?>)</button>
+			<button class="btn btn-default" @click="turn2">已结束的任务(<?php echo count($unfinish_list); ?>)</button>
+			
+			<table v-if="con == 1" class="table" style="text-align: center;"  >
+				<tr>
+					<th>排序</th>
+					<th>编号ID</th>
+					<th>对接人</th>
+					<th>任务名称</th>
+					<th>内容</th>
+					<th>附件</th>
+					<th>部门</th>
+					<th>添加时间</th>
+					<th>截止时间</th>
+					<th>任务级别</th>
+					<th>状态</th>
+					<th>详情</th>
+				</tr>
+				
+				<?php foreach($work_list as $key=>$info): ?>
+					<tr >
+						<td>50</td>
+						<td><?php echo $info['id']; ?></td>
+						
+						<td><?php echo $info['execute_id']; ?></td>
+						<td><?php echo $info['work_name']; ?></td>
+						<td><?php echo $info['work_file']; ?></td>
+						<?php if($info['work_require']!=""): ?>
+						<td><a href="__UPLOADS__<?php echo $info['work_require']; ?>">点击查看</a></td>
+						<?php endif; if($info['work_require']==""): ?>
+						<td>无</td>
+						<?php endif; ?>
+						<td></td>
+						<td><?php echo date("Y-m-d  H:i:s",$info['time']); ?></td>
+						<td><?php echo date("Y-m-d  H:i:s",$info['lasttime']); ?></td>
+						<td><?php echo $info['work_rank']; ?></td>
+						<?php if($info['state']=="1"): ?>
+						<td>已发布待查阅</td>
+						<?php endif; if($info['state']=="2"): ?>
+						<td>已查阅</td>
+						<?php endif; if($info['state']=="3"): ?>
+						<td>发起人已放弃</td>
+						<?php endif; if($info['state']=="4"): ?>
+						<td>任务已完成</td>
+						<?php endif; ?>
+						
+						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">详情</a></td>
+					</tr>			
+				<?php endforeach; ?>
+				
+				
+				
+			</table>
+			<table v-if="con == 2" class="table" style="text-align: center;"  >
+				<tr>
+					<th>排序</th>
+					<th>编号ID</th>
+					<th>对接人</th>
+					<th>任务名称</th>
+					<th>内容</th>
+					<th>附件</th>
+					<th>部门</th>
+					<th>添加时间</th>
+					<th>截止时间</th>
+					<th>任务级别</th>
+					<th>状态</th>
+					<th>详情</th>
+				</tr>
+				
+				<?php foreach($unfinish_list as $info): ?>
+					<tr >
+						<td>2</td>
+						<td><?php echo $info['id']; ?></td>
+						
+						<td><?php echo $info['execute_id']; ?></td>
+						<td><?php echo $info['work_name']; ?></td>
+						<td><?php echo $info['work_file']; ?></td>
+						<?php if($info['work_require']!=""): ?>
+						<td><a href="__UPLOADS__<?php echo $info['work_require']; ?>">点击查看</a></td>
+						<?php endif; if($info['work_require']==""): ?>
+						<td>无</td>
+						<?php endif; ?>
+						<td></td>
+						<td><?php echo date("Y-m-d  H:i:s",$info['time']); ?></td>
+						<td><?php echo date("Y-m-d  H:i:s",$info['lasttime']); ?></td>
+						<td><?php echo $info['work_rank']; ?></td>
+						<?php if($info['state']=="1"): ?>
+						<td>已发布待查阅</td>
+						<?php endif; if($info['state']=="2"): ?>
+						<td>已查阅</td>
+						<?php endif; if($info['state']=="3"): ?>
+						<td>发起人已放弃</td>
+						<?php endif; if($info['state']=="4"): ?>
+						<td>任务已完成</td>
+						<?php endif; ?>
+						
+						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">详情</a></td>
+					</tr>			
+				<?php endforeach; ?>
+				
+				
+				
+			</table>
+			
+			<?php echo $work_list->render(); ?>
+			<ul class="list_bottom">
+				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
+				
+			</ul>
+			<?php endif; if($userdata['user_cate']=='经理'): ?>
+			<ul class="list_top">
+				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
+				<li><a href="<?php echo url('read'); ?>"><span class="glyphicon glyphicon-list"></span>查看任务</a></li>
+				<li style="width: 0%;">
+					 <form action="<?php echo url('index'); ?>" class="form">
+					 	<div class="input-group pull-left">
+					 		<input type="text" class="form-control pull-left" placeholder="输入员工名称" name="user_name">
+					 	</div>
+					 	<input type="submit" class="btn btn-group pull-left" style="cursor: pointer;" value="搜索">
+					 </form>
+				</li>
+			</ul>
+			<table class="table" style="text-align: center;">
+				<tr>
+					<th>编号ID</th>
+					<th>员工</th>
+					<th>名称</th>
+					<th>内容</th>
+					<th>附件</th>
+					<th>部门</th>
+					<th>添加时间</th>
+					<th>回复</th>
+					<th>操作</th>
+				</tr>
+				<?php foreach($work_list as $info): ?>
+					<tr >
+						<td><?php echo $info['id']; ?></td>
+						<?php foreach($user_list as $user): if($user['id']==$info['u_id']): ?>	
+						<td><?php echo $user['user_name']; ?></td>
+						<?php endif; endforeach; ?>	
+						<td><?php echo $info['title']; ?></td>
+						<td><?php echo $info['content']; ?></td>
+						<?php if($info['work']!=""): ?>
+						<td><a href="__UPLOADS__<td><?php echo $info['bumen']; ?></td><?php echo $info['work']; ?>">点击查看</a></td>
+						<?php endif; if($info['work']==""): ?>
+						<td>无</td>
+						<?php endif; ?>
+                        <td><?php echo $info['bumen']; ?></td>
+						<td><?php echo $info['time']; ?></td>
+						<td><?php echo $info['reply']; ?></td>
+						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">批改</a></td>
+					</tr>			
+				<?php endforeach; ?>
+			</table>
+			
+			<?php echo $work_list->render(); ?>
+			<ul class="list_bottom">
+				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
+				<li><a href="javascript:;"><span class="glyphicon glyphicon-list"></span>汇总</a></li>
+				<li><a href="javascript:;"><span class="glyphicon glyphicon-download-alt"></span>作业导出</a></li>
+			</ul>
+			<?php endif; endforeach; ?>
+		</div>
+	</div>
 </div>
-    
-<!-- 模态框结束 -->
-<script type="text/javascript" src="__STATIC__/admin/index/js/index.js?126"></script>
 
 <footer class="footer" style="text-align: center;margin-top: 50px;">
 	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
@@ -623,3 +777,207 @@ $(document).ready(function(){
 </script>
 </body>
 </html>
+
+<script>
+ 	// 第二步：定义路由，也就是每个路由应该映射一个组件
+ 	
+	new Vue({
+        el: ".task",
+        data: {
+            worksheet:<?php echo $yuangong; ?>, 
+            primary : <?php echo $main; ?>,
+            fine:<?php echo $fine; ?>,
+            secondary:[],
+            zongshu:<?php echo $zongshu; ?>,
+            con:1,
+          
+        },
+        mounted(){
+        	console.log(this.worksheet);
+        	if(this.worksheet.length<8){
+        		var num=8-this.worksheet.length;
+        		for (var i = 0; i < num; i++) {
+        			this.worksheet.push({});
+        		}
+        		
+        		
+        	}
+        	for (var i = 0; i < this.worksheet.length; i++) {
+        	this.secondary.push([])
+            
+        	this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary);
+        	this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary);
+        		for (var a = 0; a < this.fine.length; a++) {
+        	     if(this.worksheet[i].primary.id==this.fine[a].main){
+          				this.secondary[i].push(this.fine[a])
+        			}
+        	    }
+        	   
+        		
+        	}
+   
+        	console.log(this.secondary);
+        	console.log(this.worksheet);
+         				
+		},
+       	
+     methods:{
+     	turn1(){
+     		this.con=1
+     	},
+     	turn2(){
+     		this.con=2
+     	},
+     	// 添加
+     	add(){
+     		console.log(this.aa)
+     		// this.worksheet.push({primary:<?php echo $main; ?>,secondary:[]})
+     		$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{select:0,},(rtnData)=>{
+        	    		
+                 	   this.worksheet.push(rtnData)
+                 	   	console.log(this.worksheet)
+     			});
+     	},
+        // 主分类
+        zhuclassify(e){
+     		console.log(this.worksheet[e].primary)
+        	    $.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+	
+	        	    	select:1,
+	        	    	theme_id:this.worksheet[e].id,
+	        	    	xuan:this.worksheet[e].primary.id,
+	        	    	type:this.worksheet[e].primary.type
+        	    	},(rtnData)=>{     
+        	    	
+        	    			console.log(rtnData)
+        	    			if(rtnData!=='false'){
+        	    				console.log(1)
+        	    			rtnData.primary=JSON.parse(rtnData.primary)
+        	    			console.log(rtnData)
+        	    				this.worksheet[e]=rtnData
+        	    			}
+        	    			
+
+        	    			var text=[];
+        	    			 for (var a = 0; a < this.fine.length; a++) {
+			        	     	if(this.worksheet[e].primary.id==this.fine[a].main){
+			          				text.push(this.fine[a])
+			        				this.$set(this.secondary,e,text);
+			        				}
+        	     }
+        	    			console.log(this.worksheet);
+        	    			
+     			});
+        },
+        // 细分类
+        ciclassify(e){ 
+        	console.log(this.worksheet[e].id);
+        	$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{      	    		
+        	    		select:2,
+        	    		theme_id:this.worksheet[e].id,
+        	    		xuan:this.worksheet[e].secondary,
+						
+        	    	},(rtnData)=>{
+                 	   
+				          this.worksheet[e].score=rtnData;
+        	    			 // this.$set(this.quantity,e,rtnData) 
+
+     			});
+
+ 
+        },
+        // 时间/数量
+        liang(e){
+        	console.log(this.worksheet[e].quantity);
+        	$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+        	    		
+        	    		select:3,
+        	    		theme_id:this.worksheet[e].id,
+        	    		liang:this.worksheet[e].quantity
+        	    	},(rtnData)=>{
+                 	   this.worksheet[e].score=rtnData;
+        	    	});
+        },
+        // 工作内容
+        job(e){
+        		$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+        	    		
+        	    		select:4,
+        	    		theme_id:this.worksheet[e].id,
+        	    		job:this.worksheet[e].job
+        	    	},(rtnData)=>{
+        	    		if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
+        	    	});
+        },
+        // 是否完成
+        whether(e){
+        		$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+        	    		
+        	    		select:5,
+        	    		theme_id:this.worksheet[e].id,
+        	    		whether:this.worksheet[e].whether
+        	    	},(rtnData)=>{
+        	    		this.zongshu=rtnData
+        	    	});
+        },
+        //未完成原因 
+        reasons(e){
+ 				$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+        	    		
+        	    		select:6,
+        	    		theme_id:this.worksheet[e].id,
+        	    		reasons:this.worksheet[e].reasons
+        	    	},(rtnData)=>{
+        	    		if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
+        	    	});
+        },
+        // 备注
+         remark(e){
+         			$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+        	    		
+        	    		select:7,
+        	    		theme_id:this.worksheet[e].id,
+        	    		remark:this.worksheet[e].remark
+        	    	},(rtnData)=>{
+        	    		if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
+        	    	});
+        },
+        // 统计分数
+         score(e){
+			$.get('<?php echo url("admin/task/classify"); ?>',
+   	    			{
+       	    		
+      	    		select:8,
+      	    		theme_id:this.worksheet[e].id,
+       	    		score:this.worksheet[e].score
+        	    	});
+        },
+        viewDetails:function(e){
+			window.location.href='<?php echo url('check',['id'=>24]); ?>'
+        }
+        	
+         
+
+        }         
+    })
+</script>
+<style>
+
+</style>

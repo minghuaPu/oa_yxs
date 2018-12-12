@@ -1,5 +1,13 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:69:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544258880;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544239444;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544435670;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544437184;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544081012;}*/ ?>
- <!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\work.html";i:1544432066;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544239444;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544437184;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544435670;}*/ ?>
+<!DOCTYPE html>
+
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/work/work.css"/>
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -351,7 +359,67 @@
         }
     })
 </script>
- 	<!DOCTYPE html>
+	
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
+
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
+<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
+	<ul v-if="controller!='Map'">
+		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
+		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
+		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
+		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
+		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
+	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
+	</ul>
+	<!--<ul v-if="controller=='Map'" class="Maplist">
+		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
+		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
+		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
+		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
+		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
+		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
+		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
+		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
+	</ul>-->
+</div>
+<script type="text/javascript">
+ new Vue({
+        el:'#left_menu',
+        data:{
+           controller:"Index"
+        },
+        created(){
+        	this.init();
+        },
+        methods:{
+        	init(){
+                this.controller="<?php echo request()->controller(); ?>";
+        	}
+        }
+    })
+ function jump(){
+ 	 window.location.href='<?php echo url('admin/index/index'); ?>'
+ }
+ function jump_two(){
+ 	window.location.href='<?php echo url('admin/index/work'); ?>'
+ }
+ function jump_three(){
+ 	window.location.href='<?php echo url('admin/index/finance'); ?>'
+ }
+ function jump_four (){
+ 	window.location.href='<?php echo url('admin/index/department'); ?>'
+ }
+ function jump_five(){
+ 	window.location.href='<?php echo url('admin/index/information'); ?>'
+ }
+  function jump_six(){
+ 	window.location.href='<?php echo url('admin/index/stock'); ?>'
+ }
+
+</script>
+ 
+	<!DOCTYPE html>
 <html>
 	<head>
 <script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
@@ -494,132 +562,91 @@
     font-size: 11px;
 }
 </style> 
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> 
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
-
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
-<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
-	<ul v-if="controller!='Map'">
-		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
-		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
-		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
-		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
-		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
-	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
-	</ul>
-	<!--<ul v-if="controller=='Map'" class="Maplist">
-		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
-		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
-		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
-		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
-		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
-		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
-		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
-		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-	</ul>-->
-</div>
-<script type="text/javascript">
- new Vue({
-        el:'#left_menu',
-        data:{
-           controller:"Index"
-        },
-        created(){
-        	this.init();
-        },
-        methods:{
-        	init(){
-                this.controller="<?php echo request()->controller(); ?>";
-        	}
-        }
-    })
- function jump(){
- 	 window.location.href='<?php echo url('admin/index/index'); ?>'
- }
- function jump_two(){
- 	window.location.href='<?php echo url('admin/index/work'); ?>'
- }
- function jump_three(){
- 	window.location.href='<?php echo url('admin/index/finance'); ?>'
- }
- function jump_four (){
- 	window.location.href='<?php echo url('admin/index/department'); ?>'
- }
- function jump_five(){
- 	window.location.href='<?php echo url('admin/index/information'); ?>'
- }
-  function jump_six(){
- 	window.location.href='<?php echo url('admin/index/stock'); ?>'
- }
-
-</script>
-
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
-<style>
-
-</style> 
-<div class="container">
-<div class="index_content_center">
-    <div class="center_1">
-    <div class="center_1a">
-        <div></div>
-    </div> 
-    <h3 style="margin-bottom: 0.1em;"><strong>张三</strong></h3>
-    <p style="font-size: 1em;"><strong>设计部-中级设计师</strong></p>
-    <button class="button1"><strong>打卡</strong></button>
-    <button class="button2"><strong>补卡</strong></button>
-    </div>
-    <div class="center_2">
-          <div class="center_2a">
-              <h3>员工请假</h3>
-          </div>
-          <div class="cneter_2b"><h3>始 ：2017-12-2<i></i></h3></div>
-          <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/1544153282(1).png" alt=""></div>
-          <div class="cneter_2b"><h3>至 ：2017-4-5<i></i></h3></div>
-          <textarea rows="10" cols="30" placeholder="请假说明"></textarea> 
-          <div class="cneter_2c"><a href="#" class="cneter_2ca">提交</a></div>
-    </div>
-    <div class="cneter_3" style="margin-right: 2%"><h3>打卡日历<span><i></i>2017 年 9 月<i></i></span></h3></div>
-    <div class="cneter_3"><h3>考勤统计</h3></div>
-    <div class="cneter_4" style="margin-right: 2%"></div>
-    <div class="cneter_4"></div>
-</div>   
-</div>
-    
-<!-- 模态框结束 -->
-<script type="text/javascript" src="__STATIC__/admin/index/js/index.js?126"></script>
-
-<footer class="footer" style="text-align: center;margin-top: 50px;">
-	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
-	&nbsp;
-	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
-		投诉&amp;问题
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
-		微客服
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
-		<i class="md md-speaker-notes m-r-5"></i>
-		订阅号
-	</a>
-	<br>
-	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
-</footer>
-<!-- 底部 -->
-<script type="text/javascript">
-$(document).ready(function(){
-	$(".left_menu ul li").click(function(event){
-		event.preventDefault();
-		console.log($(this).siblings().find('a,p'))
-		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
-			"color":"#5d9cec"})
-		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
-		$(this).find('a,p').css("color","#5d9cec")
-		$(this).siblings().find('a,p').css("color","white")
-	})
-});
-</script>
-</body>
+	</head>
+	<body>
+	
+	<div class="container">
+		<div class="row">
+			<div class=" col-md-6"> 
+				<div class="week_title">本周工作</div>
+				<div class="img_box" id="main" ></div>
+		    </div>
+		    <div class=" col-md-6">
+		    	 <div class="week_title">本月汇总</div>
+		    	 <div class="img_box" id="main_two" ></div>
+		    </div>     
+		</div>
+		<div class="row">
+			<div class="bottom_title ">
+				<div class="title_one">工作文档</div>
+				<div class="title_two">新建文档 +</div>
+				<div class="title_two">本地上传 +</div>
+			</div> 
+			<div class="bottom_table">
+				<table class="table" border="" cellspacing="" cellpadding="">
+					<tr>
+					  <th>全选<input type="checkbox" /></th>
+					  <th>时间</th>
+					  <th>主题</th>
+					  <th>内容</th>
+					  <th>分类</th>
+					  <th>查询</th>
+					  <th>操作</th>
+					</tr>
+					<tr><td>Data</td></tr>
+				</table>
+			</div>
+		</div>
+		
+		
+		
+		
+	</div>
+	</body>
 </html>
+<script type="text/javascript">
+	    var myChart = echarts.init(document.getElementById('main'));
+        var option = {
+            title: {
+                text: '完成度%',
+               textStyle:{fontSize:10},
+               padding: [ 30,0,0,33]
+            },
+            tooltip: {},
+            legend: {
+                data:['销量']
+            },
+            xAxis: {
+                data: ["星期一","星期二","星期三","星期四","星期五","星期六"]
+            },
+            yAxis: {
+            	max:100
+            },
+            series: [{
+                color:'#28d2ae',
+                type: 'bar',
+                data: [20, 40, 10, 80, 90.5,80]
+            }]
+        };
+        myChart.setOption(option);// 使用刚指定的配置项和数据显示图表。
+        
+        var myChart = echarts.init(document.getElementById('main_two'));
+	    var   option = {
+	    xAxis: {
+	        type: 'category',
+	        data: ['第一周', '第二周', '第三周', '第四周']
+	    },
+	     tooltip: {}, //提示
+	    yAxis: {
+	        type: 'value',
+	        max:100
+	    },
+	    series: [{
+	    	 color:'#28d2ae',
+	        data: [50, 80, 30, 70],
+	        type: 'line',
+	        smooth: true
+	    }]
+	    };
+       myChart.setOption(option);
+</script>

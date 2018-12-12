@@ -1,5 +1,9 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:69:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544258880;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544239444;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544435670;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544437184;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544081012;}*/ ?>
- <!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:69:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\stock.html";i:1544522516;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544239444;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544437184;}*/ ?>
+<!DOCTYPE html>
+<html>
+	<head>
+<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+	<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -351,150 +355,7 @@
         }
     })
 </script>
- 	<!DOCTYPE html>
-<html>
-	<head>
-<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<div class="page" style="z-index: 99;background:white;padding-left: 10px;height:100%">
-			<div class="search_box">
-				<div class="iconfont icon-fangdajing"></div>
-				<input type="text" name="search" class="search" placeholder="搜索" />
-			</div>
-			<div class="people_box">
-				<div class="icon">
-					<div class="iconfont icon-geren"></div>
-					<div class="iconfont icon-iconset0337"></div>
-					<div class="iconfont icon-group"></div>
-				</div>
-				<div class="name_box">
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				公告栏
-			</div>
-			<div class="notice_box">
-				<div class="notice">
-					<div class="notice_dian"></div>
-					<div class="notice_content">oa系统正式上线</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				新闻
-			</div>
-		</div>
-	</body>
-</html>
-
-
-
-
-
-<style type="text/css">
-.page{
-	width:172px;
-	position:fixed ;
-	right: 0;
 	
-	
-}
-.search_box{
-	display: flex;
-	margin-top:9px;
-	background: #e6e6e6;
-	
-}
-.search_box input{
-	background: #e6e6e6;
-	border: 0px;
-	outline:none 
-}
-.icon{
-	display: flex;
-	margin: 6px 20px ;
-	
-}
-.icon div{
-	font-size: 23px;
-	flex: 1;
-	text-align: center;
-}
-.people{
-	display: flex;
-	align-items: center;
-}
-.name_box{
-	height: 250px;
-	overflow:scroll;
-	overflow-x:visible;
-}
-.people img{
-	width: 26px;
-	height: 26px;
-	border-radius: 26px;	
-}
-.people p{
-    margin-top: 13px;
-    margin-left: 3px;
-}
-.notice_title{
-	text-align: center;
-    padding: 4px 0;
-    font-size: 16px;
-    border-top: 1px solid #cccccc;
-    border-bottom:1px solid #cccccc;
-    font-weight: bold;
-}
-.notice{
-	display: flex;
-}
-.notice_dian{
-	width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: red;
-    margin-top: 5px;
-    margin-left: 7px;
-}
-.notice_box{
-	height: 143px;
-}
-.notice_content{
-	margin-left: 10px;
-    font-size: 11px;
-}
-</style> 
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> 
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
 
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
@@ -553,73 +414,131 @@
  }
 
 </script>
-
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
-<style>
-
-</style> 
-<div class="container">
-<div class="index_content_center">
-    <div class="center_1">
-    <div class="center_1a">
-        <div></div>
-    </div> 
-    <h3 style="margin-bottom: 0.1em;"><strong>张三</strong></h3>
-    <p style="font-size: 1em;"><strong>设计部-中级设计师</strong></p>
-    <button class="button1"><strong>打卡</strong></button>
-    <button class="button2"><strong>补卡</strong></button>
+ 
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="page_box">
+			<div class="container" style="background: white;">
+				<div class="row">
+					<div class="col-md-5 col-sm-5 col-lg-5"></div>
+					<div class="col-md-2 col-sm-2 col-lg-5"><h3>钢材库存</h3></div>
+					<div class="col-md-5 col-sm-5 col-lg-5">
+				</div>
+				<div class="row">
+					<div class="col-md-12 col-sm-12 ">
+					    <div style="width: 1300px;height:600px;" id="main"></div>
+					</div>
+				</div>	
+				
+				
+				
+			</div>
+		</div>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form class="modal-content"  method="post" action="<?php echo url('index/save'); ?>">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">修改</h4>
+                </div>
+                <div class="modal-body">
+                	<div class="title_box">
+                		<div>类别</div>
+                		<div id="leibie"></div>
+                	</div>
+                	<div class="title_box">
+                		<div id="attribute" style="margin-top: 8px;"></div>
+                		<div><input type="text" name="keep" id="in_value" value="" class="form-control"/></div>
+                		<div style="display: none;"><input type="text" name="id" id="keep_id" value="" class="form-control"/></div>
+                		<div style="display: none;"><input type="text" name="lb" id="keep_lb" value="" class="form-control"/></div>
+                	</div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="center_2">
-          <div class="center_2a">
-              <h3>员工请假</h3>
-          </div>
-          <div class="cneter_2b"><h3>始 ：2017-12-2<i></i></h3></div>
-          <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/1544153282(1).png" alt=""></div>
-          <div class="cneter_2b"><h3>至 ：2017-4-5<i></i></h3></div>
-          <textarea rows="10" cols="30" placeholder="请假说明"></textarea> 
-          <div class="cneter_2c"><a href="#" class="cneter_2ca">提交</a></div>
-    </div>
-    <div class="cneter_3" style="margin-right: 2%"><h3>打卡日历<span><i></i>2017 年 9 月<i></i></span></h3></div>
-    <div class="cneter_3"><h3>考勤统计</h3></div>
-    <div class="cneter_4" style="margin-right: 2%"></div>
-    <div class="cneter_4"></div>
-</div>   
-</div>
-    
-<!-- 模态框结束 -->
-<script type="text/javascript" src="__STATIC__/admin/index/js/index.js?126"></script>
-
-<footer class="footer" style="text-align: center;margin-top: 50px;">
-	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
-	&nbsp;
-	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
-		投诉&amp;问题
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
-		微客服
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
-		<i class="md md-speaker-notes m-r-5"></i>
-		订阅号
-	</a>
-	<br>
-	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
-</footer>
-<!-- 底部 -->
-<script type="text/javascript">
-$(document).ready(function(){
-	$(".left_menu ul li").click(function(event){
-		event.preventDefault();
-		console.log($(this).siblings().find('a,p'))
-		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
-			"color":"#5d9cec"})
-		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
-		$(this).find('a,p').css("color","#5d9cec")
-		$(this).siblings().find('a,p').css("color","white")
-	})
-});
-</script>
-</body>
+	</body>
 </html>
+<script type="text/javascript">
+	var cate_a = JSON.parse('<?php echo $list; ?>')
+	var xAxis_data  = []
+	var id_data =[]
+	cate_a.forEach(function(item){
+		xAxis_data.push(item.category)
+		id_data.push(item.id)
+	})
+	console.log(id_data)
+	
+	
+	
+	
+	
+	
+	    var myChart = echarts.init(document.getElementById('main'));
+			option = {
+			    title: {
+			    },
+			    tooltip: {
+			        trigger: 'axis',
+			        axisPointer: {
+			            type: 'shadow'
+			        }
+			    },
+			    legend: {
+			        data: ['材质', '形状','直径','长度','数量','重量']
+			    },
+			    grid: {
+			        left: '3%',
+			        right: '4%',
+			        bottom: '3%',
+			        containLabel: true
+			    },
+			    xAxis: {
+			    	type: 'category',
+			        data: xAxis_data
+			       
+			    },
+			    yAxis: {
+			         type: 'value',
+			        boundaryGap: [0, 0.01]
+			    },
+			    series: JSON.parse('<?php echo $series; ?>')
+			};
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+        
+        myChart.on('click', function(param) {
+        	$('#myModal').modal({keyboard: true})   //点击显示
+        	
+        	var id=id_data[param.dataIndex]
+        	
+      document.getElementById('leibie').innerHTML=param.name;
+      document.getElementById('attribute').innerHTML=param.seriesName;
+      document.getElementById('in_value').value=param.data;
+      document.getElementById('keep_id').value=id;
+      document.getElementById('keep_lb').value=param.seriesName;
+       
+       
+      console.log(id)
+     console.log(param);//重要的参数都在这里！
+ });
+</script>
+<style type="text/css">
+	.image_box{
+		width: 200px;
+		height: 200px;
+	}
+	.title_box{
+		display: flex;
+		margin-top: 10px;
+	}
+	.title div:nth-child(2){
+		margin-left: 21px;
+	}
+</style>

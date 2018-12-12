@@ -1,5 +1,5 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:69:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544258880;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544239444;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544435670;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544437184;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544081012;}*/ ?>
- <!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:75:"E:\BC\wamp64\www\oa\public/../application/admin\view\index\information.html";i:1544429069;s:61:"E:\BC\wamp64\www\oa\public/../application/admin\view\top.html";i:1544239444;s:63:"E:\BC\wamp64\www\oa\public/../application/admin\view\right.html";i:1544435670;s:62:"E:\BC\wamp64\www\oa\public/../application/admin\view\left.html";i:1544437184;}*/ ?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -351,7 +351,7 @@
         }
     })
 </script>
- 	<!DOCTYPE html>
+	<!DOCTYPE html>
 <html>
 	<head>
 <script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
@@ -493,7 +493,7 @@
 	margin-left: 10px;
     font-size: 11px;
 }
-</style> 
+</style>
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> 
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
 
@@ -557,69 +557,69 @@
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
 <style>
 
-</style> 
+</style>
 <div class="container">
-<div class="index_content_center">
-    <div class="center_1">
-    <div class="center_1a">
-        <div></div>
-    </div> 
-    <h3 style="margin-bottom: 0.1em;"><strong>张三</strong></h3>
-    <p style="font-size: 1em;"><strong>设计部-中级设计师</strong></p>
-    <button class="button1"><strong>打卡</strong></button>
-    <button class="button2"><strong>补卡</strong></button>
-    </div>
-    <div class="center_2">
-          <div class="center_2a">
-              <h3>员工请假</h3>
-          </div>
-          <div class="cneter_2b"><h3>始 ：2017-12-2<i></i></h3></div>
-          <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/1544153282(1).png" alt=""></div>
-          <div class="cneter_2b"><h3>至 ：2017-4-5<i></i></h3></div>
-          <textarea rows="10" cols="30" placeholder="请假说明"></textarea> 
-          <div class="cneter_2c"><a href="#" class="cneter_2ca">提交</a></div>
-    </div>
-    <div class="cneter_3" style="margin-right: 2%"><h3>打卡日历<span><i></i>2017 年 9 月<i></i></span></h3></div>
-    <div class="cneter_3"><h3>考勤统计</h3></div>
-    <div class="cneter_4" style="margin-right: 2%"></div>
-    <div class="cneter_4"></div>
-</div>   
+	<div class="content_all">
+		<div class="content_top">
+			<h3>消息中心</h3>
+			<div class="content1">
+				<div>
+				<a href="#"><img src="__STATIC__/admin/index/images/无标题0.png" alt=""></a>
+				<a href="#"><img src="__STATIC__/admin/index/images/无标题1.png" alt=""></a>
+				<a href="#"><img src="__STATIC__/admin/index/images/无标题2.png" alt=""></a>
+				<a href="#"><img src="__STATIC__/admin/index/images/无标题3.png" alt=""></a>
+				<a href="#"><img src="__STATIC__/admin/index/images/无标题4.png" alt=""></a>
+				</div>
+			</div>
+		</div>
+		<div class="content_center">
+			<div class="content2">
+				<h3>公司公告</h3>
+				<div>
+					<img src="__STATIC__/admin/index/images/1544240693(1).jpg" alt="">
+					<img src="__STATIC__/admin/index/images/1544240722(1).jpg" alt="">
+					<p>我校</p>
+					<p>关于</p>
+					<p>三天</p>
+					<p>精神文明</p>
+					<a href="#">查看更多</a>
+				</div>
+			</div>
+			<div class="content3">
+				<h3>公司要闻</h3>
+				<div>
+					<img src="__STATIC__/admin/index/images/1544240743(1).jpg" alt="">
+					<br>
+					<h4>丹桂飘香</h4>
+					<p>舒服法第三方第三方士大夫的说法是否是DVD深V是大V</p>
+					<p>士大夫的所得税大V地奇偶的机构ID减肥的佛vjdoifvdorjoi</p>
+					<p>第三个是改革若干的破空辅导班不仅是改革若干的破空辅导是改革若干的破空辅导是改革若干的破空辅导包括从产品线</p>
+					<a href="#">查看更多</a>
+				</div>
+			</div>
+		</div>
+		<div class="content_bottom">
+			<h3>公司论坛</h3>
+			<div class="content4">
+				<div>
+					<img src="__STATIC__/admin/index/images/1544240768(1).jpg" alt="">
+					<h4>人事专区</h4>
+					<p>导班不仅是改革若干</p>
+					<p>导班不仅是改革若干导班不仅是改革若干</p>
+				</div>
+				<div>
+					<img src="__STATIC__/admin/index/images/1544240795(1).jpg" alt="">
+					<h4>设计专区</h4>
+					<p>导班不仅是改革若干</p>
+					<p>导班不仅是改革若干导班若干导班不仅是改革若干</p>
+				</div>
+				<div>
+					<img src="__STATIC__/admin/index/images/info.jpg" alt="">
+					<h4>闲事杂谈</h4>
+					<p>导班不仅是改革若干</p>
+					<p>导班不仅是改革若干导班不导班不仅是改革若干</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-    
-<!-- 模态框结束 -->
-<script type="text/javascript" src="__STATIC__/admin/index/js/index.js?126"></script>
-
-<footer class="footer" style="text-align: center;margin-top: 50px;">
-	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
-	&nbsp;
-	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
-		投诉&amp;问题
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
-		微客服
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
-		<i class="md md-speaker-notes m-r-5"></i>
-		订阅号
-	</a>
-	<br>
-	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
-</footer>
-<!-- 底部 -->
-<script type="text/javascript">
-$(document).ready(function(){
-	$(".left_menu ul li").click(function(event){
-		event.preventDefault();
-		console.log($(this).siblings().find('a,p'))
-		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
-			"color":"#5d9cec"})
-		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
-		$(this).find('a,p').css("color","#5d9cec")
-		$(this).siblings().find('a,p').css("color","white")
-	})
-});
-</script>
-</body>
-</html>
