@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\arrange.html";i:1544521961;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\arrange.html";i:1544599867;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -369,6 +369,21 @@
                     <input id="workname" type="text" class="form-control" name="work_name" value="">
                 </div>
                 <div class="form-group">
+                    <label>任务主分类</label>
+                    <select id="onetype" name="firstlist" style="width: 200px;margin-top: 20px;height: 30px;border-radius: 10px;outline:none;" onchange="firstChange()">
+                        <option value="-1">请选择任务主分类</option>
+                        <?php foreach($firstlist as $key=>$info): ?>
+                        <option value="<?php echo $info['id']; ?>"><?php echo $info['type']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>任务细分类</label>
+                    <select id="secondtype" name="secondlist" style="width: 200px;margin-top: 20px;height: 30px;border-radius: 10px;outline:none;">
+                        <option value="-1">请选择任务细分类</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label>任务附件</label>
                     <input type="file" name="work_require" class="dropify"></input>
                 </div>
@@ -419,10 +434,37 @@
 <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="__STATIC__/library/bootstrap/defaults-zh_CN.min.js"></script>
 <script type="text/javascript">
+function firstChange() {
+    var orderTypeName = $("#onetype").val();
+    if (orderTypeName != null && "" != orderTypeName && -1 != orderTypeName) {
+        $.post("<?php echo url('selectClassify'); ?>", { orderTypeName: orderTypeName },
+            function(data) {
+                var a = "<option value='-1'>请选择任务细分类</option>";
+                $.each(data, function(i, n) {
+                    option = "<option value='" + n.id + "'>" + n.type + "</option>";
+                    a = a + option;
+                });
+                $("#secondtype").html(a);
+
+            });
+
+    } else {
+        $("#secondtype").html("<option value='-1'>请选择任务细分类</option>");
+    }
+
+
+};
+
 function beforesend() {
 
     if ($('#workname').val() == '') {
         alert('任务不能为空');
+        return false;
+    } else if ($('#onetype').val() == -1) {
+        alert('主任务不能为空');
+        return false;
+    } else if ($('#secondtype').val() == -1) {
+        alert('细任务不能为空');
         return false;
     } else if ($('#approverq').val() == '') {
         alert('对接人不能为空');

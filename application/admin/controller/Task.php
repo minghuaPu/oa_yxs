@@ -100,6 +100,7 @@ class Task extends \app\admin\Auth
 
         return $this->fetch();
     } 
+    //老板搜索页面
     public function select(){
 
          $con = input('info');          
@@ -112,6 +113,7 @@ class Task extends \app\admin\Auth
           return $this->fetch();
          
     }
+    //老板发布任务页面
     public function wfb(){
           $work_list1  =  db('bossworklist')->order('id desc')->select();
           $work_listnu = count($work_list1);
@@ -124,6 +126,7 @@ class Task extends \app\admin\Auth
         return $this->fetch();
          
     }
+    //老板已经完成任务页面
     public function yjs(){
          $work_list1  =  db('bossworklist')->order('id desc')->select();
           $work_listnu = count($work_list1);
@@ -420,7 +423,7 @@ class Task extends \app\admin\Auth
     {
         $id = input('id');
         $check = db('bossworklist')->where("id=$id")->select();
-       
+      
         $this->assign('check',$check);     
          $log_list = db('worklog')->where("rw_id=$id")->select();
          $this->assign('log_list',$log_list); 
@@ -432,6 +435,9 @@ class Task extends \app\admin\Auth
     //布置作业页面   
 	public function arrange()
     {
+        $firstlist = db('mainclassify')
+                       ->select();
+        $this->assign('firstlist',$firstlist);  
          $time=date('Y-m-d H:i:s');
         $this->assign("time",$time); 
         
@@ -440,10 +446,16 @@ class Task extends \app\admin\Auth
         
         
          
-//      $username_list=db("user")->column('user_name'); 
-//       $this->assign('user_name',$user_name);   
+ 
         return $this->fetch();
-    }  
+    } 
+    //布置任务任务分类
+    public function selectClassify(){
+        $firstclassify = input('orderTypeName');
+        // $first = db('mainclassify')->where('type',$firstclassify)->value('id');
+        $senconlist = db('fineclassify')->where('main',$firstclassify)->select();
+        return json($senconlist);
+    } 
     //布置作业保存
     public function save2()
     {
@@ -451,10 +463,16 @@ class Task extends \app\admin\Auth
         $u_id = $user_data["u_id"];
         $work_name = input('work_name');
         $urgency = input('urgency');
+        $firstlist = input('firstlist');
+        $secondlist = input('secondlist');
         $content = input('content');
         $work_file = '';
         $executerid = input('executerid');
         $lasttime = input('lasttime');
+        $db_firstlist = db('mainclassify')->where('id',$firstlist)->find();
+        $a = json_encode($db_firstlist);
+        $db_senconlist = db('fineclassify')->where('id',$secondlist)->find();
+        $b = json_encode($db_senconlist);
         $work=request()->file('work_require');
         if($work){
             $info = $work->move(ROOT_PATH.'/public/uploads');
@@ -469,16 +487,14 @@ class Task extends \app\admin\Auth
             'work_name'=>$work_name,
             'work_file'=>$work_file,
             'work_require'=>$content,
+            'primary'=>$a,
+            'secondary'=>$b,
             'execute_id'=>$executerid,
             'work_rank'=>$urgency,
             'lasttime'=>strtotime($lasttime),
             'uid'=>$u_id,
             'time'=>time(),
         ]);
-        // $uname=explode(',',$executerid);
-        // foreach ($uname as $key => $value) {
-        //     db('rwbiao')->insert(['u_name'=>$value]);
-        // }
         
         $this->success('布置成功','index');
     }  

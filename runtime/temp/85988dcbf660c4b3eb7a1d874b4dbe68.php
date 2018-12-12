@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:77:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544404632;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1544430005;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1544430005;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:77:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544404632;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544404632;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1544430005;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1544604519;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063398;}*/ ?>
  <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -500,6 +500,28 @@
 	<ul v-if="controller!='Map'">
 		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
 		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
+		  <li @click="isShow"><a class="iconfont icon-gongzuo" style="padding-top:-2px"><p>产品检查</p></a>
+            <ul v-if="six">
+                <li>
+                    <a href="<?php echo url('admin/index/cjg'); ?>" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>粗加工</p></a>
+                </li>
+                <li>
+                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>热处理</p></a>
+                </li>
+                <li>
+                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>锻造车间</p></a>
+                </li>
+                <li>
+                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>包装检验</p></a>
+                </li>
+                <li>
+                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>精加工</p></a>
+                </li>
+                <li>
+                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>其他</p></a>
+                </li>
+            </ul>
+        </li>
 		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
 		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
 		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
@@ -519,6 +541,7 @@
  new Vue({
         el:'#left_menu',
         data:{
+        	six:false,
            controller:"Index"
         },
         created(){
@@ -527,7 +550,10 @@
         methods:{
         	init(){
                 this.controller="<?php echo request()->controller(); ?>";
-        	}
+        	},
+        	 isShow(){
+        	this.six=!this.six;
+        }
         }
     })
  function jump(){
