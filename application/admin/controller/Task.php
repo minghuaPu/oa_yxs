@@ -46,11 +46,13 @@ class Task extends \app\admin\Auth
             $this->assign('work_listnu',$work_listnu);
             $this->assign('unfinish_listnu',$unfinish_listnu);  
             $this->assign('unfinish_list',$unfinish_list);
-        }
-        else
             $work_list  =  db('work')->order('id desc')->where("belong",$belong)->where("bumen",$user_data["bumen"])->paginate(10);
         
-        $this->assign('work_list',$work_list); 
+        
+        $this->assign('work_list',$work_list);
+        }
+        else{
+             
         
         $main=db('mainclassify')->select();
         $this->assign('main',json_encode($main));
@@ -65,6 +67,10 @@ class Task extends \app\admin\Auth
         foreach ($yuan as $key => $value) {
             if(date('Y-m-d',$value['time'])==$date){
                 $value['cate']=1;
+               $value['primary']=json_decode($value['primary']);
+               $value['secondary']=json_decode($value['secondary']);
+                // json_encode($value['primary']);
+                // json_encode($value['secondary']);
                 $yuangong[]=$value;
             }
         }
@@ -97,7 +103,7 @@ class Task extends \app\admin\Auth
         $this->assign('bossfenprw',$bossfenprw);
         $this->assign('daibanwork',$daibanwork);
         $this->assign('yuangong',json_encode($yuangong));
-
+    }
         return $this->fetch();
     } 
     public function select(){
@@ -154,13 +160,24 @@ class Task extends \app\admin\Auth
             $up['id']=$xuan;
             $up['type']=input('type');
             $data=db('fineclassify')->where('main='.$xuan)->select();
+           
             if(input('theme_id')){
-                db('worksheet')->where('id='.input('theme_id'))->update(["primary"=>json_encode($up)]);
-                return 'false';
-            }else{
-                db('worksheet')->insert(["primary"=>json_encode($up),"uid"=>$user_data['u_id'],'time'=>time()]);
+                 if($xuan==7){
+                    db('worksheet')->where('id='.input('theme_id'))->update(["primary"=>json_encode($up),'score'=>10]);
+                }else{
+                    db('worksheet')->where('id='.input('theme_id'))->update(["primary"=>json_encode($up),'score'=>null]);
+                }
+                $list=db('worksheet')->where('id='.input('theme_id'))->find();
+                return json(['list'=>$list]);
+            }elseif(input("xuan")){
+                if($xuan==7){
+                    db('worksheet')->insert(["primary"=>json_encode($up),"uid"=>$user_data['u_id'],'time'=>time(),'score'=>10]);
+                }else{
+                    db('worksheet')->insert(["primary"=>json_encode($up),"uid"=>$user_data['u_id'],'time'=>time(),'score'=>null]);
+                }
+                
                 $list=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
-                return json($list);
+                return json(['list'=>$list]);
             }
             
             
@@ -194,6 +211,7 @@ class Task extends \app\admin\Auth
                      
         }
         else if($select==3){
+            if(input('liang')&&input('theme_id')){
             $liang=input('liang');
             $num=db("worksheet")->where('id='.input('theme_id'))->value('score');
 
@@ -208,14 +226,23 @@ class Task extends \app\admin\Auth
             
             $data=db('worksheet')->where('id='.input('theme_id'))->value('score');
             return json($data);
+            }
+            
         } 
         else if($select==4){
             if(input('theme_id')){
                 db("worksheet")->where('id='.input('theme_id'))->update(["job"=>input('job')]);
-            }else{
+               
+                return json(false);
+
+            }elseif(input('job')){
                 db('worksheet')->insert(["job"=>input('job'),"uid"=>$user_data['u_id'],'time'=>time()]);
                 $list=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
                 return json($list);
+            }else{
+
+                return json(false);
+                
             }
             
         }
@@ -240,23 +267,30 @@ class Task extends \app\admin\Auth
                 
         }
         else if($select==6){
-            
+             
               if(input('theme_id')){
                 db("worksheet")->where('id='.input('theme_id'))->update(["reasons"=>input('reasons')]);
-            }else{
+                return json(false);
+            }elseif(input('reasons')){
                 db('worksheet')->insert(["reasons"=>input('reasons'),"uid"=>$user_data['u_id'],'time'=>time()]);
                 $list=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
                 return json($list);
+            }else{
+                return json(false);
             }
+            
         }
         else if($select==7){
             
              if(input('theme_id')){
                 db("worksheet")->where('id='.input('theme_id'))->update(["remark"=>input('remark')]);
-            }else{
+                return json(false);
+            }elseif(input('remark')){
                 db('worksheet')->insert(["remark"=>input('remark'),"uid"=>$user_data['u_id'],'time'=>time()]);
                 $list=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
                 return json($list);
+            }else{
+                return json(false);
             }
         }
         else if($select==8){

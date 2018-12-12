@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544523650;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544604690;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -421,36 +421,36 @@
 					  </select>
 					</td>
 					<td>
-						<select :style="index%2 ==0?'background: #b7dee8;':''"  v-model='item.secondary' @change='ciclassify(index)'>
+						<select :style="index%2 ==0?'background: #b7dee8;':''" :disabled='disabled' v-model='item.secondary' @change='ciclassify(index)'>
 					    
 						  <option v-for="(c,cl) in secondary[index]" :value ="c" style="text-align: center;">{{c.type}}</option>
 						 
 					  </select>
 					</td>
 					<td quantity>
-						<input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.quantity' @blur='liang(index)'>
+						<input type="text" :style="index%2 ==0?'background: #b7dee8;':''" :disabled='disabled' v-model='item.quantity' @blur='liang(index)'>
 						
 						 
 					</td>
 					<td>
 						<div  :style="index%2 ==0?'background: #b7dee8;':''"  v-if='item.cate==0'>{{item.work_name}}</div>
-						<input type="text" :style="index%2 ==0?'background: #b7dee8;':''" @blur='job(index)' v-model="item.job"  v-else>
+						<input :disabled='disabled' type="text" :style="index%2 ==0?'background: #b7dee8;':''" @blur='job(index)' v-model="item.job"  v-else>
 						
 					</td>
 
 					<td></td>
 					<td>
-						<select :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.whether' @change='whether(index)'>
+						<select  :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.whether' @change='whether(index)'>
 						
 						  <option value ="0" >是</option>
 						  <option value ="1" >否</option>
 					  </select>
 
 					</td>
-					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.reasons' @blur='reasons(index)'></td>
-					<td><input type="text" :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.remark' @blur='remark(index)'></td>
+					<td><input type="text" :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.reasons' @blur='reasons(index)'></td>
+					<td><input type="text" :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.remark' @blur='remark(index)'></td>
 					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
-					<td><a @click='viewDetails(item.id)' v-if='item.cate==0'>查看详情</a></td>
+					<td><a @click='viewDetails(item.id)' v-if='item.cate==0' style="cursor: pointer;">查看详情</a></td>
 					
 				</tr>
 				<?php foreach($bossfenprw as $val): ?>
@@ -721,15 +721,17 @@ $(document).ready(function(){
         		
         		
         	}
+        		
         	for (var i = 0; i < this.worksheet.length; i++) {
-        	this.secondary.push([])
-            
-        	this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary);
-        	this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary);
+        		this.secondary.push([])
+           		 
         		for (var a = 0; a < this.fine.length; a++) {
-        	     if(this.worksheet[i].primary.id==this.fine[a].main){
+        		if (this.worksheet[i].primary) {
+        			 if(this.worksheet[i].primary.id==this.fine[a].main){
           				this.secondary[i].push(this.fine[a])
         			}
+        		}
+        	    
         	    }
         	   
         		
@@ -748,7 +750,9 @@ $(document).ready(function(){
      		$.get('<?php echo url("admin/task/classify"); ?>',
         	    	{select:8,selectDate:this.DATE,},(rtnData)=>{
                      if(this.DATE=='<?php echo $date; ?>'){
-                     	console.log(1)
+                     	this.disabled=false
+                     }else{
+                     	this.disabled=true
                      }
         	    	this.worksheet=rtnData;
         	    	for (var i = 0; i < this.worksheet.length; i++) {
@@ -771,7 +775,7 @@ $(document).ready(function(){
      	},
      	// 添加
      	add(){
-     		console.log(this.aa)
+     		if(this.disabled){return}
      		// this.worksheet.push({primary:<?php echo $main; ?>,secondary:[]})
      		$.get('<?php echo url("admin/task/classify"); ?>',
         	    	{select:0,},(rtnData)=>{
@@ -792,12 +796,10 @@ $(document).ready(function(){
 	        	    	type:this.worksheet[e].primary.type
         	    	},(rtnData)=>{     
         	    	
-        	    			console.log(rtnData)
-        	    			if(rtnData!=='false'){
-        	    				console.log(1)
-        	    			rtnData.primary=JSON.parse(rtnData.primary)
-        	    			console.log(rtnData)
-        	    				this.worksheet[e]=rtnData
+        	    			if(rtnData.list){
+        	    					
+        	    				rtnData.list.primary=JSON.parse(rtnData.list.primary)
+        	    				this.$set(this.worksheet,e,rtnData.list)
         	    			}
         	    			
 
@@ -849,6 +851,7 @@ $(document).ready(function(){
         },
         // 工作内容
         job(e){
+        	console.log(this.worksheet);
         		$.get('<?php echo url("admin/task/classify"); ?>',
         	    	{
         	    		
@@ -856,10 +859,12 @@ $(document).ready(function(){
         	    		theme_id:this.worksheet[e].id,
         	    		job:this.worksheet[e].job
         	    	},(rtnData)=>{
-        	    		if(!rtnData){
+        	    		if(rtnData){
         	    				console.log(1)
-        	    				this.worksheet[e]=rtnData
+        	    				// this.worksheet[e]=rtnData
+        	    				this.$set(this.worksheet,e,rtnData)
         	    			}
+        	    			console.log(this.worksheet);
         	    	});
         },
         // 是否完成
@@ -876,6 +881,7 @@ $(document).ready(function(){
         },
         //未完成原因 
         reasons(e){
+        	console.log(this.worksheet[e])
  				$.get('<?php echo url("admin/task/classify"); ?>',
         	    	{
         	    		
@@ -883,10 +889,11 @@ $(document).ready(function(){
         	    		theme_id:this.worksheet[e].id,
         	    		reasons:this.worksheet[e].reasons
         	    	},(rtnData)=>{
-        	    		if(!rtnData){
-        	    				console.log(1)
-        	    				this.worksheet[e]=rtnData
+        	    		if(rtnData){
+        	    		console.log(1)	
+        	    				this.$set(this.worksheet,e,rtnData)
         	    			}
+        	    		
         	    	});
         },
         // 备注
@@ -898,9 +905,10 @@ $(document).ready(function(){
         	    		theme_id:this.worksheet[e].id,
         	    		remark:this.worksheet[e].remark
         	    	},(rtnData)=>{
-        	    		if(!rtnData){
-        	    				console.log(1)
-        	    				this.worksheet[e]=rtnData
+        	    		console.log(this.worksheet[e])
+        	    		if(rtnData){
+        	    				
+        	    				this.$set(this.worksheet,e,rtnData)
         	    			}
         	    	});
         },
