@@ -58,18 +58,20 @@
 					  {{index+1}}
 					</td>
 					<td>
-						<select 
+						
+					  
+					  <select 
 						:style="index%2 ==0?'background: #b7dee8;':''" 
-						v-model='item.primary' 
+						v-model='item.primary'
+						 
+						 :disabled='item.disabled'
 						@change='zhuclassify(index)'    
-						:disabled='disabled'>
-					
+						>
 						  <option  v-for="(i,l) in primary"  :value="i" style="text-align: center;">{{i.type}}</option>
-					
 					  </select>
 					</td>
 					<td>
-						<select :style="index%2 ==0?'background: #b7dee8;':''" :disabled='disabled' v-model='item.secondary' @change='ciclassify(index)'>
+						<select :style="index%2 ==0?'background: #b7dee8;':''" :disabled='item.disabled' v-model='item.secondary' @change='ciclassify(index)'>
 					    
 						  <option v-for="(c,cl) in secondary[index]" :value ="c" style="text-align: center;">{{c.type}}</option>
 						 
@@ -81,24 +83,28 @@
 						 
 					</td>
 					<td>
-						<div  :style="index%2 ==0?'background: #b7dee8;':''"  v-if='item.cate==0'>{{item.work_name}}</div>
+						<div  :style="index%2 ==0?'background: #b7dee8;':''"  v-if='item.boss_id'>{{item.job}}</div>
 						<input :disabled='disabled' type="text" :style="index%2 ==0?'background: #b7dee8;':''" @blur='job(index)' v-model="item.job"  v-else>
 						
 					</td>
 
 					<td></td>
 					<td>
-						<select  :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.whether' @change='whether(index)'>
 						
+					  
+						<select  :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''"  v-model='item.whether' @change='whether(index)'>
 						  <option value ="0" >是</option>
 						  <option value ="1" >否</option>
 					  </select>
-
 					</td>
 					<td><input type="text" :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.reasons' @blur='reasons(index)'></td>
-					<td><input type="text" :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.remark' @blur='remark(index)'></td>
+					<td>
+						<div :style="index%2 ==0?'background: #b7dee8;':''"  v-if='item.boss_id'>{{item.remark}}</div>
+						<input type="text" :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.remark' @blur='remark(index)' v-else>
+
+					</td>
 					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
-					<td><a @click='viewDetails(item.id)' v-if='item.cate==0' style="cursor: pointer;">查看详情</a></td>
+					<td><a @click='viewDetails(item.boss_rwid)' v-if='item.boss_id' style="cursor: pointer;">查看详情</a></td>
 					
 				</tr>
 				{foreach $bossfenprw as $val}
@@ -324,7 +330,7 @@ new Vue({
     data: {
         worksheet:{$yuangong},
         primary:{$main},
-        worklist:[{$work_list}],
+        
         fine:{$fine},
         secondary:[],
         zongshu:{$zongshu},
@@ -350,7 +356,11 @@ new Vue({
         		
         	for (var i = 0; i < this.worksheet.length; i++) {
         		this.secondary.push([])
-           		 
+           		 if(this.worksheet[i].boss_id){
+           		 	this.worksheet[i].disabled=true
+           		 }else{
+           		 	this.worksheet[i].disabled=false
+           		 }
         		for (var a = 0; a < this.fine.length; a++) {
         		if (this.worksheet[i].primary) {
         			 if(this.worksheet[i].primary.id==this.fine[a].main){
@@ -375,13 +385,16 @@ new Vue({
      		console.log(this.DATE)
      		$.get('{:url("admin/task/classify")}',
         	    	{select:8,selectDate:this.DATE,},(rtnData)=>{
-                     if(this.DATE=='{$date}'){
-                     	this.disabled=false
+                     this.zongshu=rtnData.zongshu;
+        	    	this.worksheet=rtnData.list;
+        	    	for (var i = 0; i < this.worksheet.length; i++) {
+        	    		if(this.DATE=='{$date}'){
+        	    		this.disabled=false
+                     	this.worksheet[i].disabled=false
                      }else{
                      	this.disabled=true
+                     	this.worksheet[i].disabled=true
                      }
-        	    	this.worksheet=rtnData;
-        	    	for (var i = 0; i < this.worksheet.length; i++) {
         	    		this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary);
         				this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary);
         	    	}
@@ -470,8 +483,8 @@ new Vue({
                 theme_id: this.worksheet[e].id,
                 liang: this.worksheet[e].quantity
             }, (rtnData) => {
-                this.worksheet[e].score = rtnData
-                this.$set(this.worksheet[e], "score", rtnData)
+                this.zongshu = rtnData.zongshu
+                this.$set(this.worksheet[e], "score", rtnData.data)
             });
         },
         // 工作内容

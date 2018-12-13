@@ -59,15 +59,14 @@ class Task extends \app\admin\Auth
         $date=date('Y-m-d');
         $this->assign('date',$date); 
         
-        $yuan=db('worksheet')->where("uid=".$user_data['u_id'])->select();
+        $yuan=db('worksheet')->where("uid=".$user_data['u_id'])->order('boss_rwid')->select();
         $yuangong=[];
         foreach ($yuan as $key => $value) {
             if(date('Y-m-d',$value['time'])==$date){
                 $value['cate']=1;
                $value['primary']=json_decode($value['primary']);
                $value['secondary']=json_decode($value['secondary']);
-                // json_encode($value['primary']);
-                // json_encode($value['secondary']);
+               
                 $yuangong[]=$value;
             }
         }
@@ -81,20 +80,18 @@ class Task extends \app\admin\Auth
         $list=db('bossworklist')->select();
         $bossfenprw=[];
         $daibanwork=[];
-        foreach ($list as $key => $value) {
-           $uname=explode(',',$value['execute_id'] ); 
-            foreach ($uname as $k => $val) {
-               if($val==$user_data['user_name']){
-                        if(date('Y-m-d',$value['time'])==$time){
-                            $value['cate']=0;
-                            $yuangong[]=$value;
-                    }else{
-                        $daibanwork[]=$value;
+        foreach ($yuan as $key => $value) {
+                    if($value['boss_id']){
+                        if(date('Y-m-d',$value['time'])<$time){
+                            if($value['whether']!=1){
+
+                                $daibanwork[]=db('bossworklist')->where('id='.$value['boss_rwid'])->find();
+                            }
+                    }
                     }
                }
-            }
             
-        }
+
        
         $this->assign('zongshu',$zongshu);
         $this->assign('bossfenprw',$bossfenprw);
@@ -228,8 +225,21 @@ class Task extends \app\admin\Auth
                 db("worksheet")->where('id='.input('theme_id'))->update(["quantity"=>input('liang')]);
             }
             
+            $yuan=db('worksheet')->where("uid=".$user_data['u_id'])->select();
+                foreach ($yuan as $key => $value) {
+                    if(date('Y-m-d',$value['time'])==date('Y-m-d')){
+                        $yuangong[]=$value;
+                    }
+                }
+                $zongshu=0;
+                foreach ($yuangong as $key => $value) {
+                    if($value['whether']=='0'){
+                        $zongshu+=floatval($value['score']);
+                    }
+                }
+                   
             $data=db('worksheet')->where('id='.input('theme_id'))->value('score');
-            return json($data);
+            return json(['data'=>$data,'zongshu'=>$zongshu]);
             }
             
         } 
@@ -301,12 +311,16 @@ class Task extends \app\admin\Auth
            
            $data=db('worksheet')->where('uid='.$user_data['u_id'])->select();
            $list=[];
+           $zongshu=0;
            foreach ($data as $key => $value) {
               if(date("Y-m-d",$value['time'])==input('selectDate')){
                 $list[]=$value;
+                if($value['whether']=='0'){
+                    $zongshu+=floatval($value['score']);
+                }
               }
            }
-           return json($list);
+           return json(['list'=>$list,'zongshu'=>$zongshu]);
         }
       
     } 
@@ -496,6 +510,7 @@ class Task extends \app\admin\Auth
     {
        $user_data=Session::get();
         $u_id = $user_data["u_id"];
+
         $work_name = input('work_name');
         $urgency = input('urgency');
         $firstlist = input('firstlist');
@@ -504,11 +519,14 @@ class Task extends \app\admin\Auth
         $work_file = '';
         $executerid = input('executerid');
         $lasttime = input('lasttime');
+        $y_id=explode(',',input('executerid')); 
+        
         $db_firstlist = db('mainclassify')->where('id',$firstlist)->find();
         $a = json_encode($db_firstlist);
         $db_senconlist = db('fineclassify')->where('id',$secondlist)->find();
         $b = json_encode($db_senconlist);
         $work=request()->file('work_require');
+        
         if($work){
             $info = $work->move(ROOT_PATH.'/public/uploads');
             if($info){
@@ -518,7 +536,7 @@ class Task extends \app\admin\Auth
                  echo $info->getError();
             }
         }
-         db('bossworklist')->insert([
+          $boss_rwid=db('bossworklist')->insertGetId([
             'work_name'=>$work_name,
             'work_file'=>$work_file,
             'work_require'=>$content,
@@ -530,7 +548,10 @@ class Task extends \app\admin\Auth
             'uid'=>$u_id,
             'time'=>time(),
         ]);
-        
+        var_dump($boss_rwid);
+        foreach ($y_id as $key => $value) {
+            db('worksheet')->insert(['uid'=>$value,'job'=>$work_name,'primary'=>$a,'secondary'=>$b,'time'=>time(),'boss_id'=>$u_id,'remark'=>$urgency,'boss_rwid'=>$boss_rwid]);
+        }
         $this->success('布置成功','index');
     }  
     public function update()
