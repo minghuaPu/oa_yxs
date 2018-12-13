@@ -35,7 +35,8 @@ body{
     background: #545965;
     color: #000000;
     text-align: center;
-    background-image: url(¡®__STATIC__/admin/index/images/1544155677(1).jpg¡¯);background-repeat:no-repeat;background-size:20.5em 10em ;
+    /*background-image: url('../images/1544155677(1).jpg');*/
+    background-repeat:no-repeat;background-size:20.5em 10em ;
 }
 .center_1a div{
     width: 8.2em;
@@ -45,7 +46,8 @@ body{
     left: 18.1%;
     border: 0.3em solid #ffffff; 
     border-radius: 4em;
-    background-image: url('__STATIC__/admin/index/images/1544164635(1).jpg');background-repeat:no-repeat;background-size:8em 8em; 
+    /*background-image: url('../images/1544164635(1).jpg');*/
+    background-repeat:no-repeat;background-size:8em 8em; 
 }
 .button1{
     float: left;
@@ -109,8 +111,8 @@ body{
 }
 .cneter_2ba img{
     position: relative;
-    top: 0.5em;
-    right: 1.8em;
+   top: 20px;
+right: 10px;
     border: none;
 }
 .center_2 textarea{
