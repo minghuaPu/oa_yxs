@@ -35,18 +35,18 @@ body{
     background: #545965;
     color: #000000;
     text-align: center;
-    /*background-image: url('../images/1544155677(1).jpg');*/
+position: relative;
     background-repeat:no-repeat;background-size:20.5em 10em ;
 }
 .center_1a div{
     width: 8.2em;
     height: 8.2em;
     position: absolute;
-    top: 10%;
-    left: 18.1%;
+   top: 10px;
+left: 80px;
     border: 0.3em solid #ffffff; 
     border-radius: 4em;
-    /*background-image: url('../images/1544164635(1).jpg');*/
+    
     background-repeat:no-repeat;background-size:8em 8em; 
 }
 .button1{
