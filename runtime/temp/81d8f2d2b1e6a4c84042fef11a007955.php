@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544670068;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544670661;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -387,7 +387,7 @@
 						
 					</div>
 					<table class="aa" style="text-align: center;" border='1px' width="1000px">
-				<tr bgcolor="#31869b" align="center" style="color: #fff;font-size: 12px;">
+				<tr bgcolor="#0E59B6" align="center" style="color: #fff;font-size: 12px;">
 				 
 					<th width="50px">序号</th>
 					<th width="100px">主分类</th>
@@ -505,7 +505,7 @@
 			</table>
 			<div class="backlog">待办工作</div>
 			<table class="aa" style="text-align: center;" border='1px' width="1000px">
-				<tr bgcolor="#31869b" align="center" style="color: #fff;font-size: 12px;">
+				<tr bgcolor="#0E59B6" align="center" style="color: #fff;font-size: 12px;">
 					<th width="50px">序号</th>
 					<th width="150px">开始时间</th>
 					<th width="300px">任务名称</th>
