@@ -44,10 +44,10 @@
 					<th width="200px">工作内容</th>
 					<th width="50px"></th>
 					<th width="50px">是否完成</th>
-					<th width="150px">未完成原因</th>
-					<th width="150px">备注</th>
+					<th width="100px">未完成原因</th>
+					<th width="100px">备注</th>
 					<th width="100px">统计分数</th>
-					<th width="50px">操作</th>
+					<th width="150px">操作</th>
 				
 				</tr>
 				
@@ -100,57 +100,29 @@
 					<td><input type="text" :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.reasons' @blur='reasons(index)'></td>
 					<td>
 						<div :style="index%2 ==0?'background: #b7dee8;':''"  v-if='item.boss_id'>{{item.remark}}</div>
-						<input type="text" :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.remark' @blur='remark(index)' v-else>
+						<input type="text" :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''"   v-model='item.remark' @blur='remark(index)' v-else>
 
 					</td>
 					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
-					<td><a @click='viewDetails(item.boss_rwid)' v-if='item.boss_id' style="cursor: pointer;">查看详情</a></td>
-					
-				</tr>
-				{foreach $bossfenprw as $val}
-				<tr >
-					<td>
-					  2
-					</td>
-					<td>
-						<select >
-					
-						  <option  style="text-align: center;"></option>
-					
-					  </select>
-					</td>
-					<td>
-						<select  >
-					    
-						  <option  style="text-align: center;"></option>
-						 
-					  </select>
-					</td>
 					<td >
-						<select   >
-					    
-						  <option  style="text-align: center;"></option>
-						 
-					</td>
-					<td><input type="text" value="{$val.work_name}"></td>
-					<td></td>
-					<td>
-						<select >
+						<div style="display: flex;justify-content: space-around;" v-if='item.id'>
 						
-						  <option value ="0" >是</option>
-						  <option value ="1" >否</option>
-					  </select>
+						<a style="cursor: pointer;"  data-toggle="modal" data-target="#myModal">指派任务</a>
+						<a @click='viewDetails(item.boss_rwid,index)' v-if='item.boss_rwid' style="cursor: pointer;">查看详情</a>
+						<a @click='viewDetails(item.id,index)'  v-else style="cursor: pointer;">查看详情</a>
+						</div>
+						
+						
+						
 
 					</td>
-					<td><input type="text"  ></td>
-					<td><input type="text" ></td>
-					<td><input type="text"  ></td>
-					<td></td>
+					
 				</tr>
-				{/foreach}
+				
 				
 				
 			</table>
+			
 			<div class="backlog">待办工作</div>
 			<table class="aa" style="text-align: center;" border='1px' width="1000px">
 				<tr bgcolor="#0E59B6" align="center" style="color: #fff;font-size: 12px;">
@@ -322,6 +294,36 @@
 
 </div>
 {include file="foot"}
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				
+			</div>
+			<div class="modal-body">
+				<div style="width: 100%">
+				<div >
+					<select class="form-control" >
+					  {foreach $users as $key=>$val}
+						<option>{$val.user_name}</option>
+					  {/foreach}
+					</select>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+				<button type="button" class="btn btn-primary">
+					提交
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
 <script>
 // 第二步：定义路由，也就是每个路由应该映射一个组件
 
@@ -562,8 +564,13 @@ new Vue({
                 score: this.worksheet[e].score
             });
         },
-        viewDetails: function(e) {
-            window.location.href = 'check.html?id=' + e
+        viewDetails: function(e,index) {
+        	if(this.worksheet[index].boss_id){
+        		window.location.href = 'check.html?id=' + e
+        	}else{
+        		window.location.href = 'check.html?staff_id=' + e
+        	}
+            
         }
 
 

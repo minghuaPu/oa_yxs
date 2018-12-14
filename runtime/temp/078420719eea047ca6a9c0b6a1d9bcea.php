@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544783207;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:64:"D:\wamp64\www\oa\public/../application/admin\view\task\look.html";i:1544758499;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544407078;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -352,31 +352,29 @@
     })
 </script>
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
-<div class="task">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/look.css?3">
 
-	<div class="task_left"></div>
-	<div class="task_box">
-		<div class="task_title">
-			<span class="glyphicon glyphicon-list-alt pull-left"></span>
-			<h4>TASK员工任务管理</h4>
-		</div>
-		<div class="task_content">
-			<?php foreach($user as $userdata): ?>
-			<!-- 学生身份作业管理 -->
-			<?php if($userdata['user_cate']=='员工'): ?>
-		<!-- 	<ul class="list_top">
-				<li><a href="<?php echo url('add'); ?>"><span class="glyphicon glyphicon-pencil"></span>提交汇报</a></li>
-				<li><a href="<?php echo url('read'); ?>"><span class="glyphicon glyphicon-pencil"></span>查看任务</a></li>
-			</ul> -->
-			<div class="table_box">
+<div class="container" id="container">
+	<div class="title" style="margin: 10px 30px;">
+		<a href=" <?php echo url('index'); ?>" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
+	</div>
+
+<div class="table_box">
 				<div class="Employee_box">
 					<div class="Employee_left">
-						<div class="add" @click='add'>+</div>
+						
 						<div class="Employee_head">工作表</div>
 						<div class="wire"></div>
 						<div class="Employee_footer">
-							<div><span>负责人:</span><span><?php echo $userdata['user_name']; ?></span></div>
-							<div><span>日期:</span><input type="date" v-model='DATE' style="width: 150px" @change='selectDate'></div>
+							<div>
+								<span>负责人:</span>
+								
+									<select  style="width: 150px" v-model='xzheyuangong_id' @change='xzheyuangong'>
+										<option  v-for="(i,g) in yuangong" :value="i.id">{{i.user_name}}</option>
+									</select>
+								
+							</div>
+							<div><span>日期:</span><input type="date" v-model='DATE' style="width: 150px" @change='xzheyuangong'></div>
 							
 						</div>
 
@@ -396,10 +394,10 @@
 					<th width="200px">工作内容</th>
 					<th width="50px"></th>
 					<th width="50px">是否完成</th>
-					<th width="100px">未完成原因</th>
-					<th width="100px">备注</th>
+					<th width="150px">未完成原因</th>
+					<th width="150px">备注</th>
 					<th width="100px">统计分数</th>
-					<th width="150px">操作</th>
+					<th width="50px">操作</th>
 				
 				</tr>
 				
@@ -409,549 +407,86 @@
 					<td>
 					  {{index+1}}
 					</td>
-					<td>
-						
+					<td :style="index%2 ==0?'background: #b7dee8;':''" >
+						<div v-if='item.primary'>{{item.primary.type}}</div>
 					  
-					  <select 
-						:style="index%2 ==0?'background: #b7dee8;':''" 
-						v-model='item.primary'
-						 
-						 :disabled='item.disabled'
-						@change='zhuclassify(index)'    
-						>
-						  <option  v-for="(i,l) in primary"  :value="i" style="text-align: center;">{{i.type}}</option>
-					  </select>
+					  
 					</td>
 					<td>
-						<select :style="index%2 ==0?'background: #b7dee8;':''" :disabled='item.disabled' v-model='item.secondary' @change='ciclassify(index)'>
-					    
-						  <option v-for="(c,cl) in secondary[index]" :value ="c" style="text-align: center;">{{c.type}}</option>
-						 
-					  </select>
-					</td>
-					<td quantity>
-						<input type="text" :style="index%2 ==0?'background: #b7dee8;':''" :disabled='disabled' v-model='item.quantity' @blur='liang(index)'>
+						<div v-if='item.secondary'>{{item.secondary.type}}</div>
 						
+					</td>
+					<td >
+						
+						{{item.quantity}}
 						 
 					</td>
-					<td>
-						<div  :style="index%2 ==0?'background: #b7dee8;':''"  v-if='item.boss_id'>{{item.job}}</div>
-						<input :disabled='disabled' type="text" :style="index%2 ==0?'background: #b7dee8;':''" @blur='job(index)' v-model="item.job"  v-else>
+					<td :style="index%2 ==0?'background: #b7dee8;':''" >
+						{{item.job}}
+						
 						
 					</td>
 
 					<td></td>
 					<td>
-						
-					  
-						<select  :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''"  v-model='item.whether' @change='whether(index)'>
-						  <option value ="0" >是</option>
-						  <option value ="1" >否</option>
+						  <div v-if="item.whether==0" :style="index%2 ==0?'background: #b7dee8;':''">是</div>
+						  <div v-else :style="index%2 ==0?'background: #b7dee8;':''">否</div>
 					  </select>
 					</td>
-					<td><input type="text" :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.reasons' @blur='reasons(index)'></td>
 					<td>
-						<div :style="index%2 ==0?'background: #b7dee8;':''"  v-if='item.boss_id'>{{item.remark}}</div>
-						<input type="text" :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''"   v-model='item.remark' @blur='remark(index)' v-else>
+						 {{item.reasons}}
+						
+					<td>
+						{{item.remark}}
+						
 
 					</td>
 					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
-					<td >
-						<div style="display: flex;justify-content: space-around;" v-if='item.id'>
-						
-						<a style="cursor: pointer;"  data-toggle="modal" data-target="#myModal">指派任务</a>
-						<a @click='viewDetails(item.boss_rwid,index)' v-if='item.boss_rwid' style="cursor: pointer;">查看详情</a>
-						<a @click='viewDetails(item.id,index)'  v-else style="cursor: pointer;">查看详情</a>
-						</div>
-						
-						
-						
-
-					</td>
+					<td><a @click='viewDetails(item.boss_rwid)' v-if='item.boss_id' style="cursor: pointer;">查看详情</a></td>
 					
 				</tr>
 				
 				
 				
 			</table>
-			
-			<div class="backlog">待办工作</div>
-			<table class="aa" style="text-align: center;" border='1px' width="1000px">
-				<tr bgcolor="#0E59B6" align="center" style="color: #fff;font-size: 12px;">
-					<th width="50px">序号</th>
-					<th width="150px">开始时间</th>
-					<th width="300px">任务名称</th>
-					<th width="150px">要求完成时间</th>
-					<th width="250px">备注</th>
-					<th ></th>
-					<th ></th>
-				</tr>
-				<?php foreach($daibanwork as $key=>$val): ?>
-				<tr>
-					<td> <?php echo $key+1; ?></td>
-					<td ><?php echo date("Y-m-d  H:i:s",$val['time']); ?></td>
-					<td ><?php echo $val['work_name']; ?></td>
-					<td ><?php echo date("Y-m-d  H:i:s",$val['lasttime']); ?></td>
-					<td >任务类别：<?php echo $val['work_rank']; ?></td>
-					<td ></td>
-					<td ></td>
-				</tr>
-				<?php endforeach; ?>
-			</table>
-				</div>
-			
-			</div>
-			<?php endif; ?>
-			<!-- 非学生身份管理作业 -->
-			<?php if($userdata['user_cate']=='老板'): ?>
-			<ul class="list_top">
-				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
-				
-				<li style="width: 0%;">
-					
-					 	<div class="input-group pull-left">
-					 		<input type="text" class="form-control pull-left" placeholder="输入任务名称" id="selectinfo">
-					 	</div>
-					 	<button class="btn btn-group pull-left" style="cursor: pointer;width: 70px;height: 35px; outline: none;" @click="select" >搜索</button>  
-					 
-				</li>
-			</ul>
-    
-				<a class="btn btn-default" style="background-color: #7BB0DE" href="<?php echo url('index'); ?>">待我处理(<?php echo $work_listnu; ?>)</a>
-				<a class="btn btn-default" href="<?php echo url('wfb'); ?>">我发布的任务(<?php echo $work_listnu; ?>)</a>
-				<a class="btn btn-default" href="<?php echo url('yjs'); ?>">已结束的任务(<?php echo $unfinish_listnu; ?>)</a>						
-			<table  class="table" style="text-align: center;"  >
 
-				<tr>
-					<th>排序</th>
-					<th>编号ID</th>
-					<th>对接人</th>
-					<th>任务名称</th>					
-					<th>附件</th>
-					<th>部门</th>
-					<th>添加时间</th>
-					<th>截止时间</th>
-					<th>任务级别</th>
-					<th>状态</th>
-					<th>详情</th>
-				</tr>
-				
-				<?php foreach($work_list as $key=>$info): ?>
-					<tr >
-						<td>50</td>
-						<td><?php echo $info['id']; ?></td>
-						
-						<td><?php echo $info['execute_id']; ?></td>
-						<td><?php echo $info['work_name']; ?></td>
-						
-						<?php if($info['work_file']!=""): ?>
-						<td><a href="__UPLOADS__<?php echo $info['work_file']; ?>">点击查看</a></td>
-						<?php endif; if($info['work_file']==""): ?>
-						<td>无</td>
-						<?php endif; ?>
-						<td></td>
-						<td><?php echo date("Y-m-d  H:i:s",$info['time']); ?></td>
-						<td><?php echo date("Y-m-d  H:i:s",$info['lasttime']); ?></td>
-						<td><?php echo $info['work_rank']; ?></td>
-						<?php if($info['state']=="1"): ?>
-						<td>已发布待查阅</td>
-						<?php endif; if($info['state']=="2"): ?>
-						<td>已查阅</td>
-						<?php endif; if($info['state']=="3"): ?>
-						<td>发起人已放弃</td>
-						<?php endif; if($info['state']=="4"): ?>
-						<td>任务已完成</td>
-						<?php endif; ?>
-						
-						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">详情</a></td>
-					</tr>			
- 
-				<?php endforeach; ?>				
-			</table>		
-			<div  style="text-align: center;"><?php echo $work_list->render(); ?></div>
-			
 
-			
-			 
-			<ul class="list_bottom">
-				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
-			</ul>
-			<?php endif; if($userdata['user_cate']=='经理'): ?>
-			<ul class="list_top">
-				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
-				<li><a href="<?php echo url('read'); ?>"><span class="glyphicon glyphicon-list"></span>查看任务</a></li>
-				<li style="width: 0%;">
-					 <form action="<?php echo url('index'); ?>" class="form">
-					 	<div class="input-group pull-left">
-					 		<input type="text" class="form-control pull-left" placeholder="输入员工名称" name="user_name">
-					 	</div>
-					 	<input type="submit" class="btn btn-group pull-left" style="cursor: pointer;" value="搜索">
-					 </form>
-				</li>
-			</ul>
-			<table class="table" style="text-align: center;">
-				<tr>
-					<th>编号ID</th>
-					<th>员工</th>
-					<th>名称</th>
-					<th>内容</th>
-					<th>附件</th>
-					<th>部门</th>
-					<th>添加时间</th>
-					<th>回复</th>
-					<th>操作</th>
-				</tr>
-				<?php foreach($work_list as $info): ?>
-					<tr >
-						<td><?php echo $info['id']; ?></td>
-						<?php foreach($user_list as $user): if($user['id']==$info['u_id']): ?>	
-						<td><?php echo $user['user_name']; ?></td>
-						<?php endif; endforeach; ?>	
-						<td><?php echo $info['title']; ?></td>
-						<td><?php echo $info['content']; ?></td>
-						<?php if($info['work']!=""): ?>
-						<td><a href="__UPLOADS__<td><?php echo $info['bumen']; ?></td><?php echo $info['work']; ?>">点击查看</a></td>
-						<?php endif; if($info['work']==""): ?>
-						<td>无</td>
-						<?php endif; ?>
-                        <td><?php echo $info['bumen']; ?></td>
-						<td><?php echo $info['time']; ?></td>
-						<td><?php echo $info['reply']; ?></td>
-						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">批改</a></td>
-					</tr>			
-				<?php endforeach; ?>
-			</table>
-			
-			<?php echo $work_list->render(); ?>
-			<ul class="list_bottom">
-				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-list"></span>汇总</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-download-alt"></span>作业导出</a></li>
-			</ul>
-			<?php endif; endforeach; ?>
-		</div>
-	</div>
-	<div class="task_right"></div>
-
-</div>
-
-<footer class="footer" style="text-align: center;margin-top: 50px;">
-	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
-	&nbsp;
-	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
-		投诉&amp;问题
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
-		微客服
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
-		<i class="md md-speaker-notes m-r-5"></i>
-		订阅号
-	</a>
-	<br>
-	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
-</footer>
-<!-- 底部 -->
-<script type="text/javascript">
-$(document).ready(function(){
-	$(".left_menu ul li").click(function(event){
-		event.preventDefault();
-		console.log($(this).siblings().find('a,p'))
-		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
-			"color":"#5d9cec"})
-		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
-		$(this).find('a,p').css("color","#5d9cec")
-		$(this).siblings().find('a,p').css("color","white")
-	})
-});
-</script>
-</body>
-</html>
-<!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					&times;
-				</button>
-				
-			</div>
-			<div class="modal-body">
-				<div style="width: 100%">
-				<div >
-					<select class="form-control" >
-					  <?php foreach($users as $key=>$val): ?>
-						<option><?php echo $val['user_name']; ?></option>
-					  <?php endforeach; ?>
-					</select>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-				</button>
-				<button type="button" class="btn btn-primary">
-					提交
-				</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal -->
-</div>
 <script>
-// 第二步：定义路由，也就是每个路由应该映射一个组件
-
-new Vue({
-    el: ".task",
+	new Vue({
+    el: ".table_box",
     data: {
-        worksheet:<?php echo $yuangong; ?>,
-        primary:<?php echo $main; ?>,
-        
-        fine:<?php echo $fine; ?>,
-        secondary:[],
-        zongshu:<?php echo $zongshu; ?>,
-
-
-        disabled:false,
-
+        worksheet:[],
+        yuangong:<?php echo $yuangong; ?>,
+        zongshu:0,
+        xzheyuangong_id:'',
         DATE:'<?php echo $date; ?>'
     },
     
-
-        mounted(){
-        	console.log(this.DATE)	
-        	console.log(this.worksheet);
-        	if(this.worksheet.length<8){
-        		var num=8-this.worksheet.length;
-        		for (var i = 0; i < num; i++) {
-        			this.worksheet.push({});
-        		}
-        		
-        		
-        	}
-        		
-        	for (var i = 0; i < this.worksheet.length; i++) {
-        		this.secondary.push([])
-           		 if(this.worksheet[i].boss_id){
-           		 	this.worksheet[i].disabled=true
-           		 }else{
-           		 	this.worksheet[i].disabled=false
-           		 }
-        		for (var a = 0; a < this.fine.length; a++) {
-        		if (this.worksheet[i].primary) {
-        			 if(this.worksheet[i].primary.id==this.fine[a].main){
-          				this.secondary[i].push(this.fine[a])
-        			}
-        		}
-        	    
-        	    }
-        	   
-        		
-        	}
-   
-        	console.log(this.secondary);
-        	console.log(this.worksheet);
-         			
-		},
+mounted(){
+	console.log(this.yuangong);
+},
        	
      methods:{
  
      	
-     	selectDate(){ 
-     		console.log(this.DATE)
-     		$.get('<?php echo url("admin/task/classify"); ?>',
-        	    	{select:8,selectDate:this.DATE,},(rtnData)=>{
-                     this.zongshu=rtnData.zongshu;
-        	    	this.worksheet=rtnData.list;
-        	    	for (var i = 0; i < this.worksheet.length; i++) {
-        	    		if(this.DATE=='<?php echo $date; ?>'){
-        	    		this.disabled=false
-                     	this.worksheet[i].disabled=false
-                     }else{
-                     	this.disabled=true
-                     	this.worksheet[i].disabled=true
-                     }
-        	    		this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary);
-        				this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary);
-        	    	}
-        	    	
-     			});
-
+     
+     	xzheyuangong(){
+     			$.get('<?php echo url("admin/task/lookyuangong"); ?>',
+        	    	{
+        	    		yuangong_id:this.xzheyuangong_id,
+        	    		selectDate:this.DATE,},
+        	    		(rtnData)=>{
+        	    			    this.zongshu=rtnData.zongshu;
+                     			this.worksheet=rtnData.data;
+     					});
      	},
-     	select(){
-
-     		var selinfo = $('#selectinfo').val();
-     		if(selinfo){
-     			window.location.href="select.html?info="+selinfo;
-     		}else{
-     			return false;
-     		}
-            
-     	},
-     	// 添加
-     	add(){
-     		if(this.disabled){return}
-     		// this.worksheet.push({primary:<?php echo $main; ?>,secondary:[]})
-     		$.get('<?php echo url("admin/task/classify"); ?>',
-        	    	{select:0,},(rtnData)=>{
-        	    		
-                 	   this.worksheet.push(rtnData)
-                 	   	console.log(this.worksheet)
-     			});
-     	},
-        // 主分类
-        zhuclassify(e){
-     		console.log(this.worksheet[e].primary)
-        	    $.get('<?php echo url("admin/task/classify"); ?>',
-        	    	{
-	
-	        	    	select:1,
-	        	    	theme_id:this.worksheet[e].id,
-	        	    	xuan:this.worksheet[e].primary.id,
-	        	    	type:this.worksheet[e].primary.type
-        	    	},(rtnData)=>{     
-        	    	
-        	    			if(rtnData.list){
-        	    					
-        	    				rtnData.list.primary=JSON.parse(rtnData.list.primary)
-        	    				this.$set(this.worksheet,e,rtnData.list)
-        	    			}
-        	    			
-
-        	    			var text=[];
-        	    			 for (var a = 0; a < this.fine.length; a++) {
-			        	     	if(this.worksheet[e].primary.id==this.fine[a].main){
-			          				text.push(this.fine[a])
-			        				this.$set(this.secondary,e,text);
-			        				}else{
-			        					text.push()
-			        					this.$set(this.secondary,e,text);
-			        				}
-        	     }
-        	    			console.log(this.worksheet);
-        	    			
-     			});
-
-        },
-        // 细分类
-        ciclassify(e) {
-            console.log(this.worksheet[e].id);
-            $.get('<?php echo url("admin/task/classify"); ?>', {
-                select: 2,
-                theme_id: this.worksheet[e].id,
-                xuan: this.worksheet[e].secondary,
-
-            }, (rtnData) => {
-                this.worksheet[e].score = rtnData
-                this.$set(this.worksheet[e], "score", rtnData)
-
-
-            });
-
-
-        },
-        // 时间/数量
-        liang(e) {
-            console.log(this.worksheet[e].quantity);
-            $.get('<?php echo url("admin/task/classify"); ?>', {
-
-                select: 3,
-                theme_id: this.worksheet[e].id,
-                liang: this.worksheet[e].quantity
-            }, (rtnData) => {
-                this.zongshu = rtnData.zongshu
-                this.$set(this.worksheet[e], "score", rtnData.data)
-            });
-        },
-        // 工作内容
-
-        job(e){
-        	console.log(this.worksheet);
-        		$.get('<?php echo url("admin/task/classify"); ?>',
-        	    	{
-        	    		
-        	    		select:4,
-        	    		theme_id:this.worksheet[e].id,
-        	    		job:this.worksheet[e].job
-        	    	},(rtnData)=>{
-        	    		if(rtnData){
-        	    				console.log(1)
-        	    				// this.worksheet[e]=rtnData
-        	    				this.$set(this.worksheet,e,rtnData)
-        	    			}
-        	    			console.log(this.worksheet);
-        	    	});
-
-        },
-        // 是否完成
-        whether(e) {
-            $.get('<?php echo url("admin/task/classify"); ?>', {
-
-                select: 5,
-                theme_id: this.worksheet[e].id,
-                whether: this.worksheet[e].whether
-            }, (rtnData) => {
-                this.zongshu = rtnData
-            });
-        },
-        //未完成原因 
-
-        reasons(e){
-        	console.log(this.worksheet[e])
- 				$.get('<?php echo url("admin/task/classify"); ?>',
-        	    	{
-        	    		
-        	    		select:6,
-        	    		theme_id:this.worksheet[e].id,
-        	    		reasons:this.worksheet[e].reasons
-        	    	},(rtnData)=>{
-        	    		if(rtnData){
-        	    		console.log(1)	
-        	    				this.$set(this.worksheet,e,rtnData)
-        	    			}
-        	    		
-        	    	});
-        },
-        // 备注
-         remark(e){
-         			$.get('<?php echo url("admin/task/classify"); ?>',
-        	    	{
-        	    		
-        	    		select:7,
-        	    		theme_id:this.worksheet[e].id,
-        	    		remark:this.worksheet[e].remark
-        	    	},(rtnData)=>{
-        	    		console.log(this.worksheet[e])
-        	    		if(rtnData){
-        	    				
-        	    				this.$set(this.worksheet,e,rtnData)
-        	    			}
-        	    	});
-
-        },
-        // 统计分数
-        score(e) {
-            $.get('<?php echo url("admin/task/classify"); ?>', {
-
-                select: 8,
-                theme_id: this.worksheet[e].id,
-                score: this.worksheet[e].score
-            });
-        },
-        viewDetails: function(e,index) {
-        	if(this.worksheet[index].boss_id){
-        		window.location.href = 'check.html?id=' + e
-        	}else{
-        		window.location.href = 'check.html?staff_id=' + e
-        	}
-            
+     	 viewDetails: function(e) {
+            window.location.href = 'check.html?id=' + e
         }
 
 
 
     }
 })
+ 
 </script>
-<style>
-</style>
