@@ -142,9 +142,9 @@ return [
 
     // 视图输出字符串内容替换
     'view_replace_str'       => [
-        '__PUBLIC__' =>'/oa_yxs/public/',
-        '__STATIC__' => '/oa_yxs/public/static',//之后统一用这个路径
-        '__UPLOADS__' => '/oa_yxs/public/uploads/',
+        '__PUBLIC__' =>'/oa/public/',
+        '__STATIC__' => '/oa/public/static',//之后统一用这个路径
+        '__UPLOADS__' => '/oa/public/uploads/',
     ],
     // 默认跳转页面对应的模板文件
     'dispatch_success_tmpl'  => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
