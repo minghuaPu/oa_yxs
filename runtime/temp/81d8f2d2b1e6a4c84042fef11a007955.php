@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1544783207;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1545118386;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -459,7 +459,7 @@
 					<td >
 						<div style="display: flex;justify-content: space-around;" v-if='item.id'>
 						
-						<a style="cursor: pointer;"  data-toggle="modal" data-target="#myModal">指派任务</a>
+						<a style="cursor: pointer;"  data-toggle="modal" data-target="#myModal" @click='zhipairw(item.id)'>指派任务</a>
 						<a @click='viewDetails(item.boss_rwid,index)' v-if='item.boss_rwid' style="cursor: pointer;">查看详情</a>
 						<a @click='viewDetails(item.id,index)'  v-else style="cursor: pointer;">查看详情</a>
 						</div>
@@ -541,7 +541,7 @@
 						<td>50</td>
 						<td><?php echo $info['id']; ?></td>
 						
-						<td><?php echo $info['execute_id']; ?></td>
+						<td style="display: flex;justify-content: center;"><?php foreach($info['execute_id'] as $k=>$i): ?><div><?php foreach($i as $a=>$b): ?><?php echo $b; ?>,<?php endforeach; ?></div><?php endforeach; ?></td>
 						<td><?php echo $info['work_name']; ?></td>
 						
 						<?php if($info['work_file']!=""): ?>
@@ -631,74 +631,41 @@
 			<?php endif; endforeach; ?>
 		</div>
 	</div>
+
 	<div class="task_right"></div>
-
-</div>
-
-<footer class="footer" style="text-align: center;margin-top: 50px;">
-	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
-	&nbsp;
-	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
-		投诉&amp;问题
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
-		微客服
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
-		<i class="md md-speaker-notes m-r-5"></i>
-		订阅号
-	</a>
-	<br>
-	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
-</footer>
-<!-- 底部 -->
-<script type="text/javascript">
-$(document).ready(function(){
-	$(".left_menu ul li").click(function(event){
-		event.preventDefault();
-		console.log($(this).siblings().find('a,p'))
-		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
-			"color":"#5d9cec"})
-		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
-		$(this).find('a,p').css("color","#5d9cec")
-		$(this).siblings().find('a,p').css("color","white")
-	})
-});
-</script>
-</body>
-</html>
-<!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					&times;
-				</button>
-				
-			</div>
-			<div class="modal-body">
-				<div style="width: 100%">
-				<div >
-					<select class="form-control" >
-					  <?php foreach($users as $key=>$val): ?>
-						<option><?php echo $val['user_name']; ?></option>
-					  <?php endforeach; ?>
-					</select>
+		<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-				</button>
-				<button type="button" class="btn btn-primary">
-					提交
-				</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal -->
+				<form action="zhipairw" method="post" enctype="multipart/form-data">
+				<div class="modal-body">
+					<div style="width: 100%">
+					<div >
+						<input type="hidden" v-model='zhipai' name="zhipai">
+						<select class="form-control" name="zhipai_id"  @change='aa'>
+						  <?php foreach($users as $key=>$val): ?>
+							<option value="<?php echo $val['id']; ?>"><?php echo $val['user_name']; ?></option>
+						  <?php endforeach; ?>
+						</select>
+					</div>
+				</div>
+				<div class="modal-footer"> 
+					<input type="submit" class="btn btn-primary" value="提交">
+					
+				</div>
+			</form>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>	
 </div>
+</form>
+
 <script>
 // 第二步：定义路由，也就是每个路由应该映射一个组件
 
@@ -707,7 +674,7 @@ new Vue({
     data: {
         worksheet:<?php echo $yuangong; ?>,
         primary:<?php echo $main; ?>,
-        
+        zhipai:'1',
         fine:<?php echo $fine; ?>,
         secondary:[],
         zongshu:<?php echo $zongshu; ?>,
@@ -756,7 +723,7 @@ new Vue({
 		},
        	
      methods:{
- 
+ 		
      	
      	selectDate(){ 
      		console.log(this.DATE)
@@ -778,6 +745,13 @@ new Vue({
         	    	
      			});
 
+     	},
+     	zhipairw(e){
+     		this.zhipai=e
+     		console.log(this.zhipai);
+     	},
+     	aa(){
+     		console.log(this.zhipai);
      	},
      	select(){
 

@@ -5,6 +5,11 @@ class Task extends \app\admin\Auth
 {
     public function index()
     {   
+
+
+     
+
+
         //获取当前用户信息
         $user_data=Session::get();
 
@@ -39,10 +44,27 @@ class Task extends \app\admin\Auth
             $this->assign('selectlists',$selectlists);
             $work_list1  =  db('bossworklist')->order('id desc')->select();
             $work_listnu = count($work_list1);
-            $work_list  =  db('bossworklist')->order('id desc')->paginate(10);
+            $work_list  =  db('bossworklist')->order('id desc')->paginate(10)->each(function($item, $key){
+                $item['execute_id']=db('user')->field('user_name')->where('id' ,'in' ,$item['execute_id'])->select();
+             
+               
+                return  $item;
+            });
+            
             $unfinish_list1=db("bossworklist")->where('state=3 or state=4')->select();
             $unfinish_listnu = count($unfinish_list1);
             $unfinish_list=db("bossworklist")->where('state=3 or state=4')->paginate(10);
+            $oc=[];
+            
+            // foreach ($work_list as $key => $value) {
+                 
+               
+            //        $work_list[$key]['execute_id']=db('user')->field('user_name')->where('id' ,'in' ,$value['execute_id'])->select(); 
+                    
+            
+               
+            //    // $value['names']=$oc;
+            // }
             $this->assign('work_listnu',$work_listnu);
             $this->assign('unfinish_listnu',$unfinish_listnu);  
             $this->assign('unfinish_list',$unfinish_list);
@@ -69,7 +91,12 @@ class Task extends \app\admin\Auth
                 $value['cate']=1;
                $value['primary']=json_decode($value['primary']);
                $value['secondary']=json_decode($value['secondary']);
-               
+                 if($value['zhipai']!==null){
+                               
+                                $user_n=db('user')->where('id','=',$value['zhipai'])->value('user_name');
+
+                                $value['remark']='指派任务:'.$user_n;
+                            }
                 $yuangong[]=$value;
             }
         }
@@ -87,9 +114,11 @@ class Task extends \app\admin\Auth
                     if($value['boss_id']){
                         if(date('Y-m-d',$value['time'])<$time){
                             if($value['whether']!=1){
-
                                 $daibanwork[]=db('bossworklist')->where('id='.$value['boss_rwid'])->find();
                             }
+
+
+                          
                     }
                     }
                }
@@ -126,7 +155,13 @@ class Task extends \app\admin\Auth
           $work_listnu = count($work_list1);
           $unfinish_list1=db("bossworklist")->where('state=3 or state=4')->select();
           $unfinish_listnu = count($unfinish_list1);
-          $work_list  =  db('bossworklist')->order('id desc')->paginate(10);
+          
+           $work_list  =  db('bossworklist')->order('id desc')->paginate(10)->each(function($item, $key){
+                $item['execute_id']=db('user')->field('user_name')->where('id' ,'in' ,$item['execute_id'])->select();
+             
+               
+                return  $item;
+            });
           $this->assign('work_list',$work_list);
           $this->assign('work_listnu',$work_listnu);
           $this->assign('unfinish_listnu',$unfinish_listnu);
@@ -139,7 +174,10 @@ class Task extends \app\admin\Auth
           $work_listnu = count($work_list1);
           $unfinish_list1=db("bossworklist")->where('state=3 or state=4')->select();
           $unfinish_listnu = count($unfinish_list1);
-         $unfinish_list=db("bossworklist")->where('state=3 or state=4')->paginate(10);
+         $unfinish_list=db("bossworklist")->where('state=3 or state=4')->paginate(10)->each(function($item, $key){
+                $item['execute_id']=db('user')->field('user_name')->where('id' ,'in' ,$item['execute_id'])->select();
+                return  $item;
+            });;
           $this->assign('unfinish_list',$unfinish_list);
           $this->assign('work_listnu',$work_listnu);
           $this->assign('unfinish_listnu',$unfinish_listnu);
@@ -261,6 +299,11 @@ class Task extends \app\admin\Auth
              
               if(input('theme_id')){
                 db("worksheet")->where('id='.input('theme_id'))->update(["whether"=>input('whether')]);
+                if(input('whether')==0){
+                    db("worksheet")->where('id='.input('theme_id'))->update(["end_time"=>time()]);
+                }else{
+                    db("worksheet")->where('id='.input('theme_id'))->update(["end_time"=>'']);
+                }
             }
                $yuan=db('worksheet')->where("uid=".$user_data['u_id'])->select();
                 foreach ($yuan as $key => $value) {
@@ -321,6 +364,13 @@ class Task extends \app\admin\Auth
         }
       
     } 
+    public function zhipairw(){
+        $user_data=Session::get();
+        $zhipai=input('zhipai');
+        $zhipai_id=input('zhipai_id');
+        db('worksheet')->where('id='.$zhipai)->update(['uid'=>$zhipai_id,'zhipai'=>$user_data['u_id']]);
+        $this->success('指派成功','index');
+    }
     //交作业的页面
 	public function add()
     {
@@ -457,10 +507,11 @@ class Task extends \app\admin\Auth
     {
         if(input('id')){
             $id = input('id');
-            $check = db('bossworklist')->where("id=$id")->select();
+            $check_info = db('bossworklist')->where("id=$id")->find();
             $type=0;
+            $check_info['execute_id']=db('user')->field('user_name')->where('id','in',$check_info['execute_id'])->select();
             $this->assign('type',$type);
-            $this->assign('check',$check);     
+            $this->assign('check_info',$check_info);     
              $log_list = db('worklog')->where("rw_id=$id")->select();
              $this->assign('log_list',$log_list); 
             $user_name=Session::get('user_name');
@@ -468,11 +519,15 @@ class Task extends \app\admin\Auth
             $this->assign("user",$user);      
             return $this->fetch();
         }elseif(input('staff_id')){
+            $type=1;
             $staff_id = input('staff_id');
-            $worksheet = db('worksheet')->where("id=$staff_id")->select();
-             $type=1;
+            $check_info = db('worksheet')->where("id=$staff_id")->find();
+            $log_list = db('worklog')->where("staff_id=$staff_id")->select();
+            $this->assign('log_list',$log_list);
+            $check_info['name']=db('user')->where('id='.$check_info['uid'])->value('user_name');
+             
             $this->assign('type',$type);
-            $this->assign('worksheet',$worksheet);     
+            $this->assign('check_info',$check_info);     
             //  $log_list = db('worklog')->where("rw_id=$staff_id")->select();
             //  $this->assign('log_list',$log_list); 
             // $user_name=Session::get('user_name');
@@ -557,11 +612,11 @@ class Task extends \app\admin\Auth
     public function update()
     {  	
     	$user_data=Session::get();
-    	$rw_id = input('id');
+    	 $rw_id = input('id');
     	$uname = $user_data['user_name'];
     	$rw_log = input('log');
-         	$work=request()->file('work_require');
-        
+        $work=request()->file('work_require');
+        $work_file=null;
         if($work){
             $info = $work->move(ROOT_PATH.'/public/uploads');
             if($info){
@@ -571,13 +626,25 @@ class Task extends \app\admin\Auth
                  echo $info->getError();
             }
         }
-	    	db('worklog')->insert([
-	            'rw_id'=>$rw_id,
-	            'rw_log'=>$rw_log,
-	            'uname'=>$uname,
+        if(input('type')=='0'){
+           
+            db('worklog')->insert([
+                'rw_id'=>$rw_id,
+                'rw_log'=>$rw_log,
+                'uname'=>$uname,
                 'accessory'=>$work_file,           
-	            'time'=>date('Y-m-d H:i',time()),
-	        ]);     
+                'time'=>date('Y-m-d H:i',time()),
+            ]);     
+        }else{
+             db('worklog')->insert([
+                'staff_id'=>$rw_id,
+                'rw_log'=>$rw_log,
+                'uname'=>$uname,
+                'accessory'=>$work_file,           
+                'time'=>date('Y-m-d H:i',time()),
+            ]);
+        }
+        
             
 	         $this->success('操作成功'); 
     	

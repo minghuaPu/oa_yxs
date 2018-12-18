@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:64:"D:\wamp64\www\oa\public/../application/admin\view\task\look.html";i:1544758499;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:64:"D:\wamp64\www\oa\public/../application/admin\view\task\look.html";i:1545118958;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -442,7 +442,10 @@
 
 					</td>
 					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
-					<td><a @click='viewDetails(item.boss_rwid)' v-if='item.boss_id' style="cursor: pointer;">查看详情</a></td>
+					<td>
+						<a @click='viewDetails(item.boss_rwid,index)' v-if='item.boss_rwid' style="cursor: pointer;">查看详情</a>
+						<a @click='viewDetails(item.id,index)'  v-else style="cursor: pointer;">查看详情</a>
+					</td>
 					
 				</tr>
 				
@@ -480,8 +483,13 @@ mounted(){
                      			this.worksheet=rtnData.data;
      					});
      	},
-     	 viewDetails: function(e) {
-            window.location.href = 'check.html?id=' + e
+     	  viewDetails: function(e,index) {
+        	if(this.worksheet[index].boss_id){
+        		window.location.href = 'check.html?id=' + e
+        	}else{
+        		window.location.href = 'check.html?staff_id=' + e
+        	}
+            
         }
 
 
