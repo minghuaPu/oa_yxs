@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/finance/finance.css" />
+<link href="https://cdn.bootcss.com/bootstrap-fileinput/4.5.1/css/fileinput.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.css" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/library/bootstrap/bootstrap-select.min.css" />
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    {include file="top"}
+    {include file="left"}
+</head>
+
+<body>
+    <div class="cjp_box">
+        <div class="cjp_head">
+            {$recycle_type}回收站
+        </div>
+        <div class="cjp_choose">
+            <button class="btn btn-default" style="outline: none;" @click="recoverChoose">恢复选中项</button>
+            <button class=" btn btn-default" style="outline: none;" @click="deleteChoose">删除选中项</button>
+        </div>
+        <div class="cjp_content">
+            <!-- 查看图片框-->
+            <div class="modal fade" id="picwindow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                查看图片
+                            </h4>
+                        </div>
+                        <div class="modal-body" id="piclist">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+            <table class="table" style="text-align: center;">
+                <tr>
+                    <th>序列</th>
+                    <th>
+                        <input type="checkbox" value="" name="checkall" />
+                    </th>
+                    <th>时间</th>
+                    <th>姓名</th>
+                    {if $recycle_type=='锻造车间'}
+                    <th>设备</th>
+                    {/if}
+                    <th>产品名称</th>
+                    <th>产品尺寸</th>
+                    <th>问题描述</th>
+                    <th>整改情况</th>
+                    <th>对应车间</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </tr>
+                {foreach $recycle_list as $key=>$info}
+                <tr>
+                    <td>{$key+1}</td>
+                    <td>
+                        <input type="checkbox" value="{$info.id}" name="checkbox" />
+                    </td>
+                    <td>{$info.time}</td>
+                    <td>{$info.name}</td>
+                    {if $recycle_type=='锻造车间'}
+                    <th>{$info.team}</th>
+                    {/if}
+                    <td>{$info.title}</td>
+                    <td>{$info.size}</td>
+                    <td>{$info.describes}</td>
+                    <td>{$info.modify}</td>
+                    <td>{$info.workshop}</td>
+                    <td>{$info.remarks}</td>
+                    <td>
+                        <button class="btn btn-info btn-xs" style="outline: none;" data-toggle="modal" data-target="#picwindow" @click="getPic({$info.id})">查看图片</button>
+                    </td>
+                </tr>
+                {/foreach}
+            </table>
+            <div style="text-align: center;">{$recycle_list->render()}</div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.5.1/js/fileinput.js"></script>
+    <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-select.min.js"></script>
+</body>
+
+</html>
+<script type="text/javascript">
+new Vue({
+    el: ".cjp_box",
+    data: {},
+    methods: {
+        //恢复删除的选项
+        recoverChoose() {
+            var con = confirm('确定要恢复选中项吗');
+            if (con == true) {
+                var list = [];
+                $.each($('input:checkbox:checked'), function() {
+                    list.push($(this).val());
+                });
+                $.post("{:url('recoverDele')}", {
+                    proche_type:"{$recycle_type}",
+                    list: JSON.stringify(list),
+                }, function(e) {
+                    window.location.reload();
+                });
+
+            } else {
+                return false;
+            };
+        },
+        //删除选中信息
+        deleteChoose() {
+            var con = confirm('确定要彻底删除选中项吗');
+            if (con == true) {
+                var list = [];
+                $.each($('input:checkbox:checked'), function() {
+                    list.push($(this).val());
+                });
+                $.post("{:url('allDele')}", {
+                    proche_type:"{$recycle_type}",
+                    list: JSON.stringify(list),
+                }, function(e) {
+                    window.location.reload();
+                });
+
+            } else {
+                return false;
+            };
+        },
+
+        //获取图片  
+        getPic(re) {
+            $.get("{:url('recycleGetPic')}", {
+                proche_type:"{$recycle_type}",
+                id: re,
+            }, function(e) {
+                var a = "";
+                $.each(e, function(i, n) {
+                    option = "<div class='picwindow_img'><img src='__UPLOADS__" + n + "'></div>";
+                    a = a + option;
+                });
+                $("#piclist").html(a);
+            })
+        },
+
+    }
+
+})
+$(".test").click(function() {
+    alert($(this).attr("data"));
+});
+//全选反选
+$('input[name="checkall"]').on("click", function() {
+    if ($(this).is(':checked')) {
+        $('input[name="checkbox"]').each(function() {
+            $(this).prop("checked", true);
+        });
+    } else {
+        $('input[name="checkbox"]').each(function() {
+            $(this).prop("checked", false);
+        });
+    }
+});
+</script>
+<style type="text/css">
+.cjp_box {
+    margin-left: 173px;
+    width: 100%;
+    height: auto;
+}
+
+.cjp_head {
+    font-size: 22px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.cjp_content {
+    margin-left: 20px;
+    margin-top: 10px;
+    width: auto;
+    height: auto;
+    background-color: #f4f8fb;
+}
+
+.table tr th {
+    text-align: center;
+}
+
+.cjp_choose {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.picwindow_img {
+    margin: 10px auto;
+    width: 100%;
+    height: auto;
+
+}
+
+.picwindow_img img {
+    width: 100%;
+    height: auto;
+}
+</style>

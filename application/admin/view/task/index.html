@@ -186,7 +186,7 @@
 					 
 				</li>
 			</ul>
-    
+                
 				<a class="btn btn-default" style="background-color: #7BB0DE" href="{:url('index')}">待我处理({$work_listnu})</a>
 				<a class="btn btn-default" href="{:url('wfb')}">我发布的任务({$work_listnu})</a>
 				<a class="btn btn-default" href="{:url('yjs')}">已结束的任务({$unfinish_listnu})</a>						
@@ -205,7 +205,7 @@
 					<th>状态</th>
 					<th>详情</th>
 				</tr>
-				
+				  
 				{foreach $work_list as $key=>$info}
 					<tr >
 						<td>50</td>
@@ -324,7 +324,7 @@ new Vue({
     data: {
         worksheet:{$yuangong},
         primary:{$main},
-        worklist:[{$work_list}],
+        
         fine:{$fine},
         secondary:[],
         zongshu:{$zongshu},

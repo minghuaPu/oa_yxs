@@ -74,10 +74,330 @@ class Index extends \app\admin\Auth
 		
     	return $this->fetch();
     }
-    public function information(){
-    	
+    //粗加工页面
+    public function proche_cjg(){
+    	$cjg_list  =  db('rough')->where('cas',1)->order('id desc')->paginate(10);
+         $this->assign('cjg_list',$cjg_list);
         return $this->fetch();
     }
+    //热处理页面
+    public function proche_rcl(){
+        $rcl_list  =  db('treatment')->where('cas',1)->order('id desc')->paginate(10);
+         $this->assign('rcl_list',$rcl_list);
+        return $this->fetch();
+    }
+    //锻造车间页面
+    public function proche_dzcj(){
+        $dzcj_list  =  db('workshop')->where('cas',1)->order('id desc')->paginate(10);
+         $this->assign('dzcj_list',$dzcj_list);
+        return $this->fetch();
+    }
+     //包装检验页面
+    public function proche_bzjy(){
+        $bzjy_list  =  db('packaging')->where('cas',1)->order('id desc')->paginate(10);
+         $this->assign('bzjy_list',$bzjy_list);
+        return $this->fetch();
+    }
+     //精加工页面
+    public function proche_jjg(){
+        $jjg_list  =  db('machining')->where('cas',1)->order('id desc')->paginate(10);
+         $this->assign('jjg_list',$jjg_list);
+        return $this->fetch();
+    }
+     //其他页面
+    public function proche_qt(){
+        $qt_list  =  db('other')->where('cas',1)->order('id desc')->paginate(10);
+         $this->assign('qt_list',$qt_list);
+        return $this->fetch();
+    }
+    //车间检查添加工作
+    public function addWork(){
+        $proche_type = input('proche_type');
+        $time = input('time');
+        $name = input('name');
+        $team = input('team');
+        $title = input('title');
+        $size = input('size');
+        $describes = input('describes');
+        $modify = input('modify');
+        $workshop = input('workshop');
+        $remarks = input('remarks');
+        $status = input('status');
+        $work=request()->file('work_require');
+        $imgpath = [];
+        foreach($work as $value){ 
+                if($value){
+                    $info = $value->move(ROOT_PATH.'/public/uploads');
+                    if($info){
+                        $work_file = $info->getSaveName();
+                        array_push($imgpath,$work_file);
+                    }else{
+
+                         echo $info->getError();
+                    }
+                }; 
+                };
+        if($proche_type=='workshop'){
+           db($proche_type)->insert([
+            'time'=>$time,
+            'name'=>$name,
+            'team'=>$team,
+            'title'=>$title,
+            'size'=>$size,
+            'describes'=>$describes,
+            'modify'=>$modify,
+            'workshop'=>$workshop,
+            'remarks'=>$remarks,
+            'status'=>$status,
+            'picture1'=>json_encode($imgpath),
+            
+        ]);  
+       }else{
+        db($proche_type)->insert([
+            'time'=>$time,
+            'name'=>$name,
+            'title'=>$title,
+            'size'=>$size,
+            'describes'=>$describes,
+            'modify'=>$modify,
+            'workshop'=>$workshop,
+            'remarks'=>$remarks,
+            'status'=>$status,
+            'picture1'=>json_encode($imgpath),
+            
+        ]); 
+       }
+         $this->success('添加成功');
+        
+        
+         
+       
+    }
+    //车间检查数据添加到回收站
+    public function goRecycle(){
+        $proche_type = input('proche_type');
+        $id_list = json_decode(input('list'));
+        db($proche_type)->where('id','in',$id_list)->setField('cas','0'); 
+        
+        
+        
+    }
+    //车间检查更改完成状态
+    public function changeIsfinsih(){
+        $proche_type = input('proche_type');
+        $id = input('id');
+        $num = input('num');
+            if($num==1){
+            db($proche_type)->where('id',$id)->setField('status','已完成');
+            }else{
+            db($proche_type)->where('id',$id)->setField('status','未解决');
+            }
+    }
+    //车间检查获取图片
+    public function getPic(){
+        $proche_type = input('proche_type');
+        $id = input('id');    
+        $pic_path=db($proche_type)->where('id',$id)->value('picture1');
+        return json_decode($pic_path);
+        
+    }
+    //车间检查获取更改的数据
+    public function getWork(){
+        $proche_type = input('proche_type');
+        $id = input('id');        
+        $list=db($proche_type)->where('id',$id)->find();
+        return json($list);
+        
+    }
+    
+    //车间检查获取异常数据
+    public function getAbnormal(){
+        $proche_type = input('proche_type');
+        $id = input('id');
+        $content=db($proche_type)->field('id,why')->where('id',$id)->find();
+        return json($content);
+       
+    }
+    
+    //车间检查更新异常数据
+    public function updateAbnormal(){
+        $proche_type = input('proche_type');
+        $id = input('id');
+        $abnormalMessage = input('abnormalMessage');
+        $content=db($proche_type)->where('id',$id)->setField('why',$abnormalMessage);
+        $this->success('修改成功');
+       
+    }
+     //车间检查修改数据
+    public function updateWork(){
+        $proche_type = input('proche_type');
+        $id = input('id');        
+        $time = input('time');
+        $name = input('name');
+        $team = input('team');
+        $title = input('title');
+        $size = input('size');
+        $describes = input('describes');
+        $modify = input('modify');
+        $workshop = input('workshop');
+        $remarks = input('remarks');
+        $status = input('status');
+        $work=request()->file('work_require');
+        $imgpath = [];
+        if($proche_type=='workshop'){
+            if (count($work)==0){
+            db($proche_type)->where('id',$id)->update(['time'=>$time,'name'=>$name,'team'=>$team,'title'=>$title,'size'=>$size,'describes'=>$describes,'modify'=>$modify,
+            'workshop'=>$workshop,'remarks'=>$remarks,'status'=>$status]); 
+            }else{
+              foreach($work as $value){ 
+                    if($value){
+                        $info = $value->move(ROOT_PATH.'/public/uploads');
+                        if($info){
+                            $work_file = $info->getSaveName();
+                            array_push($imgpath,$work_file);
+                        }else{
+                             echo $info->getError();
+                        }
+                    }; 
+                    }; 
+                db($proche_type)->where('id',$id)->update(['time'=>$time,'name'=>$name,'team'=>$team,'title'=>$title,'size'=>$size,'describes'=>$describes,'modify'=>$modify,
+                'workshop'=>$workshop,'remarks'=>$remarks,'status'=>$status,'picture1'=>$imgpath]);  
+            }  
+        }else{
+             if (count($work)==0){
+            db($proche_type)->where('id',$id)->update(['time'=>$time,'name'=>$name,'title'=>$title,'size'=>$size,'describes'=>$describes,'modify'=>$modify,
+            'workshop'=>$workshop,'remarks'=>$remarks,'status'=>$status]); 
+            }else{
+              foreach($work as $value){ 
+                    if($value){
+                        $info = $value->move(ROOT_PATH.'/public/uploads');
+                        if($info){
+                            $work_file = $info->getSaveName();
+                            array_push($imgpath,$work_file);
+                        }else{
+                             echo $info->getError();
+                        }
+                    }; 
+                    }; 
+                db($proche_type)->where('id',$id)->update(['time'=>$time,'name'=>$name,'title'=>$title,'size'=>$size,'describes'=>$describes,'modify'=>$modify,
+                'workshop'=>$workshop,'remarks'=>$remarks,'status'=>$status,'picture1'=>$imgpath]);  
+            }  
+        }    
+        $this->success('修改成功');  
+    }
+    //车间检查回收站页面
+    public function recycle(){
+        $table = input('info');
+        if ($table=='rough') {
+        $recycle_type = '粗加工';
+        $this->assign('recycle_type',$recycle_type);
+        }elseif ($table=='treatment') {
+        $recycle_type = '热处理';
+        $this->assign('recycle_type',$recycle_type);
+        }elseif ($table=='workshop') {
+        $recycle_type = '锻造车间';
+        $this->assign('recycle_type',$recycle_type);
+        }elseif ($table=='packaging') {
+        $recycle_type = '包装检验';
+        $this->assign('recycle_type',$recycle_type);
+        }elseif ($table=='machining') {
+        $recycle_type = '精加工';
+        $this->assign('recycle_type',$recycle_type);
+        }elseif ($table=='other') {
+        $recycle_type = '其他';
+        $this->assign('recycle_type',$recycle_type);
+        }
+        $recycle_list = db($table)->where('cas',0)->order('id desc')->paginate(10);
+        $this->assign('recycle_list',$recycle_list);
+        return $this->fetch();
+        
+    }
+     //车间检查回收站恢复删除
+    public function recoverDele(){
+        $proche_type = input('proche_type');
+        $id_list = json_decode(input('list'));
+        if ($proche_type=="粗加工") {
+          db('rough')->where('id','in',$id_list)->setField('cas','1');
+        }elseif ($proche_type=="热处理") {
+           db('treatment')->where('id','in',$id_list)->setField('cas','1');
+        }elseif ($proche_type=="锻造车间") {
+           db('workshop')->where('id','in',$id_list)->setField('cas','1');
+        }elseif ($proche_type=="包装检验") {
+           db('packaging')->where('id','in',$id_list)->setField('cas','1');
+        }elseif ($proche_type=="精加工") {
+           db('machining')->where('id','in',$id_list)->setField('cas','1');
+        }elseif ($proche_type=="其他") {
+           db('other')->where('id','in',$id_list)->setField('cas','1');
+        }         
+        
+    }
+    //车间检查回收站彻底删除
+    public function allDele(){
+        $proche_type = input('proche_type');
+        $id_list = json_decode(input('list'));
+         if ($proche_type=="粗加工") {
+           db('rough')->delete($id_list);
+        }elseif ($proche_type=="热处理") {
+           db('treatment')->delete($id_list);
+        }elseif ($proche_type=="锻造车间") {
+           db('workshop')->delete($id_list);
+        }elseif ($proche_type=="包装检验") {
+           db('treatment')->delete($id_list);
+        }elseif ($proche_type=="精加工") {
+           db('treatment')->delete($id_list);
+        }elseif ($proche_type=="其他") {
+           db('treatment')->delete($id_list);
+        }        
+       
+    }
+    //车间检查回收站查询图片
+    public function recycleGetPic(){
+        $proche_type = input('proche_type');
+        $id = input('id');
+        if ($proche_type=="粗加工") {
+          $pic_path=db('rough')->where('id',$id)->value('picture1');
+        }elseif ($proche_type=="热处理") {
+          $pic_path=db('treatment')->where('id',$id)->value('picture1');
+        }elseif ($proche_type=="锻造车间") {
+          $pic_path=db('workshop')->where('id',$id)->value('picture1');
+        }elseif ($proche_type=="包装检验") {
+          $pic_path=db('packaging')->where('id',$id)->value('picture1');
+        }elseif ($proche_type=="精加工") {
+          $pic_path=db('machining')->where('id',$id)->value('picture1');
+        }elseif ($proche_type=="其他") {
+          $pic_path=db('other')->where('id',$id)->value('picture1');
+        }        
+        return json_decode($pic_path);  
+
+    }
+    //车间检查导出Excel
+    public function  exportDayInner(){
+        $proche_type = input('proche_type');
+        if ($proche_type=='workshop') {
+            $innerdata = db($proche_type)->field('id,time,name,team,title,size,describes,modify,workshop,remarks,why')->select();
+            $title = array('id','时间','名称','设备','产品名称','产品尺寸','问题描述','整改情况','对应车间','备注','异常情况');
+        }else{
+           $innerdata = db($proche_type)->field('id,time,name,title,size,describes,modify,workshop,remarks,why')->select();
+           $title = array('id','时间','名称','产品名称','产品尺寸','问题描述','整改情况','对应车间','备注','异常情况'); 
+        }
+        if ($proche_type=="rough") {
+           exportexcel($innerdata,$title,'粗加工');
+        }elseif ($proche_type=="treatment") {
+          exportexcel($innerdata,$title,'热处理');
+        }elseif ($proche_type=="workshop") {
+          exportexcel($innerdata,$title,'锻造车间');
+        }    
+        
+ 
+    }
+    //车间检查搜索打印信息
+    public function getPrintMessage(){
+        $proche_type = input('proche_type');
+        $id = input('id');
+        $list = db($proche_type)->where('id',$id)->find();
+        return $list;
+    }
+
 
 	public function stock(){     //库存的数据
 		$list=db("steel")->field('category,id')->select();  //材料名字
@@ -152,3 +472,31 @@ class Index extends \app\admin\Auth
 	}
 
 }
+//车间检查导出Excel方法
+function exportexcel($data=array(),$title=array(),$filename='report'){
+     ob_end_clean(); 
+    ob_start(); 
+    header("Content-type:application/octet-stream");
+     header("Accept-Ranges:bytes");
+     header("Content-type:application/vnd.ms-excel");
+     header("Content-Disposition:attachment;filename=".$filename.".xls");
+     header("Pragma: no-cache");
+     header("Expires: 0");
+     //导出xls 开始
+     if (!empty($title)){
+         foreach ($title as $k => $v) {
+             $title[$k]=iconv("UTF-8", "GB2312",$v);
+         }
+         $title= implode("\t", $title);
+         echo "$title\n";
+     }
+     if (!empty($data)){
+         foreach($data as $key=>$val){
+             foreach ($val as $ck => $cv) {
+                 $data[$key][$ck]=iconv("UTF-8", "GB2312", $cv);
+             }
+             $data[$key]=implode("\t", $data[$key]);
+         }
+         echo implode("\n",$data);
+     }
+ }
