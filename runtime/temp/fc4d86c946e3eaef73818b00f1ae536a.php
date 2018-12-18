@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:63:"D:\wamp64\www\oa\public/../application/admin\view\task\wfb.html";i:1545105994;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -42,10 +43,10 @@
         <div class="row">
             <div class="left col-md-9">
                 <div class="logo pull-left">
-                    <a href="{:url('index/index')}">
+                    <a href="<?php echo url('index/index'); ?>">
                         <img src="__STATIC__/admin/index/images/logo.png" alt=""></a>
                 </div>
-                {if $Think.session.user_cate=='管理员'}
+                <?php if(\think\Session::get('user_cate')=='管理员'): ?>
                 <div class="title pull-left">
                     <div class="dropdown">
                         <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
@@ -55,7 +56,7 @@
                         
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="{:url('crm/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('crm/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-user pull-left"></span>
                                         <div class="pull-left">
@@ -66,7 +67,7 @@
                                 </a>
                             </li>
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="{:url('map/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('map/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-map-marker pull-left"></span>
                                         <div class="pull-left">
@@ -77,7 +78,7 @@
                                 </a>
                             </li>
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="{:url('task/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('task/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-list-alt pull-left"></span>
                                         <div class="pull-left">
@@ -88,7 +89,7 @@
                                 </a>
                             </li>
                             <li role="presentation" tabindex="-1" href="#">
-                                <a role="menuitem" tabindex="-1" href="{:url('news/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('news/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-th-list pull-left"></span>
                                         <div class="pull-left">
@@ -99,7 +100,7 @@
                                 </a>
                             </li>
                            <!--  <li role="presentation" tabindex="-1" href="#">
-                               <a role="menuitem" tabindex="-1" href="{:url('draw/index')}">
+                               <a role="menuitem" tabindex="-1" href="<?php echo url('draw/index'); ?>">
                                    <div>
                                        <span class="glyphicon glyphicon-asterisk pull-left"></span>
                                        <div class="pull-left">
@@ -121,7 +122,7 @@
                                 </a>
                             </li> -->
                             <!-- <li role="presentation" tabindex="-1" href="#">
-                                <a role="menuitem" tabindex="-1" href="{:url('build/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('build/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-globe pull-left"></span>
                                         <div class="pull-left">
@@ -143,8 +144,7 @@
                                 </a>
                             </li> -->
                         </ul>
-                        {/if}
-                         {if $Think.session.user_cate!='管理员'}
+                        <?php endif; if(\think\Session::get('user_cate')!='管理员'): ?>
                          <div class="title pull-left">
                     <div class="dropdown">
                         <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
@@ -153,7 +153,7 @@
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="{:url('crm/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('crm/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-user pull-left"></span>
                                         <div class="pull-left">
@@ -164,7 +164,7 @@
                                 </a>
                             </li>
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="{:url('map/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('map/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-map-marker pull-left"></span>
                                         <div class="pull-left">
@@ -175,7 +175,7 @@
                                 </a>
                             </li>
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="{:url('task/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('task/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-list-alt pull-left"></span>
                                         <div class="pull-left">
@@ -186,7 +186,7 @@
                                 </a>
                             </li>
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="{:url('gongdan/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('gongdan/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-list-alt pull-left"></span>
                                         <div class="pull-left">
@@ -197,7 +197,7 @@
                                 </a>
                             </li>
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="{:url('information/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('information/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-list-alt pull-left"></span>
                                         <div class="pull-left">
@@ -208,7 +208,7 @@
                                 </a>
                             </li>
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="{:url('bumen/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('bumen/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-list-alt pull-left"></span>
                                         <div class="pull-left">
@@ -219,7 +219,7 @@
                                 </a>
                             </li>
               <!--               <li role="presentation" tabindex="-1" href="#">
-                  <a role="menuitem" tabindex="-1" href="{:url('news/index')}">
+                  <a role="menuitem" tabindex="-1" href="<?php echo url('news/index'); ?>">
                       <div>
                           <span class="glyphicon glyphicon-th-list pull-left"></span>
                           <div class="pull-left">
@@ -230,7 +230,7 @@
                   </a>
               </li> -->
                            <!--  <li role="presentation" tabindex="-1" href="#">
-                               <a role="menuitem" tabindex="-1" href="{:url('draw/index')}">
+                               <a role="menuitem" tabindex="-1" href="<?php echo url('draw/index'); ?>">
                                    <div>
                                        <span class="glyphicon glyphicon-asterisk pull-left"></span>
                                        <div class="pull-left">
@@ -252,7 +252,7 @@
                                 </a>
                             </li> -->
                             <!-- <li role="presentation" tabindex="-1" href="#">
-                                <a role="menuitem" tabindex="-1" href="{:url('build/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('build/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-globe pull-left"></span>
                                         <div class="pull-left">
@@ -274,7 +274,7 @@
                                 </a>
                             </li> -->
                         </ul>
-                         {/if}
+                         <?php endif; ?>
                     </div>
                 </div>
                 <!-- <div class="breach pull-left col-lg-3" v-if="controller=='Index' || controller=='Crm'">
@@ -305,9 +305,9 @@
                 <div class="user">
                     <span class="glyphicon glyphicon-user"></span>
                 </div>
-               <form action="{:url('index/login/logout')}" method="post" class="form" style="margin-left:-100px">
-                <span class="user_name">公司id:{$Think.session.u_belong} {$Think.session.u_company} {$Think.session.user_name}({$Think.session.user_cate})</span>
-                <span> <a href="{:url('admin/index/index')}"  id="return">返回主页</a></span>
+               <form action="<?php echo url('index/login/logout'); ?>" method="post" class="form" style="margin-left:-100px">
+                <span class="user_name">公司id:<?php echo \think\Session::get('u_belong'); ?> <?php echo \think\Session::get('u_company'); ?> <?php echo \think\Session::get('user_name'); ?>(<?php echo \think\Session::get('user_cate'); ?>)</span>
+                <span> <a href="<?php echo url('admin/index/index'); ?>"  id="return">返回主页</a></span>
                 <input id="exit" type="submit" value= "安全退出" class="btn btn-default" style="margin-left:0px;margin-bottom: 5px;padding:0;margin-top:2px"></input>
 
                </form>
@@ -328,7 +328,7 @@
         },
         methods:{
             init(){
-                this.controller="{:request()->controller()}";
+                this.controller="<?php echo request()->controller(); ?>";
                 
                 if(this.controller=='Index' || this.controller=='Crm'){
                     this.cur='CRM';
@@ -351,3 +351,172 @@
         }
     })
 </script>
+
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
+<div class="task">
+	<div class="task_left"></div>
+	<div class="task_box">
+		<div class="task_title">
+			<span class="glyphicon glyphicon-list-alt pull-left"></span>
+			<h4>TASK员工任务管理</h4>
+		</div>
+		<div class="task_content">
+			
+			<ul class="list_top">
+				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
+				
+				<li style="width: 0%;">
+					<div class="input-group pull-left">
+					 		<input type="text" class="form-control pull-left" placeholder="输入任务名称" id="selectinfo">
+					 	</div>
+					 	<button class="btn btn-group pull-left" style="cursor: pointer;width: 70px;height: 35px; outline: none;" @click="select" >搜索</button>  
+				</li>
+			</ul>
+            
+			
+				<a class="btn btn-default" href="<?php echo url('index'); ?>">待我处理(<?php echo $work_listnu; ?>)</a>
+				<a class="btn btn-default" style="background-color: #7BB0DE" href="<?php echo url('wfb'); ?>">我发布的任务(<?php echo $work_listnu; ?>)</a>
+				<a class="btn btn-default" href="<?php echo url('yjs'); ?>">已结束的任务(<?php echo $unfinish_listnu; ?>)</a>
+			
+			 <table  class="table" style="text-align: center;"  >
+				<tr>
+					<th>排序</th>
+					<th>编号ID</th>
+					<th>对接人</th>
+					<th>任务名称</th>					
+					<th>附件</th>
+					<th>部门</th>
+					<th>添加时间</th>
+					<th>截止时间</th>
+					<th>任务级别</th>
+					<th>状态</th>
+					<th>详情</th>
+				</tr>
+				
+				<?php foreach($work_list as $key=>$info): ?>
+					<tr >
+						<td>50</td>
+						<td><?php echo $info['id']; ?></td>
+						
+						<td style="display: flex;justify-content: center;"><?php foreach($info['execute_id'] as $k=>$i): ?><div><?php foreach($i as $a=>$b): ?><?php echo $b; ?>,<?php endforeach; ?></div><?php endforeach; ?></td>
+						<td><?php echo $info['work_name']; ?></td>
+						
+						<?php if($info['work_file']!=""): ?>
+						<td><a href="__UPLOADS__<?php echo $info['work_file']; ?>">点击查看</a></td>
+						<?php endif; if($info['work_file']==""): ?>
+						<td>无</td>
+						<?php endif; ?>
+						<td></td>
+						<td><?php echo date("Y-m-d  H:i:s",$info['time']); ?></td>
+						<td><?php echo date("Y-m-d  H:i:s",$info['lasttime']); ?></td>
+						<td><?php echo $info['work_rank']; ?></td>
+						<?php if($info['state']=="1"): ?>
+						<td>已发布待查阅</td>
+						<?php endif; if($info['state']=="2"): ?>
+						<td>已查阅</td>
+						<?php endif; if($info['state']=="3"): ?>
+						<td>发起人已放弃</td>
+						<?php endif; if($info['state']=="4"): ?>
+						<td>任务已完成</td>
+						<?php endif; ?>
+						
+						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">详情</a></td>
+					</tr>			
+				<?php endforeach; ?>
+				
+				
+				
+			</table>
+			
+			
+			
+			<div  style="text-align: center;"><?php echo $work_list->render(); ?></div>
+			
+			<ul class="list_bottom">
+				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
+			</ul>
+			
+		</div>
+	</div>
+	<div class="task_right"></div>
+</div>
+
+<footer class="footer" style="text-align: center;margin-top: 50px;">
+	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
+	&nbsp;
+	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
+		投诉&amp;问题
+	</a>
+	&nbsp;&nbsp;
+	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
+		微客服
+	</a>
+	&nbsp;&nbsp;
+	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
+		<i class="md md-speaker-notes m-r-5"></i>
+		订阅号
+	</a>
+	<br>
+	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
+</footer>
+<!-- 底部 -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".left_menu ul li").click(function(event){
+		event.preventDefault();
+		console.log($(this).siblings().find('a,p'))
+		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
+			"color":"#5d9cec"})
+		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
+		$(this).find('a,p').css("color","#5d9cec")
+		$(this).siblings().find('a,p').css("color","white")
+	})
+});
+</script>
+</body>
+</html>
+
+<script>
+ 	// 第二步：定义路由，也就是每个路由应该映射一个组件
+ 	
+	new Vue({
+        el: ".task",
+        data: {
+        	ok:true,
+        	pageshow:true,
+            
+            secondary:[],
+           
+            con:1,
+          	
+        },
+        
+       	
+     methods:{
+     	
+     	aa(){
+     		console.log(this.DATE)
+     	},
+     	select(){
+
+     		var selinfo = $('#selectinfo').val();
+     		if(selinfo){
+     			window.location.href="select.html?info="+selinfo;
+     		}else{
+     			return false;
+     		}
+            
+     	},
+     
+     	
+     	
+       
+        	
+         
+
+        }         
+    })
+</script>
+<style>
+
+</style>

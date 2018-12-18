@@ -49,7 +49,7 @@
 						<td>2</td>
 						<td>{$info.id}</td>
 						
-						<td>{$info.execute_id}</td>
+						<td style="display: flex;justify-content: center;">{foreach $info.execute_id as $k=>$i}<div>{foreach $i as $a=>$b}{$b},{/foreach}</div>{/foreach}</td>
 						<td>{$info.work_name}</td>
 						
 						{if $info.work_file!=""}

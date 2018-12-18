@@ -1,141 +1,148 @@
 {include file="top"}
-{include file="left"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/look.css?3">
 
 <div class="container" id="container">
 	<div class="title" style="margin: 10px 30px;">
-		<a href="{:url('index')}" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
+		<a href=" {:url('index')}" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
 	</div>
-	<!-- <div class="mid_but">
-		<el-button type="primary"><a href="/github/crm/public/admin/task/look#/">查看作业提交情况</a></el-button>
-		<el-button type="success"><a href="/github/crm/public/admin/task/look#/info">查看批改分数情况</a></el-button>
-		<el-button  @click="tiaozhuan()" type="danger">查看批改分数情况</el-button>
-	</div> -->
-	<h3 id="title">
-		
-		<span id="time">{{year}}-{{month}}</span>
-		月份
-		<span id="type">提交情况</span>
-	</h3>
-	<div id="month_choose">
-		<el-button type="info" @click=lastmonth()>
-			<<上一月</el-button>
-		<el-button type="info" @click=nextmonth() >下一月>></el-button>
-		<p class="status">状态说明 空白：未交汇报； √:已交汇报(N个表示该天提交N份)；</p>
-	</div>
-	<div id="router">
-		<!--  第五步：路由出口  路由匹配到的组件将渲染在这里 -->
-    		<div id="look">
-	<div>
-		<table class="table">
-			<tr>
-				<th style="width: 102px;">
-					<p class="name" >姓<br>名</p>
-				</th>
-				<th v-for="n in t_days"  class="biao" style="line-height: 30px">
-					{{n}}
-					<br>{{n,year,month | getweek}}
-				</th>
-			</tr>
-		</table>
-		<table class="table table2" style="margin-top: -21px">
-			{foreach $user as $userdata}
-			<!-- 用户身份为学生时 -->
-			{if $userdata.user_cate=='员工'}
-			<tr>
-				<th style="width: 68px;">
-					<p class="name" >{$Think.session.user_name}</p>
-				</th>
-				<th v-for="n in t_days"  class="biao" style="width: 35px;line-height: 46px">
-					<span v-if="work_list[n]">√</span>
-				</th>
-			</tr>
-			{/if}
-			<!-- 用户身份不是学生时 -->
-			{if $userdata.user_cate!='员工'}	
-				{foreach $user_list as $u_info}
-			<tr>
-				<th style="width: 68px;">
-					<p class="name" >{$u_info.user_name}</p>
-				</th>
-				<th v-for="n in t_days"  class="biao" style="width: 35px;line-height: 46px">
-					<span  v-for="t_work in t_work_list" v-if='t_work.d==n&&t_work.u_id=={$u_info.id}'>√</span>
-				</th>
-			</tr>
-			{/foreach}
-			{/if}	
-			{/foreach}
-		</table>
-	</div>
-</div>
 
-	</div>
-</div>
-{include file="foot"}
+<div class="table_box">
+				<div class="Employee_box">
+					<div class="Employee_left">
+						
+						<div class="Employee_head">工作表</div>
+						<div class="wire"></div>
+						<div class="Employee_footer">
+							<div>
+								<span>负责人:</span>
+								
+									<select  style="width: 150px" v-model='xzheyuangong_id' @change='xzheyuangong'>
+										<option  v-for="(i,g) in yuangong" :value="i.id">{{i.user_name}}</option>
+									</select>
+								
+							</div>
+							<div><span>日期:</span><input type="date" v-model='DATE' style="width: 150px" @change='xzheyuangong'></div>
+							
+						</div>
+
+					</div>
+					<div class="Employee_right">
+						<div class="font">完成情况</div>
+						<div class="Score"><div class="fens"><div class="se" :style="'height:'+zongshu+'%'"></div><div class="fen">{{zongshu}}分</div></div></div>
+						
+					</div>
+					<table class="aa" style="text-align: center;" border='1px' width="1000px">
+				<tr bgcolor="#0E59B6" align="center" style="color: #fff;font-size: 12px;">
+				 
+					<th width="50px">序号</th>
+					<th width="100px">主分类</th>
+					<th width="100px">细分类</th>
+					<th width="60px">数量/时间</th>
+					<th width="200px">工作内容</th>
+					<th width="50px"></th>
+					<th width="50px">是否完成</th>
+					<th width="150px">未完成原因</th>
+					<th width="150px">备注</th>
+					<th width="100px">统计分数</th>
+					<th width="50px">操作</th>
+				
+				</tr>
+				
+
+				<tr :bgcolor="index%2 ==0?'':'#fff'" v-for='(item,index) in worksheet'>
+				  
+					<td>
+					  {{index+1}}
+					</td>
+					<td :style="index%2 ==0?'background: #b7dee8;':''" >
+						<div v-if='item.primary'>{{item.primary.type}}</div>
+					  
+					  
+					</td>
+					<td>
+						<div v-if='item.secondary'>{{item.secondary.type}}</div>
+						
+					</td>
+					<td >
+						
+						{{item.quantity}}
+						 
+					</td>
+					<td :style="index%2 ==0?'background: #b7dee8;':''" >
+						{{item.job}}
+						
+						
+					</td>
+
+					<td></td>
+					<td>
+						  <div v-if="item.whether==0" :style="index%2 ==0?'background: #b7dee8;':''">是</div>
+						  <div v-else :style="index%2 ==0?'background: #b7dee8;':''">否</div>
+					  </select>
+					</td>
+					<td>
+						 {{item.reasons}}
+						
+					<td>
+						{{item.remark}}
+						
+
+					</td>
+					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
+					<td>
+						<a @click='viewDetails(item.boss_rwid,index)' v-if='item.boss_rwid' style="cursor: pointer;">查看详情</a>
+						<a @click='viewDetails(item.id,index)'  v-else style="cursor: pointer;">查看详情</a>
+					</td>
+					
+				</tr>
+				
+				
+				
+			</table>
 
 
 <script>
- 	// 第二步：定义路由，也就是每个路由应该映射一个组件
- 	
 	new Vue({
-        el: "#container",
-        data: {
-            // 显示编辑内容
-            // 时间插件
-            input:'',
-            t_days:{$t_days},
-            year:{$year},
-            month:{$month},
-            work_list:JSON.parse('{$work_list}'),
-			t_work_list:JSON.parse('{$t_work_list}'),
-        },
-        mounted(){
-    this.shuchu();
+    el: ".table_box",
+    data: {
+        worksheet:[],
+        yuangong:{$yuangong},
+        zongshu:0,
+        xzheyuangong_id:'',
+        DATE:'{$date}'
+    },
+    
+mounted(){
+	console.log(this.yuangong);
 },
-       	filters:{
-          	getweek:function (val,year,month) {
-          		var arry=["日","一","二","三","四","五","六"]
-          		var m = new Date(year,month-1,val);//计算2016.2.20日星期几
-          		k='星期'+arry[m.getDay()]+'' ;
-          		return k;
-          	}
-        },
+       	
      methods:{
-        	tiaozhuan:function(){
-        		router.push("/info");
-        	},
-        	shuchu:function(){
-                 console.log("现在的年是"+this.year);
-                 console.log("现在的月是"+this.month);
-                 console.log(this.work_list);
-        	},
-        	lastmonth:function(){
-        		this.month--;
-        		if(this.month==0){
-        			this.month=12;
-        			this.year--;
-        		}
-                 window.location.href="{:url('look')}"+'?y='+this.year+'&&m='+this.month;
-        	},
-        	nextmonth:function(){
-                 this.month++;
-                 if(this.month==13){
-                 	this.month=1;
-                    this.year++;
-                 }
-                 console.log("现在的年是"+this.year);
-                 console.log("现在的月是"+this.month);
-                  $.get('{:url("admin/task/look2")}',{y:this.year,m:this.month},(rtnData)=>{
-                 	this.t_days=rtnData['t_days'];
-                 	this.work_list=rtnData['work_list'];
-                 	this.t_work_list=rtnData['t_work_list'];                 	
-                 	window.location.href="{:url('look')}"+'?y='+this.year+'&&m='+this.month;
-
-
+ 
+     	
      
-      });
+     	xzheyuangong(){
+     			$.get('{:url("admin/task/lookyuangong")}',
+        	    	{
+        	    		yuangong_id:this.xzheyuangong_id,
+        	    		selectDate:this.DATE,},
+        	    		(rtnData)=>{
+        	    			    this.zongshu=rtnData.zongshu;
+                     			this.worksheet=rtnData.data;
+     					});
+     	},
+     	  viewDetails: function(e,index) {
+        	if(this.worksheet[index].boss_id){
+        		window.location.href = 'check.html?id=' + e
+        	}else{
+        		window.location.href = 'check.html?staff_id=' + e
         	}
+            
+        }
 
-        }         
-    })
+
+
+    }
+})
+ 
 </script>

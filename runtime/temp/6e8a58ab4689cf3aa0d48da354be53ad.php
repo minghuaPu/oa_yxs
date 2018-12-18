@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:67:"D:\wamp64\www\oa\public/../application/admin\view\task\arrange.html";i:1544664064;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,10 +43,10 @@
         <div class="row">
             <div class="left col-md-9">
                 <div class="logo pull-left">
-                    <a href="{:url('index/index')}">
+                    <a href="<?php echo url('index/index'); ?>">
                         <img src="__STATIC__/admin/index/images/logo.png" alt=""></a>
                 </div>
-                {if $Think.session.user_cate=='管理员'}
+                <?php if(\think\Session::get('user_cate')=='管理员'): ?>
                 <div class="title pull-left">
                     <div class="dropdown">
                         <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
@@ -55,7 +56,7 @@
                         
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="{:url('crm/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('crm/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-user pull-left"></span>
                                         <div class="pull-left">
@@ -66,7 +67,7 @@
                                 </a>
                             </li>
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="{:url('map/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('map/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-map-marker pull-left"></span>
                                         <div class="pull-left">
@@ -77,7 +78,7 @@
                                 </a>
                             </li>
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="{:url('task/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('task/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-list-alt pull-left"></span>
                                         <div class="pull-left">
@@ -88,7 +89,7 @@
                                 </a>
                             </li>
                             <li role="presentation" tabindex="-1" href="#">
-                                <a role="menuitem" tabindex="-1" href="{:url('news/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('news/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-th-list pull-left"></span>
                                         <div class="pull-left">
@@ -99,7 +100,7 @@
                                 </a>
                             </li>
                            <!--  <li role="presentation" tabindex="-1" href="#">
-                               <a role="menuitem" tabindex="-1" href="{:url('draw/index')}">
+                               <a role="menuitem" tabindex="-1" href="<?php echo url('draw/index'); ?>">
                                    <div>
                                        <span class="glyphicon glyphicon-asterisk pull-left"></span>
                                        <div class="pull-left">
@@ -121,7 +122,7 @@
                                 </a>
                             </li> -->
                             <!-- <li role="presentation" tabindex="-1" href="#">
-                                <a role="menuitem" tabindex="-1" href="{:url('build/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('build/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-globe pull-left"></span>
                                         <div class="pull-left">
@@ -143,8 +144,7 @@
                                 </a>
                             </li> -->
                         </ul>
-                        {/if}
-                         {if $Think.session.user_cate!='管理员'}
+                        <?php endif; if(\think\Session::get('user_cate')!='管理员'): ?>
                          <div class="title pull-left">
                     <div class="dropdown">
                         <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
@@ -153,7 +153,7 @@
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="{:url('crm/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('crm/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-user pull-left"></span>
                                         <div class="pull-left">
@@ -164,7 +164,7 @@
                                 </a>
                             </li>
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="{:url('map/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('map/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-map-marker pull-left"></span>
                                         <div class="pull-left">
@@ -175,7 +175,7 @@
                                 </a>
                             </li>
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="{:url('task/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('task/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-list-alt pull-left"></span>
                                         <div class="pull-left">
@@ -186,7 +186,7 @@
                                 </a>
                             </li>
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="{:url('gongdan/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('gongdan/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-list-alt pull-left"></span>
                                         <div class="pull-left">
@@ -197,7 +197,7 @@
                                 </a>
                             </li>
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="{:url('information/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('information/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-list-alt pull-left"></span>
                                         <div class="pull-left">
@@ -208,7 +208,7 @@
                                 </a>
                             </li>
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="{:url('bumen/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('bumen/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-list-alt pull-left"></span>
                                         <div class="pull-left">
@@ -219,7 +219,7 @@
                                 </a>
                             </li>
               <!--               <li role="presentation" tabindex="-1" href="#">
-                  <a role="menuitem" tabindex="-1" href="{:url('news/index')}">
+                  <a role="menuitem" tabindex="-1" href="<?php echo url('news/index'); ?>">
                       <div>
                           <span class="glyphicon glyphicon-th-list pull-left"></span>
                           <div class="pull-left">
@@ -230,7 +230,7 @@
                   </a>
               </li> -->
                            <!--  <li role="presentation" tabindex="-1" href="#">
-                               <a role="menuitem" tabindex="-1" href="{:url('draw/index')}">
+                               <a role="menuitem" tabindex="-1" href="<?php echo url('draw/index'); ?>">
                                    <div>
                                        <span class="glyphicon glyphicon-asterisk pull-left"></span>
                                        <div class="pull-left">
@@ -252,7 +252,7 @@
                                 </a>
                             </li> -->
                             <!-- <li role="presentation" tabindex="-1" href="#">
-                                <a role="menuitem" tabindex="-1" href="{:url('build/index')}">
+                                <a role="menuitem" tabindex="-1" href="<?php echo url('build/index'); ?>">
                                     <div>
                                         <span class="glyphicon glyphicon-globe pull-left"></span>
                                         <div class="pull-left">
@@ -274,7 +274,7 @@
                                 </a>
                             </li> -->
                         </ul>
-                         {/if}
+                         <?php endif; ?>
                     </div>
                 </div>
                 <!-- <div class="breach pull-left col-lg-3" v-if="controller=='Index' || controller=='Crm'">
@@ -305,9 +305,9 @@
                 <div class="user">
                     <span class="glyphicon glyphicon-user"></span>
                 </div>
-               <form action="{:url('index/login/logout')}" method="post" class="form" style="margin-left:-100px">
-                <span class="user_name">公司id:{$Think.session.u_belong} {$Think.session.u_company} {$Think.session.user_name}({$Think.session.user_cate})</span>
-                <span> <a href="{:url('admin/index/index')}"  id="return">返回主页</a></span>
+               <form action="<?php echo url('index/login/logout'); ?>" method="post" class="form" style="margin-left:-100px">
+                <span class="user_name">公司id:<?php echo \think\Session::get('u_belong'); ?> <?php echo \think\Session::get('u_company'); ?> <?php echo \think\Session::get('user_name'); ?>(<?php echo \think\Session::get('user_cate'); ?>)</span>
+                <span> <a href="<?php echo url('admin/index/index'); ?>"  id="return">返回主页</a></span>
                 <input id="exit" type="submit" value= "安全退出" class="btn btn-default" style="margin-left:0px;margin-bottom: 5px;padding:0;margin-top:2px"></input>
 
                </form>
@@ -328,7 +328,7 @@
         },
         methods:{
             init(){
-                this.controller="{:request()->controller()}";
+                this.controller="<?php echo request()->controller(); ?>";
                 
                 if(this.controller=='Index' || this.controller=='Crm'){
                     this.cur='CRM';
@@ -351,3 +351,150 @@
         }
     })
 </script>
+<link rel="stylesheet" type="text/css" href="__STATIC__/library/dropify-master/dist/css/dropify.min.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css?3">
+<link rel="stylesheet" type="text/css" href="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.css" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/library/bootstrap/bootstrap-select.min.css" />
+<div class="write_box">
+    <div class="title">
+        <a class="glyphicon glyphicon-list">布置任务</a>
+        <a href="<?php echo url('index'); ?>" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
+    </div>
+    <h3 class="time_now"><?php echo $time; ?></h3>
+    <div class="from_box">
+        <form action="<?php echo url('save2'); ?>" class="form" method="post" enctype="multipart/form-data" onsubmit="return beforesend()">
+            <div class="form-group">
+                <div class="form-group">
+                    <label>任务</label>
+                    <input id="workname" type="text" class="form-control" name="work_name" value="">
+                </div>
+                <div class="form-group">
+                    <label>任务主分类</label>
+                    <select id="onetype" name="firstlist" style="width: 200px;margin-top: 20px;height: 30px;border-radius: 10px;outline:none;" onchange="firstChange()">
+                        <option value="-1">请选择任务主分类</option>
+                        <?php foreach($firstlist as $key=>$info): ?>
+                        <option value="<?php echo $info['id']; ?>"><?php echo $info['type']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>任务细分类</label>
+                    <select id="secondtype" name="secondlist" style="width: 200px;margin-top: 20px;height: 30px;border-radius: 10px;outline:none;">
+                        <option value="-1">请选择任务细分类</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>任务附件</label>
+                    <input type="file" name="work_require" class="dropify"></input>
+                </div>
+                <div class="form-group">
+                    <label>任务详情</label>
+                    <textarea name="content" id="myEditor" style="height: 200px;width: 100%;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>对接人</label>
+                    <input type="text" name="executerid" id="executer" value="" class="abc" style="display: none;"></input>
+                    <select id="approverq" class="selectpicker" multiple name="executor">
+                        <?php foreach($userid_list as $key=>$info): ?>
+                        <option value="<?php echo $info['id']; ?>"><?php echo $info['user_name']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>任务级别</label>
+                    <select name="urgency" style="width: 200px;margin-top: 20px;height: 30px;border-radius: 10px;outline:none;">
+                        <option>今天</option>
+                        <option>代办</option>
+                        <option>紧急</option>
+                        <option>加急</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>截止时间</label>
+                    <div class='input-group date' style="width:200px" id='datetimepicker'>
+                        <input id="time" type='text' class="form-control" name="lasttime" />
+                        <span class="input-group-addon" style="margin-left: -200px;">
+						                        <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="提交" onclick="fun()">
+                </div>
+                <div style="width: 100%;height: 200px;"></div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="__STATIC__/library/dropify-master/dist/js/dropify.min.js"></script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="__STATIC__/library/bootstrap/defaults-zh_CN.min.js"></script>
+<script type="text/javascript">
+function firstChange() {
+    var orderTypeName = $("#onetype").val();
+    if (orderTypeName != null && "" != orderTypeName && -1 != orderTypeName) {
+        $.post("<?php echo url('selectClassify'); ?>", { orderTypeName: orderTypeName },
+            function(data) {
+                var a = "<option value='-1'>请选择任务细分类</option>";
+                $.each(data, function(i, n) {
+                    option = "<option value='" + n.id + "'>" + n.type + "</option>";
+                    a = a + option;
+                });
+                $("#secondtype").html(a);
+
+            });
+
+    } else {
+        $("#secondtype").html("<option value='-1'>请选择任务细分类</option>");
+    }
+
+
+};
+
+function beforesend() {
+
+    if ($('#workname').val() == '') {
+        alert('任务不能为空');
+        return false;
+    } else if ($('#onetype').val() == -1) {
+        alert('主任务不能为空');
+        return false;
+    } else if ($('#secondtype').val() == -1) {
+        alert('细任务不能为空');
+        return false;
+    } else if ($('#approverq').val() == '') {
+        alert('对接人不能为空');
+        return false;
+    } else if ($('#time').val() == '') {
+        alert('截止时间不能为空');
+        return false;
+    } else {
+        return true;
+    }
+};
+
+function fun() {
+
+    var str = [];
+    var obj = document.getElementById("approverq");
+    for (var i = 0; i < obj.options.length; i++) {
+        if (obj.options[i].selected) {
+            str.push(obj.options[i].value); // 收集选中项
+        }
+    }
+    $("#executer").val(str);
+};
+
+$('#datetimepicker').datetimepicker({
+
+});
+$('.dropify').dropify();
+UE.getEditor("myEditor");
+</script>
+</body>
+
+</html>

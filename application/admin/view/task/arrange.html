@@ -44,7 +44,7 @@
                     <input type="text" name="executerid" id="executer" value="" class="abc" style="display: none;"></input>
                     <select id="approverq" class="selectpicker" multiple name="executor">
                         {foreach $userid_list as $key=>$info}
-                        <option value="{$info.user_name}">{$info.user_name}</option>
+                        <option value="{$info.id}">{$info.user_name}</option>
                         {/foreach}
                     </select>
                 </div>
