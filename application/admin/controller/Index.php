@@ -74,6 +74,10 @@ class Index extends \app\admin\Auth
 		
     	return $this->fetch();
     }
+    public function information(){
+        
+        return $this->fetch();
+    }
     //粗加工页面
     public function proche_cjg(){
     	$cjg_list  =  db('rough')->where('cas',1)->order('id desc')->paginate(10);
@@ -376,6 +380,9 @@ class Index extends \app\admin\Auth
         if ($proche_type=='workshop') {
             $innerdata = db($proche_type)->field('id,time,name,team,title,size,describes,modify,workshop,remarks,why')->select();
             $title = array('id','时间','名称','设备','产品名称','产品尺寸','问题描述','整改情况','对应车间','备注','异常情况');
+        }else if($proche_type=='other'){
+           $innerdata = db($proche_type)->field('id,time,name,title,size,describes,modify,workshop,remarks,why')->select();
+           $title = array('id','时间','类型','产品名称','产品尺寸','问题描述','整改情况','对应车间','备注','异常情况'); 
         }else{
            $innerdata = db($proche_type)->field('id,time,name,title,size,describes,modify,workshop,remarks,why')->select();
            $title = array('id','时间','名称','产品名称','产品尺寸','问题描述','整改情况','对应车间','备注','异常情况'); 
@@ -386,6 +393,12 @@ class Index extends \app\admin\Auth
           exportexcel($innerdata,$title,'热处理');
         }elseif ($proche_type=="workshop") {
           exportexcel($innerdata,$title,'锻造车间');
+        }elseif ($proche_type=="packaging") {
+          exportexcel($innerdata,$title,'包装检验');
+        }elseif ($proche_type=="machining") {
+          exportexcel($innerdata,$title,'精加工');
+        }elseif ($proche_type=="other") {
+          exportexcel($innerdata,$title,'其他');
         }    
         
  
@@ -396,6 +409,40 @@ class Index extends \app\admin\Auth
         $id = input('id');
         $list = db($proche_type)->where('id',$id)->find();
         return $list;
+    }
+    //车间检查搜索页面
+    public function proche_select(){
+        $proche_type = input('proche_type');
+        $time = input('time');
+        $content = input('content');
+        $type = input('type');
+        $where = ['time'=>$time,'cas'=>1];
+        if ($type=='-1') {
+            $list=db($proche_type)                                              
+                   ->where('time|name|title|workshop|describes|modify','like',"%".$content."%")
+                   ->where('cas','=',1) 
+                   ->order("id desc")                                        
+                   ->paginate(10);
+        }else{
+            if($type=='time'){
+                 $list=db($proche_type)                                                              
+                       ->where('time','=',$time)
+                       ->where('cas','=',1) 
+                       ->order("id desc")                                        
+                       ->paginate(10);   
+            }else{
+                 $list=db($proche_type)                                              
+                       ->where($type,'like',"%".$content."%")
+                       ->where('cas','=',1) 
+                       ->order("id desc")                                        
+                       ->paginate(10);
+            }  
+        }
+        
+       $this->assign('list',$list);
+       $this->assign('proche_type',$proche_type);
+
+        return $this->fetch();
     }
 
 

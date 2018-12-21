@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:77:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\stock.html";i:1544610348;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544610348;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1545118183;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:77:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\stock.html";i:1545119997;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1545119997;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1545118183;}*/ ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -22,11 +22,11 @@
     <!-- 引入vue.js -->
     <script type="text/javascript" src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="__STATIC__/library/element-ui.min.css">
     <!-- 引入组件库 -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="__STATIC__/library/element-ui.min.js"></script>
     <!-- 引入 vue路由-->
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="__STATIC__/library/vue-router.min.js"></script>
     <script type="text/javascript" src="__STATIC__/library/dropify-master/dist/js/dropify.min.js"></script>
     <!-- 配置文件 -->
     <script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.config.js"></script>
@@ -475,6 +475,7 @@
 					<div class="col-md-12 col-sm-12 ">
 					    <div style="width: 1300px;height:600px;" id="main"></div>
 					</div>
+					<div class="alert alert-success " style="clear:both;margin-top: 50px;display: block;width: 20%;margin: 0 auto;height: auto;overflow: hidden;text-align: center;">点击柱子可以直接修改</div>
 				</div>	
 				
 				

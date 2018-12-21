@@ -19,7 +19,7 @@
         </div>
         <div class="cjp_choose">
             <button class="btn btn-default" style="outline: none;" @click="recoverChoose">恢复选中项</button>
-            <button class=" btn btn-default" style="outline: none;" @click="deleteChoose">删除选中项</button>
+            <button class=" btn btn-default" style="outline: none;" @click="deleteChoose">彻底删除选中项</button>
         </div>
         <div class="cjp_content">
             <!-- 查看图片框-->
@@ -42,24 +42,25 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal -->
             </div>
-            <table class="table" style="text-align: center;">
+            <table class="table table-bordered" style="text-align: center;">
                 <tr>
-                    <th>序列</th>
-                    <th>
+                    <th style="width: 3%;">序列</th>
+                    <th style="width: 3%;">
                         <input type="checkbox" value="" name="checkall" />
                     </th>
-                    <th>时间</th>
-                    <th>姓名</th>
-                    {if $recycle_type=='锻造车间'}
-                    <th>设备</th>
-                    {/if}
-                    <th>产品名称</th>
-                    <th>产品尺寸</th>
+                    <th style="width: 6%;">时间</th>
+                    {switch name="$recycle_type" }
+                    {case value="锻造车间"}<th style="width: 6%;">设备</th>{/case}
+                    {case value="其他"} <th style="width: 6%;">类型</th>{/case}
+                    {default /}<th style="width: 6%;">姓名</th>
+                    {/switch}
+                    <th style="width: 7%;">产品名称</th>
+                    <th style="width: 7%;">产品尺寸</th>
                     <th>问题描述</th>
                     <th>整改情况</th>
-                    <th>对应车间</th>
-                    <th>备注</th>
-                    <th>操作</th>
+                    <th style="width: 5%;">对应车间</th>
+                    <th >备注</th>
+                    <th style="width: 5%;">操作</th>
                 </tr>
                 {foreach $recycle_list as $key=>$info}
                 <tr>

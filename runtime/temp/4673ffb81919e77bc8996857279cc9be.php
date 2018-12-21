@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:81:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\proche_qt.html";i:1545116431;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544610348;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1545105287;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:81:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\proche_qt.html";i:1545356790;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1545119997;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1545118183;}*/ ?>
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/finance/finance.css" />
 <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.5.1/css/fileinput.css" rel="stylesheet" />
@@ -31,11 +31,11 @@
     <!-- 引入vue.js -->
     <script type="text/javascript" src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="__STATIC__/library/element-ui.min.css">
     <!-- 引入组件库 -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="__STATIC__/library/element-ui.min.js"></script>
     <!-- 引入 vue路由-->
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="__STATIC__/library/vue-router.min.js"></script>
     <script type="text/javascript" src="__STATIC__/library/dropify-master/dist/js/dropify.min.js"></script>
     <!-- 配置文件 -->
     <script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.config.js"></script>
@@ -368,29 +368,30 @@
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
 
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_proche.css"/>
 <div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
 		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
 		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
-		  <li @click="isShow"><a class="iconfont icon-gongzuo" style="padding-top:-2px;"><p>产品检查</p></a>
+		  <li @click="isShow"><a class="iconfont icon-jiedianguanli" style="padding-top:-2px;"><p>产品检查</p></a>
             <ul v-if="six">
                 <li onclick="jump_cjg()">
-                    <a  class="iconfont icon-gongzuo" style="padding-top:-2px"><p>粗加工</p></a>
+                    <a  class="iconfont icon-bianji" style="padding-top:-2px"><p>粗加工</p></a>
                 </li>
                 <li onclick="jump_rcl()">
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>热处理</p></a>
+                    <a href="#" class="iconfont icon-guanlianshebei" style="padding-top:-2px"><p>热处理</p></a>
                 </li>
                 <li onclick="jump_dzcj()">
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>锻造车间</p></a>
+                    <a href="#" class="iconfont icon-guanfangbanben" style="padding-top:-2px"><p>锻造车间</p></a>
                 </li>
                 <li onclick="jump_bzjy()">
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>包装检验</p></a>
+                    <a href="#" class="iconfont icon-gongnengdingyi" style="padding-top:-2px"><p>包装检验</p></a>
                 </li>
                 <li onclick="jump_jjg()">
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>精加工</p></a>
+                    <a href="#" class="iconfont icon-jichuguanli" style="padding-top:-2px"><p>精加工</p></a>
                 </li>
                 <li onclick="jump_qt()">
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>其他</p></a>
+                    <a href="#" class="iconfont icon-jishufuwu" style="padding-top:-2px"><p>其他</p></a>
                 </li>
             </ul>
         </li>
@@ -478,6 +479,38 @@
             <button class="btn btn-default" style="outline: none;" @click="preview">打印选中项</button>
             <a href="<?php echo url('exportDayInner',['proche_type'=>'other']); ?>" class="btn btn-default" onclick="return educe()">导出Excel</a>
             <button class="btn btn-default" style="outline: none;" @click="goRecycle">回收站</button>
+            <div class="col-lg-6" style="width: 160px;">
+                <div class="input-group">
+                    <select id="selectchoose" class="selectpicker ab" @change="selectChange">
+                        <option value="-1">请选择搜索分类</option>
+                        <option value="name">类型</option>
+                        <option value="time">时间</option>
+                        <option value="title">产品名称</option>
+                        <option value="describes">问题描述</option>
+                        <option value="modify">整改情况</option>
+                        <option value="workshop">对应车间</option>
+                    </select>
+                </div><!-- /input-group -->
+            </div>
+            <div id="selecttime" class="col-lg-6" style="width: 230px;">
+                <div class='input-group date' style="width:200px" id='datetimepicker2'>
+                    <input id="sel_time_con" type='text' class="form-control" name="time"  />
+                    <span class="input-group-addon" style="margin-left: -200px;">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-info" type="button" style="outline: none;" @click="select">搜索!</button>
+                    </span>
+                </div>
+            </div>
+            <div id="selectother" class="col-lg-6" style="width: 300px;">
+                <div class="input-group">
+                    <input id="sel_other_con" type="text" class="form-control" placeholder="请输入搜索内容">
+                    <span class="input-group-btn">
+                        <button class="btn btn-info" type="button" style="outline: none;" @click="select">搜索!</button>
+                    </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
         </div>
         <div class="cjp_content">
             <!-- 添加工作框 -->
@@ -645,7 +678,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="name">上传图片</label>
-                                    <input id="input-id" name="work_require[]" class="file" type="file" multiple>
+                                    <input id="input-id1" name="work_require[]" class="file" type="file" multiple>
                                 </div>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">
                                     关闭
@@ -690,22 +723,22 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal -->
             </div>
-            <table class="table" style="text-align: center;">
+            <table class="table table-bordered table-hover" style="text-align: center;">
                 <tr>
                     <th>序列</th>
                     <th>
                         <input type="checkbox" value="" name="checkall" />
                     </th>
-                    <th>时间</th>
-                    <th>类型</th>
-                    <th>产品名称</th>
-                    <th>产品尺寸</th>
+                    <th style="width: 6%;">时间</th>
+                    <th style="width: 6%;">类型</th>
+                    <th style="width: 7%;">产品名称</th>
+                    <th style="width: 7%;">产品尺寸</th>
                     <th>问题描述</th>
                     <th>整改情况</th>
-                    <th>对应车间</th>
+                    <th style="width: 5%;">对应车间</th>
                     <th>备注</th>
-                    <th>状态</th>
-                    <th>操作</th>
+                    <th style="width: 5%;">状态</th>
+                    <th style="width: 20%;">操作</th>
                 </tr>
                 <?php foreach($qt_list as $key=>$info): ?>
                 <tr>
@@ -743,16 +776,16 @@
         <div style="display: none;" id="start">
             <table border="1" cellspacing="0" style="text-align: center;">
                 <tr>
-                    <th>序列</th>
-                    <th>时间</th>
-                    <th>类型</th>
-                    <th>产品名称</th>
-                    <th>产品尺寸</th>
+                   <th>序列</th>
+                    <th style="width: 10%;">时间</th>
+                    <th style="width: 8%;">类型</th>
+                    <th style="width: 7%;">产品名称</th>
+                    <th style="width: 7%;">产品尺寸</th>
                     <th>问题描述</th>
                     <th>整改情况</th>
-                    <th>对应车间</th>
+                    <th style="width: 6%;">对应车间</th>
                     <th>备注</th>
-                    <th>状态</th>
+                    <th style="width: 6%;">状态</th>
                     <th>异常情况</th>
                 </tr>
                 <tr>
@@ -787,6 +820,10 @@ new Vue({
         printMessage: {},
         message: {},
         abnormalMessage: {}
+    },
+    created: function() {
+        $('#selecttime').hide();
+        $('#selectother').show();
     },
     methods: {
         //删除选中信息
@@ -917,10 +954,81 @@ new Vue({
                 };
             }
 
+        },
+        //下拉搜索框改变
+        selectChange() {
+            var val = $('#selectchoose').val();
+            if (val == 'time') {
+                $('#selecttime').show();
+                $('#selectother').hide();
+            } else {
+                $('#selecttime').hide();
+                $('#selectother').show();
+            }
+
+        },
+        //搜索
+        select(){
+           var proche_type ="other";
+           var time = $('#sel_time_con').val();
+           var content = $('#sel_other_con').val();
+           var type = $('#selectchoose').val();
+           if (typeof(Storage)!=="undefined") {
+             sessionStorage.content=content;
+             sessionStorage.type=type;
+             sessionStorage.time=time;
+
+           }
+           if (type == 'time') {
+               if (time=='') {
+                alert('搜索内容不能为空');
+               }else{
+                url = "proche_select.html?proche_type=" + proche_type +"&time="+time+"&content="+content+"&type="+type;
+                window.location.href = url;
+               }
+           }else{
+                if (content == '') {
+                alert('搜索内容不能为空');
+               }else{
+                url = "proche_select.html?proche_type=" + proche_type +"&time="+time+"&content="+content+"&type="+type;
+                window.location.href = url;
+               } 
+           }  
         }
     }
 
 })
+//初始化bootstrap日历
+$("#input-id").fileinput({
+    language: 'zh', //设置语言
+    uploadAsync: false, //默认异步上传
+    showUpload: false, //是否显示上传按钮
+    showRemove : true, //显示移除按钮
+    showPreview : true, //是否显示预览
+    showCaption: true,//是否显示标题
+    browseClass: "btn btn-primary", //按钮样式     
+    dropZoneEnabled: true,//是否显示拖拽区域
+    maxFileCount: 10, //表示允许同时上传的最大文件个数
+    enctype: 'multipart/form-data',
+    validateInitialCount:true,
+    previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+    msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+});
+$("#input-id1").fileinput({
+    language: 'zh', //设置语言
+    uploadAsync: false, //默认异步上传
+    showUpload: false, //是否显示上传按钮
+    showRemove : true, //显示移除按钮
+    showPreview : true, //是否显示预览
+    showCaption: true,//是否显示标题
+    browseClass: "btn btn-primary", //按钮样式     
+    dropZoneEnabled: true,//是否显示拖拽区域
+    maxFileCount: 10, //表示允许同时上传的最大文件个数
+    enctype: 'multipart/form-data',
+    validateInitialCount:true,
+    previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+    msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+});
 //确认导出Excel
 function educe() {
     var con = confirm('是否要导出Excel表');
@@ -962,6 +1070,14 @@ $('#datetimepicker1').datetimepicker({
     autoclose: 1,
 
 });
+$('#datetimepicker2').datetimepicker({
+    minView: "month", //选择日期后，不会再跳转去选择时分秒 
+    language: 'zh-CN',
+    format: 'yyyy-mm-dd',
+    todayBtn: 1,
+    autoclose: 1,
+
+});
 </script>
 <style type="text/css">
 .cjp_box {
@@ -996,12 +1112,15 @@ $('#datetimepicker1').datetimepicker({
 .picwindow_img {
     margin: 10px auto;
     width: 100%;
-    height: 250px;
+    height: auto;
 
 }
 
 .picwindow_img img {
     width: 100%;
-    height: 100%;
+    height: auto;
+}
+.ab {
+    width: 150px !important;
 }
 </style>

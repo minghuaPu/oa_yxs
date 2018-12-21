@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\proche_cjg.html";i:1545118793;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544610348;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1545118183;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\proche_cjg.html";i:1545355924;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1545119997;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1545118183;}*/ ?>
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/finance/finance.css" />
 <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.5.1/css/fileinput.css" rel="stylesheet" />
@@ -31,11 +31,11 @@
     <!-- 引入vue.js -->
     <script type="text/javascript" src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="__STATIC__/library/element-ui.min.css">
     <!-- 引入组件库 -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="__STATIC__/library/element-ui.min.js"></script>
     <!-- 引入 vue路由-->
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="__STATIC__/library/vue-router.min.js"></script>
     <script type="text/javascript" src="__STATIC__/library/dropify-master/dist/js/dropify.min.js"></script>
     <!-- 配置文件 -->
     <script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.config.js"></script>
@@ -479,6 +479,38 @@
             <button class="btn btn-default" style="outline: none;" @click="preview">打印选中项</button>
             <a href="<?php echo url('exportDayInner',['proche_type'=>'rough']); ?>" class="btn btn-default" onclick="return educe()">导出Excel</a>
             <button class="btn btn-default" style="outline: none;" @click="goRecycle">回收站</button>
+            <div class="col-lg-6" style="width: 160px;">
+                <div class="input-group">
+                    <select id="selectchoose" class="selectpicker ab" @change="selectChange">
+                        <option value="-1">请选择搜索分类</option>
+                        <option value="name">姓名</option>
+                        <option value="time">时间</option>
+                        <option value="title">产品名称</option>
+                        <option value="describes">问题描述</option>
+                        <option value="modify">整改情况</option>
+                        <option value="workshop">对应车间</option>
+                    </select>
+                </div><!-- /input-group -->
+            </div>
+            <div id="selecttime" class="col-lg-6" style="width: 230px;">
+                <div class='input-group date' style="width:200px" id='datetimepicker2'>
+                    <input id="sel_time_con" type='text' class="form-control" name="time"  />
+                    <span class="input-group-addon" style="margin-left: -200px;">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-info" type="button" style="outline: none;" @click="select">搜索!</button>
+                    </span>
+                </div>
+            </div>
+            <div id="selectother" class="col-lg-6" style="width: 300px;">
+                <div class="input-group">
+                    <input id="sel_other_con" type="text" class="form-control" placeholder="请输入搜索内容">
+                    <span class="input-group-btn">
+                        <button class="btn btn-info" type="button" style="outline: none;" @click="select">搜索!</button>
+                    </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
         </div>
         <div class="cjp_content">
             <!-- 添加工作框 -->
@@ -490,8 +522,8 @@
                                 &times;
                             </button>
                             <h4 class="modal-title" id="myModalLabel">
-								添加
-							</h4>
+                                添加
+                            </h4>
                         </div>
                         <div class="modal-body">
                             <form action="<?php echo url('addwork'); ?>" method="post" enctype="multipart/form-data">
@@ -502,9 +534,9 @@
                                 <div class="form-group">
                                     <label>时间</label>
                                     <div class='input-group date' style="width:200px" id='datetimepicker'>
-                                        <input id="time" type='text' class="form-control" name="time" required="required"/>
+                                        <input id="time" type='text' class="form-control" name="time" required="required" />
                                         <span class="input-group-addon" style="margin-left: -200px;">
-						                <span class="glyphicon glyphicon-calendar"></span>
+                                        <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
                                     </div>
                                 </div>
@@ -567,8 +599,8 @@
                                 &times;
                             </button>
                             <h4 class="modal-title" id="myModalLabel">
-								查看图片
-							</h4>
+                                查看图片
+                            </h4>
                         </div>
                         <div class="modal-body" id="piclist">
                         </div>
@@ -587,8 +619,8 @@
                                 &times;
                             </button>
                             <h4 class="modal-title" id="myModalLabel">
-								修改
-							</h4>
+                                修改
+                            </h4>
                         </div>
                         <div class="modal-body">
                             <form action="<?php echo url('updatework'); ?>" method="post" enctype="multipart/form-data">
@@ -598,10 +630,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label>时间</label>
-                                    <div class='input-group date' style="width:200px" id='datetimepicker1'>
+                                    <div class='input-group date rl_time' style="width:200px" id='datetimepicker1'>
                                         <input id="time" type='text' class="form-control" name="time" :value="message.time" />
                                         <span class="input-group-addon" style="margin-left: -200px;">
-						                <span class="glyphicon glyphicon-calendar"></span>
+                                        <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
                                     </div>
                                 </div>
@@ -646,7 +678,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="name">上传图片</label>
-                                    <input id="input-id" name="work_require[]" class="file" type="file" multiple>
+                                    <input id="input-id1" name="work_require[]" class="file" type="file" multiple>
                                 </div>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">
                                     关闭
@@ -668,8 +700,8 @@
                                 &times;
                             </button>
                             <h4 class="modal-title" id="myModalLabel">
-								异常情况
-							</h4>
+                                异常情况
+                            </h4>
                         </div>
                         <div class="modal-body" id="piclist">
                             <form action="<?php echo url('updateAbnormal'); ?>" method="post">
@@ -691,22 +723,23 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal -->
             </div>
-            <table class="table" style="text-align: center;">
+            
+            <table class="table table-bordered table-hover" style="text-align: center;">
                 <tr>
                     <th>序列</th>
                     <th>
                         <input type="checkbox" value="" name="checkall" />
                     </th>
-                    <th>时间</th>
-                    <th>姓名</th>
-                    <th>产品名称</th>
-                    <th>产品尺寸</th>
+                    <th style="width: 6%;">时间</th>
+                    <th style="width: 6%;">姓名</th>
+                    <th style="width: 7%;">产品名称</th>
+                    <th style="width: 7%;">产品尺寸</th>
                     <th>问题描述</th>
                     <th>整改情况</th>
-                    <th>对应车间</th>
+                    <th style="width: 5%;">对应车间</th>
                     <th>备注</th>
-                    <th>状态</th>
-                    <th>操作</th>
+                    <th style="width: 5%;">状态</th>
+                    <th style="width: 20%;">操作</th>
                 </tr>
                 <?php foreach($cjg_list as $key=>$info): ?>
                 <tr>
@@ -739,21 +772,22 @@
             </table>
             <div style="text-align: center;"><?php echo $cjg_list->render(); ?></div>
         </div>
+        
         <!--startprint-->
         <!--打印内容开始-->
         <div style="display: none;" id="start">
             <table border="1" cellspacing="0" style="text-align: center;">
                 <tr>
                     <th>序列</th>
-                    <th>时间</th>
-                    <th>姓名</th>
-                    <th>产品名称</th>
-                    <th>产品尺寸</th>
+                    <th style="width: 10%;">时间</th>
+                    <th style="width: 8%;">姓名</th>
+                    <th style="width: 7%;">产品名称</th>
+                    <th style="width: 7%;">产品尺寸</th>
                     <th>问题描述</th>
                     <th>整改情况</th>
-                    <th>对应车间</th>
+                    <th style="width: 6%;">对应车间</th>
                     <th>备注</th>
-                    <th>状态</th>
+                    <th style="width: 6%;">状态</th>
                     <th>异常情况</th>
                 </tr>
                 <tr>
@@ -777,6 +811,7 @@
     </div>
     <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.5.1/js/fileinput.js"></script>
     <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.zh-CN.js"></script>
     <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-select.min.js"></script>
 </body>
 
@@ -785,9 +820,17 @@
 new Vue({
     el: ".cjp_box",
     data: {
+        rlShow: false,
         printMessage: {},
         message: {},
         abnormalMessage: {}
+    },
+    watch: {
+
+    },
+    created: function() {
+        $('#selecttime').hide();
+        $('#selectother').show();
     },
     methods: {
         //删除选中信息
@@ -804,7 +847,7 @@ new Vue({
 
                     });
                     $.post("<?php echo url('goRecycle'); ?>", {
-                        proche_type:"rough",
+                        proche_type: "rough",
                         list: JSON.stringify(list),
 
                     }, function(e) {
@@ -820,29 +863,29 @@ new Vue({
         //更改已完成
         finish(re) {
             $.get("<?php echo url('changeIsfinsih'); ?>", {
-                proche_type:"rough",
+                proche_type: "rough",
                 id: re,
                 num: 1
             }, function() {
                 window.location.reload();
             })
-            
+
         },
         //更改未完成
         unFinish(re) {
             $.get("<?php echo url('changeIsfinsih'); ?>", {
-                proche_type:"rough",
+                proche_type: "rough",
                 id: re,
                 num: 2
             }, function() {
                 window.location.reload();
             })
-            
+
         },
         //获取图片  
         getPic(re) {
             $.get("<?php echo url('getPic'); ?>", {
-                proche_type:"rough",
+                proche_type: "rough",
                 id: re,
             }, function(e) {
                 var a = "";
@@ -857,7 +900,7 @@ new Vue({
         getAbnormal(re) {
             var that = this;
             $.get("<?php echo url('getAbnormal'); ?>", {
-                 proche_type:"rough",
+                proche_type: "rough",
                 id: re,
             }, function(e) {
                 console.log(e);
@@ -868,7 +911,7 @@ new Vue({
         updateWork(re) {
             var that = this;
             $.get("<?php echo url('getWork'); ?>", {
-                proche_type:"rough",
+                proche_type: "rough",
                 id: re,
             }, function(e) {
                 that.message = e;
@@ -895,7 +938,7 @@ new Vue({
                         list = $(this).val();
                     });
                     $.get("<?php echo url('getPrintMessage'); ?>", {
-                        proche_type:"rough",
+                        proche_type: "rough",
                         id: list,
                     }, function(e) {
                         that.printMessage = e;
@@ -918,10 +961,81 @@ new Vue({
                 };
             }
 
+        },
+        //下拉搜索框改变
+        selectChange() {
+            var val = $('#selectchoose').val();
+            if (val == 'time') {
+                $('#selecttime').show();
+                $('#selectother').hide();
+            } else {
+                $('#selecttime').hide();
+                $('#selectother').show();
+            }
+
+        },
+        //搜索
+        select(){
+           var proche_type ="rough";
+           var time = $('#sel_time_con').val();
+           var content = $('#sel_other_con').val();
+           var type = $('#selectchoose').val();
+           if (typeof(Storage)!=="undefined") {
+             sessionStorage.content=content;
+             sessionStorage.type=type;
+             sessionStorage.time=time;
+
+           }
+           if (type == 'time') {
+               if (time=='') {
+                alert('搜索内容不能为空');
+               }else{
+                url = "proche_select.html?proche_type=" + proche_type +"&time="+time+"&content="+content+"&type="+type;
+                window.location.href = url;
+               }
+           }else{
+                if (content == '') {
+                alert('搜索内容不能为空');
+               }else{
+                url = "proche_select.html?proche_type=" + proche_type +"&time="+time+"&content="+content+"&type="+type;
+                window.location.href = url;
+               } 
+           }  
         }
     }
 
 })
+//初始化bootstrap上传图片
+$("#input-id").fileinput({
+    language: 'zh', //设置语言
+    uploadAsync: false, //默认异步上传
+    showUpload: false, //是否显示上传按钮
+    showRemove: true, //显示移除按钮
+    showPreview: true, //是否显示预览
+    showCaption: true, //是否显示标题
+    browseClass: "btn btn-primary", //按钮样式     
+    dropZoneEnabled: true, //是否显示拖拽区域
+    maxFileCount: 10, //表示允许同时上传的最大文件个数
+    enctype: 'multipart/form-data',
+    validateInitialCount: true,
+    previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+    msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+});
+$("#input-id1").fileinput({
+    language: 'zh', //设置语言
+    uploadAsync: false, //默认异步上传
+    showUpload: false, //是否显示上传按钮
+    showRemove: true, //显示移除按钮
+    showPreview: true, //是否显示预览
+    showCaption: true, //是否显示标题
+    browseClass: "btn btn-primary", //按钮样式     
+    dropZoneEnabled: true, //是否显示拖拽区域
+    maxFileCount: 10, //表示允许同时上传的最大文件个数
+    enctype: 'multipart/form-data',
+    validateInitialCount: true,
+    previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+    msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+});
 //确认导出Excel
 function educe() {
     var con = confirm('是否要导出Excel表');
@@ -949,22 +1063,31 @@ $('input[name="checkall"]').on("click", function() {
 //日历初始化
 $('#datetimepicker').datetimepicker({
     minView: "month", //选择日期后，不会再跳转去选择时分秒 
-    language:  'zh-CN',
+    language: 'zh-CN',
     format: 'yyyy-mm-dd',
-    todayBtn:  1,
+    todayBtn: 1,
     autoclose: 1,
 
 });
 $('#datetimepicker1').datetimepicker({
     minView: "month", //选择日期后，不会再跳转去选择时分秒 
-    language:  'zh-CN',
+    language: 'zh-CN',
     format: 'yyyy-mm-dd',
-    todayBtn:  1,
+    todayBtn: 1,
+    autoclose: 1,
+
+});
+$('#datetimepicker2').datetimepicker({
+    minView: "month", //选择日期后，不会再跳转去选择时分秒 
+    language: 'zh-CN',
+    format: 'yyyy-mm-dd',
+    todayBtn: 1,
     autoclose: 1,
 
 });
 </script>
 <style type="text/css">
+
 .cjp_box {
     margin-left: 173px;
     width: 100%;
@@ -1004,5 +1127,9 @@ $('#datetimepicker1').datetimepicker({
 .picwindow_img img {
     width: 100%;
     height: auto;
+}
+
+.ab {
+    width: 150px !important;
 }
 </style>

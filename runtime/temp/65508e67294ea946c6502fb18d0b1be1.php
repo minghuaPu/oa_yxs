@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:79:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\recycle.html";i:1545118975;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544610348;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1545118183;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:79:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\recycle.html";i:1545359161;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1545119997;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1545118183;}*/ ?>
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/finance/finance.css" />
 <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.5.1/css/fileinput.css" rel="stylesheet" />
@@ -28,11 +28,11 @@
     <!-- 引入vue.js -->
     <script type="text/javascript" src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="__STATIC__/library/element-ui.min.css">
     <!-- 引入组件库 -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="__STATIC__/library/element-ui.min.js"></script>
     <!-- 引入 vue路由-->
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="__STATIC__/library/vue-router.min.js"></script>
     <script type="text/javascript" src="__STATIC__/library/dropify-master/dist/js/dropify.min.js"></script>
     <!-- 配置文件 -->
     <script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.config.js"></script>
@@ -475,7 +475,7 @@
         </div>
         <div class="cjp_choose">
             <button class="btn btn-default" style="outline: none;" @click="recoverChoose">恢复选中项</button>
-            <button class=" btn btn-default" style="outline: none;" @click="deleteChoose">删除选中项</button>
+            <button class=" btn btn-default" style="outline: none;" @click="deleteChoose">彻底删除选中项</button>
         </div>
         <div class="cjp_content">
             <!-- 查看图片框-->
@@ -498,24 +498,22 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal -->
             </div>
-            <table class="table" style="text-align: center;">
+            <table class="table table-bordered" style="text-align: center;">
                 <tr>
-                    <th>序列</th>
-                    <th>
+                    <th style="width: 3%;">序列</th>
+                    <th style="width: 3%;">
                         <input type="checkbox" value="" name="checkall" />
                     </th>
-                    <th>时间</th>
-                    <th>姓名</th>
-                    <?php if($recycle_type=='锻造车间'): ?>
-                    <th>设备</th>
-                    <?php endif; ?>
-                    <th>产品名称</th>
-                    <th>产品尺寸</th>
+                    <th style="width: 6%;">时间</th>
+                    <?php switch($recycle_type): case "锻造车间": ?><th style="width: 6%;">设备</th><?php break; case "其他": ?> <th style="width: 6%;">类型</th><?php break; default: ?><th style="width: 6%;">姓名</th>
+                    <?php endswitch; ?>
+                    <th style="width: 7%;">产品名称</th>
+                    <th style="width: 7%;">产品尺寸</th>
                     <th>问题描述</th>
                     <th>整改情况</th>
-                    <th>对应车间</th>
-                    <th>备注</th>
-                    <th>操作</th>
+                    <th style="width: 5%;">对应车间</th>
+                    <th >备注</th>
+                    <th style="width: 5%;">操作</th>
                 </tr>
                 <?php foreach($recycle_list as $key=>$info): ?>
                 <tr>

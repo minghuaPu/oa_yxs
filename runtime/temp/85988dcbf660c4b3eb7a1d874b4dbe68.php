@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:77:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544610348;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544610348;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1544610348;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1545118183;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544610348;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:77:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1545119997;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1545119997;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1544610348;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1545118183;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544610348;}*/ ?>
  <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,11 +18,11 @@
     <!-- 引入vue.js -->
     <script type="text/javascript" src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="__STATIC__/library/element-ui.min.css">
     <!-- 引入组件库 -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="__STATIC__/library/element-ui.min.js"></script>
     <!-- 引入 vue路由-->
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="__STATIC__/library/vue-router.min.js"></script>
     <script type="text/javascript" src="__STATIC__/library/dropify-master/dist/js/dropify.min.js"></script>
     <!-- 配置文件 -->
     <script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.config.js"></script>
@@ -606,9 +606,8 @@
 <div class="container">
 <div class="index_content_center">
     <div class="center_1">
-    <div class="center_1a">
-        <div></div>
-    </div> 
+    <img src="__STATIC__/admin/index/images/20181206171359.jpg" alt="" class="center_1a">
+    <img src="__STATIC__/admin/index/images/20181206171360.jpg" alt="" class="center_1b">
     <h3 style="margin-bottom: 0.1em;"><strong>张三</strong></h3>
     <p style="font-size: 1em;"><strong>设计部-中级设计师</strong></p>
     <button class="button1"><strong>打卡</strong></button>
@@ -619,7 +618,7 @@
               <h3>员工请假</h3>
           </div>
           <div class="cneter_2b"><h3>始 ：2017-12-2<i></i></h3></div>
-          <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/1544153282(1).png" alt=""></div>
+          <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/rili.png" alt=""></div>
           <div class="cneter_2b"><h3>至 ：2017-4-5<i></i></h3></div>
           <textarea rows="10" cols="30" placeholder="请假说明"></textarea> 
           <div class="cneter_2c"><a href="#" class="cneter_2ca">提交</a></div>
@@ -627,12 +626,58 @@
     <div class="cneter_3" style="margin-right: 2%"><h3>打卡日历<span><i></i>2017 年 9 月<i></i></span></h3></div>
     <div class="cneter_3"><h3>考勤统计</h3></div>
     <div class="cneter_4" style="margin-right: 2%"></div>
-    <div class="cneter_4"></div>
+    <div class="cneter_4" id="main"></div>
 </div>   
 </div>
     
 <!-- 模态框结束 -->
-<script type="text/javascript" src="__STATIC__/admin/index/js/index.js?126"></script>
+<script type="text/javascript" src="__STATIC__/admin/index/js/index.js?126">
+</script>
+<script type="text/javascript" src="__STATIC__/admin/index/js/index2.js"></script>
+<script type="text/javascript">
+  // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: ''
+            },
+            tooltip: {},
+            legend: {
+                data:['正常上班']
+            },
+            xAxis: {
+                data: ["","九月",""]
+            },
+            yAxis: {},
+            series: [{
+                name: '正常上班',
+                type: 'bar',
+                data: [24, 4, 1]
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+         (function() {
+  var changeRem = function() {
+   document.getElementsByTagName('html')[0].style.fontSize = document.documentElement.clientWidth / 20 + 'px';
+  };
+  changeRem();
+  var t;
+  window.addEventListener('resize', function() {
+   clearTimeout(t);
+   t = setTimeout(changeRem, 300);
+  }, false);
+  window.addEventListener('pageshow', function(e) {
+   if (e.persisted) {
+    clearTimeout(t);
+    t = setTimeout(changeRem, 300);
+   }
+  }, false);
+ }());
+</script>
 
 <footer class="footer" style="text-align: center;margin-top: 50px;">
 	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 

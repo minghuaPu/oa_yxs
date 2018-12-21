@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:83:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\information.html";i:1544610348;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1544610348;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1544610348;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1544610348;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:83:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\information.html";i:1545119997;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1545119997;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1544610348;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1545118183;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,11 +18,11 @@
     <!-- 引入vue.js -->
     <script type="text/javascript" src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="__STATIC__/library/element-ui.min.css">
     <!-- 引入组件库 -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="__STATIC__/library/element-ui.min.js"></script>
     <!-- 引入 vue路由-->
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="__STATIC__/library/vue-router.min.js"></script>
     <script type="text/javascript" src="__STATIC__/library/dropify-master/dist/js/dropify.min.js"></script>
     <!-- 配置文件 -->
     <script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.config.js"></script>
@@ -498,29 +498,30 @@
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
 
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_proche.css"/>
 <div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
 		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
 		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
-		  <li @click="isShow"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px;"><p>产品检查</p></a>
+		  <li @click="isShow"><a class="iconfont icon-jiedianguanli" style="padding-top:-2px;"><p>产品检查</p></a>
             <ul v-if="six">
-                <li>
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>粗加工</p></a>
+                <li onclick="jump_cjg()">
+                    <a  class="iconfont icon-bianji" style="padding-top:-2px"><p>粗加工</p></a>
                 </li>
-                <li>
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>热处理</p></a>
+                <li onclick="jump_rcl()">
+                    <a href="#" class="iconfont icon-guanlianshebei" style="padding-top:-2px"><p>热处理</p></a>
                 </li>
-                <li>
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>锻造车间</p></a>
+                <li onclick="jump_dzcj()">
+                    <a href="#" class="iconfont icon-guanfangbanben" style="padding-top:-2px"><p>锻造车间</p></a>
                 </li>
-                <li>
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>包装检验</p></a>
+                <li onclick="jump_bzjy()">
+                    <a href="#" class="iconfont icon-gongnengdingyi" style="padding-top:-2px"><p>包装检验</p></a>
                 </li>
-                <li>
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>精加工</p></a>
+                <li onclick="jump_jjg()">
+                    <a href="#" class="iconfont icon-jichuguanli" style="padding-top:-2px"><p>精加工</p></a>
                 </li>
-                <li>
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>其他</p></a>
+                <li onclick="jump_qt()">
+                    <a href="#" class="iconfont icon-jishufuwu" style="padding-top:-2px"><p>其他</p></a>
                 </li>
             </ul>
         </li>
@@ -577,6 +578,24 @@
   function jump_six(){
  	window.location.href='<?php echo url('admin/index/stock'); ?>'
  }
+ function jump_cjg(){
+    window.location.href='<?php echo url('admin/index/proche_cjg'); ?>'
+ }
+ function jump_rcl(){
+    window.location.href='<?php echo url('admin/index/proche_rcl'); ?>'
+ }
+ function jump_dzcj(){
+    window.location.href='<?php echo url('admin/index/proche_dzcj'); ?>'
+ }
+ function jump_bzjy(){
+    window.location.href='<?php echo url('admin/index/proche_bzjy'); ?>'
+ }
+ function jump_jjg(){
+    window.location.href='<?php echo url('admin/index/proche_jjg'); ?>'
+ }
+ function jump_qt(){
+    window.location.href='<?php echo url('admin/index/proche_qt'); ?>'
+ }
 
 </script>
 
@@ -589,13 +608,13 @@
 		<div class="content_top">
 			<h3>消息中心</h3>
 			<div class="content1">
-				<div>
-				<a href="#"><img src="__STATIC__/admin/index/images/无标题0.png" alt=""></a>
-				<a href="#"><img src="__STATIC__/admin/index/images/无标题1.png" alt=""></a>
-				<a href="#"><img src="__STATIC__/admin/index/images/无标题2.png" alt=""></a>
-				<a href="#"><img src="__STATIC__/admin/index/images/无标题3.png" alt=""></a>
-				<a href="#"><img src="__STATIC__/admin/index/images/无标题4.png" alt=""></a>
-				</div>
+				<ul>
+					<li><a href="#"><img src="__STATIC__/admin/index/images/ketangxueyuan.png" alt="" style="width: 8em;"><h3>公司讲堂</h3></a></li>
+					<li><a href="#"><img src="__STATIC__/admin/index/images/duomeit.png" alt=""><h3>媒体聚焦</h3></a></li>
+					<li><a href="#"><img src="__STATIC__/admin/index/images/news.png" alt=""><h3>新闻中心</h3></a></li>
+					<li><a href="#"><img src="__STATIC__/admin/index/images/meitixuanchuan.png" alt=""><h3>公司公告</h3></a></li>
+					<li><a href="#"><img src="__STATIC__/admin/index/images/xinwenshenhedan-bianjizhizuo.png" alt=""><h3>公司要闻</h3></a></li>
+				</ul>
 			</div>
 		</div>
 		<div class="content_center">
