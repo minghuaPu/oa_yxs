@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1545364588;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1545378218;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -812,10 +812,15 @@ new Vue({
             }, (rtnData) => {
                 this.worksheet[e].score = rtnData
                 this.$set(this.worksheet[e], "score", rtnData)
-
+ this.zongshu=0;
+for(var i=0;i<this.worksheet.length;i++){
+            	if(this.worksheet[i].whether==0){
+            		this.zongshu+=parseInt(this.worksheet[i].score)
+            	}
+            }
 
             });
-
+           
 
         },
         // 时间/数量
@@ -827,9 +832,16 @@ new Vue({
                 theme_id: this.worksheet[e].id,
                 liang: this.worksheet[e].quantity
             }, (rtnData) => {
-                this.zongshu = rtnData.zongshu
+                // this.zongshu = rtnData.zongshu
                 this.$set(this.worksheet[e], "score", rtnData.data)
+                this.zongshu=0;
+            for(var i=0;i<this.worksheet.length;i++){
+            	if(this.worksheet[i].whether==0){
+            		this.zongshu+=parseInt(this.worksheet[i].score)
+            	}
+            }
             });
+            
         },
         // 工作内容
 
@@ -859,8 +871,14 @@ new Vue({
                 theme_id: this.worksheet[e].id,
                 whether: this.worksheet[e].whether
             }, (rtnData) => {
-                this.zongshu = rtnData
+                // this.zongshu = rtnData
             });
+            this.zongshu=0;
+            for(var i=0;i<this.worksheet.length;i++){
+            	if(this.worksheet[i].whether==0){
+            		this.zongshu+=parseInt(this.worksheet[i].score)
+            	}
+            }
         },
         //未完成原因 
 
