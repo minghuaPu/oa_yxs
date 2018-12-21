@@ -553,14 +553,31 @@ class Task extends \app\admin\Auth
             $value['primary']=json_decode($value['primary']);
             $value['secondary']=json_decode($value['secondary']);
             $time=date('Y-m-d',$value['time']);
-            if($selectDate==$time){
-                if($value['whether']=='0'){
-                    $zongshu+=floatval($value['score']);
+            if($value['whether']=='0'){
+                if($value['state']){
+                    if(date('Y-m-d',$value['state'])==$selectDate){
+                        $data[]=$value;
+                    }
+                }
+                elseif($selectDate==$time){
+                
+                    
                     $data[]=$value;
                 }
                 
             }
-            if($value['whether']=='1'){
+             if($value['zhoujihua']=='1'){
+                 if($value['time']){
+                    $value['time']=date('Y-m-d',$value['time']);
+                }
+                if ($value['lasttime']) {
+                    $value['lasttime']=date('Y-m-d',$value['lasttime']);
+                }
+                    
+                
+                $zhoujihua[]=$value;
+            }
+             elseif($value['whether']=='1'){
                  if($value['time']){
                     $value['time']=date('Y-m-d',$value['time']);
                 }
@@ -569,12 +586,10 @@ class Task extends \app\admin\Auth
                 }
                 $daibanwork[]=$value;
             }
-            if($value['zhoujihua']=='1'){
-                
-                    
-                
-                $zhoujihua[]=$value;
-            }
+           
+        }
+        foreach ($data as $key => $value) {
+           $zongshu+=floatval($value['score']);
         }
         return json(['zongshu'=>$zongshu,'data'=>$data,'zhoujihua'=>$zhoujihua,'daibanwork'=>$daibanwork]); 
     }
