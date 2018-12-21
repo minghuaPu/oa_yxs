@@ -83,15 +83,18 @@ class Task extends \app\admin\Auth
                                         $user_n=db('user')->where('id','=',$value['zhipai'])->value('user_name');
                                         $value['remark']='指派任务:'.$user_n;
                             }
-                         if(date('Y-m-d',$value['state'])!=$date){
-                            if($value['whether']==1){
+                            if($value['state']){
+                                 if(date('Y-m-d',$value['state'])!=$date){
+                                    if($value['whether']==1){
+                                        $yuangong[]=$value;
+                                    }
+                                 }
+                            }else{
                                 $yuangong[]=$value;
                             }
-                         }else{
-                            $yuangong[]=$value;
-                         }
                         
-                
+                        
+                 
               
             }
              elseif(date('Y-m-d',$value['state'])==$date){
@@ -314,6 +317,7 @@ class Task extends \app\admin\Auth
                     db("worksheet")->where('id='.input('theme_id'))->update(["end_time"=>'']);
                 }
             }
+            $yuangong=[];
             $date=date('Y-m-d');
                $yuan=db('worksheet')->where("uid=".$user_data['u_id'])->select();
                 foreach ($yuan as $key => $value) {
@@ -370,10 +374,13 @@ class Task extends \app\admin\Auth
            $list=[];
            $zongshu=0;
            foreach ($data as $key => $value) {
-              if(date("Y-m-d",$value['time'])==input('selectDate')){
+            if($value['state']){
+                  if(date("Y-m-d",$value['state'])==input('selectDate')){
                 $list[]=$value;
                 
-              }elseif(date('Y-m-d',$value['state'])==input('selectDate')){
+              }
+            }
+            elseif(date('Y-m-d',$value['time'])==input('selectDate')){
                                 $list[]=$value;
                     }
                    
