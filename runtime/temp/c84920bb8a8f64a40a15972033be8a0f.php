@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:63:"D:\wamp64\www\oa\public/../application/admin\view\task\yjs.html";i:1545106024;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:63:"D:\wamp64\www\oa\public/../application/admin\view\task\yjs.html";i:1545299989;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -424,6 +424,7 @@
 						<?php endif; ?>
 						
 						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">详情</a></td>
+                        <td ><a class="del" href="<?php echo url('annul',['id'=>$info['id']]); ?>">×</a></td>
 					</tr>			
 				<?php endforeach; ?>
 				

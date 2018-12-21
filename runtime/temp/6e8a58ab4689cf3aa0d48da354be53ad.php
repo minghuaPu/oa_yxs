@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:67:"D:\wamp64\www\oa\public/../application/admin\view\task\arrange.html";i:1544664064;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:67:"D:\wamp64\www\oa\public/../application/admin\view\task\arrange.html";i:1545209649;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -410,11 +410,20 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>截止时间</label>
+                    <label>开始时间</label>
                     <div class='input-group date' style="width:200px" id='datetimepicker'>
+                        <input id="time" type='text' class="form-control" name="time" />
+                        <span class="input-group-addon" style="margin-left: -200px;">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>截止时间</label>
+                    <div class='input-group date' style="width:200px" id='datetimepickers'>
                         <input id="time" type='text' class="form-control" name="lasttime" />
                         <span class="input-group-addon" style="margin-left: -200px;">
-						                        <span class="glyphicon glyphicon-calendar"></span>
+						<span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
                 </div>
@@ -431,6 +440,7 @@
 <!-- 编辑器源码文件 -->
 <script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.all.min.js"></script>
 <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.zh-CN.js"></script>
 <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="__STATIC__/library/bootstrap/defaults-zh_CN.min.js"></script>
 <script type="text/javascript">
@@ -490,7 +500,18 @@ function fun() {
 };
 
 $('#datetimepicker').datetimepicker({
-
+    minView: "month", //选择日期后，不会再跳转去选择时分秒 
+    language: 'zh-CN',
+    format: 'yyyy-mm-dd',
+    todayBtn: 1,
+    autoclose: 1,
+});
+$('#datetimepickers').datetimepicker({
+    minView: "month", //选择日期后，不会再跳转去选择时分秒 
+    language: 'zh-CN',
+    format: 'yyyy-mm-dd',
+    todayBtn: 1,
+    autoclose: 1,
 });
 $('.dropify').dropify();
 UE.getEditor("myEditor");

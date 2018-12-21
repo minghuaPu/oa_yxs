@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:63:"D:\wamp64\www\oa\public/../application/admin\view\task\wfb.html";i:1545105994;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:63:"D:\wamp64\www\oa\public/../application/admin\view\task\wfb.html";i:1545303362;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
     <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -380,7 +380,7 @@
 			
 			 <table  class="table" style="text-align: center;"  >
 				<tr>
-					<th>排序</th>
+					<th width="50px">排序</th>
 					<th>编号ID</th>
 					<th>对接人</th>
 					<th>任务名称</th>					
@@ -395,7 +395,7 @@
 				
 				<?php foreach($work_list as $key=>$info): ?>
 					<tr >
-						<td>50</td>
+						<td><input type="text" value="<?php echo $info['sorts']; ?>" style="text-align: center;background-color: #f4f8fb;"></td>
 						<td><?php echo $info['id']; ?></td>
 						
 						<td style="display: flex;justify-content: center;"><?php foreach($info['execute_id'] as $k=>$i): ?><div><?php foreach($i as $a=>$b): ?><?php echo $b; ?>,<?php endforeach; ?></div><?php endforeach; ?></td>
@@ -421,6 +421,7 @@
 						<?php endif; ?>
 						
 						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">详情</a></td>
+						<td ><a class="del" href="<?php echo url('annul',['id'=>$info['id']]); ?>">×</a></td>
 					</tr>			
 				<?php endforeach; ?>
 				

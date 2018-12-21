@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:66:"D:\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544798596;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1544606671;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1544606671;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:66:"D:\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1544798596;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1544606671;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1545120513;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
  <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -498,29 +498,30 @@
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
 
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_proche.css"/>
 <div class="left_menu lbs" id="left_menu" style="z-index: 99;">
 	<ul v-if="controller!='Map'">
 		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
 		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
-		  <li @click="isShow"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px;"><p>产品检查</p></a>
+		  <li @click="isShow"><a class="iconfont icon-jiedianguanli" style="padding-top:-2px;"><p>产品检查</p></a>
             <ul v-if="six">
-                <li>
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>粗加工</p></a>
+                <li onclick="jump_cjg()">
+                    <a  class="iconfont icon-bianji" style="padding-top:-2px"><p>粗加工</p></a>
                 </li>
-                <li>
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>热处理</p></a>
+                <li onclick="jump_rcl()">
+                    <a href="#" class="iconfont icon-guanlianshebei" style="padding-top:-2px"><p>热处理</p></a>
                 </li>
-                <li>
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>锻造车间</p></a>
+                <li onclick="jump_dzcj()">
+                    <a href="#" class="iconfont icon-guanfangbanben" style="padding-top:-2px"><p>锻造车间</p></a>
                 </li>
-                <li>
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>包装检验</p></a>
+                <li onclick="jump_bzjy()">
+                    <a href="#" class="iconfont icon-gongnengdingyi" style="padding-top:-2px"><p>包装检验</p></a>
                 </li>
-                <li>
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>精加工</p></a>
+                <li onclick="jump_jjg()">
+                    <a href="#" class="iconfont icon-jichuguanli" style="padding-top:-2px"><p>精加工</p></a>
                 </li>
-                <li>
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>其他</p></a>
+                <li onclick="jump_qt()">
+                    <a href="#" class="iconfont icon-jishufuwu" style="padding-top:-2px"><p>其他</p></a>
                 </li>
             </ul>
         </li>
@@ -576,6 +577,24 @@
  }
   function jump_six(){
  	window.location.href='<?php echo url('admin/index/stock'); ?>'
+ }
+ function jump_cjg(){
+    window.location.href='<?php echo url('admin/index/proche_cjg'); ?>'
+ }
+ function jump_rcl(){
+    window.location.href='<?php echo url('admin/index/proche_rcl'); ?>'
+ }
+ function jump_dzcj(){
+    window.location.href='<?php echo url('admin/index/proche_dzcj'); ?>'
+ }
+ function jump_bzjy(){
+    window.location.href='<?php echo url('admin/index/proche_bzjy'); ?>'
+ }
+ function jump_jjg(){
+    window.location.href='<?php echo url('admin/index/proche_jjg'); ?>'
+ }
+ function jump_qt(){
+    window.location.href='<?php echo url('admin/index/proche_qt'); ?>'
  }
 
 </script>

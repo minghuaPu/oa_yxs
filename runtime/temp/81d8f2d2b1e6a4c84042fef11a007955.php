@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1545118386;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1545364588;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -377,73 +377,51 @@
 						<div class="Employee_footer">
 							<div><span>负责人:</span><span><?php echo $userdata['user_name']; ?></span></div>
 							<div><span>日期:</span><input type="date" v-model='DATE' style="width: 150px" @change='selectDate'></div>
-							
 						</div>
-
 					</div>
 					<div class="Employee_right">
 						<div class="font">完成情况</div>
 						<div class="Score"><div class="fens"><div class="se" :style="'height:'+zongshu+'%'"></div><div class="fen">{{zongshu}}分</div></div></div>
-						
 					</div>
 					<table class="aa" style="text-align: center;" border='1px' width="1000px">
 				<tr bgcolor="#0E59B6" align="center" style="color: #fff;font-size: 12px;">
-				 
 					<th width="50px">序号</th>
 					<th width="100px">主分类</th>
 					<th width="100px">细分类</th>
 					<th width="60px">数量/时间</th>
-					<th width="200px">工作内容</th>
-					<th width="50px"></th>
-					<th width="50px">是否完成</th>
-					<th width="100px">未完成原因</th>
-					<th width="100px">备注</th>
+					<th>工作内容</th>
+					<th width="60px">是否完成</th>
+					<th>未完成原因</th>
+					<th>备注</th>
 					<th width="100px">统计分数</th>
 					<th width="150px">操作</th>
-				
 				</tr>
-				
-
 				<tr :bgcolor="index%2 ==0?'':'#fff'" v-for='(item,index) in worksheet'>
-				  
 					<td>
 					  {{index+1}}
 					</td>
 					<td>
-						
-					  
 					  <select 
 						:style="index%2 ==0?'background: #b7dee8;':''" 
-						v-model='item.primary'
-						 
+						v-model='item.primary'		 
 						 :disabled='item.disabled'
-						@change='zhuclassify(index)'    
-						>
+						@change='zhuclassify(index)'>
 						  <option  v-for="(i,l) in primary"  :value="i" style="text-align: center;">{{i.type}}</option>
 					  </select>
 					</td>
 					<td>
 						<select :style="index%2 ==0?'background: #b7dee8;':''" :disabled='item.disabled' v-model='item.secondary' @change='ciclassify(index)'>
-					    
 						  <option v-for="(c,cl) in secondary[index]" :value ="c" style="text-align: center;">{{c.type}}</option>
-						 
 					  </select>
 					</td>
 					<td quantity>
-						<input type="text" :style="index%2 ==0?'background: #b7dee8;':''" :disabled='disabled' v-model='item.quantity' @blur='liang(index)'>
-						
-						 
+						<input type="text" :style="index%2 ==0?'background: #b7dee8;':''" :disabled='disabled' v-model='item.quantity' @blur='liang(index)'>	 
 					</td>
 					<td>
 						<div  :style="index%2 ==0?'background: #b7dee8;':''"  v-if='item.boss_id'>{{item.job}}</div>
-						<input :disabled='disabled' type="text" :style="index%2 ==0?'background: #b7dee8;':''" @blur='job(index)' v-model="item.job"  v-else>
-						
+						<input :disabled='disabled' type="text" :style="index%2 ==0?'background: #b7dee8;':''" @blur='job(index)' v-model="item.job"  v-else>	
 					</td>
-
-					<td></td>
 					<td>
-						
-					  
 						<select  :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''"  v-model='item.whether' @change='whether(index)'>
 						  <option value ="0" >是</option>
 						  <option value ="1" >否</option>
@@ -453,77 +431,101 @@
 					<td>
 						<div :style="index%2 ==0?'background: #b7dee8;':''"  v-if='item.boss_id'>{{item.remark}}</div>
 						<input type="text" :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''"   v-model='item.remark' @blur='remark(index)' v-else>
-
 					</td>
 					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
 					<td >
 						<div style="display: flex;justify-content: space-around;" v-if='item.id'>
-						
 						<a style="cursor: pointer;"  data-toggle="modal" data-target="#myModal" @click='zhipairw(item.id)'>指派任务</a>
-						<a @click='viewDetails(item.boss_rwid,index)' v-if='item.boss_rwid' style="cursor: pointer;">查看详情</a>
-						<a @click='viewDetails(item.id,index)'  v-else style="cursor: pointer;">查看详情</a>
+						<a @click='viewDetails(item.boss_rwid,index)' v-if='item.boss_rwid' style="cursor: pointer;">点击提交</a>
+						<a @click='viewDetails(item.id,index)'  v-else style="cursor: pointer;">点击提交</a>
+						<a @click='delrw(item.id)' v-if='!item.boss_rwid'   style="cursor: pointer;">删除</a>
 						</div>
-						
-						
-						
-
-					</td>
-					
+					</td>	
 				</tr>
-				
-				
-				
 			</table>
-			
+			 <div class="daiadd" @click='daiadd'>+</div>
 			<div class="backlog">待办工作</div>
 			<table class="aa" style="text-align: center;" border='1px' width="1000px">
 				<tr bgcolor="#0E59B6" align="center" style="color: #fff;font-size: 12px;">
 					<th width="50px">序号</th>
 					<th width="150px">开始时间</th>
-					<th width="300px">任务名称</th>
+					<th>任务名称</th>
 					<th width="150px">要求完成时间</th>
 					<th width="250px">备注</th>
-					<th ></th>
-					<th ></th>
+					<th >未完成</th>
+				
+					<th width="100px">操作</th>
 				</tr>
-				<?php foreach($daibanwork as $key=>$val): ?>
-				<tr>
-					<td> <?php echo $key+1; ?></td>
-					<td ><?php echo date("Y-m-d  H:i:s",$val['time']); ?></td>
-					<td ><?php echo $val['work_name']; ?></td>
-					<td ><?php echo date("Y-m-d  H:i:s",$val['lasttime']); ?></td>
-					<td >任务类别：<?php echo $val['work_rank']; ?></td>
-					<td ></td>
-					<td ></td>
+				<tr v-for='(item,index) in daibanwork' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'" >
+					<td>{{index+1}}</td>
+					<td>
+						<div v-if='item.boss_rwid'>{{item.time}}</div>
+						<input v-else type="date" v-model="item.time" @change='starttime(index)' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'">
+					</td>
+					<td>
+						<div v-if='item.boss_rwid'>{{item.job}}</div>
+						<input type="text" v-else v-model='item.job' @blur='daibanjob(index)' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'">
+					</td>
+					<td>
+						<div v-if='item.boss_rwid'>{{item.lasttime}}</div>
+						<input v-else type="date" v-model="item.lasttime" @change='endtime(index)' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'">
+					</td>
+					<td>
+					
+						<div v-if='item.boss_rwid'>{{item.remark}}</div>
+						<input type="text" v-else v-model='item.remark' @blur='daibanremark(index)' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'">
+					</td>
+					<td>
+						<div v-if='item.boss_rwid'>{{item.reasons}}</div>
+						<input type="text" v-else v-model='item.reasons' @blur='daibanreasons(index)' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'">
+					</td>
+					
+					<td>
+						<a @click="accept(item.id)" style="cursor: pointer;">接受任务</a>
+						<a @click='delrw(item.id)' v-if='!item.boss_rwid' style="cursor: pointer;">删除</a>
+					</td>
 				</tr>
-				<?php endforeach; ?>
+			</table>
+			<div class="daiadd" @click='zhouadd'>+</div>
+				<div class="backlog">周计划</div>
+			<table class="aa" style="text-align: center;" border='1px' width="1000px">
+				<tr bgcolor="#0E59B6" align="center" style="color: #fff;font-size: 12px;">
+					<th width="50px">序号</th>
+					<th width="300px">计划内容</th>
+					<th width="150px">计划开始时间</th>
+					<th width="150px">计划截止时间</th>
+					<th width="250px">备注</th>
+					<th width="100px">操作</th>
+				</tr>
+				<tr v-for='(item,index) in zhoujihua' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'" >
+					<td>{{index+1}}</td>
+					<td><input type="text" v-model='item.job' @blur='zhoujob(index)' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'"></td>
+					<td><input type="date" v-model="item.time" @change='zhoutime(index)' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'"></td>
+					<td><input type="date" v-model="item.lasttime" @change='zhouendtime(index)' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'"></td>
+					<td><input type="text" v-model="item.remark"  @blur='zhouremark(index)' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'"></td>
+					<td></td>
+				</tr>
 			</table>
 				</div>
-			
 			</div>
 			<?php endif; ?>
 			<!-- 非学生身份管理作业 -->
 			<?php if($userdata['user_cate']=='老板'): ?>
 			<ul class="list_top">
 				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
-				
 				<li style="width: 0%;">
-					
 					 	<div class="input-group pull-left">
 					 		<input type="text" class="form-control pull-left" placeholder="输入任务名称" id="selectinfo">
 					 	</div>
 					 	<button class="btn btn-group pull-left" style="cursor: pointer;width: 70px;height: 35px; outline: none;" @click="select" >搜索</button>  
-					 
 				</li>
 			</ul>
-    
 				<a class="btn btn-default" style="background-color: #7BB0DE" href="<?php echo url('index'); ?>">待我处理(<?php echo $work_listnu; ?>)</a>
 				<a class="btn btn-default" href="<?php echo url('wfb'); ?>">我发布的任务(<?php echo $work_listnu; ?>)</a>
 				<a class="btn btn-default" href="<?php echo url('yjs'); ?>">已结束的任务(<?php echo $unfinish_listnu; ?>)</a>						
 			<table  class="table" style="text-align: center;"  >
-
 				<tr>
-					<th>排序</th>
+					<th width="50px">排序</th>
 					<th>编号ID</th>
 					<th>对接人</th>
 					<th>任务名称</th>					
@@ -534,16 +536,14 @@
 					<th>任务级别</th>
 					<th>状态</th>
 					<th>详情</th>
-				</tr>
-				
+					<th></th>
+				</tr>  
 				<?php foreach($work_list as $key=>$info): ?>
-					<tr >
-						<td>50</td>
+					<tr>
+						<td><input type="text" onblur="paix(<?php echo $info['id']; ?>)" id="pai_<?php echo $info['id']; ?>" value="<?php echo $info['sorts']; ?>" style="text-align: center;background-color: #f4f8fb;" ></td>
 						<td><?php echo $info['id']; ?></td>
-						
 						<td style="display: flex;justify-content: center;"><?php foreach($info['execute_id'] as $k=>$i): ?><div><?php foreach($i as $a=>$b): ?><?php echo $b; ?>,<?php endforeach; ?></div><?php endforeach; ?></td>
 						<td><?php echo $info['work_name']; ?></td>
-						
 						<?php if($info['work_file']!=""): ?>
 						<td><a href="__UPLOADS__<?php echo $info['work_file']; ?>">点击查看</a></td>
 						<?php endif; if($info['work_file']==""): ?>
@@ -562,17 +562,12 @@
 						<?php endif; if($info['state']=="4"): ?>
 						<td>任务已完成</td>
 						<?php endif; ?>
-						
 						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">详情</a></td>
+						<td ><a class="del" href="<?php echo url('annul',['id'=>$info['id']]); ?>">×</a></td>
 					</tr>			
- 
 				<?php endforeach; ?>				
 			</table>		
 			<div  style="text-align: center;"><?php echo $work_list->render(); ?></div>
-			
-
-			
-			 
 			<ul class="list_bottom">
 				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
 			</ul>
@@ -621,7 +616,6 @@
 					</tr>			
 				<?php endforeach; ?>
 			</table>
-			
 			<?php echo $work_list->render(); ?>
 			<ul class="list_bottom">
 				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
@@ -631,7 +625,6 @@
 			<?php endif; endforeach; ?>
 		</div>
 	</div>
-
 	<div class="task_right"></div>
 		<!-- 模态框（Modal） -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -640,8 +633,7 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						&times;
-					</button>
-					
+					</button>	
 				</div>
 				<form action="zhipairw" method="post" enctype="multipart/form-data">
 				<div class="modal-body">
@@ -656,8 +648,7 @@
 					</div>
 				</div>
 				<div class="modal-footer"> 
-					<input type="submit" class="btn btn-primary" value="提交">
-					
+					<input type="submit" class="btn btn-primary" value="提交">	
 				</div>
 			</form>
 			</div><!-- /.modal-content -->
@@ -678,8 +669,8 @@ new Vue({
         fine:<?php echo $fine; ?>,
         secondary:[],
         zongshu:<?php echo $zongshu; ?>,
-
-
+        daibanwork:<?php echo $daibanwork; ?>,
+		zhoujihua:<?php echo $zhoujihua; ?>,
         disabled:false,
 
         DATE:'<?php echo $date; ?>'
@@ -687,7 +678,9 @@ new Vue({
     
 
         mounted(){
-        	console.log(this.DATE)	
+        	console.log(<?php echo $zongshu; ?>);
+        	console.log( <?php echo $zhoujihua; ?>)	
+        	console.log( <?php echo $daibanwork; ?>)	
         	console.log(this.worksheet);
         	if(this.worksheet.length<8){
         		var num=8-this.worksheet.length;
@@ -920,12 +913,127 @@ new Vue({
         		window.location.href = 'check.html?staff_id=' + e
         	}
             
-        }
+        },
+        delrw:function(e){
+        	
+        	this.$confirm('确认删除吗！',  {
+          confirmButtonText: '确定',
+          callback: action => {
+            if(action=='confirm'){
+            	window.location.href='delrw?id='+e
+            }
+            // window.location.href="<?php echo url('admin/index/index'); ?>";
+          }
+
+        });
+        	
+        },
+        // 接受任务
+        accept:function(e){
+        	window.location.href='accept?id='+e
+        },
+        // 添加代办
+        daiadd:function(e){
+        	 $.get('<?php echo url("admin/task/daibanwork"); ?>', {
+                select: 0,
+            },(rtnData)=>{
+            	this.daibanwork.push(rtnData)
+            });
+        	 
+        },
+        starttime:function(e){
+        	$.get('<?php echo url("admin/task/daibanwork"); ?>', {
+                select: 1,
+                id:this.daibanwork[e].id,
+                time:this.daibanwork[e].time
+            });
+        },
+         endtime:function(e){
+        	$.get('<?php echo url("admin/task/daibanwork"); ?>', {
+                select: 2,
+                id:this.daibanwork[e].id,
+                lasttime:this.daibanwork[e].lasttime
+            });
+        },
+        // 任务名称
+        daibanjob:function(e){
+        	$.get('<?php echo url("admin/task/daibanwork"); ?>', {
+                select: 3,
+                id:this.daibanwork[e].id,
+                job:this.daibanwork[e].job
+            });
+        },
+        // 代办备注
+        daibanremark:function(e){
+        	$.get('<?php echo url("admin/task/daibanwork"); ?>', {
+                select: 4,
+                id:this.daibanwork[e].id,
+                remark:this.daibanwork[e].remark
+            });
+        },
+        // 代办未完成
+        daibanreasons:function(e){
+        	$.get('<?php echo url("admin/task/daibanwork"); ?>', {
+                select: 5,
+                id:this.daibanwork[e].id,
+                reasons:this.daibanwork[e].reasons
+            });
+        },
+        // 周计划
+        zhouadd:function(e){
+        	$.get('<?php echo url("admin/task/zhoujihua"); ?>', {
+               select: 0,
+            },(rtnData)=>{
+            	this.zhoujihua.push(rtnData)
+            });
+        },
+          zhoutime:function(e){
+        	$.get('<?php echo url("admin/task/zhoujihua"); ?>', {
+                select: 1,
+                id:this.zhoujihua[e].id,
+                time:this.zhoujihua[e].time
+            });
+        },
+         zhouendtime:function(e){
+        	$.get('<?php echo url("admin/task/zhoujihua"); ?>', {
+                select: 2,
+                id:this.zhoujihua[e].id,
+                lasttime:this.zhoujihua[e].lasttime
+            });
+        },
+        // 周计划内容
+        zhoujob:function(e){
+        	$.get('<?php echo url("admin/task/zhoujihua"); ?>', {
+                select: 3,
+                id:this.zhoujihua[e].id,
+                job:this.zhoujihua[e].job
+            });
+        },
+        // 周计划备注
+        zhouremark:function(e){
+        	$.get('<?php echo url("admin/task/zhoujihua"); ?>', {
+                select: 4,
+                id:this.zhoujihua[e].id,
+                remark:this.zhoujihua[e].remark
+            });
+        },
 
 
 
     }
 })
+
+	function paix(e){
+      $.get('<?php echo url("admin/task/paix"); ?>', {
+      	        id:e,
+                sorts: $('#pai_'+e).val()
+            },(rtnData)=>{
+            	window.location.href='index'
+            });
+    
+	}
+
 </script>
+
 <style>
 </style>

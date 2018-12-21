@@ -40,7 +40,7 @@
 					<th width="100px">细分类</th>
 					<th width="60px">数量/时间</th>
 					<th width="200px">工作内容</th>
-					<th width="50px"></th>
+				
 					<th width="50px">是否完成</th>
 					<th width="150px">未完成原因</th>
 					<th width="150px">备注</th>
@@ -75,7 +75,7 @@
 						
 					</td>
 
-					<td></td>
+				
 					<td>
 						  <div v-if="item.whether==0" :style="index%2 ==0?'background: #b7dee8;':''">是</div>
 						  <div v-else :style="index%2 ==0?'background: #b7dee8;':''">否</div>
@@ -100,6 +100,75 @@
 				
 				
 			</table>
+			<div class="backlog">待办工作</div>
+			<table class="aa" style="text-align: center;" border='1px' width="1000px">
+				<tr bgcolor="#0E59B6" align="center" style="color: #fff;font-size: 12px;">
+					<th width="50px">序号</th>
+					<th width="150px">开始时间</th>
+					<th>任务名称</th>
+					<th width="150px">要求完成时间</th>
+					<th width="250px">备注</th>
+					<th >未完成</th>
+				
+					<th width="100px">操作</th>
+				</tr>
+				<tr v-for='(item,index) in daibanwork' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'" >
+					<td>{{index+1}}</td>
+					<td>
+						<div>{{item.time}}</div>
+						
+					</td>
+					<td>
+						<div>{{item.job}}</div>
+					
+					</td>
+					<td>
+						<div>{{item.lasttime}}</div>
+						
+					</td>
+					<td>
+					
+						<div>{{item.remark}}</div>
+						
+					</td>
+					<td>
+						<div >{{item.reasons}}</div>
+						
+					</td>
+					
+					<td>
+						
+					</td>
+				</tr>
+			</table>
+				<div class="backlog">周计划</div>
+			<table class="aa" style="text-align: center;" border='1px' width="1000px">
+				<tr bgcolor="#0E59B6" align="center" style="color: #fff;font-size: 12px;">
+					<th width="50px">序号</th>
+					<th width="300px">计划内容</th>
+					<th width="150px">计划开始时间</th>
+					<th width="150px">计划截止时间</th>
+					<th width="250px">备注</th>
+					<th width="100px">操作</th>
+				</tr>
+				<tr v-for='(item,index) in zhoujihua' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'" >
+					<td>{{index+1}}</td>
+					<td>
+						<div>{{item.job}}</div>
+					</td>
+					<td>
+						<div>{{item.time}}</div>
+						
+					</td>
+					<td>
+						<div>{{item.lasttime}}</div>
+						
+					<td>
+						<div>{{item.remark}}</div>
+					</td>
+					<td></td>
+				</tr>
+			</table>
 
 
 <script>
@@ -108,6 +177,8 @@
     data: {
         worksheet:[],
         yuangong:{$yuangong},
+        daibanwork:[],
+        zhoujihua:[],
         zongshu:0,
         xzheyuangong_id:'',
         DATE:'{$date}'
@@ -129,6 +200,8 @@ mounted(){
         	    		(rtnData)=>{
         	    			    this.zongshu=rtnData.zongshu;
                      			this.worksheet=rtnData.data;
+                     			this.zhoujihua=rtnData.zhoujihua;
+                     			this.daibanwork=rtnData.daibanwork
      					});
      	},
      	  viewDetails: function(e,index) {

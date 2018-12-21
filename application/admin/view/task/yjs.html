@@ -30,7 +30,7 @@
 	
 			 <table  class="table" style="text-align: center;"  >
 				<tr>
-					<th>排序</th>
+					<th width="50px">排序</th>
 					<th>编号ID</th>
 					<th>对接人</th>
 					<th>任务名称</th>
@@ -46,7 +46,7 @@
 				
 				{foreach $unfinish_list as $info}
 					<tr >
-						<td>2</td>
+						<td><input type="text" value="{$info.sorts}" style="text-align: center;background-color: #f4f8fb;"></td>
 						<td>{$info.id}</td>
 						
 						<td style="display: flex;justify-content: center;">{foreach $info.execute_id as $k=>$i}<div>{foreach $i as $a=>$b}{$b},{/foreach}</div>{/foreach}</td>
@@ -76,6 +76,7 @@
 						{/if}
 						
 						<td><a class="btn btn-default" href="{:url('check',['id'=>$info.id])}">详情</a></td>
+                        <td ><a class="del" href="{:url('annul',['id'=>$info.id])}">×</a></td>
 					</tr>			
 				{/foreach}
 				
