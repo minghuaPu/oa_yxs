@@ -5,27 +5,14 @@
 			<a class="glyphicon glyphicon-ok">工作汇报批改/详情</a>
 			<a href="{:url('index')}" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
 		</div>
-		{foreach $check as $check_info}
+	  
+		
 		<form action="{:url('update')}?id={$check_info.id}" method="post" enctype="multipart/form-data" onsubmit="return sumbit_sure()">
 			<div class="form-group" style="font-size: 16px;">
-				{foreach $user as $userdata}
-				{if $userdata.user_cate=='工'}
-				<div class="form-group">
-					<label>作业</label>
-					<input type="text" class="form-control" name="title" value="{$check_info.title}">
-				</div>
-				<div class="form-group">
-					<label>内容</label>
-					<textarea name="content" id="myEditor" style="height: 280px;width: 100%;" >{$check_info.content}</textarea>
-				</div>
-				<div class="form-group">
-					<label>附件</label>
-					<input type="file" name="work" class="dropify" data-default-file="__UPLOADS__{$check_info.work}">
-				</div>				
-				{/if}
-				
+	
 				<table v-if="con == 1" class="table" style="text-align: center;"  >
-				<tr>				
+				<tr>	
+				 {if $type=="0"}			
 					<th>编号ID</th>
 					<th>对接人</th>
 					<th>任务名称</th>
@@ -33,11 +20,24 @@
 					<th>添加时间</th>
 					<th>截止时间</th>
 					<th>任务级别</th>
-					<th>状态</th>					
+					<th>状态</th>	
+				  {/if}
+				   {if $type=="1"}
+					<th>编号ID</th>
+					<th>员工</th>
+					<th>任务名称</th>
+					
+					<th>添加时间</th>
+					<th>完成时间</th>
+					<th>备注</th>
+					<th>状态</th>
+				   {/if}				
 				</tr>
+				 
 				    <tr >
+				      {if $type=="0"}
 						<td>{$check_info.id}</td>
-						<td>{$check_info.execute_id}</td>
+						<td style="display: flex;justify-content: center;">{foreach $check_info.execute_id as $k=>$i}<div>{foreach $i as $a=>$b}{$b},{/foreach}</div>{/foreach}</td>
 						<td>{$check_info.work_name}</td>
 						{if $check_info.work_file!=""}
 						<td><a href="__UPLOADS__{$check_info.work_file}">点击查看</a></td>
@@ -60,22 +60,32 @@
 						{if $check_info.state=="4"}
 						<td>任务已完成</td>
 						{/if}
+					  {/if}
+					  {if $type=='1'}
+						<td>{$check_info.id}</td>
+						<td>{$check_info.name}</td>
+						<td>{$check_info.job}</td>
+						
+						<td>{$check_info.time|date="Y-m-d H:i:s",###}</td>
+						<td>{if $check_info.end_time}{$check_info.end_time|date="Y-m-d H:i:s",###}{/if}</td>
+						<td>{$check_info.remark}</td>
+						<td>{if $check_info.whether=='0'}已完成{/if}{if $check_info.whether!='0'}未完成{/if}</td>
+					  {/if}
 					</tr>			
-				
-			
-				
-				
-				
+					
 			</table>
-			
+			{if $type=='0'}			
 			<div style="width: 100%;height: auto;border: 1px solid #DDDDDD; border-radius: 10px;">
 				<div style="width: 10%;height: 30px;line-height: 30px;color: red;margin-left: 20px;">详情</div>
+
 				<div style="padding-left: 20px;">{$check_info.work_require}</div>
 			</div>
-
+			{/if}
+			{if $log_list}
 			<div style="width: 15%;height: 30px;line-height: 30px;color: cornflowerblue; font-size: 20px;margin-top: 30px;">
 				任务日志
 			</div>
+			{/if}
 			{foreach $log_list as $loglist_info}
 			<div style="width: 100%;height: 140px;">
 				<div style="width: 12%;height: 35px;background-color: #00A65A;text-align: center;line-height: 35px;border-radius: 10px;">
@@ -86,7 +96,11 @@
 					<div style="width: 90%;height: 90px;border: 1px solid #DADADA;margin-left: 10px;float: left;margin-top: 5px;border-radius: 5px;">
 						<div style="width: 100%;height: 30px;border-bottom: 1px solid #DADADA;">
 							<div style="height: 30px;line-height: 30px;color: #3376B2;font-size: 15px;float: left;">操作人:</div>
+
 							<div style="width:70%; height: 30px;line-height: 30px;font-size: 13px;float: left;">{$loglist_info.uname}</div>
+							{if $loglist_info.accessory}
+							<div style="line-height: 30px;"><a href="__UPLOADS__{$loglist_info.accessory}">点击查看附件</a></div>
+							{/if}
 						</div>
 						<div style="height: 60px;font-size: 13px;overflow: hidden;">
 							{$loglist_info.rw_log}
@@ -96,28 +110,35 @@
 				</div>
 			</div>
 			{/foreach}
-			<div class="{$check_info.state==3||$check_info.state==4 ? 'aa' :''}">
+			<input type="hidden" value="{$type}">
+			<div>
 				<div style="width: 15%;height: 30px;line-height: 30px;color: cornflowerblue; font-size: 20px;margin-top: 30px;">
 					操作
 				</div>
+				<div class="form-group">
+                    
+                    <input type="file" name="work_require" class="dropify"></input>
+                </div>
 				<textarea id="caozuo" name="log" style="height: 100px;width: 100%;" value=""></textarea>
 			</div>
-               
+             	
 				
-				
-				
-				{/foreach}								
+		
+
 			</div>
-						
-			<div class="form-group {$check_info.state==3||$check_info.state==4 ? 'aa' :''}">
+			<div class="form-group ">
 				<input name="abandon" type="submit" class="btn btn-primary" style="outline:none;" value="提交">
-				 <input name="abandon" type="button" class="btn btn-primary" style="outline:none;" onclick="giveUp()" value="放弃任务">
-				<input name="abandon" type="button" class="btn btn-primary" style="outline:none;" onclick="finish()" value="结束任务">
+				 <!-- <input name="abandon" type="button" class="btn btn-primary" style="outline:none;" onclick="giveUp()" value="放弃任务"> -->
+				<!-- <input name="abandon" type="button" class="btn btn-primary" style="outline:none;" onclick="finish()" value="结束任务"> -->
 				
 			</div>
 			
 			
-		</form><script type="text/javascript">	
+		</form>
+
+
+  {include file="foot"}
+				<script type="text/javascript">	
 		//操作提交前判定
 		function sumbit_sure(){	
 			var a = $("#caozuo").val();
@@ -166,10 +187,8 @@
     	$('.dropify').dropify();
    		UE.getEditor("myEditor");
 	</script>
-		{/foreach}
-	</div>
+		
 
-{include file="foot"}
 	
 	<style type="text/css">
 		.aa{

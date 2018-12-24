@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/finance/finance.css" />
+<link href="https://cdn.bootcss.com/bootstrap-fileinput/4.5.1/css/fileinput.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.css" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/library/bootstrap/bootstrap-select.min.css" />
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    {include file="top"}
+    {include file="left"}
+    <div class="cjp_box">
+        <div class="cjp_head">
+            粗加工
+        </div>
+        <div class="cjp_choose">
+            <button class="btn btn-default" style="outline: none;" data-toggle="modal" data-target="#addwindow">添加信息</button>
+            <button class=" btn btn-default" style="outline: none;" @click="deleteChoose">删除选中项</button>
+            <button class="btn btn-default" style="outline: none;" @click="preview">打印选中项</button>
+            <a href="{:url('exportDayInner',['proche_type'=>'rough'])}" class="btn btn-default" onclick="return educe()">导出Excel</a>
+            <button class="btn btn-default" style="outline: none;" @click="goRecycle">回收站</button>
+            <div class="col-lg-6" style="width: 160px;">
+                <div class="input-group">
+                    <select id="selectchoose" class="selectpicker ab" @change="selectChange">
+                        <option value="-1">请选择搜索分类</option>
+                        <option value="name">姓名</option>
+                        <option value="time">时间</option>
+                        <option value="title">产品名称</option>
+                        <option value="describes">问题描述</option>
+                        <option value="modify">整改情况</option>
+                        <option value="workshop">对应车间</option>
+                    </select>
+                </div><!-- /input-group -->
+            </div>
+            <div id="selecttime" class="col-lg-6" style="width: 230px;">
+                <div class='input-group date' style="width:200px" id='datetimepicker2'>
+                    <input id="sel_time_con" type='text' class="form-control" name="time"  />
+                    <span class="input-group-addon" style="margin-left: -200px;">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-info" type="button" style="outline: none;" @click="select">搜索!</button>
+                    </span>
+                </div>
+            </div>
+            <div id="selectother" class="col-lg-6" style="width: 300px;">
+                <div class="input-group">
+                    <input id="sel_other_con" type="text" class="form-control" placeholder="请输入搜索内容">
+                    <span class="input-group-btn">
+                        <button class="btn btn-info" type="button" style="outline: none;" @click="select">搜索!</button>
+                    </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </div>
+        <div class="cjp_content">
+            <!-- 添加工作框 -->
+            <div class="modal fade" id="addwindow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                添加
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{:url('addwork')}" method="post" enctype="multipart/form-data">
+                                <div class="form-group" style="display: none;">
+                                    <label for="name">产品检查类型</label>
+                                    <input type="text" class="form-control" id="" name="proche_type" placeholder="请输入姓名" value="rough">
+                                </div>
+                                <div class="form-group">
+                                    <label>时间</label>
+                                    <div class='input-group date' style="width:200px" id='datetimepicker'>
+                                        <input id="time" type='text' class="form-control" name="time" required="required" />
+                                        <span class="input-group-addon" style="margin-left: -200px;">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">姓名</label>
+                                    <input type="text" class="form-control" id="" name="name" placeholder="请输入姓名" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">产品名称</label>
+                                    <input type="text" class="form-control" id="" name="title" placeholder="请输入产品名称" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">产品尺寸</label>
+                                    <input type="text" class="form-control" id="" name="size" placeholder="请输入产品尺寸" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">问题描述</label>
+                                    <input type="text" class="form-control" id="" name="describes" placeholder="请输入问题描述" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">整改情况</label>
+                                    <input type="text" class="form-control" id="" name="modify" placeholder="请输入整改情况" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">对应车间</label>
+                                    <input type="text" class="form-control" id="" name="workshop" placeholder="请输入对应车间" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">备注</label>
+                                    <input type="text" class="form-control" id="" name="remarks" placeholder="请输入备注" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">状态</label>
+                                    <select class="form-control" name="status">
+                                        <option>未解决</option>
+                                        <option>已完成</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">上传图片</label>
+                                    <input id="input-id" name="work_require[]" class="file" type="file" multiple>
+                                </div>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    关闭
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    提交
+                                </button>
+                            </form>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+            <!-- 查看图片框-->
+            <div class="modal fade" id="picwindow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                查看图片
+                            </h4>
+                        </div>
+                        <div class="modal-body" id="piclist">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+            <!-- 修改框 -->
+            <div class="modal fade" id="updatewindow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                修改
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{:url('updatework')}" method="post" enctype="multipart/form-data">
+                                <div class="form-group" style="display: none;">
+                                    <label for="name">产品检查类型</label>
+                                    <input type="text" class="form-control" id="" name="proche_type" value="rough">
+                                </div>
+                                <div class="form-group">
+                                    <label>时间</label>
+                                    <div class='input-group date rl_time' style="width:200px" id='datetimepicker1'>
+                                        <input id="time" type='text' class="form-control" name="time" :value="message.time" />
+                                        <span class="input-group-addon" style="margin-left: -200px;">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="display: none;">
+                                    <label for="name">id</label>
+                                    <input type="text" class="form-control" id="" name="id" :value="message.id">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">姓名</label>
+                                    <input type="text" class="form-control" id="" name="name" :value="message.name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">产品名称</label>
+                                    <input type="text" class="form-control" id="" name="title" :value="message.title"></input>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">产品尺寸</label>
+                                    <input type="text" class="form-control" id="" name="size" :value="message.size">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">问题描述</label>
+                                    <input type="text" class="form-control" id="" name="describes" :value="message.describes">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">整改情况</label>
+                                    <input type="text" class="form-control" id="" name="modify" :value="message.modify">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">对应车间</label>
+                                    <input type="text" class="form-control" id="" name="workshop" :value="message.workshop">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">备注</label>
+                                    <input type="text" class="form-control" id="" name="remarks" :value="message.remarks">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">状态</label>
+                                    <select class="form-control" name="status" :value="message.status">
+                                        <option>未解决</option>
+                                        <option>已完成</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">上传图片</label>
+                                    <input id="input-id1" name="work_require[]" class="file" type="file" multiple>
+                                </div>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    关闭
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    提交修改
+                                </button>
+                            </form>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+            <!-- 异常情况框 -->
+            <div class="modal fade" id="abnormal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                异常情况
+                            </h4>
+                        </div>
+                        <div class="modal-body" id="piclist">
+                            <form action="{:url('updateAbnormal')}" method="post">
+                                <div class="form-group" style="display: none;">
+                                    <label for="name">产品检查类型</label>
+                                    <input type="text" class="form-control" id="" name="proche_type" value="rough">
+                                </div>
+                                <div class="form-group" style="display: none;">
+                                    <label for="name">id</label>
+                                    <input type="text" class="form-control" id="" name="id" :value="abnormalMessage.id">
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" style="height: 300px;" name="abnormalMessage" :value="abnormalMessage.why"></textarea>
+                                </div>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <button type="submit" class="btn btn-default">提交异常</button>
+                            </form>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+            
+            <table class="table table-bordered table-hover" style="text-align: center;">
+                <tr>
+                    <th>序列</th>
+                    <th>
+                        <input type="checkbox" value="" name="checkall" />
+                    </th>
+                    <th style="width: 6%;">时间</th>
+                    <th style="width: 6%;">姓名</th>
+                    <th style="width: 7%;">产品名称</th>
+                    <th style="width: 7%;">产品尺寸</th>
+                    <th>问题描述</th>
+                    <th>整改情况</th>
+                    <th style="width: 5%;">对应车间</th>
+                    <th>备注</th>
+                    <th style="width: 5%;">状态</th>
+                    <th style="width: 20%;">操作</th>
+                </tr>
+                {foreach $cjg_list as $key=>$info}
+                <tr>
+                    <td>{$key+1}</td>
+                    <td>
+                        <input type="checkbox" value="{$info.id}" name="checkbox" />
+                    </td>
+                    <td>{$info.time}</td>
+                    <td>{$info.name}</td>
+                    <td>{$info.title}</td>
+                    <td>{$info.size}</td>
+                    <td>{$info.describes}</td>
+                    <td>{$info.modify}</td>
+                    <td>{$info.workshop}</td>
+                    <td>{$info.remarks}</td>
+                    {if $info.status=="已完成"}
+                    <td style="color: red;">已完成</td>
+                    {/if}
+                    {if $info.status=="未解决"}
+                    <td>未解决</td>
+                    {/if}
+                    <td>
+                        <button class="btn btn-danger btn-xs" style="outline: none;" @click="finish({$info.id})">已解决</button>
+                        <button class="btn btn-info btn-xs" style="outline: none;" @click="unFinish({$info.id})">未解决</button>
+                        <button class="btn btn-info btn-xs" style="outline: none;" data-toggle="modal" data-target="#picwindow" @click="getPic({$info.id})">查看图片</button>
+                        <button class="btn btn-info btn-xs" style="outline: none;" data-toggle="modal" data-target="#updatewindow" @click="updateWork({$info.id})">修改</button>
+                        <button class="btn btn-info btn-xs" style="outline: none;" data-toggle="modal" data-target="#abnormal" @click="getAbnormal({$info.id})">异常情况</button>
+                    </td>
+                </tr>
+                {/foreach}
+            </table>
+            <div style="text-align: center;">{$cjg_list->render()}</div>
+        </div>
+        
+        <!--startprint-->
+        <!--打印内容开始-->
+        <div style="display: none;" id="start">
+            <table border="1" cellspacing="0" style="text-align: center;">
+                <tr>
+                    <th>序列</th>
+                    <th style="width: 10%;">时间</th>
+                    <th style="width: 8%;">姓名</th>
+                    <th style="width: 7%;">产品名称</th>
+                    <th style="width: 7%;">产品尺寸</th>
+                    <th>问题描述</th>
+                    <th>整改情况</th>
+                    <th style="width: 6%;">对应车间</th>
+                    <th>备注</th>
+                    <th style="width: 6%;">状态</th>
+                    <th>异常情况</th>
+                </tr>
+                <tr>
+                    <td>{{printMessage.id}}</td>
+                    <td>{{printMessage.time}}</td>
+                    <td>{{printMessage.name}}</td>
+                    <td>{{printMessage.title}}</td>
+                    <td>{{printMessage.size}}</td>
+                    <td>{{printMessage.describes}}</td>
+                    <td>{{printMessage.modify}}</td>
+                    <td>{{printMessage.workshop}}</td>
+                    <td>{{printMessage.remarks}}</td>
+                    <td>{{printMessage.status}}</td>
+                    <td>{{printMessage.why}}</td>
+                </tr>
+            </table>
+            <!--打印内容结束-->
+            <!--endprint-->
+            <div id="end"></div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.5.1/js/fileinput.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/locales/zh.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-select.min.js"></script>
+</body>
+
+</html>
+<script type="text/javascript">
+new Vue({
+    el: ".cjp_box",
+    data: {
+        rlShow: false,
+        printMessage: {},
+        message: {},
+        abnormalMessage: {}
+    },
+    watch: {
+
+    },
+    created: function() {
+        $('#selecttime').hide();
+        $('#selectother').show();
+    },
+    methods: {
+        //删除选中信息
+        deleteChoose() {
+            var len = $('input[type=checkbox]:checked').length;
+            if (len == "") {
+                return false;
+            } else {
+                var con = confirm('确定要删除选中项吗');
+                if (con == true) {
+                    var list = [];
+                    $.each($('input:checkbox:checked'), function() {
+                        list.push($(this).val());
+
+                    });
+                    $.post("{:url('goRecycle')}", {
+                        proche_type: "rough",
+                        list: JSON.stringify(list),
+
+                    }, function(e) {
+                        window.location.reload();
+                    });
+
+                } else {
+                    return false;
+                };
+            }
+
+        },
+        //更改已完成
+        finish(re) {
+            $.get("{:url('changeIsfinsih')}", {
+                proche_type: "rough",
+                id: re,
+                num: 1
+            }, function() {
+                window.location.reload();
+            })
+
+        },
+        //更改未完成
+        unFinish(re) {
+            $.get("{:url('changeIsfinsih')}", {
+                proche_type: "rough",
+                id: re,
+                num: 2
+            }, function() {
+                window.location.reload();
+            })
+
+        },
+        //获取图片  
+        getPic(re) {
+            $.get("{:url('getPic')}", {
+                proche_type: "rough",
+                id: re,
+            }, function(e) {
+                var a = "";
+                $.each(e, function(i, n) {
+                    option = "<div class='picwindow_img'><img src='__UPLOADS__" + n + "'></div>";
+                    a = a + option;
+                });
+                $("#piclist").html(a);
+            })
+        },
+        //获取异常
+        getAbnormal(re) {
+            var that = this;
+            $.get("{:url('getAbnormal')}", {
+                proche_type: "rough",
+                id: re,
+            }, function(e) {
+                console.log(e);
+                that.abnormalMessage = e;
+            })
+        },
+        //获取修改框信息
+        updateWork(re) {
+            var that = this;
+            $.get("{:url('getWork')}", {
+                proche_type: "rough",
+                id: re,
+            }, function(e) {
+                that.message = e;
+            })
+
+        },
+        //跳转回收站
+        goRecycle() {
+            var selinfo = 'rough';
+            window.location.href = "recycle.html?info=" + selinfo;
+        },
+        //打印选中项
+        preview() {
+            var len = $('input[type=checkbox]:checked').length;
+            if (len != 1) {
+                alert('注意！只能选择一个打印项');
+            } else {
+                var con = confirm('是否要打印选择项');
+                if (con == true) {
+                    console.log($('input[type=checkbox]:checked').length);
+                    that = this;
+                    var list = "";
+                    $.each($('input:checkbox:checked'), function() {
+                        list = $(this).val();
+                    });
+                    $.get("{:url('getPrintMessage')}", {
+                        proche_type: "rough",
+                        id: list,
+                    }, function(e) {
+                        that.printMessage = e;
+                        that.$nextTick(function() {
+                            bdhtml = window.document.body.innerHTML; //获取当前页的html代码
+                            console.log(bdhtml);
+                            sprnstr = "start"; //设置打印开始区域
+                            eprnstr = "end"; //设置打印结束区域
+                            prnhtml = bdhtml.substring(bdhtml.indexOf(sprnstr) + 30); //从开始代码向后取html
+                            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr)); //从结束代码向前取html
+                            window.document.body.innerHTML = prnhtml;
+                            window.print();
+                            window.document.body.innerHTML = bdhtml;
+                            window.location.reload();
+                        });
+
+                    });
+                } else {
+                    return false;
+                };
+            }
+
+        },
+        //下拉搜索框改变
+        selectChange() {
+            var val = $('#selectchoose').val();
+            if (val == 'time') {
+                $('#selecttime').show();
+                $('#selectother').hide();
+            } else {
+                $('#selecttime').hide();
+                $('#selectother').show();
+            }
+
+        },
+        //搜索
+        select(){
+           var proche_type ="rough";
+           var time = $('#sel_time_con').val();
+           var content = $('#sel_other_con').val();
+           var type = $('#selectchoose').val();
+           if (typeof(Storage)!=="undefined") {
+             sessionStorage.content=content;
+             sessionStorage.type=type;
+             sessionStorage.time=time;
+
+           }
+           if (type == 'time') {
+               if (time=='') {
+                alert('搜索内容不能为空');
+               }else{
+                url = "proche_select.html?proche_type=" + proche_type +"&time="+time+"&content="+content+"&type="+type;
+                window.location.href = url;
+               }
+           }else{
+                if (content == '') {
+                alert('搜索内容不能为空');
+               }else{
+                url = "proche_select.html?proche_type=" + proche_type +"&time="+time+"&content="+content+"&type="+type;
+                window.location.href = url;
+               } 
+           }  
+        }
+    }
+
+})
+//初始化bootstrap上传图片
+$("#input-id").fileinput({
+    language: 'zh', //设置语言
+    uploadAsync: false, //默认异步上传
+    showUpload: false, //是否显示上传按钮
+    showRemove: true, //显示移除按钮
+    showPreview: true, //是否显示预览
+    showCaption: true, //是否显示标题
+    browseClass: "btn btn-primary", //按钮样式     
+    dropZoneEnabled: true, //是否显示拖拽区域
+    maxFileCount: 10, //表示允许同时上传的最大文件个数
+    enctype: 'multipart/form-data',
+    validateInitialCount: true,
+    previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+    msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+});
+$("#input-id1").fileinput({
+    language: 'zh', //设置语言
+    uploadAsync: false, //默认异步上传
+    showUpload: false, //是否显示上传按钮
+    showRemove: true, //显示移除按钮
+    showPreview: true, //是否显示预览
+    showCaption: true, //是否显示标题
+    browseClass: "btn btn-primary", //按钮样式     
+    dropZoneEnabled: true, //是否显示拖拽区域
+    maxFileCount: 10, //表示允许同时上传的最大文件个数
+    enctype: 'multipart/form-data',
+    validateInitialCount: true,
+    previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+    msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+});
+//确认导出Excel
+function educe() {
+    var con = confirm('是否要导出Excel表');
+    if (con == true) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+//全选反选
+$('input[name="checkall"]').on("click", function() {
+    if ($(this).is(':checked')) {
+        $('input[name="checkbox"]').each(function() {
+            $(this).prop("checked", true);
+        });
+    } else {
+        $('input[name="checkbox"]').each(function() {
+            $(this).prop("checked", false);
+        });
+    }
+});
+
+//日历初始化
+$('#datetimepicker').datetimepicker({
+    minView: "month", //选择日期后，不会再跳转去选择时分秒 
+    language: 'zh-CN',
+    format: 'yyyy-mm-dd',
+    todayBtn: 1,
+    autoclose: 1,
+
+});
+$('#datetimepicker1').datetimepicker({
+    minView: "month", //选择日期后，不会再跳转去选择时分秒 
+    language: 'zh-CN',
+    format: 'yyyy-mm-dd',
+    todayBtn: 1,
+    autoclose: 1,
+
+});
+$('#datetimepicker2').datetimepicker({
+    minView: "month", //选择日期后，不会再跳转去选择时分秒 
+    language: 'zh-CN',
+    format: 'yyyy-mm-dd',
+    todayBtn: 1,
+    autoclose: 1,
+
+});
+</script>
+<style type="text/css">
+
+.cjp_box {
+    margin-left: 173px;
+    width: 100%;
+    height: auto;
+}
+
+.cjp_head {
+    font-size: 22px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.cjp_content {
+    margin-left: 20px;
+    margin-top: 10px;
+    width: auto;
+    height: auto;
+    background-color: #f4f8fb;
+}
+
+.table tr th {
+    text-align: center;
+}
+
+.cjp_choose {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.picwindow_img {
+    margin: 10px auto;
+    width: 100%;
+    height: auto;
+
+}
+
+.picwindow_img img {
+    width: 100%;
+    height: auto;
+}
+
+.ab {
+    width: 150px !important;
+}
+</style>
