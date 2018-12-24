@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:75:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\index\index.html";i:1545641238;s:67:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1545639352;s:69:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\right.html";i:1544686965;s:68:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\left.html";i:1544687439;s:68:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\foot.html";i:1544686965;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:75:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\index\index.html";i:1545641489;s:67:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1545639352;s:69:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\right.html";i:1544686965;s:68:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\left.html";i:1544687439;s:68:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\foot.html";i:1544686965;}*/ ?>
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
   <meta charset="UTF-8">
