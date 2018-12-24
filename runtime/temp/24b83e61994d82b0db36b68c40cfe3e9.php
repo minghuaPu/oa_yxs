@@ -1,13 +1,5 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:75:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\index\index.html";i:1545641238;s:67:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1545639352;s:69:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\right.html";i:1544686965;s:68:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\left.html";i:1544687439;s:68:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\foot.html";i:1544686965;}*/ ?>
-
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="renderer" content="webkit">
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> 
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
-
-  <!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:75:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\bumen\index.html";i:1544686965;s:67:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1544686965;s:68:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\left.html";i:1544687439;s:68:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\foot.html";i:1544686965;}*/ ?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -36,13 +28,6 @@
     <script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.config.js"></script>
     <!-- 编辑器源码文件 -->
     <script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.all.min.js"></script>    
-
-      <!--[if lt IE 9]>
-    　 <script src="https://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.js"></script>
-
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/ie9.css">
-  <![endif]-->
 </head>
 <style>
 #return{
@@ -365,151 +350,7 @@
             }
         }
     })
-</script>
-  <!DOCTYPE html>
-<html>
-	<head>
-<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<div class="page" style="z-index: 99;background:white;padding-left: 10px;height:100%">
-			<div class="search_box">
-				<div class="iconfont icon-fangdajing"></div>
-				<input type="text" name="search" class="search" placeholder="搜索" />
-			</div>
-			<div class="people_box">
-				<div class="icon">
-					<div class="iconfont icon-geren"></div>
-					<div class="iconfont icon-iconset0337"></div>
-					<div class="iconfont icon-group"></div>
-				</div>
-				<div class="name_box">
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				公告栏
-			</div>
-			<div class="notice_box">
-				<div class="notice">
-					<div class="notice_dian"></div>
-					<div class="notice_content">oa系统正式上线</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				新闻
-			</div>
-		</div>
-	</body>
-</html>
-
-
-
-
-
-<style type="text/css">
-.page{
-	width:172px;
-	position:fixed ;
-	right: 0;
-	
-	
-}
-.search_box{
-	display: flex;
-	margin-top:9px;
-	background: #e6e6e6;
-	
-}
-.search_box input{
-	background: #e6e6e6;
-	border: 0px;
-	outline:none 
-}
-.icon{
-	display: flex;
-	margin: 6px 20px ;
-	
-}
-.icon div{
-	font-size: 23px;
-	flex: 1;
-	text-align: center;
-}
-.people{
-	display: flex;
-	align-items: center;
-}
-.name_box{
-	height: 250px;
-	overflow:scroll;
-	overflow-x:visible;
-}
-.people img{
-	width: 26px;
-	height: 26px;
-	border-radius: 26px;	
-}
-.people p{
-    margin-top: 13px;
-    margin-left: 3px;
-}
-.notice_title{
-	text-align: center;
-    padding: 4px 0;
-    font-size: 16px;
-    border-top: 1px solid #cccccc;
-    border-bottom:1px solid #cccccc;
-    font-weight: bold;
-}
-.notice{
-	display: flex;
-}
-.notice_dian{
-	width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: red;
-    margin-top: 5px;
-    margin-left: 7px;
-}
-.notice_box{
-	height: 143px;
-}
-.notice_content{
-	margin-left: 10px;
-    font-size: 11px;
-}
-</style> 
-  
+</script> 
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
 
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
@@ -595,81 +436,44 @@
 
 </script>
 
-<div class="container">
-<div class="index_content_center">
-    <div class="center_1">
-    <img src="__STATIC__/admin/index/images/20181206171359.jpg" alt="" class="center_1a">
-<!--     <img src="__STATIC__/admin/index/images/20181206171360.jpg" alt="" class="center_1b">
- -->    <h3 style="margin-bottom: 0.1em;"><strong>张三</strong></h3>
-    <p style="font-size: 1em;"><strong>设计部-中级设计师</strong></p>
-    <button class="button1"><strong>打卡</strong></button>
-    <button class="button2"><strong>补卡</strong></button>
+<div class="container" style="background: #fff">
+    <h3>录入/修改公司部门</h3>
+    <?php if(\think\Session::get('user_cate')=='老板'): ?>
+    <form action="<?php echo url('update_bumen'); ?>" class="form" method="post" enctype="multipart/form-data">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr class="success">
+                <th>序号</th>
+                <th>部门名称</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($list as $info_cate): ?>
+            <tr>
+                <td><?php echo $info_cate['id']; ?></td>
+                <td>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name" value="<?php echo $info_cate['bumen_name']; ?>" name="bumen[<?php echo $info_cate['id']; ?>]">
+                    </div>
+                </td>
+  
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <div  style="">
+       <div style="text-align: center;" class="form-group"><input type="submit" class="btn btn-success" style="width: 150px;float: left;margin-left: 400px"></div>
+       <a href="<?php echo url('addbumen',['id'=>\think\Session::get('u_belong')]); ?>" type="button" class="btn btn-primary" style="width: 150px; margin-left: 50px">增加</a>
+       <a href="<?php echo url('admin/index/index'); ?>" type="button" class="btn btn-info" style="width: 150px; margin-left: 50px">返回</a>
     </div>
-    <div class="center_2">
-          <div class="center_2a">
-              <h3>员工请假</h3>
-          </div>
-          <div class="cneter_2b"><h3>始 ：2017-12-2<i></i></h3></div>
-          <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/rili.png" alt=""></div>
-          <div class="cneter_2b"><h3>至 ：2017-4-5<i></i></h3></div>
-          <textarea rows="10" cols="30" placeholder="请假说明"></textarea> 
-          <div class="cneter_2c"><a href="#" class="cneter_2ca">提交</a></div>
-    </div>
-    <div class="cneter_3" style="margin-right: 2%"><h3>打卡日历<span><i></i>2017 年 9 月<i></i></span></h3></div>
-    <div class="cneter_3"><h3>考勤统计</h3></div>
-    <div class="cneter_4" style="margin-right: 2%"></div>
-    <div class="cneter_4" id="main"></div>
-</div>   
+    </form>
+    <?php echo $list->render(); ?>
 </div>
-    
-<!-- 模态框结束 -->
-<script type="text/javascript" src="__STATIC__/admin/index/js/index.js?126">
-</script>
-<script type="text/javascript" src="__STATIC__/admin/index/js/index2.js"></script>
-<script type="text/javascript">
-  // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main'));
-
-        // 指定图表的配置项和数据
-        var option = {
-            title: {
-                text: ''
-            },
-            tooltip: {},
-            legend: {
-                data:['正常上班']
-            },
-            xAxis: {
-                data: ["","九月",""]
-            },
-            yAxis: {},
-            series: [{
-                name: '正常上班',
-                type: 'bar',
-                data: [24, 4, 1]
-            }]
-        };
-
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-         (function() {
-  var changeRem = function() {
-   document.getElementsByTagName('html')[0].style.fontSize = document.documentElement.clientWidth / 20 + 'px';
-  };
-  changeRem();
-  var t;
-  window.addEventListener('resize', function() {
-   clearTimeout(t);
-   t = setTimeout(changeRem, 300);
-  }, false);
-  window.addEventListener('pageshow', function(e) {
-   if (e.persisted) {
-    clearTimeout(t);
-    t = setTimeout(changeRem, 300);
-   }
-  }, false);
- }());
-</script>
+<?php endif; if(\think\Session::get('user_cate')!='老板'): ?>
+<div>
+    您的身份为<?php echo \think\Session::get('user_cate'); ?>,暂时无权限进行此操作
+</div>
+<?php endif; ?>
 
 <footer class="footer" style="text-align: center;margin-top: 50px;">
 	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
@@ -705,4 +509,3 @@ $(document).ready(function(){
 </script>
 </body>
 </html>
-

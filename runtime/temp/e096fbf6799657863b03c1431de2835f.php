@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:81:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\index\information.html";i:1544690830;s:67:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1544686965;s:69:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\right.html";i:1544686965;s:68:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\left.html";i:1544687439;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:81:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\index\information.html";i:1544690830;s:67:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1545639352;s:69:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\right.html";i:1544686965;s:68:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\left.html";i:1544687439;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +28,13 @@
     <script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.config.js"></script>
     <!-- 编辑器源码文件 -->
     <script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.all.min.js"></script>    
+
+      <!--[if lt IE 9]>
+    　 <script src="https://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.js"></script>
+
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/ie9.css">
+  <![endif]-->
 </head>
 <style>
 #return{

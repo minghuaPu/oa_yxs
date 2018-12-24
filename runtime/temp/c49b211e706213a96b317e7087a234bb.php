@@ -1,13 +1,5 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:75:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\index\index.html";i:1545641238;s:67:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1545639352;s:69:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\right.html";i:1544686965;s:68:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\left.html";i:1544687439;s:68:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\foot.html";i:1544686965;}*/ ?>
-
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="renderer" content="webkit">
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> 
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
-
-  <!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:81:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\information\check.html";i:1544686965;s:67:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\top.html";i:1544686965;s:68:"D:\wujy\wamp64\www\oa_yxs\public/../application/admin\view\foot.html";i:1544686965;}*/ ?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -36,13 +28,6 @@
     <script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.config.js"></script>
     <!-- 编辑器源码文件 -->
     <script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.all.min.js"></script>    
-
-      <!--[if lt IE 9]>
-    　 <script src="https://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.js"></script>
-
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/ie9.css">
-  <![endif]-->
 </head>
 <style>
 #return{
@@ -366,310 +351,121 @@
         }
     })
 </script>
-  <!DOCTYPE html>
-<html>
-	<head>
-<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<div class="page" style="z-index: 99;background:white;padding-left: 10px;height:100%">
-			<div class="search_box">
-				<div class="iconfont icon-fangdajing"></div>
-				<input type="text" name="search" class="search" placeholder="搜索" />
-			</div>
-			<div class="people_box">
-				<div class="icon">
-					<div class="iconfont icon-geren"></div>
-					<div class="iconfont icon-iconset0337"></div>
-					<div class="iconfont icon-group"></div>
-				</div>
-				<div class="name_box">
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				公告栏
-			</div>
-			<div class="notice_box">
-				<div class="notice">
-					<div class="notice_dian"></div>
-					<div class="notice_content">oa系统正式上线</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				新闻
-			</div>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css?9">
+	<div class="write_box" id="check">
+		<div class="title" style="margin-bottom: 20px;">
+			<a class="glyphicon glyphicon-ok">外勤工单审核</a>
+			<a href="<?php echo url('index'); ?>" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
 		</div>
-	</body>
-</html>
+		<?php foreach($check as $check_info): ?>
+		<form action="<?php echo url('update'); ?>?id=<?php echo $check_info['id']; ?>"  method="post" enctype="multipart/form-data">
+			<div class="form-group" style="font-size: 16px;">
+				<?php foreach($user as $userdata): if($userdata['user_cate']=='员工'): ?>
+				<div class="form-group">
+					<label>所属公司</label>
+					<div><input type="text" class="form-control" name="belong" value=<?php echo $check_info['belong']; ?>></div>
+				</div>
+				<div class="form-group">
+					<label>账号密码</label>
+					<div><input type="text" class="form-control" name="password" value=<?php echo $check_info['password']; ?>></div>
+				</div>
+				<div class="form-group">
+					<label>电话号码</label>
+					<div><input type="text" class="form-control" name="telephone" value=<?php echo $check_info['telephone']; ?>></div>
+				</div>
+				<div class="form-group">
+					<label>微信</label>
+					<div><input type="text" class="form-control" name="weixin" value=<?php echo $check_info['weixin']; ?>></div>
+				</div>
+				<div class="form-group">
+					<label>地址</label>
+					<div><input type="text" class="form-control" name="dizhi" value=<?php echo $check_info['dizhi']; ?>></div>
+				</div>	
+				<?php endif; if($userdata['user_cate']=='老板'): if($check_info['user_cate']!='老板'): ?>
+				<div class="form-group">
+					<label>所属部门</label>
+					<div>
+					<select id="selectPointOfInterest" title="Select points of interest nearby" name="bumen">
+						<option selected = "selected">请选择</option>
+                <?php foreach($bumen as $info): ?>
+                                    <option value="<?php echo $info['bumen_name']; ?>"><?php echo $info['bumen_name']; ?></option>
+                                    <?php endforeach; ?>
+                </div>              
+            </select>
+				</div>
+			</div>
+				<div class="form-group">
+					<label>账号密码</label>
+					<div><input type="text" class="form-control" name="password" value=<?php echo $check_info['password']; ?>></div>
+				</div>
+				<div class="form-group">
+					<label>电话号码</label>
+					<div><input type="text" class="form-control" name="telephone" value=<?php echo $check_info['telephone']; ?>></div>
+				</div>
+				<div class="form-group">
+					<label>微信</label>
+					<div><input type="text" class="form-control" name="weixin" value=<?php echo $check_info['weixin']; ?>></div>
+				</div>
+				<div class="form-group">
+					<label>地址</label>
+					<div><input type="text" class="form-control" name="dizhi" value=<?php echo $check_info['dizhi']; ?>></div>
+				</div>
+				<div class="form-group">
+					<label>员工身份</label>
+					<div>
+					<select id="selectPointOfInterest" title="请选择部门" name="user_cate">
+						<option selected = "selected">请选择</option>
 
+                                    <option>经理</option>
+                                    <option>员工</option>
 
+                </div>              
+            </select>
+				</div>
+				<?php endif; if($check_info['user_cate']=='老板'): ?>	
+				<div class="form-group">
+					<label>账号密码</label>
+					<div><input type="text" class="form-control" name="password" value=<?php echo $check_info['password']; ?>></div>
+				</div>
+				<div class="form-group">
+					<label>电话号码</label>
+					<div><input type="text" class="form-control" name="telephone" value=<?php echo $check_info['telephone']; ?>></div>
+				</div>
+				<div class="form-group">
+					<label>微信</label>
+					<div><input type="text" class="form-control" name="weixin" value=<?php echo $check_info['weixin']; ?>></div>
+				</div>
+				<div class="form-group">
+					<label>地址</label>
+					<div><input type="text" class="form-control" name="dizhi" value=<?php echo $check_info['dizhi']; ?>></div>
+				</div>
+				<?php endif; endif; endforeach; ?>								
+			</div>
+			<div class="form-group">
+				<input type="submit" class="btn btn-primary" value="提交">
+			</div>
+		</form>
+		<?php if($userdata['user_cate']=='经理'): ?>
+		<div class="form-group">
+					<label>账号密码</label>
+					<div><input type="text" class="form-control" name="password" value=<?php echo $check_info['password']; ?>></div>
+				</div>
+				<div class="form-group">
+					<label>电话号码</label>
+					<div><input type="text" class="form-control" name="telephone" value=<?php echo $check_info['telephone']; ?>></div>
+				</div>
+				<div class="form-group">
+					<label>微信</label>
+					<div><input type="text" class="form-control" name="weixin" value=<?php echo $check_info['weixin']; ?>></div>
+				</div>
+				<div class="form-group">
+					<label>地址</label>
+					<div><input type="text" class="form-control" name="dizhi" value=<?php echo $check_info['dizhi']; ?>></div>
+				</div>
+				<?php endif; endforeach; ?>
 
+	</div>
 
-
-<style type="text/css">
-.page{
-	width:172px;
-	position:fixed ;
-	right: 0;
-	
-	
-}
-.search_box{
-	display: flex;
-	margin-top:9px;
-	background: #e6e6e6;
-	
-}
-.search_box input{
-	background: #e6e6e6;
-	border: 0px;
-	outline:none 
-}
-.icon{
-	display: flex;
-	margin: 6px 20px ;
-	
-}
-.icon div{
-	font-size: 23px;
-	flex: 1;
-	text-align: center;
-}
-.people{
-	display: flex;
-	align-items: center;
-}
-.name_box{
-	height: 250px;
-	overflow:scroll;
-	overflow-x:visible;
-}
-.people img{
-	width: 26px;
-	height: 26px;
-	border-radius: 26px;	
-}
-.people p{
-    margin-top: 13px;
-    margin-left: 3px;
-}
-.notice_title{
-	text-align: center;
-    padding: 4px 0;
-    font-size: 16px;
-    border-top: 1px solid #cccccc;
-    border-bottom:1px solid #cccccc;
-    font-weight: bold;
-}
-.notice{
-	display: flex;
-}
-.notice_dian{
-	width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: red;
-    margin-top: 5px;
-    margin-left: 7px;
-}
-.notice_box{
-	height: 143px;
-}
-.notice_content{
-	margin-left: 10px;
-    font-size: 11px;
-}
-</style> 
-  
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
-
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
-<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
-	<ul v-if="controller!='Map'">
-		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
-		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
-		  <li @click="isShow"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px;"><p>产品检查</p></a>
-            <ul v-if="six">
-                <li>
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>粗加工</p></a>
-                </li>
-                <li>
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>热处理</p></a>
-                </li>
-                <li>
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>锻造车间</p></a>
-                </li>
-                <li>
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>包装检验</p></a>
-                </li>
-                <li>
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>精加工</p></a>
-                </li>
-                <li>
-                    <a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>其他</p></a>
-                </li>
-            </ul>
-        </li>
-		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
-		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
-		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
-	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
-	</ul>
-	<!--<ul v-if="controller=='Map'" class="Maplist">
-		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
-		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
-		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
-		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
-		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
-		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
-		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
-		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-	</ul>-->
-</div>
-<script type="text/javascript">
- new Vue({
-        el:'#left_menu',
-        data:{
-        	six:false,
-           controller:"Index"
-        },
-        created(){
-        	this.init();
-        },
-        methods:{
-        	init(){
-                this.controller="<?php echo request()->controller(); ?>";
-        	},
-        	 isShow(){
-        	this.six=!this.six;
-        }
-        }
-    })
- function jump(){
- 	 window.location.href='<?php echo url('admin/index/index'); ?>'
- }
- function jump_two(){
- 	window.location.href='<?php echo url('admin/index/work'); ?>'
- }
- function jump_three(){
- 	window.location.href='<?php echo url('admin/index/finance'); ?>'
- }
- function jump_four (){
- 	window.location.href='<?php echo url('admin/index/department'); ?>'
- }
- function jump_five(){
- 	window.location.href='<?php echo url('admin/index/information'); ?>'
- }
-  function jump_six(){
- 	window.location.href='<?php echo url('admin/index/stock'); ?>'
- }
-
-</script>
-
-<div class="container">
-<div class="index_content_center">
-    <div class="center_1">
-    <img src="__STATIC__/admin/index/images/20181206171359.jpg" alt="" class="center_1a">
-<!--     <img src="__STATIC__/admin/index/images/20181206171360.jpg" alt="" class="center_1b">
- -->    <h3 style="margin-bottom: 0.1em;"><strong>张三</strong></h3>
-    <p style="font-size: 1em;"><strong>设计部-中级设计师</strong></p>
-    <button class="button1"><strong>打卡</strong></button>
-    <button class="button2"><strong>补卡</strong></button>
-    </div>
-    <div class="center_2">
-          <div class="center_2a">
-              <h3>员工请假</h3>
-          </div>
-          <div class="cneter_2b"><h3>始 ：2017-12-2<i></i></h3></div>
-          <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/rili.png" alt=""></div>
-          <div class="cneter_2b"><h3>至 ：2017-4-5<i></i></h3></div>
-          <textarea rows="10" cols="30" placeholder="请假说明"></textarea> 
-          <div class="cneter_2c"><a href="#" class="cneter_2ca">提交</a></div>
-    </div>
-    <div class="cneter_3" style="margin-right: 2%"><h3>打卡日历<span><i></i>2017 年 9 月<i></i></span></h3></div>
-    <div class="cneter_3"><h3>考勤统计</h3></div>
-    <div class="cneter_4" style="margin-right: 2%"></div>
-    <div class="cneter_4" id="main"></div>
-</div>   
-</div>
-    
-<!-- 模态框结束 -->
-<script type="text/javascript" src="__STATIC__/admin/index/js/index.js?126">
-</script>
-<script type="text/javascript" src="__STATIC__/admin/index/js/index2.js"></script>
-<script type="text/javascript">
-  // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main'));
-
-        // 指定图表的配置项和数据
-        var option = {
-            title: {
-                text: ''
-            },
-            tooltip: {},
-            legend: {
-                data:['正常上班']
-            },
-            xAxis: {
-                data: ["","九月",""]
-            },
-            yAxis: {},
-            series: [{
-                name: '正常上班',
-                type: 'bar',
-                data: [24, 4, 1]
-            }]
-        };
-
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-         (function() {
-  var changeRem = function() {
-   document.getElementsByTagName('html')[0].style.fontSize = document.documentElement.clientWidth / 20 + 'px';
-  };
-  changeRem();
-  var t;
-  window.addEventListener('resize', function() {
-   clearTimeout(t);
-   t = setTimeout(changeRem, 300);
-  }, false);
-  window.addEventListener('pageshow', function(e) {
-   if (e.persisted) {
-    clearTimeout(t);
-    t = setTimeout(changeRem, 300);
-   }
-  }, false);
- }());
-</script>
 
 <footer class="footer" style="text-align: center;margin-top: 50px;">
 	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
@@ -705,4 +501,7 @@ $(document).ready(function(){
 </script>
 </body>
 </html>
-
+	<script type="text/javascript">
+    	$('.dropify').dropify();
+   		UE.getEditor("myEditor");
+	</script>
