@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1545378218;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1545636769;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1544798596;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -772,20 +772,15 @@ new Vue({
      		console.log(this.worksheet[e].primary)
         	    $.get('<?php echo url("admin/task/classify"); ?>',
         	    	{
-	
 	        	    	select:1,
 	        	    	theme_id:this.worksheet[e].id,
 	        	    	xuan:this.worksheet[e].primary.id,
 	        	    	type:this.worksheet[e].primary.type
-        	    	},(rtnData)=>{     
-        	    	
+        	    	},(rtnData)=>{             	    	
         	    			if(rtnData.list){
-        	    					
         	    				rtnData.list.primary=JSON.parse(rtnData.list.primary)
         	    				this.$set(this.worksheet,e,rtnData.list)
         	    			}
-        	    			
-
         	    			var text=[];
         	    			 for (var a = 0; a < this.fine.length; a++) {
 			        	     	if(this.worksheet[e].primary.id==this.fine[a].main){
@@ -796,8 +791,7 @@ new Vue({
 			        					this.$set(this.secondary,e,text);
 			        				}
         	     }
-        	    			console.log(this.worksheet);
-        	    			
+        	    			console.log(this.worksheet);     	    			
      			});
 
         },
@@ -808,26 +802,21 @@ new Vue({
                 select: 2,
                 theme_id: this.worksheet[e].id,
                 xuan: this.worksheet[e].secondary,
-
             }, (rtnData) => {
                 this.worksheet[e].score = rtnData
                 this.$set(this.worksheet[e], "score", rtnData)
- this.zongshu=0;
-for(var i=0;i<this.worksheet.length;i++){
+				 this.zongshu=0;
+				for(var i=0;i<this.worksheet.length;i++){
             	if(this.worksheet[i].whether==0){
-            		this.zongshu+=parseInt(this.worksheet[i].score)
-            	}
-            }
-
+            		this.zongshu+=parseFloat(this.worksheet[i].score)
+	            	}
+	            }
             });
-           
-
         },
         // 时间/数量
         liang(e) {
-            console.log(this.worksheet[e].quantity);
+           if(this.worksheet[e].quantity){
             $.get('<?php echo url("admin/task/classify"); ?>', {
-
                 select: 3,
                 theme_id: this.worksheet[e].id,
                 liang: this.worksheet[e].quantity
@@ -837,11 +826,11 @@ for(var i=0;i<this.worksheet.length;i++){
                 this.zongshu=0;
             for(var i=0;i<this.worksheet.length;i++){
             	if(this.worksheet[i].whether==0){
-            		this.zongshu+=parseInt(this.worksheet[i].score)
+            		this.zongshu+=parseFloat(this.worksheet[i].score)
             	}
             }
             });
-            
+            }
         },
         // 工作内容
 
@@ -876,7 +865,7 @@ for(var i=0;i<this.worksheet.length;i++){
             this.zongshu=0;
             for(var i=0;i<this.worksheet.length;i++){
             	if(this.worksheet[i].whether==0){
-            		this.zongshu+=parseInt(this.worksheet[i].score)
+            		this.zongshu+=parseFloat(this.worksheet[i].score)
             	}
             }
         },
