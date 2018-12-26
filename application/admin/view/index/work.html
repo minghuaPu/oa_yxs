@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/work/work.css"/>
 
@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-	{include file="top"}
+	{include file="top"} 
 	{include file="left"} 
 	{include file="right"} 
 	</head>
@@ -72,7 +72,7 @@
             series: [{
                 color:'#28d2ae',
                 type: 'bar',
-                data: [20, 40, 10, 80, 90.5,80]
+                data: {$week}
             }]
         };
         myChart.setOption(option);// 使用刚指定的配置项和数据显示图表。
@@ -90,7 +90,7 @@
 	    },
 	    series: [{
 	    	 color:'#28d2ae',
-	        data: [50, 80, 30, 70],
+	        data: {$month},
 	        type: 'line',
 	        smooth: true
 	    }]

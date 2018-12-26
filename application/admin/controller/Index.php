@@ -63,7 +63,65 @@ class Index extends \app\admin\Auth
 
     }
 	public function work(){
-		
+	   $user_data=Session::get();
+       $worksheet=db('worksheet')->where('uid='.$user_data['u_id'])->where('whether=0')->select();
+       $Monday=date('Y-m-d', (time() - ((date('w') == 0 ? 7 : date('w')) - 1) * 24 * 3600));//星期一
+       $Tuesday=date('Y-m-d', (time() - ((date('w') == 0 ? 7 : date('w')) - 2) * 24 * 3600));//星期二
+       $Wednesday=date('Y-m-d', (time() - ((date('w') == 0 ? 7 : date('w')) - 3) * 24 * 3600));//星期三
+       $Thursday=date('Y-m-d', (time() - ((date('w') == 0 ? 7 : date('w')) - 4) * 24 * 3600));//星期四
+       $Friday=date('Y-m-d', (time() - ((date('w') == 0 ? 7 : date('w')) - 5) * 24 * 3600));//星期五
+       $Saturday=date('Y-m-d', (time() - ((date('w') == 0 ? 7 : date('w')) - 6) * 24 * 3600));//星期六
+       $ye=date('Y-m-d H:i:s',strtotime('-1week'));
+       // var_dump($ye);
+       $week=['','','','','',''];
+       foreach ($worksheet as $key => $value) {
+           if($Monday==date('Y-m-d',$value['time'])||$Monday==date('Y-m-d',$value['state'])){
+                $week[0]+=number_format($value['score'],2,'.','');
+           }
+           if($Tuesday==date('Y-m-d',$value['time'])||$Tuesday==date('Y-m-d',$value['state'])){
+                $week[1]+=number_format($value['score'],2,'.','');
+           }
+           if($Wednesday==date('Y-m-d',$value['time'])||$Wednesday==date('Y-m-d',$value['state'])){
+                $week[2]+=number_format($value['score'],2,'.','');
+           }
+           if($Thursday==date('Y-m-d',$value['time'])||$Thursday==date('Y-m-d',$value['state'])){
+                $week[3]+=number_format($value['score'],2,'.','');
+           }
+           if($Friday==date('Y-m-d',$value['time'])||$Friday==date('Y-m-d',$value['state'])){
+                $week[4]+=number_format($value['score'],2,'.','');
+           }
+           if($Saturday==date('Y-m-d',$value['time'])||$Saturday==date('Y-m-d',$value['state'])){
+                $week[5]+=number_format($value['score'],2,'.','');
+           }
+       }
+       $yue=date('Y-m-1',time());
+       $current_month=date('m',time());
+       $firstday=strtotime($yue);
+       $month=['','','',''];
+       
+       $monday=$firstday-86400*(date('N',$firstday)-1);
+
+       for ($i=1; $i <= 5; $i++) {
+            $start=date("Y-m-d",$monday+($i-1)*86400*7);//起始周一
+            $end=date("Y-m-d",$monday+$i*86399*7);//结束周日
+            if(date('m',$monday+$i*86399*7)!=$current_month)
+            {   
+                continue;
+            }
+            
+            foreach ($worksheet as $key => $value) {
+                if(strtotime($start)>=strtotime($yue)){
+                    // echo $i.$start.'---'.$end."<br/>";
+                    if($start < date('Y-m-d',$value['time'])&& date('Y-m-d',$value['time'])< $end||$start < date('Y-m-d',$value['state'])&& date('Y-m-d',$value['state'])< $end){
+                        $month[$i-2]+=number_format($value['score'],2,'.','')/6;
+                    }
+                }
+            }
+           // var_dump($month);
+           //  echo $start.'---'.$end."<br/>";//开始结束放入数组
+        }
+        $this->assign('month',json_encode($month));
+        $this->assign('week',json_encode($week));
     	return $this->fetch();
     }
 	public function finance(){
@@ -452,7 +510,8 @@ class Index extends \app\admin\Auth
 	     
 		$list_qb=db("steel")->field('material,shape,diameter,length,weight,numbers')->select();  
 		$series = [];
- 
+        $inventory=db('inventory')->select();
+        $this->assign('inventory',$inventory);
 		foreach($list_qb as $key=>$value){
 			foreach($value as $k=>$v){
 				if($k=='material'){
@@ -487,6 +546,18 @@ class Index extends \app\admin\Auth
 //		print_r($list_qb);exit();
 		$this->assign('series',json_encode(array_values($series)));
 		 
+        return $this->fetch();
+    }
+    public function inventory(){
+        $gangzhong=input('gangzhong');
+        $type=input('type');
+        $standard=input('standard');
+        $inventory=db('inventory')->where('gangzhong','like',"%".$gangzhong."%")
+                                  ->where('type','like',"%".$type."%")
+                                  ->where('standard','like',"%".$standard."%")
+                                  ->select();
+        
+        $this->assign('inventory',$inventory);
         return $this->fetch();
     }
 	public function save(){   //保存库存修改的数据
