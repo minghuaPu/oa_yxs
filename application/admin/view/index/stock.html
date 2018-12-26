@@ -12,12 +12,15 @@
 		<table class="table table-striped table-bordered table-hover table-condensed">
 			<thead>
 				<tr>
-					<form action="{:url('inventory')}">
-						<th><input type="text" class="form-control" placeholder="钢种" name="gangzhong"></th>
-						<th><input type="text" class="form-control" placeholder="型号" name="type"></th>
-						<th><input type="text" class="form-control" placeholder="规格" name="standard"></th>
-						<th style="text-align: center;"><button class="btn btn-default" name="">搜索</button></th>
-					</form>
+					
+						<th><input type="text" class="form-control" placeholder="钢种" id="gangzhong"></th>
+						<th><input type="text" class="form-control" placeholder="型号" id="type"></th>
+						<th><input type="text" class="form-control" placeholder="规格" id="standard"></th>
+						<th style="text-align: center;">
+							<button class="btn btn-default" @click='operate(0)'>搜索</button>
+							<button class="btn btn-default" @click="operate(1)">添加</button>
+						</th>
+					
 				</tr>
 				<tr >
 					<th style="text-align: center!important;">钢种</th>
@@ -27,14 +30,14 @@
 				</tr>
 			</thead>
 			<tbody>
-				{foreach $inventory as $key=>$val}
-					<tr>
-						<td>{$val.gangzhong}</td>
-						<td>{$val.type}</td>
-						<td>{$val.standard}</td>
-						<td>{$val.number}</td>
+				
+					<tr v-for='(val,index) in inventory' @dblclick='operate(2,index)'>
+						<td>{{val.gangzhong}}</td>
+						<td>{{val.type}}</td>
+						<td>{{val.standard}}</td>
+						<td><input type="text" v-model='val.number' style="width: 100%;height: 100%;text-align: center;"  @change='operate(3,index)'></td>
 					</tr>
-				{/foreach}
+		
 				
 			</tbody>
 		</table>
@@ -43,7 +46,59 @@
 	</body>
 </html>
 <script type="text/javascript">
-	
+	new Vue({
+    el: ".table",
+    data: {
+     inventory:{$inventory}
+    },
+    
+    created: function() {
+       
+    },
+    methods: {
+    	operate(e,i){
+    		if(e==2){
+    			this.$confirm('确认删除吗！',  {
+		          confirmButtonText: '确定',
+		          callback: action => {
+		            if(action=='confirm'){
+		            	$.get('{:url("admin/index/inventory")}',
+	        	    	{
+	        	    		select:e,
+	        	    		id:this.inventory[i].id
+	        	    	},(rtnData)=>{
+	                     this.inventory.splice(i,1)
+	        	    	
+	     			});
+		            }
+		            // window.location.href="{:url('admin/index/index')}";
+		          }
+
+		        });
+    			
+    			
+    		}else if(e==3){
+    			$.get('{:url("admin/index/inventory")}',
+	        	    	{
+	        	    		select:e,
+	        	    		id:this.inventory[i].id,
+	        	    		number:this.inventory[i].number
+	        	    	},(rtnData)=>{});
+    		}else{
+	    		$.get('{:url("admin/index/inventory")}',
+	        	    	{
+	        	    		select:e,
+	        	    		gangzhong:$('#gangzhong').val(),
+	        	    		type:$('#type').val(),
+	        	    		standard:$('#standard').val()
+	        	    	},(rtnData)=>{
+	                     this.inventory=rtnData;
+	        	    	
+	     			});
+	    		}
+    		}
+    	},
+})
 </script>
 <style type="text/css">
 	

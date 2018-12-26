@@ -505,60 +505,32 @@ class Index extends \app\admin\Auth
 
 
 	public function stock(){     //库存的数据
-		$list=db("steel")->field('category,id')->select();  //材料名字
-		$this->assign('list',json_encode($list));
-	     
-		$list_qb=db("steel")->field('material,shape,diameter,length,weight,numbers')->select();  
-		$series = [];
         $inventory=db('inventory')->select();
-        $this->assign('inventory',$inventory);
-		foreach($list_qb as $key=>$value){
-			foreach($value as $k=>$v){
-				if($k=='material'){
-
-					$series[$k]['name'] = '材质';
-
-				}elseif($k=='shape'){
-
-					$series[$k]['name'] = '形状';
-				}
-				elseif($k=='diameter'){
-
-					$series[$k]['name'] = '直径';
-				}
-				elseif($k=='length'){
-
-					$series[$k]['name'] = '长度';
-				}
-				elseif($k=='weight'){
-
-					$series[$k]['name'] = '重量';
-				}
-				elseif($k=='numbers'){
-					$series[$k]['name'] = '数量';
-				};
-				
-				$series[$k]['data'][] = $v;
-				$series[$k]['type'] = 'bar';
-				
-			}
-		};
-//		print_r($list_qb);exit();
-		$this->assign('series',json_encode(array_values($series)));
-		 
+        $this->assign('inventory',json_encode($inventory)); 
         return $this->fetch();
     }
     public function inventory(){
         $gangzhong=input('gangzhong');
         $type=input('type');
         $standard=input('standard');
-        $inventory=db('inventory')->where('gangzhong','like',"%".$gangzhong."%")
-                                  ->where('type','like',"%".$type."%")
-                                  ->where('standard','like',"%".$standard."%")
-                                  ->select();
+        if(input('select')==0){
+          
+            $inventory=db('inventory')->where('gangzhong','like',"%".$gangzhong."%")
+                                      ->where('type','like',"%".$type."%")
+                                      ->where('standard','like',"%".$standard."%")
+                                      ->select();
+                                      return json($inventory);
+        }elseif(input('select')==1){
+            db('inventory')->insert(['gangzhong'=>$gangzhong,'type'=>$type,'standard'=>$standard]);
+             $inventory=db('inventory')->select();
+             return json($inventory);
+        }elseif(input('select')==2){
+            db('inventory')->where("id=".input('id'))->delete();
+        }elseif (input('select')==3) {
+            db('inventory')->where("id=".input('id'))->update(['number'=>input('number')]);
+        }
         
-        $this->assign('inventory',$inventory);
-        return $this->fetch();
+      
     }
 	public function save(){   //保存库存修改的数据
 	     $value =input('keep');
