@@ -505,7 +505,7 @@ class Index extends \app\admin\Auth
 
 
 	public function stock(){     //库存的数据
-        $inventory=db('inventory')->select();
+        $inventory=db('inventory')->order("id desc")->select();
         $this->assign('inventory',json_encode($inventory)); 
         return $this->fetch();
     }
@@ -518,11 +518,12 @@ class Index extends \app\admin\Auth
             $inventory=db('inventory')->where('gangzhong','like',"%".$gangzhong."%")
                                       ->where('type','like',"%".$type."%")
                                       ->where('standard','like',"%".$standard."%")
+                                      ->order("id desc")
                                       ->select();
                                       return json($inventory);
         }elseif(input('select')==1){
             db('inventory')->insert(['gangzhong'=>$gangzhong,'type'=>$type,'standard'=>$standard]);
-             $inventory=db('inventory')->select();
+             $inventory=db('inventory')->order("id desc")->select();
              return json($inventory);
         }elseif(input('select')==2){
             db('inventory')->where("id=".input('id'))->delete();
