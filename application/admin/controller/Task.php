@@ -40,7 +40,7 @@ class Task extends \app\admin\Auth
             $this->assign('selectlists',$selectlists);
             $work_list1  =  db('bossworklist')->where("uid=".$user_data['u_id'])->order('id desc')->select();
             $work_listnu = count($work_list1);
-            $work_list  =  db('bossworklist')->where("uid=".$user_data['u_id'])->where('uid='.$user_data['u_id'])->order(['sorts','id'=>'desc'])->paginate(3)->each(function($item, $key){
+            $work_list  =  db('bossworklist')->where("uid=".$user_data['u_id'])->where('uid='.$user_data['u_id'])->order(['sorts','id'=>'desc'])->paginate(10)->each(function($item, $key){
                             $item['execute_id']=db('user')->field('user_name')->where('id' ,'in' ,$item['execute_id'])->select();
                             return  $item;
                             });
