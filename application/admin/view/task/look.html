@@ -1,4 +1,10 @@
 {include file="top"}
+<style type="text/css">
+	.table_box{background-color: #fff !important}
+	.Employee_box .Employee_right .Score .fens .se{background: red  !important;}
+	.Employee_box .Employee_right .Score .fens .fen {
+    color: red;}
+</style>
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/look.css?3">
 
@@ -18,6 +24,7 @@
 								<span>负责人:</span>
 								
 									<select  style="width: 150px" v-model='xzheyuangong_id' @change='xzheyuangong'>
+										<option value="">请选择</option>
 										<option  v-for="(i,g) in yuangong" :value="i.id">{{i.user_name}}</option>
 									</select>
 								
@@ -55,7 +62,7 @@
 					<td>
 					  {{index+1}}
 					</td>
-					<td :style="index%2 ==0?'background: #b7dee8;':''" >
+					<td :style="index%2 ==0?'background: #fff;':''" >
 						<div v-if='item.primary'>{{item.primary.type}}</div>
 					  
 					  
@@ -69,7 +76,7 @@
 						{{item.quantity}}
 						 
 					</td>
-					<td :style="index%2 ==0?'background: #b7dee8;':''" >
+					<td :style="index%2 ==0?'background: #fff;':''" >
 						{{item.job}}
 						
 						
@@ -77,8 +84,8 @@
 
 				
 					<td>
-						  <div v-if="item.whether==0" :style="index%2 ==0?'background: #b7dee8;':''">是</div>
-						  <div v-else :style="index%2 ==0?'background: #b7dee8;':''">否</div>
+						  <div v-if="item.whether==0" :style="index%2 ==0?'background: #fff;':''">是</div>
+						  <div v-else :style="index%2 ==0?'background: #fff;':''">否</div>
 					  </select>
 					</td>
 					<td>
@@ -89,7 +96,7 @@
 						
 
 					</td>
-					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
+					<td><div :style="index%2 ==0?'background: #fff;':''" >{{item.score}}</td>
 					<td>
 						<a @click='viewDetails(item.boss_rwid,index)' v-if='item.boss_rwid' style="cursor: pointer;">查看详情</a>
 						<a @click='viewDetails(item.id,index)'  v-else style="cursor: pointer;">查看详情</a>
@@ -112,7 +119,7 @@
 				
 					<th width="100px">操作</th>
 				</tr>
-				<tr v-for='(item,index) in daibanwork' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'" >
+				<tr v-for='(item,index) in daibanwork' :style="index%2 ==0?'background: #fff;':'background: #fff;'" >
 					<td>{{index+1}}</td>
 					<td>
 						<div>{{item.time}}</div>
@@ -151,7 +158,7 @@
 					<th width="250px">备注</th>
 					<th width="100px">操作</th>
 				</tr>
-				<tr v-for='(item,index) in zhoujihua' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'" >
+				<tr v-for='(item,index) in zhoujihua' :style="index%2 ==0?'background: #fff;':'background: #fff;'" >
 					<td>{{index+1}}</td>
 					<td>
 						<div>{{item.job}}</div>

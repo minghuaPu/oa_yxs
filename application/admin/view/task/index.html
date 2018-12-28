@@ -1,4 +1,11 @@
 {include file="top"}
+
+<style type="text/css">
+	.table_box{background-color: #fff !important}
+	.Employee_box .Employee_right .Score .fens .se{background: red  !important;}
+	.Employee_box .Employee_right .Score .fens .fen {
+    color: red;}
+</style>
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
 <div class="task">
 
@@ -50,7 +57,7 @@
 					</td>
 					<td>
 					  <select 
-						:style="index%2 ==0?'background: #b7dee8;':''" 
+						:style="index%2 ==0?'background: #fff;':''" 
 						v-model='item.primary'		 
 						 :disabled='item.disabled'
 						@change='zhuclassify(index)'>
@@ -58,29 +65,29 @@
 					  </select>
 					</td>
 					<td>
-						<select :style="index%2 ==0?'background: #b7dee8;':''" :disabled='item.disabled' v-model='item.secondary' @change='ciclassify(index)'>
+						<select :style="index%2 ==0?'background: #fff;':''" :disabled='item.disabled' v-model='item.secondary' @change='ciclassify(index)'>
 						  <option v-for="(c,cl) in secondary[index]" :value ="c" style="text-align: center;">{{c.type}}</option>
 					  </select>
 					</td>
 					<td quantity>
-						<input type="text" :style="index%2 ==0?'background: #b7dee8;':''" :disabled='disabled' v-model='item.quantity' @blur='liang(index)'>	 
+						<input type="text" :style="index%2 ==0?'background: #fff;':''" :disabled='disabled' v-model='item.quantity' @blur='liang(index)'>	 
 					</td>
 					<td>
-						<div  :style="index%2 ==0?'background: #b7dee8;':''"  v-if='item.boss_id'>{{item.job}}</div>
-						<input :disabled='disabled' type="text" :style="index%2 ==0?'background: #b7dee8;':''" @blur='job(index)' v-model="item.job"  v-else>	
+						<div  :style="index%2 ==0?'background: #fff;':''"  v-if='item.boss_id'>{{item.job}}</div>
+						<input :disabled='disabled' type="text" :style="index%2 ==0?'background: #fff;':''" @blur='job(index)' v-model="item.job"  v-else>	
 					</td>
 					<td>
-						<select  :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''"  v-model='item.whether' @change='whether(index)'>
+						<select  :disabled='disabled' :style="index%2 ==0?'background: #fff;':''"  v-model='item.whether' @change='whether(index)'>
 						  <option value ="0" >是</option>
 						  <option value ="1" >否</option>
 					  </select>
 					</td>
-					<td><input type="text" :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''" v-model='item.reasons' @blur='reasons(index)'></td>
+					<td><input type="text" :disabled='disabled' :style="index%2 ==0?'background: #fff;':''" v-model='item.reasons' @blur='reasons(index)'></td>
 					<td>
-						<div :style="index%2 ==0?'background: #b7dee8;':''"  v-if='item.boss_id'>{{item.remark}}</div>
-						<input type="text" :disabled='disabled' :style="index%2 ==0?'background: #b7dee8;':''"   v-model='item.remark' @blur='remark(index)' v-else>
+						<div :style="index%2 ==0?'background: #fff;':''"  v-if='item.boss_id'>{{item.remark}}</div>
+						<input type="text" :disabled='disabled' :style="index%2 ==0?'background: #fff;':''"   v-model='item.remark' @blur='remark(index)' v-else>
 					</td>
-					<td><div :style="index%2 ==0?'background: #b7dee8;':''" >{{item.score}}</td>
+					<td><div :style="index%2 ==0?'background: #fff;':''" >{{item.score}}</td>
 					<td >
 						<div style="display: flex;justify-content: space-around;" v-if='item.id'>
 						<a style="cursor: pointer;"  data-toggle="modal" data-target="#myModal" @click='zhipairw(item.id)'>指派任务</a>
@@ -104,28 +111,28 @@
 				
 					<th width="100px">操作</th>
 				</tr>
-				<tr v-for='(item,index) in daibanwork' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'" >
+				<tr v-for='(item,index) in daibanwork' :style="index%2 ==0?'background: #fff;':'background: #fff;'" >
 					<td>{{index+1}}</td>
 					<td>
 						<div v-if='item.boss_rwid'>{{item.time}}</div>
-						<input v-else type="date" v-model="item.time" @change='starttime(index)' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'">
+						<input v-else type="date" v-model="item.time" @change='starttime(index)' :style="index%2 ==0?'background: #fff;':'background: #fff;'">
 					</td>
 					<td>
 						<div v-if='item.boss_rwid'>{{item.job}}</div>
-						<input type="text" v-else v-model='item.job' @blur='daibanjob(index)' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'">
+						<input type="text" v-else v-model='item.job' @blur='daibanjob(index)' :style="index%2 ==0?'background: #fff;':'background: #fff;'">
 					</td>
 					<td>
 						<div v-if='item.boss_rwid'>{{item.lasttime}}</div>
-						<input v-else type="date" v-model="item.lasttime" @change='endtime(index)' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'">
+						<input v-else type="date" v-model="item.lasttime" @change='endtime(index)' :style="index%2 ==0?'background: #fff;':'background: #fff;'">
 					</td>
 					<td>
 					
 						<div v-if='item.boss_rwid'>{{item.remark}}</div>
-						<input type="text" v-else v-model='item.remark' @blur='daibanremark(index)' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'">
+						<input type="text" v-else v-model='item.remark' @blur='daibanremark(index)' :style="index%2 ==0?'background: #fff;':'background: #fff;'">
 					</td>
 					<td>
 						<div v-if='item.boss_rwid'>{{item.reasons}}</div>
-						<input type="text" v-else v-model='item.reasons' @blur='daibanreasons(index)' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'">
+						<input type="text" v-else v-model='item.reasons' @blur='daibanreasons(index)' :style="index%2 ==0?'background: #fff;':'background: #fff;'">
 					</td>
 					
 					<td>
@@ -145,12 +152,12 @@
 					<th width="250px">备注</th>
 					<th width="100px">操作</th>
 				</tr>
-				<tr v-for='(item,index) in zhoujihua' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'" >
+				<tr v-for='(item,index) in zhoujihua' :style="index%2 ==0?'background: #fff;':'background: #fff;'" >
 					<td>{{index+1}}</td>
-					<td><input type="text" v-model='item.job' @blur='zhoujob(index)' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'"></td>
-					<td><input type="date" v-model="item.time" @change='zhoutime(index)' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'"></td>
-					<td><input type="date" v-model="item.lasttime" @change='zhouendtime(index)' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'"></td>
-					<td><input type="text" v-model="item.remark"  @blur='zhouremark(index)' :style="index%2 ==0?'background: #b7dee8;':'background: #fff;'"></td>
+					<td><input type="text" v-model='item.job' @blur='zhoujob(index)' :style="index%2 ==0?'background: #fff;':'background: #fff;'"></td>
+					<td><input type="date" v-model="item.time" @change='zhoutime(index)' :style="index%2 ==0?'background: #fff;':'background: #fff;'"></td>
+					<td><input type="date" v-model="item.lasttime" @change='zhouendtime(index)' :style="index%2 ==0?'background: #fff;':'background: #fff;'"></td>
+					<td><input type="text" v-model="item.remark"  @blur='zhouremark(index)' :style="index%2 ==0?'background: #fff;':'background: #fff;'"></td>
 					<td></td>
 				</tr>
 			</table>
