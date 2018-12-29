@@ -15,12 +15,19 @@
 			<thead>
 				<tr>
 					
-						<th><input type="text" class="form-control" placeholder="钢种" id="gangzhong"></th>
-						<th><input type="text" class="form-control" placeholder="型号" id="type"></th>
-						<th><input type="text" class="form-control" placeholder="规格" id="standard"></th>
+						<th colspan="3">
+							<div style="display: flex;">
+								<input type="text" class="form-control" placeholder="钢种" id="gangzhong">
+								<input type="text" class="form-control" placeholder="型号" id="type">
+								<input type="text" class="form-control" placeholder="规格" id="standard">
+								<input type="text" class="form-control" placeholder="数量" id="number">
+							</div>
+
+						</th>
 						<th style="text-align: center;">
 							<button class="btn btn-info" @click='operate(0)'>搜索</button>
 							<button class="btn btn-success" @click="operate(1)">添加</button>
+							<a class="btn btn-warning" href="{:url('statistical')}" >使用统计</a>
 						</th>
 					
 				</tr>
@@ -36,8 +43,12 @@
 					<tr v-for='(val,index) in inventory' @dblclick='operate(2,index)'>
 						<td>{{val.gangzhong}}</td>
 						<td>{{val.type}}</td>
-						<td>{{val.standard}}</td>
-						<td><input type="text" v-model='val.number' style="width: 100%;height: 100%;text-align: center;"  @change='operate(3,index)'></td>
+						<td><input type="text" v-model='val.standard' style="width: 100%;height: 100%;text-align: center;" @change='operate(4,index)'></td>
+						<td>
+							<!-- <span style="margin:0 10px;cursor: pointer;" @click='operate(5,index)'>-</span> -->
+							<input type="text" v-model='val.number' style="width: 100%;height: 100%;text-align: center;"  @change='operate(3,index)'>
+							<!-- <span style="cursor: pointer;margin:0 10px" @click='operate(6,index)'>+</span> -->
+						</td>
 					</tr>
 		
 				
@@ -52,7 +63,6 @@
     el: ".table",
     data: {
      inventory:{$inventory},
-   
     },
     
     created: function() {
@@ -81,13 +91,45 @@
     			
     			
     		}else if(e==3){
+    			this.$confirm('确认删除吗！',  {
+		          confirmButtonText: '确定',
+		          callback: action => {
+		            if(action=='confirm'){
+    					$.get('{:url("admin/index/inventory")}',
+		        	    	{
+		        	    		select:e,
+		        	    		id:this.inventory[i].id,
+		        	    		number:this.inventory[i].number
+		        	    	},(rtnData)=>{});
+    					}
+    				}
+    			});
+    		}else if(e==4){
+    			$.get('{:url("admin/index/inventory")}',
+	        	    	{
+	        	    		select:e,
+	        	    		id:this.inventory[i].id,
+	        	    		standard:this.inventory[i].standard
+	        	    	},(rtnData)=>{});
+    		}else if(e==5){
+    			--this.inventory[i].number
     			$.get('{:url("admin/index/inventory")}',
 	        	    	{
 	        	    		select:e,
 	        	    		id:this.inventory[i].id,
 	        	    		number:this.inventory[i].number
 	        	    	},(rtnData)=>{});
-    		}else if(e==1){
+    		}
+    		else if(e==6){
+    			++this.inventory[i].number
+    			$.get('{:url("admin/index/inventory")}',
+	        	    	{
+	        	    		select:e,
+	        	    		id:this.inventory[i].id,
+	        	    		number:this.inventory[i].number
+	        	    	},(rtnData)=>{});
+    		}
+    		else if(e==1){
     			if($('#gangzhong').val()==''){
 
     				this.$alert('请输入钢种');
@@ -101,12 +143,17 @@
     				this.$alert('请输入规格');
     				return
     			}
+    			if($('#number').val()==''){
+    				this.$alert('数量');
+    				return
+    			}
 	    		$.get('{:url("admin/index/inventory")}',
 	        	    	{
 	        	    		select:e,
 	        	    		gangzhong:$('#gangzhong').val(),
 	        	    		type:$('#type').val(),
-	        	    		standard:$('#standard').val()
+	        	    		standard:$('#standard').val(),
+	        	    		number:$('#number').val()
 	        	    	},(rtnData)=>{
 	                     this.inventory=rtnData;
 	                      this.$message({

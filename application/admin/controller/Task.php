@@ -48,6 +48,8 @@ class Task extends \app\admin\Auth
             $unfinish_list1=db("bossworklist")->where("uid=".$user_data['u_id'])->where('state=3 or state=4')->select();
             $unfinish_listnu = count($unfinish_list1);
             $unfinish_list=db("bossworklist")->where("uid=".$user_data['u_id'])->where('state=3 or state=4')->paginate(10);
+            $advise=db('advise')->select();
+            $this->assign('advise',json_encode($advise));
             $this->assign('work_listnu',$work_listnu);
             $this->assign('unfinish_listnu',$unfinish_listnu);  
             $this->assign('unfinish_list',$unfinish_list);
@@ -233,6 +235,7 @@ class Task extends \app\admin\Auth
         db('worksheet')->where("boss_rwid=$id")->delete();
         $this->success('撤销成功','index');
     }
+
     //员工表
     public function classify(){
         $user_data=Session::get();
@@ -395,6 +398,11 @@ class Task extends \app\admin\Auth
         }
       
     } 
+    // 提建议
+    public function advise(){
+        $advise=input('advise');
+        db('advise')->insert(['advise'=>$advise,'time'=>time()]);
+    }
     // 代办工作
     public function daibanwork(){
         $user_data=Session::get();
