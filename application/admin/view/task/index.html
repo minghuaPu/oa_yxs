@@ -7,7 +7,7 @@
     color: #000;}
     input[disabled]{background: #fff!important;}
 </style>
-<div class="btn btn-default opinion"  data-toggle="modal" data-target="#asdf">员工建议</div>
+
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
 <div class="task">
 	<div class="task_left"></div>
@@ -334,6 +334,8 @@
 </div>
 </form>
 <!-- 查看建议 -->
+{foreach $user as $userdata}
+			{if $userdata.user_cate=='老板'}
 	<div class="modal fade" id="asdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -365,6 +367,8 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal -->
 	</div>
+	{/if}
+	{/foreach}
 <script>
 // 第二步：定义路由，也就是每个路由应该映射一个组件
 
