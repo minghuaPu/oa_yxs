@@ -29,3 +29,30 @@
     height: 20px;
     margin-top: 6px;
 }
+.lefts{
+	width: 32%;
+	float: left;
+	height: 100vh;
+	background: #fff;
+	margin:0 5px;
+	border: 2px solid #eeeeee;
+}
+.title{
+	background-color: #DDDDDD;
+	text-align: center;
+	color: #1c4c9c;
+	line-height: 25px;
+
+}
+.con_bian	{
+	border: 2px solid #eee;
+	width: 95%;
+	height: 92%;
+	margin:10px auto;
+}
+.btns{
+	padding:1px 5px;
+	color: #fff;
+	background: #f34345;
+	margin: 0 5px; 
+}

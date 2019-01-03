@@ -65,6 +65,8 @@ class Index extends \app\admin\Auth
 	public function work(){
 	   $user_data=Session::get();
        $worksheet=db('worksheet')->where('uid='.$user_data['u_id'])->where('whether=0')->select();
+       $this->assign("user_data",$user_data);
+       if($user_data['user_cate']=='员工'){
        $Monday=date('Y-m-d', (time() - ((date('w') == 0 ? 7 : date('w')) - 1) * 24 * 3600));//星期一
        $Tuesday=date('Y-m-d', (time() - ((date('w') == 0 ? 7 : date('w')) - 2) * 24 * 3600));//星期二
        $Wednesday=date('Y-m-d', (time() - ((date('w') == 0 ? 7 : date('w')) - 3) * 24 * 3600));//星期三
@@ -120,8 +122,86 @@ class Index extends \app\admin\Auth
         }
         $this->assign('month',json_encode($month));
         $this->assign('week',json_encode($week));
+    }elseif ($user_data['user_cate']=='老板') {
+       $users=db('user')->field('id,user_name')->where('user_cate="员工"')->select();
+       $worksheet=db('worksheet')->where('whether=0')->select();
+       $mainclassify=db('mainclassify')->field('type')->select();
+       foreach ($mainclassify as $key => $value) {
+           $main[$key]['name']=$value['type'];
+           $main[$key]['value']=0;
+           $mainclass[]=$value['type'];
+       }
+       foreach ($users as $key => $value) {
+           $users[$key]['zong']=0;
+           $users[$key]['liang']=0;
+       }
+       $user_statistics=[];
+       foreach ($worksheet as $key => $value) {
+           $lian[date('Y',$value['time'])]=date('Y',$value['time']);
+           foreach ($lian as $k => $val) {
+               
+               if($val==date('Y',$value['time'])){
+                $user_statistics[$k]['year']=$val;
+                $user_statistics[$k]['hidden']=false;
+                $user_statistics[$k]['data']=$users;
+                $year[$k][]=$value;
+                }
+           }
+       }
+       foreach ($user_statistics as $key => $value) {
+           foreach ( $user_statistics[$key]['data'] as $ks => $vl) {
+                     foreach ($year[$key] as $e => $v) {
+                          if($vl['id']==$v['uid']){
+                         $user_statistics[$key]['data'][$ks]['zong']+=$v['score'];
+                         $user_statistics[$key]['data'][$ks]['liang']+=$v['quantity'];
+                        }
+                     }
+                    
+                    
+                 }
+       }
+       rsort($user_statistics);
+       $this->assign('user_statistics',json_encode($user_statistics));
+        $this->assign('users',json_encode($users));
+        $this->assign('main',json_encode($main));
+        $this->assign('mainclass',json_encode($mainclass));
+    }
     	return $this->fetch();
     }
+
+    public function usertask(){
+        $year=input('year');
+        $uid=input('uid');
+        $worksheet=db('worksheet')->where("uid=$uid")->where('whether=0')->select();
+        $shuliang=[0,0,0,0,0,0,0,0,0,0,0,0];
+        $fenshu=[0,0,0,0,0,0,0,0,0,0,0,0];
+        $mainclassify=db('mainclassify')->field('type')->select();
+       foreach ($mainclassify as $key => $value) {
+           $mainshuliang[$key]['name']=$value['type'];
+           $mainshuliang[$key]['value']=0;
+           $mainfenshu[$key]['name']=$value['type'];
+           $mainfenshu[$key]['value']=0;
+       }
+        foreach ($worksheet as $key => $value) {
+             if(date('Y',$value['time'])==$year){
+                $a[$key]=json_decode($value['primary'],true);
+                 foreach ($mainclassify as $e => $v) {
+                    if($a[$key]['type']==$v['type']){
+                       $mainshuliang[$e]['value']+=$value['quantity'];
+                        $mainfenshu[$e]['value']=$value['score'];
+                   }
+               }
+                foreach ($shuliang as $k => $val) {
+                    if(date('m',$value['time'])==$k+1){
+                        $shuliang[$k]+=$value['quantity'];
+                        $fenshu[$k]+=$value['score'];
+                    }
+                }
+             }
+        }
+        return json(['shuliang'=>$shuliang,'fenshu'=>$fenshu,'mainfenshu'=>$mainfenshu,'mainshuliang'=>$mainshuliang]);
+    }
+
 	public function finance(){
 		
     	return $this->fetch();
