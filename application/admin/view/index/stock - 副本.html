@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+	{include file="top"}
+	{include file="left"} 
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="page_box">
+			<div class="container" style="background: white;">
+				<div class="row">
+					<div class="col-md-5 col-sm-5 col-lg-5"></div>
+					<div class="col-md-2 col-sm-2 col-lg-5"><h3>钢材库存</h3></div>
+					<div class="col-md-5 col-sm-5 col-lg-5">
+				</div>
+				<div class="row">
+					<div class="col-md-12 col-sm-12 ">
+					    <div style="width: 1300px;height:600px;" id="main"></div>
+					</div>
+					<div class="alert alert-success " style="clear:both;margin-top: 50px;display: block;width: 20%;margin: 0 auto;height: auto;overflow: hidden;text-align: center;">点击柱子可以直接修改</div>
+				</div>	
+				
+				
+				
+			</div>
+		</div>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form class="modal-content"  method="post" action="{:url('index/save')}">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">修改</h4>
+                </div>
+                <div class="modal-body">
+                	<div class="title_box">
+                		<div>类别</div>
+                		<div id="leibie"></div>
+                	</div>
+                	<div class="title_box">
+                		<div id="attribute" style="margin-top: 8px;"></div>
+                		<div><input type="text" name="keep" id="in_value" value="" class="form-control"/></div>
+                		<div style="display: none;"><input type="text" name="id" id="keep_id" value="" class="form-control"/></div>
+                		<div style="display: none;"><input type="text" name="lb" id="keep_lb" value="" class="form-control"/></div>
+                	</div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+	</body>
+</html>
+<script type="text/javascript">
+	var cate_a = JSON.parse('{$list}')
+	var xAxis_data  = []
+	var id_data =[]
+	cate_a.forEach(function(item){
+		xAxis_data.push(item.category)
+		id_data.push(item.id)
+	})
+	console.log(id_data)
+	
+	
+	
+	
+	
+	
+	    var myChart = echarts.init(document.getElementById('main'));
+			option = {
+			    title: {
+			    },
+			    tooltip: {
+			        trigger: 'axis',
+			        axisPointer: {
+			            type: 'shadow'
+			        }
+			    },
+			    legend: {
+			        data: ['材质', '形状','直径','长度','数量','重量']
+			    },
+			    grid: {
+			        left: '3%',
+			        right: '4%',
+			        bottom: '3%',
+			        containLabel: true
+			    },
+			    xAxis: {
+			    	type: 'category',
+			        data: xAxis_data
+			       
+			    },
+			    yAxis: {
+			         type: 'value',
+			        boundaryGap: [0, 0.01]
+			    },
+			    series: JSON.parse('{$series}')
+			};
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+        
+        myChart.on('click', function(param) {
+        	$('#myModal').modal({keyboard: true})   //点击显示
+        	
+        	var id=id_data[param.dataIndex]
+        	
+      document.getElementById('leibie').innerHTML=param.name;
+      document.getElementById('attribute').innerHTML=param.seriesName;
+      document.getElementById('in_value').value=param.data;
+      document.getElementById('keep_id').value=id;
+      document.getElementById('keep_lb').value=param.seriesName;
+       
+       
+      console.log(id)
+     console.log(param);//重要的参数都在这里！
+ });
+</script>
+<style type="text/css">
+	.image_box{
+		width: 200px;
+		height: 200px;
+	}
+	.title_box{
+		display: flex;
+		margin-top: 10px;
+	}
+	.title div:nth-child(2){
+		margin-left: 21px;
+	}
+</style>

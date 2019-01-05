@@ -220,3 +220,8 @@
 		font-size: 24px;
 		color: red;
 	}
+	.opinion{
+	position: absolute;
+	top:77px;
+	left: 335px;
+}

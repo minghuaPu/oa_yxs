@@ -36,7 +36,7 @@ class Index extends \app\admin\Auth
         $this->success('添加成功','index');
     }
     //保存公告
-  public function noticesave(){
+    public function noticesave(){
         $ubelong=Session::get('u_belong');
         $time=date('y-m-d');
         $time="20".$time;
@@ -63,9 +63,145 @@ class Index extends \app\admin\Auth
 
     }
 	public function work(){
-		
+	   $user_data=Session::get();
+       $worksheet=db('worksheet')->where('uid='.$user_data['u_id'])->where('whether=0')->select();
+       $this->assign("user_data",$user_data);
+       if($user_data['user_cate']=='员工'){
+       $Monday=date('Y-m-d', (time() - ((date('w') == 0 ? 7 : date('w')) - 1) * 24 * 3600));//星期一
+       $Tuesday=date('Y-m-d', (time() - ((date('w') == 0 ? 7 : date('w')) - 2) * 24 * 3600));//星期二
+       $Wednesday=date('Y-m-d', (time() - ((date('w') == 0 ? 7 : date('w')) - 3) * 24 * 3600));//星期三
+       $Thursday=date('Y-m-d', (time() - ((date('w') == 0 ? 7 : date('w')) - 4) * 24 * 3600));//星期四
+       $Friday=date('Y-m-d', (time() - ((date('w') == 0 ? 7 : date('w')) - 5) * 24 * 3600));//星期五
+       $Saturday=date('Y-m-d', (time() - ((date('w') == 0 ? 7 : date('w')) - 6) * 24 * 3600));//星期六
+       $ye=date('Y-m-d H:i:s',strtotime('-1week'));
+       // var_dump($ye);
+       $week=['','','','','',''];
+       foreach ($worksheet as $key => $value) {
+           if($Monday==date('Y-m-d',$value['time'])||$Monday==date('Y-m-d',$value['state'])){
+                $week[0]+=number_format($value['score'],2,'.','');
+           }
+           if($Tuesday==date('Y-m-d',$value['time'])||$Tuesday==date('Y-m-d',$value['state'])){
+                $week[1]+=number_format($value['score'],2,'.','');
+           }
+           if($Wednesday==date('Y-m-d',$value['time'])||$Wednesday==date('Y-m-d',$value['state'])){
+                $week[2]+=number_format($value['score'],2,'.','');
+           }
+           if($Thursday==date('Y-m-d',$value['time'])||$Thursday==date('Y-m-d',$value['state'])){
+                $week[3]+=number_format($value['score'],2,'.','');
+           }
+           if($Friday==date('Y-m-d',$value['time'])||$Friday==date('Y-m-d',$value['state'])){
+                $week[4]+=number_format($value['score'],2,'.','');
+           }
+           if($Saturday==date('Y-m-d',$value['time'])||$Saturday==date('Y-m-d',$value['state'])){
+                $week[5]+=number_format($value['score'],2,'.','');
+           }
+       }
+       $yue=date('Y-m-1',time());
+       $current_month=date('m',time());
+       $firstday=strtotime($yue);
+       $month=['','','',''];
+       
+       $monday=$firstday-86400*(date('N',$firstday)-1);
+
+       for ($i=1; $i <= 5; $i++) {
+            $start = date("Y-m-d",$monday+($i-1)*86400*7);//起始周一
+            $end   = date("Y-m-d",$monday+$i*86399*7);//结束周日
+            if(date('m',$monday+$i*86399*7)!=$current_month)
+            {   
+                continue;
+            }
+            foreach ($worksheet as $key => $value) {
+                if(strtotime($start)>=strtotime($yue)){
+                    // echo $i.$start.'---'.$end."<br/>";
+                    if($start < date('Y-m-d',$value['time'])&& date('Y-m-d',$value['time'])< $end||$start < date('Y-m-d',$value['state'])&& date('Y-m-d',$value['state'])< $end){
+                        $month[$i-2]+=number_format($value['score'],2,'.','')/6;
+                    }
+                }
+            }
+         
+        }
+        $this->assign('month',json_encode($month));
+        $this->assign('week',json_encode($week));
+    }elseif ($user_data['user_cate']=='老板') {
+       $users=db('user')->field('id,user_name')->where('user_cate="员工"')->select();
+       $worksheet=db('worksheet')->where('whether=0')->select();
+       $mainclassify=db('mainclassify')->field('type')->select();
+       foreach ($mainclassify as $key => $value) {
+           $main[$key]['name']=$value['type'];
+           $main[$key]['value']=0;
+           $mainclass[]=$value['type'];
+       }
+       foreach ($users as $key => $value) {
+           $users[$key]['zong']=0;
+           $users[$key]['liang']=0;
+       }
+       $user_statistics=[];
+       foreach ($worksheet as $key => $value) {
+           $lian[date('Y',$value['time'])]=date('Y',$value['time']);
+           foreach ($lian as $k => $val) {
+               
+               if($val==date('Y',$value['time'])){
+                $user_statistics[$k]['year']=$val;
+                $user_statistics[$k]['hidden']=false;
+                $user_statistics[$k]['data']=$users;
+                $year[$k][]=$value;
+                }
+           }
+       }
+       foreach ($user_statistics as $key => $value) {
+           foreach ( $user_statistics[$key]['data'] as $ks => $vl) {
+                     foreach ($year[$key] as $e => $v) {
+                          if($vl['id']==$v['uid']){
+                         $user_statistics[$key]['data'][$ks]['zong']+=$v['score'];
+                         $user_statistics[$key]['data'][$ks]['liang']+=$v['quantity'];
+                        }
+                     }
+                    
+                    
+                 }
+       }
+       rsort($user_statistics);
+       $this->assign('user_statistics',json_encode($user_statistics));
+        $this->assign('users',json_encode($users));
+        $this->assign('main',json_encode($main));
+        $this->assign('mainclass',json_encode($mainclass));
+    }
     	return $this->fetch();
     }
+
+    public function usertask(){
+        $year=input('year');
+        $uid=input('uid');
+        $worksheet=db('worksheet')->where("uid=$uid")->where('whether=0')->select();
+        $shuliang=[0,0,0,0,0,0,0,0,0,0,0,0];
+        $fenshu=[0,0,0,0,0,0,0,0,0,0,0,0];
+        $mainclassify=db('mainclassify')->field('type')->select();
+       foreach ($mainclassify as $key => $value) {
+           $mainshuliang[$key]['name']=$value['type'];
+           $mainshuliang[$key]['value']=0;
+           $mainfenshu[$key]['name']=$value['type'];
+           $mainfenshu[$key]['value']=0;
+       }
+        foreach ($worksheet as $key => $value) {
+             if(date('Y',$value['time'])==$year){
+                $a[$key]=json_decode($value['primary'],true);
+                 foreach ($mainclassify as $e => $v) {
+                    if($a[$key]['type']==$v['type']){
+                       $mainshuliang[$e]['value']+=$value['quantity'];
+                        $mainfenshu[$e]['value']=$value['score'];
+                   }
+               }
+                foreach ($shuliang as $k => $val) {
+                    if(date('m',$value['time'])==$k+1){
+                        $shuliang[$k]+=$value['quantity'];
+                        $fenshu[$k]+=$value['score'];
+                    }
+                }
+             }
+        }
+        return json(['shuliang'=>$shuliang,'fenshu'=>$fenshu,'mainfenshu'=>$mainfenshu,'mainshuliang'=>$mainshuliang]);
+    }
+
 	public function finance(){
 		
     	return $this->fetch();
@@ -87,7 +223,7 @@ class Index extends \app\admin\Auth
     //热处理页面
     public function proche_rcl(){
         $rcl_list  =  db('treatment')->where('cas',1)->order('id desc')->paginate(10);
-         $this->assign('rcl_list',$rcl_list);
+        $this->assign('rcl_list',$rcl_list);
         return $this->fetch();
     }
     //锻造车间页面
@@ -447,46 +583,58 @@ class Index extends \app\admin\Auth
 
 
 	public function stock(){     //库存的数据
-		$list=db("steel")->field('category,id')->select();  //材料名字
-		$this->assign('list',json_encode($list));
-	     
-		$list_qb=db("steel")->field('material,shape,diameter,length,weight,numbers')->select();  
-		$series = [];
- 
-		foreach($list_qb as $key=>$value){
-			foreach($value as $k=>$v){
-				if($k=='material'){
+        $inventory=db('inventory')->order("id desc")->select();
+        $this->assign('inventory',json_encode($inventory)); 
+        return $this->fetch();
+    }
+    public function inventory(){
+        $gangzhong=input('gangzhong');
+        $type=input('type');
+        $standard=input('standard');
+        $number=input('number');
+        if(input('select')==0){
+          
+            $inventory=db('inventory')->where('gangzhong','like',"%".$gangzhong."%")
+                                      ->where('type','like',"%".$type."%")
+                                      ->where('standard','like',"%".$standard."%")
+                                      ->where('number','like',"%".$number."%")
+                                      ->order("id desc")
+                                      ->select();
+                                      return json($inventory);
+        }elseif(input('select')==1){
+            db('inventory')->insert(['gangzhong'=>$gangzhong,'type'=>$type,'standard'=>$standard,'number'=>$number]);
+             $inventory=db('inventory')->order("id desc")->select();
+             return json($inventory);
+        }elseif(input('select')==2){
+            db('inventory')->where("id=".input('id'))->delete();
+        }elseif (input('select')==3) {
+            $user_data=Session::get();
+            $num=db('inventory')->where("id=".input('id'))->value('number');
 
-					$series[$k]['name'] = '材质';
-
-				}elseif($k=='shape'){
-
-					$series[$k]['name'] = '形状';
-				}
-				elseif($k=='diameter'){
-
-					$series[$k]['name'] = '直径';
-				}
-				elseif($k=='length'){
-
-					$series[$k]['name'] = '长度';
-				}
-				elseif($k=='weight'){
-
-					$series[$k]['name'] = '重量';
-				}
-				elseif($k=='numbers'){
-					$series[$k]['name'] = '数量';
-				};
-				
-				$series[$k]['data'][] = $v;
-				$series[$k]['type'] = 'bar';
-				
-			}
-		};
-//		print_r($list_qb);exit();
-		$this->assign('series',json_encode(array_values($series)));
-		 
+            $nums=$number-$num;
+          
+            db('inventory')->where("id=".input('id'))->update(['number'=>input('number')]);
+            db('statistical')->insert(['inventory_id'=>input('id'),'number'=>$nums,'uid'=>$user_data['u_id'],'time'=>time()]);
+        }elseif (input('select')==4) {
+            db('inventory')->where("id=".input('id'))->update(['standard'=>input('standard')]);
+        }elseif (input('select')==5) {
+            db('inventory')->where("id=".input('id'))->update(['number'=>input('number')]);
+        }elseif (input('select')==6) {
+            db('inventory')->where("id=".input('id'))->update(['number'=>input('number')]);
+        }
+        
+      
+    }
+    public function statistical(){
+        $statistical=db('statistical')->select();
+        $data=[];
+        foreach ($statistical as $key => $value) {
+            $data[$key]=db('inventory')->field('gangzhong,type,standard')->where('id='.$value['inventory_id'])->find();
+            $data[$key]['name']=db('user')->where('id='.$value['uid'])->value('user_name');
+            $data[$key]['number']=$value['number'];
+            $data[$key]['time']=$value['time'];
+        }
+        $this->assign('data',$data);
         return $this->fetch();
     }
 	public function save(){   //保存库存修改的数据
@@ -522,8 +670,8 @@ class Index extends \app\admin\Auth
 //车间检查导出Excel方法
 function exportexcel($data=array(),$title=array(),$filename='report'){
      ob_end_clean(); 
-    ob_start(); 
-    header("Content-type:application/octet-stream");
+     ob_start(); 
+     header("Content-type:application/octet-stream");
      header("Accept-Ranges:bytes");
      header("Content-type:application/vnd.ms-excel");
      header("Content-Disposition:attachment;filename=".$filename.".xls");

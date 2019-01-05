@@ -40,7 +40,7 @@ class Task extends \app\admin\Auth
             $this->assign('selectlists',$selectlists);
             $work_list1  =  db('bossworklist')->where("uid=".$user_data['u_id'])->order('id desc')->select();
             $work_listnu = count($work_list1);
-            $work_list  =  db('bossworklist')->where("uid=".$user_data['u_id'])->where('uid='.$user_data['u_id'])->order(['sorts','id'=>'desc'])->paginate(3)->each(function($item, $key){
+            $work_list  =  db('bossworklist')->where("uid=".$user_data['u_id'])->where('uid='.$user_data['u_id'])->order(['sorts','id'=>'desc'])->paginate(10)->each(function($item, $key){
                             $item['execute_id']=db('user')->field('user_name')->where('id' ,'in' ,$item['execute_id'])->select();
                             return  $item;
                             });
@@ -48,6 +48,8 @@ class Task extends \app\admin\Auth
             $unfinish_list1=db("bossworklist")->where("uid=".$user_data['u_id'])->where('state=3 or state=4')->select();
             $unfinish_listnu = count($unfinish_list1);
             $unfinish_list=db("bossworklist")->where("uid=".$user_data['u_id'])->where('state=3 or state=4')->paginate(10);
+            $advise=db('advise')->select();
+            $this->assign('advise',$advise);
             $this->assign('work_listnu',$work_listnu);
             $this->assign('unfinish_listnu',$unfinish_listnu);  
             $this->assign('unfinish_list',$unfinish_list);
@@ -83,31 +85,30 @@ class Task extends \app\admin\Auth
                                         $user_n=db('user')->where('id','=',$value['zhipai'])->value('user_name');
                                         $value['remark']='指派任务:'.$user_n;
                             }
-                            if($value['state']){
-                                 if(date('Y-m-d',$value['state'])!=$date){
-                                    if($value['whether']==1){
-                                        $yuangong[]=$value;
-                                    }
-                                 }
-                            }else{
-                                $yuangong[]=$value;
-                            }
-                        
-                        
-                 
+                             $yuangong[]=$value;
+                            // if($value['state']){
+                            //      if(date('Y-m-d',$value['state'])!=$date){
+                            //         if($value['whether']==1){
+                            //             $yuangong[]=$value;
+                            //         }
+                            //      }
+                            // }else{
+                            //     $yuangong[]=$value;
+                            // }
+
               
             }
-             elseif(date('Y-m-d',$value['state'])==$date){
+            //  elseif(date('Y-m-d',$value['state'])==$date){
                
-                    $value['primary']=json_decode($value['primary']);
-                    $value['secondary']=json_decode($value['secondary']);
-                    $yuangong[]=$value;
+            //         $value['primary']=json_decode($value['primary']);
+            //         $value['secondary']=json_decode($value['secondary']);
+            //         $yuangong[]=$value;
                
                
-            }
+            // }
             elseif ($value['zhoujihua']=='1') {
-                if($value['time']){
-                    $value['time']=date('Y-m-d',$value['time']);
+                if($value['start_time']){
+                    $value['start_time']=date('Y-m-d',$value['start_time']);
                 }
                 if ($value['lasttime']) {
                     $value['lasttime']=date('Y-m-d',$value['lasttime']);
@@ -115,6 +116,9 @@ class Task extends \app\admin\Auth
                  $zhoujihua[]=$value;
             }
             elseif($value['whether']!=0){
+                if($value['start_time']){
+                    $value['start_time']=date('Y-m-d',$value['start_time']);
+                }
                 if($value['time']){
                     $value['time']=date('Y-m-d',$value['time']);
                 }
@@ -159,7 +163,7 @@ class Task extends \app\admin\Auth
             return json($list);
 
         }elseif($select==1){
-            db('worksheet')->where('id='.input('id'))->update(['time'=>strtotime(input('time'))]);
+            db('worksheet')->where('id='.input('id'))->update(['start_time'=>strtotime(input('start_time'))]);
         }elseif($select==2){
             db('worksheet')->where('id='.input('id'))->update(['lasttime'=>strtotime(input('lasttime'))]);
         }elseif($select==3){
@@ -172,7 +176,7 @@ class Task extends \app\admin\Auth
     }
     // 接受任务
     public function accept(){
-        db('worksheet')->where('id='.input('id'))->update(['state'=>time()]);
+        db('worksheet')->where('id='.input('id'))->update(['time'=>time()]);
         $this->success('操作成功','index');
     }
     // 排序
@@ -233,6 +237,7 @@ class Task extends \app\admin\Auth
         db('worksheet')->where("boss_rwid=$id")->delete();
         $this->success('撤销成功','index');
     }
+
     //员工表
     public function classify(){
         $user_data=Session::get();
@@ -395,6 +400,11 @@ class Task extends \app\admin\Auth
         }
       
     } 
+    // 提建议
+    public function advise(){
+        $advise=input('advise');
+        db('advise')->insert(['advise'=>$advise,'time'=>time()]);
+    }
     // 代办工作
     public function daibanwork(){
         $user_data=Session::get();
@@ -405,7 +415,7 @@ class Task extends \app\admin\Auth
             return json($list);
 
         }elseif($select==1){
-            db('worksheet')->where('id='.input('id'))->update(['time'=>strtotime(input('time'))]);
+            db('worksheet')->where('id='.input('id'))->update(['start_time'=>strtotime(input('start_time'))]);
         }elseif($select==2){
             db('worksheet')->where('id='.input('id'))->update(['lasttime'=>strtotime(input('lasttime'))]);
         }elseif($select==3){
@@ -686,7 +696,7 @@ class Task extends \app\admin\Auth
         ]);
         
         foreach ($y_id as $key => $value) {
-            db('worksheet')->insert(['uid'=>$value,'job'=>$work_name,'primary'=>$a,'secondary'=>$b,'time'=>strtotime(input('time')),'boss_id'=>$u_id,'remark'=>$urgency,'boss_rwid'=>$boss_rwid,'lasttime'=>strtotime($lasttime)]);
+            db('worksheet')->insert(['uid'=>$value,'job'=>$work_name,'primary'=>$a,'secondary'=>$b,'time'=>strtotime(input('time')),'start_time'=>strtotime(input('time')),'boss_id'=>$u_id,'remark'=>$urgency,'boss_rwid'=>$boss_rwid,'lasttime'=>strtotime($lasttime)]);
         }
         $this->success('布置成功','index');
     }  
