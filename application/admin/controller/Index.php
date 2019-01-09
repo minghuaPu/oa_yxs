@@ -5,23 +5,60 @@ class Index extends \app\admin\Auth
 {
     public function index()
     {
-      $ubelong=Session::get('u_belong');
-        //查询公司分类
-    	$list = db('companycate')->select();
-    	$this->assign('list',$list);
-        //查询客户来源
-        $user_source = db('usersource')->select();
-        $this->assign('user_source',$user_source);
-        //查询学校名字
-        $school_name = db('school')->select();
-        $this->assign('school_name',$school_name);
-        //查询所报课程
-        $lesson_name = db('lessname')->select();
-        $this->assign('lesson_name',$lesson_name);
-        //查询公告
-        //$id = input('id');
-        $notice_info = db('notice')->where("belong='$ubelong'")->order('id desc')->select();
-        $this->assign('notice_info',$notice_info);
+        $User=Session::get();
+        $this->assign('User',$User);
+     //  $ubelong=Session::get('u_belong');
+     //    //查询公司分类
+    	// $list = db('companycate')->select();
+    	// $this->assign('list',$list);
+     //    //查询客户来源
+     //    $user_source = db('usersource')->select();
+     //    $this->assign('user_source',$user_source);
+     //    //查询学校名字
+     //    $school_name = db('school')->select();
+     //    $this->assign('school_name',$school_name);
+     //    //查询所报课程
+     //    $lesson_name = db('lessname')->select();
+     //    $this->assign('lesson_name',$lesson_name);
+     //    //查询公告
+     //    //$id = input('id');
+     //    $notice_info = db('notice')->where("belong='$ubelong'")->order('id desc')->select();
+        // $this->assign('notice_info',$notice_info);
+        return $this->fetch();
+    }
+    public function red(){
+        $user=Session::get();
+        if($user['user_cate']=='老板'){
+            $data=db('Daysoff')->where('state=0')->count();
+            return json($data);
+        }else{
+            $data=db('Daysoff')->where('uid='.$user['u_id'])->where('red=1')->count();
+            return json($data);
+        }
+    }
+    // 考勤提交
+    public function Attendance(){
+        $Attendance=input();
+        $user=Session::get();
+        db('Attendance')->insert([
+                                    'uid'=>$user['u_id'],
+                                    'user_name'=>$user['user_name'],
+                                    'Attendance_status'=>$Attendance['Attendance_status'],
+                                    'start_time'=>$Attendance['start_time'],
+                                    'end_time'=>$Attendance['end_time'],
+                                    'reason'=>$Attendance['reason']
+                                ]);
+        $this->success('提交成功','index');
+    }
+    public function AttendanceDel(){
+        $id=input('id');
+        db('Attendance')->where('id='.$id)->delete();
+        $this->success('删除成功','lookAttendance');
+
+    }
+    public function lookAttendance(){
+        $Attendance=db('Attendance')->order('id desc')->select();
+        $this->assign('Attendance',$Attendance);
         return $this->fetch();
     }
     //添加客户

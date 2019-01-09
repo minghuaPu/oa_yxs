@@ -243,7 +243,7 @@ class Task extends \app\admin\Auth
         $user_data=Session::get();
         $select=input('select');
         if($select==0){
-            db('worksheet')->insert(['uid'=>$user_data['u_id'],'time'=>time()]);
+            db('worksheet')->insert(['uid'=>$user_data['u_id'],'time'=>time(),'start_time'=>time()]);
             $data=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
             return json($data);
         }
@@ -257,7 +257,7 @@ class Task extends \app\admin\Auth
                 $list=db('worksheet')->where('id='.input('theme_id'))->find();
                 return json(['list'=>$list]);
             }elseif(input("xuan")){
-               db('worksheet')->insert(["primary"=>json_encode($up),"uid"=>$user_data['u_id'],'time'=>time()]);
+               db('worksheet')->insert(["primary"=>json_encode($up),"uid"=>$user_data['u_id'],'time'=>time(),'start_time'=>time()]);
                 $list=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
                 return json(['list'=>$list]);
             }
@@ -306,7 +306,7 @@ class Task extends \app\admin\Auth
                 return json(false);
 
             }elseif(input('job')){
-                db('worksheet')->insert(["job"=>input('job'),"uid"=>$user_data['u_id'],'time'=>time()]);
+                db('worksheet')->insert(["job"=>input('job'),"uid"=>$user_data['u_id'],'time'=>time(),'start_time'=>time()]);
                 $list=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
                 return json($list);
             }else{
@@ -320,6 +320,23 @@ class Task extends \app\admin\Auth
                     db("worksheet")->where('id='.input('theme_id'))->update(["end_time"=>time()]);
                 }else{
                     db("worksheet")->where('id='.input('theme_id'))->update(["end_time"=>'']);
+                }
+                $boss_rwid=db("worksheet")->where('id='.input('theme_id'))->value('boss_rwid');
+                if($boss_rwid){
+                    $boss_rw=db('worksheet')->where('boss_rwid='.$boss_rwid)->select();
+                    $leng=0;
+                    foreach ($boss_rw as $key => $value) {
+                        if($value['whether']==0){
+                            ++$leng;
+                            if($leng==count($boss_rw)){
+                                db('bossworklist')->where('id='.$boss_rwid)->update(['state'=>4]);
+                            }else{
+                                db('bossworklist')->where('id='.$boss_rwid)->update(['state'=>3]);
+                            }
+                        }
+                    }
+                   
+                    
                 }
             }
             $yuangong=[];
@@ -353,7 +370,7 @@ class Task extends \app\admin\Auth
                 db("worksheet")->where('id='.input('theme_id'))->update(["reasons"=>input('reasons')]);
                 return json(false);
             }elseif(input('reasons')){
-                db('worksheet')->insert(["reasons"=>input('reasons'),"uid"=>$user_data['u_id'],'time'=>time()]);
+                db('worksheet')->insert(["reasons"=>input('reasons'),"uid"=>$user_data['u_id'],'time'=>time(),'start_time'=>time()]);
                 $list=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
                 return json($list);
             }else{
@@ -366,7 +383,7 @@ class Task extends \app\admin\Auth
                 db("worksheet")->where('id='.input('theme_id'))->update(["remark"=>input('remark')]);
                 return json(false);
             }elseif(input('remark')){
-                db('worksheet')->insert(["remark"=>input('remark'),"uid"=>$user_data['u_id'],'time'=>time()]);
+                db('worksheet')->insert(["remark"=>input('remark'),"uid"=>$user_data['u_id'],'time'=>time(),'start_time'=>time()]);
                 $list=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
                 return json($list);
             }else{
@@ -375,18 +392,20 @@ class Task extends \app\admin\Auth
         }
         else if($select==8){
            
-           $data=db('worksheet')->where('uid='.$user_data['u_id'])->where('whether=0')->select();
+           $data=db('worksheet')->where('uid='.$user_data['u_id'])->select();
            $list=[];
            $zongshu=0;
            foreach ($data as $key => $value) {
-            if($value['state']){
-                  if(date("Y-m-d",$value['state'])==input('selectDate')){
-                $list[]=$value;
-                
-              }
-            }
-            elseif(date('Y-m-d',$value['time'])==input('selectDate')){
+                if(input('selectDate')==date('Y-m-d',time())){
+                    if(date('Y-m-d',$value['time'])==input('selectDate')){
+                            $list[]=$value;
+                        }
+                }
+                elseif(date('Y-m-d',$value['time'])==input('selectDate')){
+
+                         if($value['whether']=='0'){
                                 $list[]=$value;
+                         }
                     }
                    
            }
@@ -607,10 +626,14 @@ class Task extends \app\admin\Auth
     public function check()
     {
         if(input('id')){
+            $user_data=Session::get();
             $id = input('id');
             $check_info = db('bossworklist')->where("id=$id")->find();
             $type=0;
             $check_info['execute_id']=db('user')->field('user_name')->where('id','in',$check_info['execute_id'])->select();
+            if($user_data['user_cate']=='老板'){
+                db('bossworklist')->where("id=$id")->where('state=1')->update(['state'=>2]);
+            }
             $this->assign('type',$type);
             $this->assign('check_info',$check_info);     
              $log_list = db('worklog')->where("rw_id=$id")->select();
