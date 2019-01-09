@@ -18,6 +18,7 @@
 			{foreach $user as $userdata}
 			{if $userdata.user_cate=='员工'}
 			<div class="btn btn-default opinion" @click='open3'>提建议</div>
+			<div class="btn btn-default opinions" data-toggle="modal" data-target="#holiday">申请调休</div>
 			{/if}
 			{if $userdata.user_cate=='老板'}
 			<div class="btn btn-default opinion"  data-toggle="modal" data-target="#asdf">查看建议</div>
@@ -228,7 +229,7 @@
 						<td>已查阅</td>
 						{/if}
 						{if $info.state=="3"}
-						<td>发起人已放弃</td>
+						<td>未完成</td>
 						{/if}
 						{if $info.state=="4"}
 						<td>任务已完成</td>
@@ -316,7 +317,7 @@
 					<div style="width: 100%">
 					<div >
 						<input type="hidden" v-model='zhipai' name="zhipai">
-						<select class="form-control" name="zhipai_id"  @change='aa'>
+						<select class="form-control" name="zhipai_id">
 						  {foreach $users as $key=>$val}
 							<option value="{$val.id}">{$val.user_name}</option>
 						  {/foreach}
@@ -333,6 +334,7 @@
 	
 </div>
 </form>
+
 <!-- 查看建议 -->
 {foreach $user as $userdata}
 			{if $userdata.user_cate=='老板'}
@@ -454,9 +456,7 @@ new Vue({
      		this.zhipai=e
      		console.log(this.zhipai);
      	},
-     	aa(){
-     		console.log(this.zhipai);
-     	},
+     	
      	 open3() {
 	        this.$prompt('提建议', '', {
 	          confirmButtonText: '确定',

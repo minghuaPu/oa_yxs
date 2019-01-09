@@ -24,7 +24,7 @@
   header .title ul li h4{font-size: 15px;color: #505458;}
   header .title ul li p{font-size: 12px;color: #98a6ad;}
   header .breach{margin-top: 13px;}
-  header .user_info{margin-top: 16px; width: 300px;}
+  header .user_info{margin-top: 16px; width: 350px;}
   header .user_info .user_name{margin:5px 0 0 3px;display: inline-block;}
   header .user{width: 30px;height: 30px;background: #ccc;border-radius: 50%;position: relative;float: left;}
   header .user span{color: white;position: absolute;left: 7px;top: 7px;}
@@ -59,4 +59,28 @@
     text-decoration: underline;
     color:#98a6eb;
   } 
-  
+  .form{
+    display: flex;
+  }
+  .bell{
+    position: relative;
+    width: 15px;
+    height: 15px;
+    margin-top: 5px;
+    
+  }
+  .bell img{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    position: absolute;
+  }
+  .bell div{
+    width: 6px;
+    height:6px;
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    background: red;
+    border-radius: 100%;
+  }
