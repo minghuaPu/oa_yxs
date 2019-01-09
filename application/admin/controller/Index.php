@@ -250,6 +250,26 @@ class Index extends \app\admin\Auth
          $this->assign('qt_list',$qt_list);
         return $this->fetch();
     }
+    public function uploadPic(){
+        $work=request()->file('pic');
+        // var_dump($_FILES['sss']);
+        // print_r($work);
+        // var_dump($work);
+
+        foreach($work as $value){ 
+                if($value){
+                    $info = $value->move(ROOT_PATH.'/public/uploads');
+                    if($info){
+                        $work_file = $info->getSaveName();
+                    }else{
+
+                         echo $info->getError();
+                    }
+                }; 
+                };
+        return json($work_file);
+    }
+     
     //车间检查添加工作
     public function addWork(){
         $proche_type = input('proche_type');
@@ -263,20 +283,19 @@ class Index extends \app\admin\Auth
         $workshop = input('workshop');
         $remarks = input('remarks');
         $status = input('status');
-        $work=request()->file('work_require');
-        $imgpath = [];
-        foreach($work as $value){ 
-                if($value){
-                    $info = $value->move(ROOT_PATH.'/public/uploads');
-                    if($info){
-                        $work_file = $info->getSaveName();
-                        array_push($imgpath,$work_file);
-                    }else{
+        $imgpath = json_decode(input('img_path'));
+       //  foreach($work as $value){ 
+       //          
+       //              $info = $value->move(ROOT_PATH.'/public/uploads');
+       //              if($info){
+       //                  $work_file = $info->getSaveName();
+       //                  array_push($imgpath,$work_file);
+       //              }else{
 
-                         echo $info->getError();
-                    }
-                }; 
-                };
+       //                   echo $info->getError();
+       //              }
+       //          }; 
+       //          };
         if($proche_type=='workshop'){
            db($proche_type)->insert([
             'time'=>$time,
@@ -289,7 +308,7 @@ class Index extends \app\admin\Auth
             'workshop'=>$workshop,
             'remarks'=>$remarks,
             'status'=>$status,
-            'picture1'=>json_encode($imgpath),
+            'picture1'=>$imgpath,
             
         ]);  
        }else{
@@ -382,43 +401,33 @@ class Index extends \app\admin\Auth
         $workshop = input('workshop');
         $remarks = input('remarks');
         $status = input('status');
-        $work=request()->file('work_require');
-        $imgpath = [];
+        $imgpath = input('img_path');
+        print_r($imgpath);
         if($proche_type=='workshop'){
-            if (count($work)==0){
+            if (count($imgpath)==0){
             db($proche_type)->where('id',$id)->update(['time'=>$time,'name'=>$name,'team'=>$team,'title'=>$title,'size'=>$size,'describes'=>$describes,'modify'=>$modify,
             'workshop'=>$workshop,'remarks'=>$remarks,'status'=>$status]); 
             }else{
-              foreach($work as $value){ 
-                    if($value){
-                        $info = $value->move(ROOT_PATH.'/public/uploads');
-                        if($info){
-                            $work_file = $info->getSaveName();
-                            array_push($imgpath,$work_file);
-                        }else{
-                             echo $info->getError();
-                        }
-                    }; 
-                    }; 
                 db($proche_type)->where('id',$id)->update(['time'=>$time,'name'=>$name,'team'=>$team,'title'=>$title,'size'=>$size,'describes'=>$describes,'modify'=>$modify,
                 'workshop'=>$workshop,'remarks'=>$remarks,'status'=>$status,'picture1'=>$imgpath]);  
             }  
         }else{
-             if (count($work)==0){
+             if (count($imgpath) ==0){
             db($proche_type)->where('id',$id)->update(['time'=>$time,'name'=>$name,'title'=>$title,'size'=>$size,'describes'=>$describes,'modify'=>$modify,
             'workshop'=>$workshop,'remarks'=>$remarks,'status'=>$status]); 
             }else{
-              foreach($work as $value){ 
-                    if($value){
-                        $info = $value->move(ROOT_PATH.'/public/uploads');
-                        if($info){
-                            $work_file = $info->getSaveName();
-                            array_push($imgpath,$work_file);
-                        }else{
-                             echo $info->getError();
-                        }
-                    }; 
-                    }; 
+                
+              // foreach($work as $value){ 
+              //       if($value){
+              //           $info = $value->move(ROOT_PATH.'/public/uploads');
+              //           if($info){
+              //               $work_file = $info->getSaveName();
+              //               array_push($imgpath,$work_file);
+              //           }else{
+              //                echo $info->getError();
+              //           }
+              //       }; 
+              //       }; 
                 db($proche_type)->where('id',$id)->update(['time'=>$time,'name'=>$name,'title'=>$title,'size'=>$size,'describes'=>$describes,'modify'=>$modify,
                 'workshop'=>$workshop,'remarks'=>$remarks,'status'=>$status,'picture1'=>$imgpath]);  
             }  
