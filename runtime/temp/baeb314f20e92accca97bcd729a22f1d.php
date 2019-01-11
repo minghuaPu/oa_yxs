@@ -1,10 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:77:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1547017946;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1546998629;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1544610348;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1547019384;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544610348;}*/ ?>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="renderer" content="webkit">
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9">
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\arrange.html";i:1545365754;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1546998629;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -378,393 +372,171 @@
         }
     })
 </script>
-<!DOCTYPE html>
-<html>
-	<head>
-<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<div class="page" style="z-index: 99;background:white;padding-left: 10px;height:100%">
-			<div class="search_box">
-				<div class="iconfont icon-fangdajing"></div>
-				<input type="text" name="search" class="search" placeholder="搜索" />
-			</div>
-			<div class="people_box">
-				<div class="icon">
-					<div class="iconfont icon-geren"></div>
-					<div class="iconfont icon-iconset0337"></div>
-					<div class="iconfont icon-group"></div>
-				</div>
-				<div class="name_box">
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				公告栏
-			</div>
-			<div class="notice_box">
-				<div class="notice">
-					<div class="notice_dian"></div>
-					<div class="notice_content">oa系统正式上线</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				新闻
-			</div>
-		</div>
-	</body>
-</html>
-
-
-
-
-
-<style type="text/css">
-.page{
-	width:172px;
-	position:fixed ;
-	right: 0;
-	
-	
-}
-.search_box{
-	display: flex;
-	margin-top:9px;
-	background: #e6e6e6;
-	
-}
-.search_box input{
-	background: #e6e6e6;
-	border: 0px;
-	outline:none 
-}
-.icon{
-	display: flex;
-	margin: 6px 20px ;
-	
-}
-.icon div{
-	font-size: 23px;
-	flex: 1;
-	text-align: center;
-}
-.people{
-	display: flex;
-	align-items: center;
-}
-.name_box{
-	height: 250px;
-	overflow:scroll;
-	overflow-x:visible;
-}
-.people img{
-	width: 26px;
-	height: 26px;
-	border-radius: 26px;	
-}
-.people p{
-    margin-top: 13px;
-    margin-left: 3px;
-}
-.notice_title{
-	text-align: center;
-    padding: 4px 0;
-    font-size: 16px;
-    border-top: 1px solid #cccccc;
-    border-bottom:1px solid #cccccc;
-    font-weight: bold;
-}
-.notice{
-	display: flex;
-}
-.notice_dian{
-	width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: red;
-    margin-top: 5px;
-    margin-left: 7px;
-}
-.notice_box{
-	height: 143px;
-}
-.notice_content{
-	margin-left: 10px;
-    font-size: 11px;
-}
-</style>
-
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_there.css"/>
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_proche.css"/>
-<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
-	<ul v-if="controller!='Map'">
-		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
-		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
-		  <li @click="isShow"><a class="iconfont icon-jiedianguanli" style="padding-top:-2px;"><p>产品检查</p></a>
-            <ul v-if="six">
-                <li onclick="jump_cjg()">
-                    <a  class="iconfont icon-bianji" style="padding-top:-2px"><p>粗加工</p></a>
-                </li>
-                <li onclick="jump_rcl()">
-                    <a href="#" class="iconfont icon-guanlianshebei" style="padding-top:-2px"><p>热处理</p></a>
-                </li>
-                <li onclick="jump_dzcj()">
-                    <a href="#" class="iconfont icon-guanfangbanben" style="padding-top:-2px"><p>锻造车间</p></a>
-                </li>
-                <li onclick="jump_bzjy()">
-                    <a href="#" class="iconfont icon-gongnengdingyi" style="padding-top:-2px"><p>包装检验</p></a>
-                </li>
-                <li onclick="jump_jjg()">
-                    <a href="#" class="iconfont icon-jichuguanli" style="padding-top:-2px"><p>精加工</p></a>
-                </li>
-                <li onclick="jump_qt()">
-                    <a href="#" class="iconfont icon-jishufuwu" style="padding-top:-2px"><p>其他</p></a>
-                </li>
-            </ul>
-        </li>
-		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
-		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
-		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
-	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
-        <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
-        <li onclick="jump_eight()"><a href="#" class="iconfont icon-kaoqindaqia"><p>投票</p></a></li>
-	</ul>
-	<!--<ul v-if="controller=='Map'" class="Maplist">
-		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
-		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
-		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
-		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
-		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
-		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
-		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
-		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-	</ul>-->
-</div>
-<script type="text/javascript">
- new Vue({
-        el:'#left_menu',
-        data:{
-        	six:false,
-           controller:"Index"
-        },
-        created(){
-        	this.init();
-        },
-        methods:{
-        	init(){
-                this.controller="<?php echo request()->controller(); ?>";
-        	},
-        	 isShow(){
-        	this.six=!this.six;
-        }
-        }
-    })
- function jump(){
- 	 window.location.href='<?php echo url('admin/index/index'); ?>'
- }
- function jump_two(){
- 	window.location.href='<?php echo url('admin/index/work'); ?>'
- }
- function jump_three(){
- 	window.location.href='<?php echo url('admin/index/finance'); ?>'
- }
- function jump_four (){
- 	window.location.href='<?php echo url('admin/index/department'); ?>'
- }
- function jump_five(){
- 	window.location.href='<?php echo url('admin/index/information'); ?>'
- }
-  function jump_six(){
- 	window.location.href='<?php echo url('admin/index/stock'); ?>'
- }
- function jump_cjg(){
-    window.location.href='<?php echo url('admin/index/proche_cjg'); ?>'
- }
- function jump_rcl(){
-    window.location.href='<?php echo url('admin/index/proche_rcl'); ?>'
- }
- function jump_dzcj(){
-    window.location.href='<?php echo url('admin/index/proche_dzcj'); ?>'
- }
- function jump_bzjy(){
-    window.location.href='<?php echo url('admin/index/proche_bzjy'); ?>'
- }
- function jump_jjg(){
-    window.location.href='<?php echo url('admin/index/proche_jjg'); ?>'
- }
- function jump_qt(){
-    window.location.href='<?php echo url('admin/index/proche_qt'); ?>'
- }
- function jump_seven(){
-    window.location.href='<?php echo url('admin/index/lookAttendance'); ?>'
- }
- function jump_eight(){
-    window.location.href='<?php echo url('admin/index/toupiao'); ?>'
- }
-
-</script>
-
-<div class="container">
-    <div class="index_content_center">
-        <div class="center_1">
-            <img src="__STATIC__/admin/index/images/20181206171359.jpg" alt="" class="center_1a">
-            <!--     <img src="__STATIC__/admin/index/images/20181206171360.jpg" alt="" class="center_1b">
- -->
-            <p style="font-size: 1em;"><strong><?php echo $User['user_cate']; ?></strong></p>
-            <h3 style="margin-bottom: 0.1em;"><strong><?php echo $User['user_name']; ?></strong></h3>
-            <button class="button1"><strong>打卡</strong></button>
-            <button class="button2"><strong>补卡</strong></button>
-        </div>
-        <div class="center_2">
-            <form action="Attendance">
-                <div class="center_2a">
-                    <select id="" name="Attendance_status">
-                        <option value="请假">请假</option>
-                        <option value="迟到">迟到</option>
-                        <option value="早退">早退</option>
-                        <option value="旷工">旷工</option>
+<link rel="stylesheet" type="text/css" href="__STATIC__/library/dropify-master/dist/css/dropify.min.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css?3">
+<link rel="stylesheet" type="text/css" href="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.css" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/library/bootstrap/bootstrap-select.min.css" />
+<div class="write_box">
+    <div class="title">
+        <a class="glyphicon glyphicon-list">布置任务</a>
+        <a href="<?php echo url('index'); ?>" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
+    </div>
+    <h3 class="time_now"><?php echo $time; ?></h3>
+    <div class="from_box">
+        <form action="<?php echo url('save2'); ?>" class="form" method="post" enctype="multipart/form-data" onsubmit="return beforesend()">
+            <div class="form-group">
+                <div class="form-group">
+                    <label>任务</label>
+                    <input id="workname" type="text" class="form-control" name="work_name" value="">
+                </div>
+                <div class="form-group">
+                    <label>任务主分类</label>
+                    <select id="onetype" name="firstlist" style="width: 200px;margin-top: 20px;height: 30px;border-radius: 10px;outline:none;" onchange="firstChange()">
+                        <option value="-1">请选择任务主分类</option>
+                        <?php foreach($firstlist as $key=>$info): ?>
+                        <option value="<?php echo $info['id']; ?>"><?php echo $info['type']; ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
-                <div class="cneter_2b">
-                    <span>始：</span>
-                    <input type="date" name="start_time">
-                    </el-date-picker>
+                <div class="form-group">
+                    <label>任务细分类</label>
+                    <select id="secondtype" name="secondlist" style="width: 200px;margin-top: 20px;height: 30px;border-radius: 10px;outline:none;">
+                        <option value="-1">请选择任务细分类</option>
+                    </select>
                 </div>
-                <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/rili.png" alt=""></div>
-                    <div class="cneter_2b">
-                        <span>至：</span>
-                        <input type="date" name="end_time">
+                <div class="form-group">
+                    <label>任务附件</label>
+                    <input type="file" name="work_require" class="dropify"></input>
+                </div>
+                <div class="form-group">
+                    <label>任务详情</label>
+                    <textarea name="content" id="myEditor" style="height: 200px;width: 100%;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>对接人</label>
+                    <input type="text" name="executerid" id="executer" value="" class="abc" style="display: none;"></input>
+                    <select id="approverq" class="selectpicker" multiple name="executor">
+                        <?php foreach($userid_list as $key=>$info): ?>
+                        <option value="<?php echo $info['id']; ?>"><?php echo $info['user_name']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>任务级别</label>
+                    <select name="urgency" style="width: 200px;margin-top: 20px;height: 30px;border-radius: 10px;outline:none;">
+                        <option>今天</option>
+                        <option>代办</option>
+                        <option>紧急</option>
+                        <option>加急</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>开始时间</label>
+                    <div class='input-group date' style="width:200px" id='datetimepicker'>
+                        <input id="time" type='text' class="form-control" name="time" />
+                        <span class="input-group-addon" style="margin-left: -200px;">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
                     </div>
-                    <textarea rows="10" cols="30" placeholder="说明原因" name="reason"></textarea>
-                    <button href="#" class="cneter_2c">提交</button>
-            </form>
-        </div>
-        <div class="cneter_3" style="margin-right: 2%"><h3>打卡日历<span><i></i>2017 年 9 月<i></i></span></h3>
-        </div>
-        <div class="cneter_3"><h3>考勤统计</h3>
-        </div>
-        <div class="cneter_4" style="margin-right: 2%"></div>
-        <div class="cneter_4" id="main"></div>
+                </div>
+                <div class="form-group">
+                    <label>截止时间</label>
+                    <div class='input-group date' style="width:200px" id='datetimepickers'>
+                        <input id="time" type='text' class="form-control" name="lasttime" />
+                        <span class="input-group-addon" style="margin-left: -200px;">
+						<span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="提交" onclick="fun()">
+                </div>
+                <div style="width: 100%;height: 200px;"></div>
+        </form>
     </div>
 </div>
-<!-- 模态框结束 -->
-<script type="text/javascript" src="__STATIC__/admin/index/js/index.js?126">
-</script>
-<script type="text/javascript" src="__STATIC__/admin/index/js/index2.js"></script>
+<script type="text/javascript" src="__STATIC__/library/dropify-master/dist/js/dropify.min.js"></script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="__STATIC__/library/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="__STATIC__/library/bootstrap/defaults-zh_CN.min.js"></script>
 <script type="text/javascript">
-// 基于准备好的dom，初始化echarts实例
-var myChart = echarts.init(document.getElementById('main'));
+function firstChange() {
+    var orderTypeName = $("#onetype").val();
+    if (orderTypeName != null && "" != orderTypeName && -1 != orderTypeName) {
+        $.post("<?php echo url('selectClassify'); ?>", { orderTypeName: orderTypeName },
+            function(data) {
+                var a = "<option value='-1'>请选择任务细分类</option>";
+                $.each(data, function(i, n) {
+                    option = "<option value='" + n.id + "'>" + n.type + "</option>";
+                    a = a + option;
+                });
+                $("#secondtype").html(a);
 
-// 指定图表的配置项和数据
-var option = {
-    title: {
-        text: ''
-    },
-    tooltip: {},
-    legend: {
-        data: ['正常上班']
-    },
-    xAxis: {
-        data: ["", "九月", ""]
-    },
-    yAxis: {},
-    series: [{
-        name: '正常上班',
-        type: 'bar',
-        data: [24, 4, 1]
-    }]
+            });
+
+    } else {
+        $("#secondtype").html("<option value='-1'>请选择任务细分类</option>");
+    }
+
+
 };
 
-// 使用刚指定的配置项和数据显示图表。
-myChart.setOption(option);
-(function() {
-    var changeRem = function() {
-        document.getElementsByTagName('html')[0].style.fontSize = document.documentElement.clientWidth / 20 + 'px';
-    };
-    changeRem();
-    var t;
-    window.addEventListener('resize', function() {
-        clearTimeout(t);
-        t = setTimeout(changeRem, 300);
-    }, false);
-    window.addEventListener('pageshow', function(e) {
-        if (e.persisted) {
-            clearTimeout(t);
-            t = setTimeout(changeRem, 300);
-        }
-    }, false);
-}());
-</script>
+function beforesend() {
 
-<footer class="footer" style="text-align: center;margin-top: 50px;">
-	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
-	&nbsp;
-	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
-		投诉&amp;问题
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
-		微客服
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
-		<i class="md md-speaker-notes m-r-5"></i>
-		订阅号
-	</a>
-	<br>
-	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
-</footer>
-<!-- 底部 -->
-<script type="text/javascript">
-$(document).ready(function(){
-	$(".left_menu ul li").click(function(event){
-		event.preventDefault();
-		console.log($(this).siblings().find('a,p'))
-		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
-			"color":"#5d9cec"})
-		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
-		$(this).find('a,p').css("color","#5d9cec")
-		$(this).siblings().find('a,p').css("color","white")
-	})
+    if ($('#workname').val() == '') {
+        alert('任务不能为空');
+        return false;
+    } else if ($('#onetype').val() == -1) {
+        alert('主任务不能为空');
+        return false;
+    } else if ($('#secondtype').val() == -1) {
+        alert('细任务不能为空');
+        return false;
+    } else if ($('#approverq').val() == '') {
+        alert('对接人不能为空');
+        return false;
+    } else if ($('#time').val() == '') {
+        alert('截止时间不能为空');
+        return false;
+    } else {
+        return true;
+    }
+};
+
+function fun() {
+
+    var str = [];
+    var obj = document.getElementById("approverq");
+    for (var i = 0; i < obj.options.length; i++) {
+        if (obj.options[i].selected) {
+            str.push(obj.options[i].value); // 收集选中项
+        }
+    }
+    $("#executer").val(str);
+};
+
+$('#datetimepicker').datetimepicker({
+    minView: "month", //选择日期后，不会再跳转去选择时分秒 
+    language: 'zh-CN',
+    format: 'yyyy-mm-dd',
+    todayBtn: 1,
+    autoclose: 1,
 });
+$('#datetimepickers').datetimepicker({
+    minView: "month", //选择日期后，不会再跳转去选择时分秒 
+    language: 'zh-CN',
+    format: 'yyyy-mm-dd',
+    todayBtn: 1,
+    autoclose: 1,
+});
+$('.dropify').dropify();
+UE.getEditor("myEditor");
 </script>
 </body>
+
 </html>
-<script type="text/javascript">
-new Vue({
-    el: ".container",
-    data: {
-        value1: ''
-    },
-})
-</script>

@@ -1,10 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:77:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1547017946;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1546998629;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1544610348;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1547019384;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544610348;}*/ ?>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="renderer" content="webkit">
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9">
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\bell\index.html";i:1546998629;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1546998629;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1547019384;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -378,149 +372,6 @@
         }
     })
 </script>
-<!DOCTYPE html>
-<html>
-	<head>
-<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<div class="page" style="z-index: 99;background:white;padding-left: 10px;height:100%">
-			<div class="search_box">
-				<div class="iconfont icon-fangdajing"></div>
-				<input type="text" name="search" class="search" placeholder="搜索" />
-			</div>
-			<div class="people_box">
-				<div class="icon">
-					<div class="iconfont icon-geren"></div>
-					<div class="iconfont icon-iconset0337"></div>
-					<div class="iconfont icon-group"></div>
-				</div>
-				<div class="name_box">
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				公告栏
-			</div>
-			<div class="notice_box">
-				<div class="notice">
-					<div class="notice_dian"></div>
-					<div class="notice_content">oa系统正式上线</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				新闻
-			</div>
-		</div>
-	</body>
-</html>
-
-
-
-
-
-<style type="text/css">
-.page{
-	width:172px;
-	position:fixed ;
-	right: 0;
-	
-	
-}
-.search_box{
-	display: flex;
-	margin-top:9px;
-	background: #e6e6e6;
-	
-}
-.search_box input{
-	background: #e6e6e6;
-	border: 0px;
-	outline:none 
-}
-.icon{
-	display: flex;
-	margin: 6px 20px ;
-	
-}
-.icon div{
-	font-size: 23px;
-	flex: 1;
-	text-align: center;
-}
-.people{
-	display: flex;
-	align-items: center;
-}
-.name_box{
-	height: 250px;
-	overflow:scroll;
-	overflow-x:visible;
-}
-.people img{
-	width: 26px;
-	height: 26px;
-	border-radius: 26px;	
-}
-.people p{
-    margin-top: 13px;
-    margin-left: 3px;
-}
-.notice_title{
-	text-align: center;
-    padding: 4px 0;
-    font-size: 16px;
-    border-top: 1px solid #cccccc;
-    border-bottom:1px solid #cccccc;
-    font-weight: bold;
-}
-.notice{
-	display: flex;
-}
-.notice_dian{
-	width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: red;
-    margin-top: 5px;
-    margin-left: 7px;
-}
-.notice_box{
-	height: 143px;
-}
-.notice_content{
-	margin-left: 10px;
-    font-size: 11px;
-}
-</style>
 
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_there.css"/>
@@ -634,137 +485,80 @@
 
 </script>
 
-<div class="container">
-    <div class="index_content_center">
-        <div class="center_1">
-            <img src="__STATIC__/admin/index/images/20181206171359.jpg" alt="" class="center_1a">
-            <!--     <img src="__STATIC__/admin/index/images/20181206171360.jpg" alt="" class="center_1b">
- -->
-            <p style="font-size: 1em;"><strong><?php echo $User['user_cate']; ?></strong></p>
-            <h3 style="margin-bottom: 0.1em;"><strong><?php echo $User['user_name']; ?></strong></h3>
-            <button class="button1"><strong>打卡</strong></button>
-            <button class="button2"><strong>补卡</strong></button>
-        </div>
-        <div class="center_2">
-            <form action="Attendance">
-                <div class="center_2a">
-                    <select id="" name="Attendance_status">
-                        <option value="请假">请假</option>
-                        <option value="迟到">迟到</option>
-                        <option value="早退">早退</option>
-                        <option value="旷工">旷工</option>
-                    </select>
-                </div>
-                <div class="cneter_2b">
-                    <span>始：</span>
-                    <input type="date" name="start_time">
-                    </el-date-picker>
-                </div>
-                <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/rili.png" alt=""></div>
-                    <div class="cneter_2b">
-                        <span>至：</span>
-                        <input type="date" name="end_time">
-                    </div>
-                    <textarea rows="10" cols="30" placeholder="说明原因" name="reason"></textarea>
-                    <button href="#" class="cneter_2c">提交</button>
-            </form>
-        </div>
-        <div class="cneter_3" style="margin-right: 2%"><h3>打卡日历<span><i></i>2017 年 9 月<i></i></span></h3>
-        </div>
-        <div class="cneter_3"><h3>考勤统计</h3>
-        </div>
-        <div class="cneter_4" style="margin-right: 2%"></div>
-        <div class="cneter_4" id="main"></div>
-    </div>
+<style>
+	.holiday {border: 1px solid #bbb;width: 75%;margin:20px auto;overflow: hidden;}
+	 .holiday_box{width: 100%;display: flex;justify-content: space-around;margin:10px 0;}
+	.tijiao{float: right;margin:10px 70px;}
+    .box_kuang{display: flex;}
+    .box_kuang div{width: 100px;line-height: 35px;}
+</style>
+<div class="container" style="height: 100vh;">
+	<?php if($user_data['user_cate']=='员工'): ?>
+	 <form action="<?php echo url('holiday'); ?>">
+	     <div class="holiday">
+	     	<h3 style="text-align: center;">调休申请</h3>
+			<div  class="holiday_box">
+					<div class="box_kuang">
+						<div >
+						 开始时间
+						</div>
+						<input type="date" class="form-control" name="start_time">
+					</div>
+					<div class="box_kuang">
+						<div>
+						 截止时间
+						</div>
+						<input type="date" class="form-control" name="end_time">
+					</div>
+				</div>
+				<textarea class="form-control" style="width: 83%;margin:auto;" placeholder="调休原因..." name="reason"></textarea>
+				<button class="btn btn-success tijiao">提交申请</button>
+			</div>
+	</form>
+	<?php endif; ?>
+<table class="table table-striped table-bordered table-hover table-condensed" style="margin-top: 50px;">
+			<thead>
+				<tr>
+					<th style="text-align: center!important;" width="15%">姓名</th>
+					<th style="text-align: center!important;" width="15%">开始时间</th>
+					<th style="text-align: center!important;" width="15%">结束时间</th>
+					<th style="text-align: center!important;">原因</th>
+					<th style="text-align: center!important;" width="15%">状态</th>
+				</tr>
+			</thead>
+			<tbody>	
+				<?php if($user_data['user_cate']=='员工'): foreach($list as $key=>$val): ?>
+				<tr style="text-align: center;">
+					<td><?php echo $val['user_name']; ?></td>
+					<td><?php echo $val['start_time']; ?></td>
+					<td><?php echo $val['end_time']; ?></td>
+					<td><?php echo $val['reason']; ?></td>
+					<?php if($val['state']==0): ?>
+					<td>审核中。。</td>
+					<?php endif; if($val['state']==1): ?>
+					<td  style="padding: 12px;color: #4cae4c;">同意</td>
+					<?php endif; if($val['state']==2): ?>
+					<td style="padding: 12px;color: #d43f3a;">拒绝</td>
+					<?php endif; ?>
+				</tr>
+				<?php endforeach; endif; if($user_data['user_cate']=='老板'): foreach($list as $key=>$val): ?>
+				<tr style="text-align: center;">
+					<td style="padding: 12px;"><?php echo $val['user_name']; ?></td>
+					<td style="padding: 12px;"><?php echo $val['start_time']; ?></td>
+					<td style="padding: 12px;"><?php echo $val['end_time']; ?></td>
+					<td style="padding: 12px;"><?php echo $val['reason']; ?></td>
+					<?php if($val['state']==0): ?>
+					<td>
+						<a href="<?php echo url('agree',['id'=>$val['id']]); ?>" style="margin-right: 10px;" class="btn btn-success">同意</a>
+						<a href="<?php echo url('reject',['id'=>$val['id']]); ?>" class="btn btn-danger">拒绝</a>
+					</td>
+					<?php endif; if($val['state']==1): ?>
+					<td style="padding: 12px;color: #4cae4c;">同意</td>
+					<?php endif; if($val['state']==2): ?>
+					<td style="padding: 12px;color: #d43f3a;">拒绝</td>
+					<?php endif; ?>
+				</tr>
+				<?php endforeach; endif; ?>
+			</tbody>
+		</table>
 </div>
-<!-- 模态框结束 -->
-<script type="text/javascript" src="__STATIC__/admin/index/js/index.js?126">
-</script>
-<script type="text/javascript" src="__STATIC__/admin/index/js/index2.js"></script>
-<script type="text/javascript">
-// 基于准备好的dom，初始化echarts实例
-var myChart = echarts.init(document.getElementById('main'));
-
-// 指定图表的配置项和数据
-var option = {
-    title: {
-        text: ''
-    },
-    tooltip: {},
-    legend: {
-        data: ['正常上班']
-    },
-    xAxis: {
-        data: ["", "九月", ""]
-    },
-    yAxis: {},
-    series: [{
-        name: '正常上班',
-        type: 'bar',
-        data: [24, 4, 1]
-    }]
-};
-
-// 使用刚指定的配置项和数据显示图表。
-myChart.setOption(option);
-(function() {
-    var changeRem = function() {
-        document.getElementsByTagName('html')[0].style.fontSize = document.documentElement.clientWidth / 20 + 'px';
-    };
-    changeRem();
-    var t;
-    window.addEventListener('resize', function() {
-        clearTimeout(t);
-        t = setTimeout(changeRem, 300);
-    }, false);
-    window.addEventListener('pageshow', function(e) {
-        if (e.persisted) {
-            clearTimeout(t);
-            t = setTimeout(changeRem, 300);
-        }
-    }, false);
-}());
-</script>
-
-<footer class="footer" style="text-align: center;margin-top: 50px;">
-	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
-	&nbsp;
-	<a class="btn btn-danger btn-xs" href="#" onclick="window.open ('http://xiaomai.zzlic.cn/public//about/tousu.html', 'newwindow', 'height=410, width=540,top=100,left=200;toolbar=no, menubar=no, scrollbars=no, resizable=no,status=no');return false;"> <i class="fa fa-whatsapp m-r-5"></i>
-		投诉&amp;问题
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-default btn-xs" href="#" onclick="showWX(0);return false;"> <i class="fa fa-weixin m-r-5"></i>
-		微客服
-	</a>
-	&nbsp;&nbsp;
-	<a class="btn btn-primary btn-xs" href="#" onclick="showWX(1);return false;">
-		<i class="md md-speaker-notes m-r-5"></i>
-		订阅号
-	</a>
-	<br>
-	Copyright © 2004-2017 &nbsp;广州蒲明&nbsp;&nbsp;  gz Volitation Information Technology Co.,ltd
-</footer>
-<!-- 底部 -->
-<script type="text/javascript">
-$(document).ready(function(){
-	$(".left_menu ul li").click(function(event){
-		event.preventDefault();
-		console.log($(this).siblings().find('a,p'))
-		$(this).css({"background":"#5E5B5B","border-left":"green 4px solid",
-			"color":"#5d9cec"})
-		.siblings().css({"background":"#36404a","border-left":"#36404a 4px solid"})
-		$(this).find('a,p').css("color","#5d9cec")
-		$(this).siblings().find('a,p').css("color","white")
-	})
-});
-</script>
-</body>
-</html>
-<script type="text/javascript">
-new Vue({
-    el: ".container",
-    data: {
-        value1: ''
-    },
-})
-</script>

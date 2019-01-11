@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\proche_rcl.html";i:1546912759;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1546652743;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1545118183;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\proche_rcl.html";i:1547093906;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1546998629;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1547019384;}*/ ?>
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/finance/finance.css" />
 <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.5.1/css/fileinput.css" rel="stylesheet" />
@@ -328,9 +328,12 @@
                 </div>
                <form action="<?php echo url('index/login/logout'); ?>" method="post" class="form" style="margin-left:-100px">
                 <span class="user_name">公司id:<?php echo \think\Session::get('u_belong'); ?> <?php echo \think\Session::get('u_company'); ?> <?php echo \think\Session::get('user_name'); ?>(<?php echo \think\Session::get('user_cate'); ?>)</span>
-                <span> <a href="<?php echo url('admin/index/index'); ?>"  id="return">返回主页</a></span>
-                <input id="exit" type="submit" value= "安全退出" class="btn btn-default" style="margin-left:0px;margin-bottom: 5px;padding:0;margin-top:2px"></input>
-
+                <span class="user_name"> <a href="<?php echo url('admin/index/index'); ?>"  id="return">返回主页</a></span>
+                <input id="exit" type="submit" value= "安全退出" class="btn btn-default" style="margin:4px;padding:0;"></input>
+                <div class="bell" @click='bell'>
+                    <img src="__STATIC__/admin/bell.png"></a>
+                    <div v-if='num!=0'></div>
+                </div>
                </form>
             </div>
 
@@ -342,15 +345,26 @@
         el:'#top_menu',
         data:{
            controller:"Index",
-           cur:''
+           cur:'',
+           num:0
         },
         created(){
             this.init();
+            this.red();
         },
         methods:{
+            bell(){
+                window.location.href='<?php echo url('admin/bell/index'); ?>'
+            },
+            red(){
+                $.get('<?php echo url("admin/index/red"); ?>',
+                    (rtnData)=>{
+                        this.num=rtnData;
+                });
+            },
             init(){
                 this.controller="<?php echo request()->controller(); ?>";
-                
+                console.log(this.controller);
                 if(this.controller=='Index' || this.controller=='Crm'){
                     this.cur='CRM';
                 }else if(this.controller=='Map' ){
@@ -374,7 +388,7 @@
 </script>
     
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
-
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_there.css"/>
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_proche.css"/>
 <div class="left_menu lbs" id="left_menu" style="z-index: 99;">
@@ -407,6 +421,8 @@
 		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
 		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
 	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
+        <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
+        <li onclick="jump_eight()"><a href="#" class="iconfont icon-kaoqindaqia"><p>投票</p></a></li>
 	</ul>
 	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
@@ -474,6 +490,12 @@
  function jump_qt(){
     window.location.href='<?php echo url('admin/index/proche_qt'); ?>'
  }
+ function jump_seven(){
+    window.location.href='<?php echo url('admin/index/lookAttendance'); ?>'
+ }
+ function jump_eight(){
+    window.location.href='<?php echo url('admin/index/toupiao'); ?>'
+ }
 
 </script>
 
@@ -482,7 +504,6 @@
             热处理
         </div>
         <div class="cjp_choose">
-            
             <button class="btn btn-default" style="outline: none;" data-toggle="modal" data-target="#addwindow">添加信息</button>
             <button class=" btn btn-default" style="outline: none;" @click="deleteChoose">删除选中项</button>
             <button class="btn btn-default" style="outline: none;" @click="preview">打印选中项</button>
@@ -503,7 +524,7 @@
             </div>
             <div id="selecttime" class="col-lg-6" style="width: 230px;">
                 <div class='input-group date' style="width:200px" id='datetimepicker2'>
-                    <input id="sel_time_con" type='text' class="form-control" name="time"  />
+                    <input id="sel_time_con" type='text' class="form-control" name="time" />
                     <span class="input-group-addon" style="margin-left: -200px;">
                     <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -600,8 +621,8 @@
                                     </el-dialog>
                                 </div>
                                 <div class="form-group">
-                                    <button type="button"  class="btn btn-primary" @click="uploadPic">
-                                    图片上传
+                                    <button type="button" class="btn btn-primary" @click="uploadPic">
+                                        图片上传
                                     </button>
                                 </div>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">
@@ -715,8 +736,8 @@
                                     </el-dialog>
                                 </div>
                                 <div class="form-group">
-                                    <button type="button"  class="btn btn-primary" @click="updatePic">
-                                    图片上传
+                                    <button type="button" class="btn btn-primary" @click="updatePic">
+                                        图片上传
                                     </button>
                                 </div>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">
@@ -762,7 +783,7 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal -->
             </div>
-           <table class="table table-bordered table-hover" style="text-align: center;">
+            <table class="table table-bordered table-hover" style="text-align: center;">
                 <tr>
                     <th>序列</th>
                     <th>
@@ -847,9 +868,9 @@
         </div>
     </div>
     <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.5.1/js/fileinput.js"></script>
-    
     <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/locales/zh.min.js"></script>
     <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.zh-CN.js"></script>
     <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-select.min.js"></script>
 </body>
 
@@ -875,7 +896,7 @@ new Vue({
                 path.push(value.response);
                 var aa = JSON.stringify(path);
                 console.log(aa);
-                $("#uploadimgPath").attr("value",aa);
+                $("#uploadimgPath").attr("value", aa);
             })
 
         },
@@ -885,14 +906,14 @@ new Vue({
                 path.push(value.response);
                 var aa = JSON.stringify(path);
                 console.log(aa);
-                $("#updateimgPath").attr("value",aa);
+                $("#updateimgPath").attr("value", aa);
             })
 
         },
-        uploadPic(){
+        uploadPic() {
             this.$refs.uploadPic.submit();
         },
-        updatePic(){
+        updatePic() {
             this.$refs.updatepic.submit();
         },
         //删除选中信息
@@ -1037,32 +1058,32 @@ new Vue({
 
         },
         //搜索
-        select(){
-           var proche_type ="treatment";
-           var time = $('#sel_time_con').val();
-           var content = $('#sel_other_con').val();
-           var type = $('#selectchoose').val();
-           if (typeof(Storage)!=="undefined") {
-             sessionStorage.content=content;
-             sessionStorage.type=type;
-             sessionStorage.time=time;
+        select() {
+            var proche_type = "treatment";
+            var time = $('#sel_time_con').val();
+            var content = $('#sel_other_con').val();
+            var type = $('#selectchoose').val();
+            if (typeof(Storage) !== "undefined") {
+                sessionStorage.content = content;
+                sessionStorage.type = type;
+                sessionStorage.time = time;
 
-           }
-           if (type == 'time') {
-               if (time=='') {
-                alert('搜索内容不能为空');
-               }else{
-                url = "proche_select.html?proche_type=" + proche_type +"&time="+time+"&content="+content+"&type="+type;
-                window.location.href = url;
-               }
-           }else{
+            }
+            if (type == 'time') {
+                if (time == '') {
+                    alert('搜索内容不能为空');
+                } else {
+                    url = "proche_select.html?proche_type=" + proche_type + "&time=" + time + "&content=" + content + "&type=" + type;
+                    window.location.href = url;
+                }
+            } else {
                 if (content == '') {
-                alert('搜索内容不能为空');
-               }else{
-                url = "proche_select.html?proche_type=" + proche_type +"&time="+time+"&content="+content+"&type="+type;
-                window.location.href = url;
-               } 
-           }  
+                    alert('搜索内容不能为空');
+                } else {
+                    url = "proche_select.html?proche_type=" + proche_type + "&time=" + time + "&content=" + content + "&type=" + type;
+                    window.location.href = url;
+                }
+            }
         }
     }
 
@@ -1072,15 +1093,15 @@ $("#input-id").fileinput({
     language: 'zh', //设置语言
     uploadAsync: false, //默认异步上传
     showUpload: false, //是否显示上传按钮
-    showRemove : true, //显示移除按钮
-    autoReplace:true,
-    showPreview : true, //是否显示预览
-    showCaption: true,//是否显示标题
+    showRemove: true, //显示移除按钮
+    autoReplace: true,
+    showPreview: true, //是否显示预览
+    showCaption: true, //是否显示标题
     browseClass: "btn btn-primary", //按钮样式     
-    dropZoneEnabled: true,//是否显示拖拽区域
+    dropZoneEnabled: true, //是否显示拖拽区域
     maxFileCount: 10, //表示允许同时上传的最大文件个数
     enctype: 'multipart/form-data',
-    validateInitialCount:true,
+    validateInitialCount: true,
     previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
     msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
 });
@@ -1088,15 +1109,15 @@ $("#input-id1").fileinput({
     language: 'zh', //设置语言
     uploadAsync: false, //默认异步上传
     showUpload: false, //是否显示上传按钮
-    showRemove : true, //显示移除按钮
-    showPreview : true, //是否显示预览
-    autoReplace:true,
-    showCaption: true,//是否显示标题
+    showRemove: true, //显示移除按钮
+    showPreview: true, //是否显示预览
+    autoReplace: true,
+    showCaption: true, //是否显示标题
     browseClass: "btn btn-primary", //按钮样式     
-    dropZoneEnabled: true,//是否显示拖拽区域
+    dropZoneEnabled: true, //是否显示拖拽区域
     maxFileCount: 10, //表示允许同时上传的最大文件个数
     enctype: 'multipart/form-data',
-    validateInitialCount:true,
+    validateInitialCount: true,
     previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
     msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
 });
@@ -1188,9 +1209,11 @@ $('#datetimepicker2').datetimepicker({
     width: 100%;
     height: auto;
 }
+
 .ab {
     width: 150px !important;
 }
+
 .el-upload__input {
     display: none !important;
 }

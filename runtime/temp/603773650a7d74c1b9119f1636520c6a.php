@@ -1,10 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:77:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1547017946;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1546998629;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1544610348;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1547019384;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544610348;}*/ ?>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="renderer" content="webkit">
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9">
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\check.html";i:1545119997;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1546998629;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544610348;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -378,354 +372,136 @@
         }
     })
 </script>
-<!DOCTYPE html>
-<html>
-	<head>
-<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<div class="page" style="z-index: 99;background:white;padding-left: 10px;height:100%">
-			<div class="search_box">
-				<div class="iconfont icon-fangdajing"></div>
-				<input type="text" name="search" class="search" placeholder="搜索" />
-			</div>
-			<div class="people_box">
-				<div class="icon">
-					<div class="iconfont icon-geren"></div>
-					<div class="iconfont icon-iconset0337"></div>
-					<div class="iconfont icon-group"></div>
-				</div>
-				<div class="name_box">
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				公告栏
-			</div>
-			<div class="notice_box">
-				<div class="notice">
-					<div class="notice_dian"></div>
-					<div class="notice_content">oa系统正式上线</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				新闻
-			</div>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/add.css">
+	<div class="write_box" id="check">
+		<div class="title" style="margin-bottom: 20px;">
+			<a class="glyphicon glyphicon-ok">工作汇报批改/详情</a>
+			<a href="<?php echo url('index'); ?>" class="glyphicon glyphicon-chevron-left return">返回工作台</a>
 		</div>
-	</body>
-</html>
-
-
-
-
-
-<style type="text/css">
-.page{
-	width:172px;
-	position:fixed ;
-	right: 0;
+	  
+		
+		<form action="<?php echo url('update'); ?>?id=<?php echo $check_info['id']; ?>" method="post" enctype="multipart/form-data" onsubmit="return sumbit_sure()">
+			<div class="form-group" style="font-size: 16px;">
 	
-	
-}
-.search_box{
-	display: flex;
-	margin-top:9px;
-	background: #e6e6e6;
-	
-}
-.search_box input{
-	background: #e6e6e6;
-	border: 0px;
-	outline:none 
-}
-.icon{
-	display: flex;
-	margin: 6px 20px ;
-	
-}
-.icon div{
-	font-size: 23px;
-	flex: 1;
-	text-align: center;
-}
-.people{
-	display: flex;
-	align-items: center;
-}
-.name_box{
-	height: 250px;
-	overflow:scroll;
-	overflow-x:visible;
-}
-.people img{
-	width: 26px;
-	height: 26px;
-	border-radius: 26px;	
-}
-.people p{
-    margin-top: 13px;
-    margin-left: 3px;
-}
-.notice_title{
-	text-align: center;
-    padding: 4px 0;
-    font-size: 16px;
-    border-top: 1px solid #cccccc;
-    border-bottom:1px solid #cccccc;
-    font-weight: bold;
-}
-.notice{
-	display: flex;
-}
-.notice_dian{
-	width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: red;
-    margin-top: 5px;
-    margin-left: 7px;
-}
-.notice_box{
-	height: 143px;
-}
-.notice_content{
-	margin-left: 10px;
-    font-size: 11px;
-}
-</style>
+				<table v-if="con == 1" class="table" style="text-align: center;"  >
+				<tr>	
+				 <?php if($type=="0"): ?>			
+					<th>编号ID</th>
+					<th>对接人</th>
+					<th>任务名称</th>
+					<th>附件</th>
+					<th>添加时间</th>
+					<th>截止时间</th>
+					<th>任务级别</th>
+					<th>状态</th>	
+				  <?php endif; if($type=="1"): ?>
+					<th>编号ID</th>
+					<th>员工</th>
+					<th>任务名称</th>
+					
+					<th>添加时间</th>
+					<th>完成时间</th>
+					<th>备注</th>
+					<th>状态</th>
+				   <?php endif; ?>				
+				</tr>
+				 
+				    <tr >
+				      <?php if($type=="0"): ?>
+						<td><?php echo $check_info['id']; ?></td>
+						<td style="display: flex;justify-content: center;"><?php foreach($check_info['execute_id'] as $k=>$i): ?><div><?php foreach($i as $a=>$b): ?><?php echo $b; ?>,<?php endforeach; ?></div><?php endforeach; ?></td>
+						<td><?php echo $check_info['work_name']; ?></td>
+						<?php if($check_info['work_file']!=""): ?>
+						<td><a href="__UPLOADS__<?php echo $check_info['work_file']; ?>">点击查看</a></td>
+						<?php endif; if($check_info['work_file']==""): ?>
+						<td>无</td>
+						<?php endif; ?>
+						<td><?php echo date("Y-m-d  H:i:s",$check_info['time']); ?></td>
+						<td><?php echo date("Y-m-d  H:i:s",$check_info['lasttime']); ?></td>
+						<td><?php echo $check_info['work_rank']; ?></td>
+						<?php if($check_info['state']=="1"): ?>
+						<td>已发布待查阅</td>
+						<?php endif; if($check_info['state']=="2"): ?>
+						<td>已查阅</td>
+						<?php endif; if($check_info['state']=="3"): ?>
+						<td>发起人已放弃</td>
+						<?php endif; if($check_info['state']=="4"): ?>
+						<td>任务已完成</td>
+						<?php endif; endif; if($type=='1'): ?>
+						<td><?php echo $check_info['id']; ?></td>
+						<td><?php echo $check_info['name']; ?></td>
+						<td><?php echo $check_info['job']; ?></td>
+						
+						<td><?php echo date("Y-m-d H:i:s",$check_info['time']); ?></td>
+						<td><?php if($check_info['end_time']): ?><?php echo date("Y-m-d H:i:s",$check_info['end_time']); endif; ?></td>
+						<td><?php echo $check_info['remark']; ?></td>
+						<td><?php if($check_info['whether']=='0'): ?>已完成<?php endif; if($check_info['whether']!='0'): ?>未完成<?php endif; ?></td>
+					  <?php endif; ?>
+					</tr>			
+					
+			</table>
+			<?php if($type=='0'): ?>			
+			<div style="width: 100%;height: auto;border: 1px solid #DDDDDD; border-radius: 10px;">
+				<div style="width: 10%;height: 30px;line-height: 30px;color: red;margin-left: 20px;">详情</div>
 
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_there.css"/>
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_proche.css"/>
-<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
-	<ul v-if="controller!='Map'">
-		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
-		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
-		  <li @click="isShow"><a class="iconfont icon-jiedianguanli" style="padding-top:-2px;"><p>产品检查</p></a>
-            <ul v-if="six">
-                <li onclick="jump_cjg()">
-                    <a  class="iconfont icon-bianji" style="padding-top:-2px"><p>粗加工</p></a>
-                </li>
-                <li onclick="jump_rcl()">
-                    <a href="#" class="iconfont icon-guanlianshebei" style="padding-top:-2px"><p>热处理</p></a>
-                </li>
-                <li onclick="jump_dzcj()">
-                    <a href="#" class="iconfont icon-guanfangbanben" style="padding-top:-2px"><p>锻造车间</p></a>
-                </li>
-                <li onclick="jump_bzjy()">
-                    <a href="#" class="iconfont icon-gongnengdingyi" style="padding-top:-2px"><p>包装检验</p></a>
-                </li>
-                <li onclick="jump_jjg()">
-                    <a href="#" class="iconfont icon-jichuguanli" style="padding-top:-2px"><p>精加工</p></a>
-                </li>
-                <li onclick="jump_qt()">
-                    <a href="#" class="iconfont icon-jishufuwu" style="padding-top:-2px"><p>其他</p></a>
-                </li>
-            </ul>
-        </li>
-		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
-		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
-		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
-	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
-        <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
-        <li onclick="jump_eight()"><a href="#" class="iconfont icon-kaoqindaqia"><p>投票</p></a></li>
-	</ul>
-	<!--<ul v-if="controller=='Map'" class="Maplist">
-		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
-		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
-		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
-		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
-		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
-		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
-		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
-		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-	</ul>-->
-</div>
-<script type="text/javascript">
- new Vue({
-        el:'#left_menu',
-        data:{
-        	six:false,
-           controller:"Index"
-        },
-        created(){
-        	this.init();
-        },
-        methods:{
-        	init(){
-                this.controller="<?php echo request()->controller(); ?>";
-        	},
-        	 isShow(){
-        	this.six=!this.six;
-        }
-        }
-    })
- function jump(){
- 	 window.location.href='<?php echo url('admin/index/index'); ?>'
- }
- function jump_two(){
- 	window.location.href='<?php echo url('admin/index/work'); ?>'
- }
- function jump_three(){
- 	window.location.href='<?php echo url('admin/index/finance'); ?>'
- }
- function jump_four (){
- 	window.location.href='<?php echo url('admin/index/department'); ?>'
- }
- function jump_five(){
- 	window.location.href='<?php echo url('admin/index/information'); ?>'
- }
-  function jump_six(){
- 	window.location.href='<?php echo url('admin/index/stock'); ?>'
- }
- function jump_cjg(){
-    window.location.href='<?php echo url('admin/index/proche_cjg'); ?>'
- }
- function jump_rcl(){
-    window.location.href='<?php echo url('admin/index/proche_rcl'); ?>'
- }
- function jump_dzcj(){
-    window.location.href='<?php echo url('admin/index/proche_dzcj'); ?>'
- }
- function jump_bzjy(){
-    window.location.href='<?php echo url('admin/index/proche_bzjy'); ?>'
- }
- function jump_jjg(){
-    window.location.href='<?php echo url('admin/index/proche_jjg'); ?>'
- }
- function jump_qt(){
-    window.location.href='<?php echo url('admin/index/proche_qt'); ?>'
- }
- function jump_seven(){
-    window.location.href='<?php echo url('admin/index/lookAttendance'); ?>'
- }
- function jump_eight(){
-    window.location.href='<?php echo url('admin/index/toupiao'); ?>'
- }
+				<div style="padding-left: 20px;"><?php echo $check_info['work_require']; ?></div>
+			</div>
+			<?php endif; if($log_list): ?>
+			<div style="width: 15%;height: 30px;line-height: 30px;color: cornflowerblue; font-size: 20px;margin-top: 30px;">
+				任务日志
+			</div>
+			<?php endif; foreach($log_list as $loglist_info): ?>
+			<div style="width: 100%;height: 140px;">
+				<div style="width: 12%;height: 35px;background-color: #00A65A;text-align: center;line-height: 35px;border-radius: 10px;">
+					<?php echo $loglist_info['time']; ?>
+				</div>
+				<div style="width: 100%;height: 105px;">
+					<div style="display: inline-block;width: 3px;height: 104px;background-color: #DADADA;margin-left: 70px;float: left;"></div>
+					<div style="width: 90%;height: 90px;border: 1px solid #DADADA;margin-left: 10px;float: left;margin-top: 5px;border-radius: 5px;">
+						<div style="width: 100%;height: 30px;border-bottom: 1px solid #DADADA;">
+							<div style="height: 30px;line-height: 30px;color: #3376B2;font-size: 15px;float: left;">操作人:</div>
 
-</script>
-
-<div class="container">
-    <div class="index_content_center">
-        <div class="center_1">
-            <img src="__STATIC__/admin/index/images/20181206171359.jpg" alt="" class="center_1a">
-            <!--     <img src="__STATIC__/admin/index/images/20181206171360.jpg" alt="" class="center_1b">
- -->
-            <p style="font-size: 1em;"><strong><?php echo $User['user_cate']; ?></strong></p>
-            <h3 style="margin-bottom: 0.1em;"><strong><?php echo $User['user_name']; ?></strong></h3>
-            <button class="button1"><strong>打卡</strong></button>
-            <button class="button2"><strong>补卡</strong></button>
-        </div>
-        <div class="center_2">
-            <form action="Attendance">
-                <div class="center_2a">
-                    <select id="" name="Attendance_status">
-                        <option value="请假">请假</option>
-                        <option value="迟到">迟到</option>
-                        <option value="早退">早退</option>
-                        <option value="旷工">旷工</option>
-                    </select>
+							<div style="width:70%; height: 30px;line-height: 30px;font-size: 13px;float: left;"><?php echo $loglist_info['uname']; ?></div>
+							<?php if($loglist_info['accessory']): ?>
+							<div style="line-height: 30px;"><a href="__UPLOADS__<?php echo $loglist_info['accessory']; ?>">点击查看附件</a></div>
+							<?php endif; ?>
+						</div>
+						<div style="height: 60px;font-size: 13px;overflow: hidden;">
+							<?php echo $loglist_info['rw_log']; ?>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<?php endforeach; ?>
+			<input type="hidden" value="<?php echo $type; ?>">
+			<div>
+				<div style="width: 15%;height: 30px;line-height: 30px;color: cornflowerblue; font-size: 20px;margin-top: 30px;">
+					操作
+				</div>
+				<div class="form-group">
+                    
+                    <input type="file" name="work_require" class="dropify"></input>
                 </div>
-                <div class="cneter_2b">
-                    <span>始：</span>
-                    <input type="date" name="start_time">
-                    </el-date-picker>
-                </div>
-                <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/rili.png" alt=""></div>
-                    <div class="cneter_2b">
-                        <span>至：</span>
-                        <input type="date" name="end_time">
-                    </div>
-                    <textarea rows="10" cols="30" placeholder="说明原因" name="reason"></textarea>
-                    <button href="#" class="cneter_2c">提交</button>
-            </form>
-        </div>
-        <div class="cneter_3" style="margin-right: 2%"><h3>打卡日历<span><i></i>2017 年 9 月<i></i></span></h3>
-        </div>
-        <div class="cneter_3"><h3>考勤统计</h3>
-        </div>
-        <div class="cneter_4" style="margin-right: 2%"></div>
-        <div class="cneter_4" id="main"></div>
-    </div>
-</div>
-<!-- 模态框结束 -->
-<script type="text/javascript" src="__STATIC__/admin/index/js/index.js?126">
-</script>
-<script type="text/javascript" src="__STATIC__/admin/index/js/index2.js"></script>
-<script type="text/javascript">
-// 基于准备好的dom，初始化echarts实例
-var myChart = echarts.init(document.getElementById('main'));
+				<textarea id="caozuo" name="log" style="height: 100px;width: 100%;" value=""></textarea>
+			</div>
+             	
+				
+		
 
-// 指定图表的配置项和数据
-var option = {
-    title: {
-        text: ''
-    },
-    tooltip: {},
-    legend: {
-        data: ['正常上班']
-    },
-    xAxis: {
-        data: ["", "九月", ""]
-    },
-    yAxis: {},
-    series: [{
-        name: '正常上班',
-        type: 'bar',
-        data: [24, 4, 1]
-    }]
-};
+			</div>
+			<div class="form-group ">
+				<input name="abandon" type="submit" class="btn btn-primary" style="outline:none;" value="提交">
+				 <!-- <input name="abandon" type="button" class="btn btn-primary" style="outline:none;" onclick="giveUp()" value="放弃任务"> -->
+				<!-- <input name="abandon" type="button" class="btn btn-primary" style="outline:none;" onclick="finish()" value="结束任务"> -->
+				
+			</div>
+			
+			
+		</form>
 
-// 使用刚指定的配置项和数据显示图表。
-myChart.setOption(option);
-(function() {
-    var changeRem = function() {
-        document.getElementsByTagName('html')[0].style.fontSize = document.documentElement.clientWidth / 20 + 'px';
-    };
-    changeRem();
-    var t;
-    window.addEventListener('resize', function() {
-        clearTimeout(t);
-        t = setTimeout(changeRem, 300);
-    }, false);
-    window.addEventListener('pageshow', function(e) {
-        if (e.persisted) {
-            clearTimeout(t);
-            t = setTimeout(changeRem, 300);
-        }
-    }, false);
-}());
-</script>
 
+  
 <footer class="footer" style="text-align: center;margin-top: 50px;">
 	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
 	&nbsp;
@@ -760,11 +536,60 @@ $(document).ready(function(){
 </script>
 </body>
 </html>
-<script type="text/javascript">
-new Vue({
-    el: ".container",
-    data: {
-        value1: ''
-    },
-})
-</script>
+				<script type="text/javascript">	
+		//操作提交前判定
+		function sumbit_sure(){	
+			var a = $("#caozuo").val();
+				if(a == ''){
+					alert('操作框不能为空！');
+					return false;
+				}else{
+					var cof = confirm('是否要提交！');
+					if(cof==true){
+						return true;
+					}else{
+						return false;
+					}
+				}
+			};
+			//放弃任务
+			function giveUp(){
+				var cof = confirm('是否要提交放弃任务')
+				if(cof){
+					$.post(
+						'<?php echo url('giveUp'); ?>?id=<?php echo $check_info['id']; ?>', 
+						function(e){
+							window.location.reload()
+						}
+					);
+				}
+				
+
+			};
+			//完成任务
+			function finish(){
+				var cof = confirm('是否要提交完成任务')
+				if(cof){
+				$.post(
+						'<?php echo url('finishWork'); ?>?id=<?php echo $check_info['id']; ?>', 
+						function(e){
+							window.location.reload()
+						}
+					);
+				}
+
+			}
+			
+			
+		
+    	$('.dropify').dropify();
+   		UE.getEditor("myEditor");
+	</script>
+		
+
+	
+	<style type="text/css">
+		.aa{
+			display: none;
+		    }
+	</style>

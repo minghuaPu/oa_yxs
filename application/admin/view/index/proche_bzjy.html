@@ -388,6 +388,7 @@
     
     <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/locales/zh.min.js"></script>
     <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.zh-CN.js"></script>
     <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="__STATIC__/library/bootstrap/defaults-zh_CN.min.js"></script>
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
@@ -415,7 +416,6 @@ new Vue({
             fileList.forEach(function(value, i) {
                 path.push(value.response);
                 var aa = JSON.stringify(path);
-                console.log(aa);
                 $("#uploadimgPath").attr("value",aa);
             })
 
@@ -425,7 +425,6 @@ new Vue({
             fileList.forEach(function(value, i) {
                 path.push(value.response);
                 var aa = JSON.stringify(path);
-                console.log(aa);
                 $("#updateimgPath").attr("value",aa);
             })
 

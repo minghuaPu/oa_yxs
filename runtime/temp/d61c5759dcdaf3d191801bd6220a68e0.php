@@ -1,10 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:77:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1547017946;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1546998629;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1544610348;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1547019384;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544610348;}*/ ?>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="renderer" content="webkit">
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9">
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:74:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\yjs.html";i:1545365754;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1546998629;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544610348;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -378,353 +372,99 @@
         }
     })
 </script>
-<!DOCTYPE html>
-<html>
-	<head>
-<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<div class="page" style="z-index: 99;background:white;padding-left: 10px;height:100%">
-			<div class="search_box">
-				<div class="iconfont icon-fangdajing"></div>
-				<input type="text" name="search" class="search" placeholder="搜索" />
-			</div>
-			<div class="people_box">
-				<div class="icon">
-					<div class="iconfont icon-geren"></div>
-					<div class="iconfont icon-iconset0337"></div>
-					<div class="iconfont icon-group"></div>
-				</div>
-				<div class="name_box">
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				公告栏
-			</div>
-			<div class="notice_box">
-				<div class="notice">
-					<div class="notice_dian"></div>
-					<div class="notice_content">oa系统正式上线</div>
-				</div>
-			</div>
-			<div  class="notice_title">
-				新闻
-			</div>
+
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
+<div class="task">
+	<div class="task_left"></div>
+	<div class="task_box">
+		<div class="task_title">
+			<span class="glyphicon glyphicon-list-alt pull-left"></span>
+			<h4>TASK员工任务管理</h4>
 		</div>
-	</body>
-</html>
-
-
-
-
-
-<style type="text/css">
-.page{
-	width:172px;
-	position:fixed ;
-	right: 0;
+		<div class="task_content">
+			
+			<ul class="list_top">
+				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
+				
+				<li style="width: 0%;">
+					 <div class="input-group pull-left">
+                            <input type="text" class="form-control pull-left" placeholder="输入任务名称" id="selectinfo">
+                        </div>
+                        <button class="btn btn-group pull-left" style="cursor: pointer;width: 70px;height: 35px; outline: none;" @click="select" >搜索</button>  
+				</li>
+			</ul>
+            
+			
+				<a class="btn btn-default" href="<?php echo url('index'); ?>">待我处理(<?php echo $work_listnu; ?>)</a>
+                <a class="btn btn-default" href="<?php echo url('wfb'); ?>">我发布的任务(<?php echo $work_listnu; ?>)</a>
+                <a class="btn btn-default" style="background-color: #7BB0DE" href="<?php echo url('yjs'); ?>">已结束的任务(<?php echo $unfinish_listnu; ?>)</a>
+			
+			
 	
-	
-}
-.search_box{
-	display: flex;
-	margin-top:9px;
-	background: #e6e6e6;
-	
-}
-.search_box input{
-	background: #e6e6e6;
-	border: 0px;
-	outline:none 
-}
-.icon{
-	display: flex;
-	margin: 6px 20px ;
-	
-}
-.icon div{
-	font-size: 23px;
-	flex: 1;
-	text-align: center;
-}
-.people{
-	display: flex;
-	align-items: center;
-}
-.name_box{
-	height: 250px;
-	overflow:scroll;
-	overflow-x:visible;
-}
-.people img{
-	width: 26px;
-	height: 26px;
-	border-radius: 26px;	
-}
-.people p{
-    margin-top: 13px;
-    margin-left: 3px;
-}
-.notice_title{
-	text-align: center;
-    padding: 4px 0;
-    font-size: 16px;
-    border-top: 1px solid #cccccc;
-    border-bottom:1px solid #cccccc;
-    font-weight: bold;
-}
-.notice{
-	display: flex;
-}
-.notice_dian{
-	width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: red;
-    margin-top: 5px;
-    margin-left: 7px;
-}
-.notice_box{
-	height: 143px;
-}
-.notice_content{
-	margin-left: 10px;
-    font-size: 11px;
-}
-</style>
-
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_there.css"/>
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
-<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_proche.css"/>
-<div class="left_menu lbs" id="left_menu" style="z-index: 99;">
-	<ul v-if="controller!='Map'">
-		<li onclick="jump()"><a href="#" class="iconfont icon-geren"><p>个人管理</p></a></li>
-		<li onclick="jump_two()"><a href="#" class="iconfont icon-gongzuo" style="padding-top:-2px"><p>工作管理</p></a></li>
-		  <li @click="isShow"><a class="iconfont icon-jiedianguanli" style="padding-top:-2px;"><p>产品检查</p></a>
-            <ul v-if="six">
-                <li onclick="jump_cjg()">
-                    <a  class="iconfont icon-bianji" style="padding-top:-2px"><p>粗加工</p></a>
-                </li>
-                <li onclick="jump_rcl()">
-                    <a href="#" class="iconfont icon-guanlianshebei" style="padding-top:-2px"><p>热处理</p></a>
-                </li>
-                <li onclick="jump_dzcj()">
-                    <a href="#" class="iconfont icon-guanfangbanben" style="padding-top:-2px"><p>锻造车间</p></a>
-                </li>
-                <li onclick="jump_bzjy()">
-                    <a href="#" class="iconfont icon-gongnengdingyi" style="padding-top:-2px"><p>包装检验</p></a>
-                </li>
-                <li onclick="jump_jjg()">
-                    <a href="#" class="iconfont icon-jichuguanli" style="padding-top:-2px"><p>精加工</p></a>
-                </li>
-                <li onclick="jump_qt()">
-                    <a href="#" class="iconfont icon-jishufuwu" style="padding-top:-2px"><p>其他</p></a>
-                </li>
-            </ul>
-        </li>
-		<li onclick="jump_three()"><a href="#" class="iconfont icon-caiwuguanli"><p>财务管理</p></a></li>
-		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
-		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
-	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
-        <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
-        <li onclick="jump_eight()"><a href="#" class="iconfont icon-kaoqindaqia"><p>投票</p></a></li>
-	</ul>
-	<!--<ul v-if="controller=='Map'" class="Maplist">
-		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
-		<li><a href="<?php echo url('admin/map/visit'); ?>" class="glyphicon glyphicon-user"><p>客户拜访</p></a></li>
-		<li><a href="<?php echo url('admin/map/field'); ?>" class="glyphicon glyphicon-inbox"><p>外勤工单</p></a></li>
-		<li><a href="<?php echo url('admin/map/business'); ?>" class="glyphicon glyphicon-plane"><p>出差管理</p></a></li>
-		<li><a href="<?php echo url('admin/map/photo'); ?>" class="glyphicon glyphicon-camera"><p>实景照片</p></a></li>
-		<li><a href="<?php echo url('admin/map/check'); ?>" class="glyphicon glyphicon-map-marker"><p>轨迹查询</p></a></li>
-		<li><a href="<?php echo url('admin/map/sign'); ?>" class="glyphicon glyphicon-star"><p>考勤</p></a></li>
-		<li><a href="<?php echo url('admin/map/set'); ?>" class="glyphicon glyphicon-cog"><p>设置</p></a></li>
-	</ul>-->
+			 <table  class="table" style="text-align: center;"  >
+				<tr>
+					<th width="50px">排序</th>
+					<th>编号ID</th>
+					<th>对接人</th>
+					<th>任务名称</th>
+					
+					<th>附件</th>
+					<th>部门</th>
+					<th>添加时间</th>
+					<th>截止时间</th>
+					<th>任务级别</th>
+					<th>状态</th>
+					<th>详情</th>
+				</tr>
+				
+				<?php foreach($unfinish_list as $info): ?>
+					<tr >
+						<td><input type="text" value="<?php echo $info['sorts']; ?>" style="text-align: center;background-color: #f4f8fb;"></td>
+						<td><?php echo $info['id']; ?></td>
+						
+						<td style="display: flex;justify-content: center;"><?php foreach($info['execute_id'] as $k=>$i): ?><div><?php foreach($i as $a=>$b): ?><?php echo $b; ?>,<?php endforeach; ?></div><?php endforeach; ?></td>
+						<td><?php echo $info['work_name']; ?></td>
+						
+						<?php if($info['work_file']!=""): ?>
+						<td><a href="__UPLOADS__<?php echo $info['work_file']; ?>">点击查看</a></td>
+						<?php endif; if($info['work_file']==""): ?>
+						<td>无</td>
+						<?php endif; ?>
+						<td></td>
+						<td><?php echo date("Y-m-d  H:i:s",$info['time']); ?></td>
+						<td><?php echo date("Y-m-d  H:i:s",$info['lasttime']); ?></td>
+						<td><?php echo $info['work_rank']; ?></td>
+						<?php if($info['state']=="1"): ?>
+						<td>已发布待查阅</td>
+						<?php endif; if($info['state']=="2"): ?>
+						<td>已查阅</td>
+						<?php endif; if($info['state']=="3"): ?>
+						<td>发起人已放弃</td>
+						<?php endif; if($info['state']=="4"): ?>
+						<td>任务已完成</td>
+						<?php endif; ?>
+						
+						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">详情</a></td>
+                        <td ><a class="del" href="<?php echo url('annul',['id'=>$info['id']]); ?>">×</a></td>
+					</tr>			
+				<?php endforeach; ?>
+				
+				
+				
+			</table>
+			
+			
+			
+			<div  style="text-align: center;"><?php echo $unfinish_list->render(); ?></div>
+			
+			<ul class="list_bottom">
+				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
+			</ul>
+			
+		</div>
+	</div>
+	<div class="task_right"></div>
 </div>
-<script type="text/javascript">
- new Vue({
-        el:'#left_menu',
-        data:{
-        	six:false,
-           controller:"Index"
-        },
-        created(){
-        	this.init();
-        },
-        methods:{
-        	init(){
-                this.controller="<?php echo request()->controller(); ?>";
-        	},
-        	 isShow(){
-        	this.six=!this.six;
-        }
-        }
-    })
- function jump(){
- 	 window.location.href='<?php echo url('admin/index/index'); ?>'
- }
- function jump_two(){
- 	window.location.href='<?php echo url('admin/index/work'); ?>'
- }
- function jump_three(){
- 	window.location.href='<?php echo url('admin/index/finance'); ?>'
- }
- function jump_four (){
- 	window.location.href='<?php echo url('admin/index/department'); ?>'
- }
- function jump_five(){
- 	window.location.href='<?php echo url('admin/index/information'); ?>'
- }
-  function jump_six(){
- 	window.location.href='<?php echo url('admin/index/stock'); ?>'
- }
- function jump_cjg(){
-    window.location.href='<?php echo url('admin/index/proche_cjg'); ?>'
- }
- function jump_rcl(){
-    window.location.href='<?php echo url('admin/index/proche_rcl'); ?>'
- }
- function jump_dzcj(){
-    window.location.href='<?php echo url('admin/index/proche_dzcj'); ?>'
- }
- function jump_bzjy(){
-    window.location.href='<?php echo url('admin/index/proche_bzjy'); ?>'
- }
- function jump_jjg(){
-    window.location.href='<?php echo url('admin/index/proche_jjg'); ?>'
- }
- function jump_qt(){
-    window.location.href='<?php echo url('admin/index/proche_qt'); ?>'
- }
- function jump_seven(){
-    window.location.href='<?php echo url('admin/index/lookAttendance'); ?>'
- }
- function jump_eight(){
-    window.location.href='<?php echo url('admin/index/toupiao'); ?>'
- }
-
-</script>
-
-<div class="container">
-    <div class="index_content_center">
-        <div class="center_1">
-            <img src="__STATIC__/admin/index/images/20181206171359.jpg" alt="" class="center_1a">
-            <!--     <img src="__STATIC__/admin/index/images/20181206171360.jpg" alt="" class="center_1b">
- -->
-            <p style="font-size: 1em;"><strong><?php echo $User['user_cate']; ?></strong></p>
-            <h3 style="margin-bottom: 0.1em;"><strong><?php echo $User['user_name']; ?></strong></h3>
-            <button class="button1"><strong>打卡</strong></button>
-            <button class="button2"><strong>补卡</strong></button>
-        </div>
-        <div class="center_2">
-            <form action="Attendance">
-                <div class="center_2a">
-                    <select id="" name="Attendance_status">
-                        <option value="请假">请假</option>
-                        <option value="迟到">迟到</option>
-                        <option value="早退">早退</option>
-                        <option value="旷工">旷工</option>
-                    </select>
-                </div>
-                <div class="cneter_2b">
-                    <span>始：</span>
-                    <input type="date" name="start_time">
-                    </el-date-picker>
-                </div>
-                <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/rili.png" alt=""></div>
-                    <div class="cneter_2b">
-                        <span>至：</span>
-                        <input type="date" name="end_time">
-                    </div>
-                    <textarea rows="10" cols="30" placeholder="说明原因" name="reason"></textarea>
-                    <button href="#" class="cneter_2c">提交</button>
-            </form>
-        </div>
-        <div class="cneter_3" style="margin-right: 2%"><h3>打卡日历<span><i></i>2017 年 9 月<i></i></span></h3>
-        </div>
-        <div class="cneter_3"><h3>考勤统计</h3>
-        </div>
-        <div class="cneter_4" style="margin-right: 2%"></div>
-        <div class="cneter_4" id="main"></div>
-    </div>
-</div>
-<!-- 模态框结束 -->
-<script type="text/javascript" src="__STATIC__/admin/index/js/index.js?126">
-</script>
-<script type="text/javascript" src="__STATIC__/admin/index/js/index2.js"></script>
-<script type="text/javascript">
-// 基于准备好的dom，初始化echarts实例
-var myChart = echarts.init(document.getElementById('main'));
-
-// 指定图表的配置项和数据
-var option = {
-    title: {
-        text: ''
-    },
-    tooltip: {},
-    legend: {
-        data: ['正常上班']
-    },
-    xAxis: {
-        data: ["", "九月", ""]
-    },
-    yAxis: {},
-    series: [{
-        name: '正常上班',
-        type: 'bar',
-        data: [24, 4, 1]
-    }]
-};
-
-// 使用刚指定的配置项和数据显示图表。
-myChart.setOption(option);
-(function() {
-    var changeRem = function() {
-        document.getElementsByTagName('html')[0].style.fontSize = document.documentElement.clientWidth / 20 + 'px';
-    };
-    changeRem();
-    var t;
-    window.addEventListener('resize', function() {
-        clearTimeout(t);
-        t = setTimeout(changeRem, 300);
-    }, false);
-    window.addEventListener('pageshow', function(e) {
-        if (e.persisted) {
-            clearTimeout(t);
-            t = setTimeout(changeRem, 300);
-        }
-    }, false);
-}());
-</script>
 
 <footer class="footer" style="text-align: center;margin-top: 50px;">
 	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
@@ -760,11 +500,205 @@ $(document).ready(function(){
 </script>
 </body>
 </html>
-<script type="text/javascript">
-new Vue({
-    el: ".container",
-    data: {
-        value1: ''
-    },
-})
+
+<script>
+ 	// 第二步：定义路由，也就是每个路由应该映射一个组件
+ 	
+	new Vue({
+        el: ".task",
+        data: {
+        	ok:true,
+        	pageshow:true,
+            
+            secondary:[],
+           
+            con:1,
+          	
+        },
+        mounted(){
+        	console.log(this.DATE)	
+        	console.log(this.worksheet);
+        	if(this.worksheet.length<8){
+        		var num=8-this.worksheet.length;
+        		for (var i = 0; i < num; i++) {
+        			this.worksheet.push({});
+        		}
+        		
+        		
+        	}
+        	for (var i = 0; i < this.worksheet.length; i++) {
+        	this.secondary.push([])
+            
+        	this.worksheet[i].primary=JSON.parse(this.worksheet[i].primary);
+        	this.worksheet[i].secondary=JSON.parse(this.worksheet[i].secondary);
+        		for (var a = 0; a < this.fine.length; a++) {
+        	     if(this.worksheet[i].primary.id==this.fine[a].main){
+          				this.secondary[i].push(this.fine[a])
+        			}
+        	    }
+        	   
+        		
+        	}
+   
+        	console.log(this.secondary);
+        	console.log(this.worksheet);
+         			
+		},
+       	
+     methods:{
+     	
+     	aa(){
+     		console.log(this.DATE)
+     	},
+        select(){
+
+            var selinfo = $('#selectinfo').val();
+            if(selinfo){
+                window.location.href="select.html?info="+selinfo;
+            }else{
+                return false;
+            }
+            
+        },
+        // 主分类
+        zhuclassify(e){
+     		console.log(this.worksheet[e].primary)
+        	    $.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+	
+	        	    	select:1,
+	        	    	theme_id:this.worksheet[e].id,
+	        	    	xuan:this.worksheet[e].primary.id,
+	        	    	type:this.worksheet[e].primary.type
+        	    	},(rtnData)=>{     
+        	    	
+        	    			console.log(rtnData)
+        	    			if(rtnData!=='false'){
+        	    				console.log(1)
+        	    			rtnData.primary=JSON.parse(rtnData.primary)
+        	    			console.log(rtnData)
+        	    				this.worksheet[e]=rtnData
+        	    			}
+        	    			
+
+        	    			var text=[];
+        	    			 for (var a = 0; a < this.fine.length; a++) {
+			        	     	if(this.worksheet[e].primary.id==this.fine[a].main){
+			          				text.push(this.fine[a])
+			        				this.$set(this.secondary,e,text);
+			        				}
+        	     }
+        	    			console.log(this.worksheet);
+        	    			
+     			});
+        },
+        // 细分类
+        ciclassify(e){ 
+        	console.log(this.worksheet[e].id);
+        	$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{      	    		
+        	    		select:2,
+        	    		theme_id:this.worksheet[e].id,
+        	    		xuan:this.worksheet[e].secondary,
+						
+        	    	},(rtnData)=>{
+                 	   
+				          this.worksheet[e].score=rtnData;
+        	    			 // this.$set(this.quantity,e,rtnData) 
+
+     			});
+
+ 
+        },
+        // 时间/数量
+        liang(e){
+        	console.log(this.worksheet[e].quantity);
+        	$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+        	    		
+        	    		select:3,
+        	    		theme_id:this.worksheet[e].id,
+        	    		liang:this.worksheet[e].quantity
+        	    	},(rtnData)=>{
+                 	   this.worksheet[e].score=rtnData;
+        	    	});
+        },
+        // 工作内容
+        job(e){
+        		$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+        	    		
+        	    		select:4,
+        	    		theme_id:this.worksheet[e].id,
+        	    		job:this.worksheet[e].job
+        	    	},(rtnData)=>{
+        	    		if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
+        	    	});
+        },
+        // 是否完成
+        whether(e){
+        		$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+        	    		
+        	    		select:5,
+        	    		theme_id:this.worksheet[e].id,
+        	    		whether:this.worksheet[e].whether
+        	    	},(rtnData)=>{
+        	    		this.zongshu=rtnData
+        	    	});
+        },
+        //未完成原因 
+        reasons(e){
+ 				$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+        	    		
+        	    		select:6,
+        	    		theme_id:this.worksheet[e].id,
+        	    		reasons:this.worksheet[e].reasons
+        	    	},(rtnData)=>{
+        	    		if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
+        	    	});
+        },
+        // 备注
+         remark(e){
+         			$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+        	    		
+        	    		select:7,
+        	    		theme_id:this.worksheet[e].id,
+        	    		remark:this.worksheet[e].remark
+        	    	},(rtnData)=>{
+        	    		if(!rtnData){
+        	    				console.log(1)
+        	    				this.worksheet[e]=rtnData
+        	    			}
+        	    	});
+        },
+        // 统计分数
+         score(e){
+			$.get('<?php echo url("admin/task/classify"); ?>',
+   	    			{
+       	    		
+      	    		select:8,
+      	    		theme_id:this.worksheet[e].id,
+       	    		score:this.worksheet[e].score
+        	    	});
+        },
+        viewDetails:function(e){
+			window.location.href='<?php echo url('check',['id'=>24]); ?>'
+        }
+        	
+         
+
+        }         
+    })
 </script>
+<style>
+
+</style>

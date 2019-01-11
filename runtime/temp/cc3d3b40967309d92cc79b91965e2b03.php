@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:79:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\finance.html";i:1544610348;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1546932386;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1545118183;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1544610348;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:79:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\finance.html";i:1544610348;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1546998629;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1547019384;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1544610348;}*/ ?>
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/finance/finance.css"/>
 <html>
@@ -320,9 +320,12 @@
                 </div>
                <form action="<?php echo url('index/login/logout'); ?>" method="post" class="form" style="margin-left:-100px">
                 <span class="user_name">公司id:<?php echo \think\Session::get('u_belong'); ?> <?php echo \think\Session::get('u_company'); ?> <?php echo \think\Session::get('user_name'); ?>(<?php echo \think\Session::get('user_cate'); ?>)</span>
-                <span> <a href="<?php echo url('admin/index/index'); ?>"  id="return">返回主页</a></span>
-                <input id="exit" type="submit" value= "安全退出" class="btn btn-default" style="margin-left:0px;margin-bottom: 5px;padding:0;margin-top:2px"></input>
-
+                <span class="user_name"> <a href="<?php echo url('admin/index/index'); ?>"  id="return">返回主页</a></span>
+                <input id="exit" type="submit" value= "安全退出" class="btn btn-default" style="margin:4px;padding:0;"></input>
+                <div class="bell" @click='bell'>
+                    <img src="__STATIC__/admin/bell.png"></a>
+                    <div v-if='num!=0'></div>
+                </div>
                </form>
             </div>
 
@@ -334,15 +337,26 @@
         el:'#top_menu',
         data:{
            controller:"Index",
-           cur:''
+           cur:'',
+           num:0
         },
         created(){
             this.init();
+            this.red();
         },
         methods:{
+            bell(){
+                window.location.href='<?php echo url('admin/bell/index'); ?>'
+            },
+            red(){
+                $.get('<?php echo url("admin/index/red"); ?>',
+                    (rtnData)=>{
+                        this.num=rtnData;
+                });
+            },
             init(){
                 this.controller="<?php echo request()->controller(); ?>";
-                
+                console.log(this.controller);
                 if(this.controller=='Index' || this.controller=='Crm'){
                     this.cur='CRM';
                 }else if(this.controller=='Map' ){
@@ -366,7 +380,7 @@
 </script>
 	
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
-
+<link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_there.css"/>
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_proche.css"/>
 <div class="left_menu lbs" id="left_menu" style="z-index: 99;">
@@ -399,6 +413,8 @@
 		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
 		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
 	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
+        <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
+        <li onclick="jump_eight()"><a href="#" class="iconfont icon-kaoqindaqia"><p>投票</p></a></li>
 	</ul>
 	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
@@ -465,6 +481,12 @@
  }
  function jump_qt(){
     window.location.href='<?php echo url('admin/index/proche_qt'); ?>'
+ }
+ function jump_seven(){
+    window.location.href='<?php echo url('admin/index/lookAttendance'); ?>'
+ }
+ function jump_eight(){
+    window.location.href='<?php echo url('admin/index/toupiao'); ?>'
  }
 
 </script>

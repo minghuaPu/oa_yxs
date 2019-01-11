@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1546652743;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1546932386;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:76:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1546998629;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1546998629;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -314,9 +314,12 @@
                 </div>
                <form action="<?php echo url('index/login/logout'); ?>" method="post" class="form" style="margin-left:-100px">
                 <span class="user_name">公司id:<?php echo \think\Session::get('u_belong'); ?> <?php echo \think\Session::get('u_company'); ?> <?php echo \think\Session::get('user_name'); ?>(<?php echo \think\Session::get('user_cate'); ?>)</span>
-                <span> <a href="<?php echo url('admin/index/index'); ?>"  id="return">返回主页</a></span>
-                <input id="exit" type="submit" value= "安全退出" class="btn btn-default" style="margin-left:0px;margin-bottom: 5px;padding:0;margin-top:2px"></input>
-
+                <span class="user_name"> <a href="<?php echo url('admin/index/index'); ?>"  id="return">返回主页</a></span>
+                <input id="exit" type="submit" value= "安全退出" class="btn btn-default" style="margin:4px;padding:0;"></input>
+                <div class="bell" @click='bell'>
+                    <img src="__STATIC__/admin/bell.png"></a>
+                    <div v-if='num!=0'></div>
+                </div>
                </form>
             </div>
 
@@ -328,15 +331,26 @@
         el:'#top_menu',
         data:{
            controller:"Index",
-           cur:''
+           cur:'',
+           num:0
         },
         created(){
             this.init();
+            this.red();
         },
         methods:{
+            bell(){
+                window.location.href='<?php echo url('admin/bell/index'); ?>'
+            },
+            red(){
+                $.get('<?php echo url("admin/index/red"); ?>',
+                    (rtnData)=>{
+                        this.num=rtnData;
+                });
+            },
             init(){
                 this.controller="<?php echo request()->controller(); ?>";
-                
+                console.log(this.controller);
                 if(this.controller=='Index' || this.controller=='Crm'){
                     this.cur='CRM';
                 }else if(this.controller=='Map' ){
@@ -376,6 +390,7 @@
 			<h4>TASK员工任务管理</h4>
 			<?php foreach($user as $userdata): if($userdata['user_cate']=='员工'): ?>
 			<div class="btn btn-default opinion" @click='open3'>提建议</div>
+			<div class="btn btn-default opinions" data-toggle="modal" data-target="#holiday">申请调休</div>
 			<?php endif; if($userdata['user_cate']=='老板'): ?>
 			<div class="btn btn-default opinion"  data-toggle="modal" data-target="#asdf">查看建议</div>
 			<?php endif; endforeach; ?>
@@ -581,7 +596,7 @@
 						<?php endif; if($info['state']=="2"): ?>
 						<td>已查阅</td>
 						<?php endif; if($info['state']=="3"): ?>
-						<td>发起人已放弃</td>
+						<td>未完成</td>
 						<?php endif; if($info['state']=="4"): ?>
 						<td>任务已完成</td>
 						<?php endif; ?>
@@ -663,7 +678,7 @@
 					<div style="width: 100%">
 					<div >
 						<input type="hidden" v-model='zhipai' name="zhipai">
-						<select class="form-control" name="zhipai_id"  @change='aa'>
+						<select class="form-control" name="zhipai_id">
 						  <?php foreach($users as $key=>$val): ?>
 							<option value="<?php echo $val['id']; ?>"><?php echo $val['user_name']; ?></option>
 						  <?php endforeach; ?>
@@ -680,6 +695,7 @@
 	
 </div>
 </form>
+
 <!-- 查看建议 -->
 <?php foreach($user as $userdata): if($userdata['user_cate']=='老板'): ?>
 	<div class="modal fade" id="asdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -799,9 +815,7 @@ new Vue({
      		this.zhipai=e
      		console.log(this.zhipai);
      	},
-     	aa(){
-     		console.log(this.zhipai);
-     	},
+     	
      	 open3() {
 	        this.$prompt('提建议', '', {
 	          confirmButtonText: '确定',

@@ -33,7 +33,8 @@
 		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
 		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
 	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
-         <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
+        <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
+        <li onclick="jump_eight()"><a href="#" class="iconfont icon-kaoqindaqia"><p>投票</p></a></li>
 	</ul>
 	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="{:url('admin/map/index')}" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
@@ -103,6 +104,9 @@
  }
  function jump_seven(){
     window.location.href='{:url('admin/index/lookAttendance')}'
+ }
+ function jump_eight(){
+    window.location.href='{:url('admin/index/toupiao')}'
  }
 
 </script>
