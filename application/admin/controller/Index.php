@@ -329,6 +329,121 @@ class Index extends \app\admin\Auth
         
         return $this->fetch();
     }
+    //投票页面
+    public function toupiao(){
+        $User=Session::get();
+        $uid = $User['u_id'];
+        $this->assign('User',$User);
+        $bumenlist = db('bumen')->select();
+        $this->assign('bumenlist',$bumenlist);
+        $toupiao = db('toupiao')->order('id desc')->select();
+        $toupiaolist = [];
+        foreach ($toupiao as $key => $v1) {
+            foreach (json_decode($v1['participant']) as $key => $v2) {
+                if ($v2==$uid) {
+                array_push($toupiaolist, $v1);
+            }
+            }
+        }
+        $this->assign('toupiaolist',$toupiaolist);
+        return $this->fetch();
+    }
+    //新建投票
+    public function addtoupiao(){
+       $bumen = input('executerid');
+       $oplist = json_decode(input('oplist'));
+       $biaoti = input('biaoti');
+       $optionsRadios = input('optionsRadios');
+       $time = strtotime(input('time'));
+       $bumenlist = explode(",",$bumen);
+       $participant = [1];
+       $optio = [];
+       foreach ($oplist as $key => $value) {
+           $optio[input($value)]=0;
+       };
+       
+       foreach ($bumenlist as $key => $value) {
+           $list =db('user')->field('id')->where('bumen',$value)->select();
+           foreach ($list as $key => $value) {
+                array_push($participant, $value['id']);   
+           }
+       };
+       if ($optionsRadios=='单选') {
+           $optionsRadios = 1;
+       }else{
+        $optionsRadios = 2;
+       };
+       $s = db('toupiao')->select();
+       db('toupiao')->insert([
+            'content'=>$biaoti,
+            'multiple'=>$optionsRadios,
+            'lasttime'=>$time,
+            'option'=>json_encode($optio),
+            'participant'=>json_encode($participant),   
+        ]);
+        $this->success('新建投票成功'); 
+    }
+    //保存投票数据
+    public function saveToupiao(){
+        $User=Session::get();
+        $uid = $User['u_id'];
+        $isdan = input('isdan');
+        $id = input('id');
+        if ($isdan==1) {
+            $resultdan = input('optionsRadios');
+            $a = db('toupiao')->field('option')->where('id',$id)->find();
+            $b = json_decode($a['option'],true);
+            $b[$resultdan]=$b[$resultdan]+1;
+            // var_dump($b);
+            $c = db('toupiao')->field('yitoupiao')->where('id',$id)->find();
+            $d = $c['yitoupiao'];
+            if($d==''){
+                $d=$uid;
+            }else{
+                $d=$d .','.$uid;
+            }
+            db('toupiao')->where('id',$id)->update(['option'=>json_encode($b),'yitoupiao'=>$d]);
+            
+        }else{
+             $resultduo = $_POST['ops'];
+             $a = db('toupiao')->field('option')->where('id',$id)->find();
+             $b = json_decode($a['option'],true);
+             foreach ($resultduo as $key => $value) {
+                 $b[$value]=$b[$value]+1;
+             }
+             $c = db('toupiao')->field('yitoupiao')->where('id',$id)->find();
+            $d = $c['yitoupiao'];
+            if($d==''){
+                $d=$uid;
+            }else{
+                $d=$d .','.$uid;
+            }
+            db('toupiao')->where('id',$id)->update(['option'=>json_encode($b),'yitoupiao'=>$d]);
+        }
+        $this->success('投票成功');
+    }
+    //得到投票信息
+    public function getToupiao(){
+        $id = input('id');
+        $list=db('toupiao')->where('id',$id)->find();
+        foreach ($list as $key => $value) {
+            if ($key=='option') {
+                $list['option'] = json_decode($list['option']);
+            }
+        }
+        return json($list);
+    }
+    //得到投票信息
+    public function getDetail(){
+        $id = input('id');
+        $list=db('toupiao')->where('id',$id)->find();
+        foreach ($list as $key => $value) {
+            if ($key=='option') {
+                $list['option'] = json_decode($list['option']);
+            }
+        }
+        return json($list);
+    }
     //粗加工页面
     public function proche_cjg(){
     	$cjg_list  =  db('rough')->where('cas',1)->order('id desc')->paginate(10);
@@ -365,6 +480,27 @@ class Index extends \app\admin\Auth
          $this->assign('qt_list',$qt_list);
         return $this->fetch();
     }
+    //上传图片
+    public function uploadPic(){
+        $work=request()->file('pic');
+        // var_dump($_FILES['sss']);
+        // print_r($work);
+        // var_dump($work);
+
+        foreach($work as $value){ 
+                if($value){
+                    $info = $value->move(ROOT_PATH.'/public/uploads');
+                    if($info){
+                        $work_file = $info->getSaveName();
+                    }else{
+
+                         echo $info->getError();
+                    }
+                }; 
+                };
+        return json($work_file);
+    }
+     
     //车间检查添加工作
     public function addWork(){
         $proche_type = input('proche_type');
@@ -378,20 +514,7 @@ class Index extends \app\admin\Auth
         $workshop = input('workshop');
         $remarks = input('remarks');
         $status = input('status');
-        $work=request()->file('work_require');
-        $imgpath = [];
-        foreach($work as $value){ 
-                if($value){
-                    $info = $value->move(ROOT_PATH.'/public/uploads');
-                    if($info){
-                        $work_file = $info->getSaveName();
-                        array_push($imgpath,$work_file);
-                    }else{
-
-                         echo $info->getError();
-                    }
-                }; 
-                };
+        $imgpath = json_decode(input('img_path'));
         if($proche_type=='workshop'){
            db($proche_type)->insert([
             'time'=>$time,
@@ -497,43 +620,32 @@ class Index extends \app\admin\Auth
         $workshop = input('workshop');
         $remarks = input('remarks');
         $status = input('status');
-        $work=request()->file('work_require');
-        $imgpath = [];
+        $imgpath = input('img_path');
         if($proche_type=='workshop'){
-            if (count($work)==0){
+            if (count($imgpath)==0){
             db($proche_type)->where('id',$id)->update(['time'=>$time,'name'=>$name,'team'=>$team,'title'=>$title,'size'=>$size,'describes'=>$describes,'modify'=>$modify,
             'workshop'=>$workshop,'remarks'=>$remarks,'status'=>$status]); 
             }else{
-              foreach($work as $value){ 
-                    if($value){
-                        $info = $value->move(ROOT_PATH.'/public/uploads');
-                        if($info){
-                            $work_file = $info->getSaveName();
-                            array_push($imgpath,$work_file);
-                        }else{
-                             echo $info->getError();
-                        }
-                    }; 
-                    }; 
                 db($proche_type)->where('id',$id)->update(['time'=>$time,'name'=>$name,'team'=>$team,'title'=>$title,'size'=>$size,'describes'=>$describes,'modify'=>$modify,
                 'workshop'=>$workshop,'remarks'=>$remarks,'status'=>$status,'picture1'=>$imgpath]);  
             }  
         }else{
-             if (count($work)==0){
+             if (count($imgpath) ==0){
             db($proche_type)->where('id',$id)->update(['time'=>$time,'name'=>$name,'title'=>$title,'size'=>$size,'describes'=>$describes,'modify'=>$modify,
             'workshop'=>$workshop,'remarks'=>$remarks,'status'=>$status]); 
             }else{
-              foreach($work as $value){ 
-                    if($value){
-                        $info = $value->move(ROOT_PATH.'/public/uploads');
-                        if($info){
-                            $work_file = $info->getSaveName();
-                            array_push($imgpath,$work_file);
-                        }else{
-                             echo $info->getError();
-                        }
-                    }; 
-                    }; 
+                
+              // foreach($work as $value){ 
+              //       if($value){
+              //           $info = $value->move(ROOT_PATH.'/public/uploads');
+              //           if($info){
+              //               $work_file = $info->getSaveName();
+              //               array_push($imgpath,$work_file);
+              //           }else{
+              //                echo $info->getError();
+              //           }
+              //       }; 
+              //       }; 
                 db($proche_type)->where('id',$id)->update(['time'=>$time,'name'=>$name,'title'=>$title,'size'=>$size,'describes'=>$describes,'modify'=>$modify,
                 'workshop'=>$workshop,'remarks'=>$remarks,'status'=>$status,'picture1'=>$imgpath]);  
             }  

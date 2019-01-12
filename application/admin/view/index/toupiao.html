@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/finance/finance.css" />
+<link href="https://cdn.bootcss.com/bootstrap-fileinput/4.5.1/css/fileinput.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.css" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/library/bootstrap/bootstrap-select.min.css" />
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    {include file="top"}
+    {include file="left"}
+    <div class="cjp_box">
+        <div class="cjp_head">
+            投票
+        </div>
+        <div class="cjp_choose">
+            <button class="btn btn-info" style="outline: none;" data-toggle="modal" data-target="#newtoupiao">发起新投票</button>
+        </div>
+        <!-- 新建投票框 -->
+        <div class="modal fade" id="newtoupiao" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                                发起新投票
+                            </h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{:url('addtoupiao')}" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="name">标题</label>
+                                <input type="text" class="form-control" id="" name="biaoti" placeholder="请输入标题描述" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">参与部门</label>
+                                <input type="text" name="executerid" id="executer" value="" class="abc" style="display: none;"></input>
+                                <select id="approverq" class="selectpicker" multiple name="executor" required="required">
+                                    {foreach $bumenlist as $key=>$info}
+                                    <option value="{$info.bumen_name}">{$info.bumen_name}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="单选" checked> 单选
+                                </label>
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="多选">多选
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>截止时间</label>
+                                <div class='input-group date' style="width:200px" id='datetimepicker'>
+                                    <input id="time" type='text' class="form-control" name="time" required="required" />
+                                    <span class="input-group-addon" style="margin-left: -200px;">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">选项</label>
+                                <input type="text" name="oplist" id="op" value="" style="display: none;"></input>
+                                <input type="text" class="form-control" name="option1" placeholder="选项" style="width: 85%;" required="required">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="option2" placeholder="选项" style="width: 85%;" required="required">
+                            </div>
+                            <div id="addoption">
+                            </div>
+                            <div class="form-group">
+                                <div style="color: blue;cursor:pointer;clear: both" @click="addoption">+添加选项</div>
+                            </div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                关闭
+                            </button>
+                            <button type="submit" class="btn btn-primary" @click="fun">
+                                提交
+                            </button>
+                        </form>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+        <!-- 投票框 -->
+        <div class="modal fade" id="gotoupiao" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                                投票
+                            </h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{:url('saveToupiao')}" method="post" enctype="multipart/form-data">
+                            <label for="name">标题</label>
+                            <div class="form-group">
+                                <div>{{message.content}}</div>
+                                <input type="text" name="isdan" id="" :value="message.multiple" style="display: none;"></input>
+                                <input type="text" name="id" id="" :value="message.id" style="display: none;"></input>
+                            </div>
+                            <div v-if='message.multiple==1'>
+                                <label for="name">单选啊</label>
+                                <div class="radio" v-for='(value, key) in message.option'>
+                                    <label>
+                                        <input type="radio" name="optionsRadios" id="optionsRadios1" :value="key" checked> {{key}}
+                                    </label>
+                                </div>
+                            </div>
+                            <div v-if='message.multiple==2'>
+                                <label for="name">多选啊</label>
+                                <div class="checkbox" v-for='(value, key) in message.option'>
+                                    <label><input type="checkbox" name="ops[]" :value="key">{{key}}</label>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                关闭
+                            </button>
+                            <button type="submit" class="btn btn-primary" @click="fun">
+                                提交
+                            </button>
+                        </form>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+        <!-- 结果框 -->
+        <div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                                投票结果
+                            </h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <label for="name">标题</label>
+                            <div class="form-group">
+                                <div>{{detail.content}}</div>
+                            </div>
+                            <label for="name">投票结果</label>
+                            <div class="form-group" v-for='(value, key) in detail.option'>
+                                <div>{{key}} : {{value}}票</div>
+                            </div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                关闭
+                            </button>
+                        </form>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+        <div class="cjp_content">
+            <table class="table table-bordered table-hover" style="text-align: center; ">
+                <tr>
+                    <th style="width: 5%;">序列</th>
+                    <th style="width: 60%;">标题</th>
+                    <th style="width: 15%;">截止时间</th>
+                    <th style="width: 10%;">状态</th>
+                    <th style="width: 10%;">投票情况</th>
+                </tr>
+                {foreach $toupiaolist as $key=>$info}
+                <tr>
+                    <td>{$key+1}</td>
+                    <td>{$info.content}</td>
+                    <td>{$info.lasttime|date='Y-m-d H:i',###}</td>
+                    <td>
+                            {range name="$User['u_id']" value="$info.yitoupiao" type="in"}
+                            {if $info.lasttime < time()} 已过期 {/if} {if $info.lasttime> time()}
+                            你已经投过了
+                            {/if}
+                            {/range}
+                            {range name="$User['u_id']" value="$info.yitoupiao" type="notin"}
+                            {if $info.lasttime < time()} 已过期 {/if} {if $info.lasttime> time()}
+                                <button class="btn btn-info btn-xs" style="outline: none;" data-toggle="modal" data-target="#gotoupiao" @click='getToupiao({$info.id})'>去投票</button>
+                                {/if}
+                                {/range}
+                    </td>
+                    <td>
+                        <button class="btn btn-info btn-xs" style="outline: none;" data-toggle="modal" data-target="#detail" @click='getDetail({$info.id})'>详情</button>
+                    </td>
+                </tr>
+                {/foreach}
+            </table>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.5.1/js/fileinput.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/locales/zh.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-select.min.js"></script>
+</body>
+
+</html>
+<script type="text/javascript">
+new Vue({
+    el: ".cjp_box",
+    data: {
+        opnum: 2,
+        message: {},
+        detail: {}
+    },
+    created: function() {
+
+    },
+    methods: {
+        getToupiao: function(re) {
+            var that = this;
+            $.get("{:url('getToupiao')}", {
+                id: re,
+            }, function(e) {
+                that.message = e;
+            })
+        },
+        getDetail: function(re) {
+            var that = this;
+            $.get("{:url('getDetail')}", {
+                id: re,
+            }, function(e) {
+                that.detail = e;
+            })
+        },
+        fun: function() {
+            var str = [];
+            var obj = document.getElementById("approverq");
+            for (var i = 0; i < obj.options.length; i++) {
+                if (obj.options[i].selected) {
+                    str.push(obj.options[i].value); // 收集选中项
+                }
+            }
+            $("#executer").val(str);
+            var chil = $("#addoption").children();
+            var optionlist = ["option1", "option2"];
+            var len = chil.length;
+            for (var i = 0; i < len; i++) {
+                optionlist.push(chil[i].id)
+            }
+            var optionlistStr = JSON.stringify(optionlist);
+            $("#op").val(optionlistStr);
+        },
+        addoption: function() {
+            this.opnum = this.opnum + 1;
+            var num = "option" + this.opnum;
+            var html = "";
+            html += '<div  class="form-group" id="' + num + '">';
+            html += '<input type="text" class="form-control"  name="' + num + '" placeholder="选项" style="width: 85%;float: left;" required="required">';
+            html += '<div  class="deoption" onclick="deOption(' + num + ')">x';
+            html += '</div>';
+            $("#addoption").append(html);
+        },
+    }
+
+})
+
+function deOption(e) {
+    e.remove();
+}
+//日历初始化
+$('#datetimepicker').datetimepicker({
+    // minView: "month", //选择日期后，不会再跳转去选择时分秒 
+    language:  'zh-CN',
+     weekStart: 0, 
+        todayBtn:  1, //
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1
+    
+
+});
+</script>
+<style type="text/css">
+.cjp_box {
+    margin-left: 173px;
+    width: 80%;
+    height: auto;
+}
+
+.cjp_head {
+    font-size: 22px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.cjp_content {
+    margin-left: 20px;
+    margin-top: 10px;
+    width: auto;
+    height: auto;
+    background-color: #f4f8fb;
+}
+
+.table tr th {
+    text-align: center;
+}
+
+.cjp_choose {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.picwindow_img {
+    margin: 10px auto;
+    width: 100%;
+    height: auto;
+
+}
+
+.picwindow_img img {
+    width: 100%;
+    height: auto;
+}
+
+.ab {
+    width: 150px !important;
+}
+
+.deoption {
+    float: left;
+    color: red;
+    font-size: 30px;
+    font-weight: 800;
+    margin-top: -5px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+</style>

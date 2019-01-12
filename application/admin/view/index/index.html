@@ -1,10 +1,10 @@
-
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="renderer" content="webkit">
-<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> 
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9">
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
+
 <style>
     .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
@@ -130,6 +130,7 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal -->
   </div> 
+
 <!-- 模态框结束 -->
 </div>
 
@@ -137,55 +138,55 @@
 </script>
 <script type="text/javascript" src="__STATIC__/admin/index/js/index2.js"></script>
 <script type="text/javascript">
-  // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main'));
+// 基于准备好的dom，初始化echarts实例
+var myChart = echarts.init(document.getElementById('main'));
 
-        // 指定图表的配置项和数据
-        var option = {
-            title: {
-                text: ''
-            },
-            tooltip: {},
-            legend: {
-                data:['正常上班']
-            },
-            xAxis: {
-                data: ["","九月",""]
-            },
-            yAxis: {},
-            series: [{
-                name: '正常上班',
-                type: 'bar',
-                data: [24, 4, 1]
-            }]
-        };
+// 指定图表的配置项和数据
+var option = {
+    title: {
+        text: ''
+    },
+    tooltip: {},
+    legend: {
+        data: ['正常上班']
+    },
+    xAxis: {
+        data: ["", "九月", ""]
+    },
+    yAxis: {},
+    series: [{
+        name: '正常上班',
+        type: 'bar',
+        data: [24, 4, 1]
+    }]
+};
 
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-         (function() {
-  var changeRem = function() {
-   document.getElementsByTagName('html')[0].style.fontSize = document.documentElement.clientWidth / 20 + 'px';
-  };
-  changeRem();
-  var t;
-  window.addEventListener('resize', function() {
-   clearTimeout(t);
-   t = setTimeout(changeRem, 300);
-  }, false);
-  window.addEventListener('pageshow', function(e) {
-   if (e.persisted) {
-    clearTimeout(t);
-    t = setTimeout(changeRem, 300);
-   }
-  }, false);
- }());
+// 使用刚指定的配置项和数据显示图表。
+myChart.setOption(option);
+(function() {
+    var changeRem = function() {
+        document.getElementsByTagName('html')[0].style.fontSize = document.documentElement.clientWidth / 20 + 'px';
+    };
+    changeRem();
+    var t;
+    window.addEventListener('resize', function() {
+        clearTimeout(t);
+        t = setTimeout(changeRem, 300);
+    }, false);
+    window.addEventListener('pageshow', function(e) {
+        if (e.persisted) {
+            clearTimeout(t);
+            t = setTimeout(changeRem, 300);
+        }
+    }, false);
+}());
 </script>
 {include file="foot"}
-
 <script type="text/javascript">
-  new Vue({
+new Vue({
     el: ".container",
     data: {
+
       value1:'',
       value2:'',
       hid:false,
@@ -260,4 +261,5 @@
       }
     }
   })
+
 </script>

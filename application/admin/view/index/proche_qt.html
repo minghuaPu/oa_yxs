@@ -3,6 +3,7 @@
 <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.5.1/css/fileinput.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.css" />
 <link rel="stylesheet" type="text/css" href="__STATIC__/library/bootstrap/bootstrap-select.min.css" />
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 <html>
 
 <head>
@@ -38,7 +39,7 @@
             </div>
             <div id="selecttime" class="col-lg-6" style="width: 230px;">
                 <div class='input-group date' style="width:200px" id='datetimepicker2'>
-                    <input id="sel_time_con" type='text' class="form-control" name="time"  />
+                    <input id="sel_time_con" type='text' class="form-control" name="time" />
                     <span class="input-group-addon" style="margin-left: -200px;">
                     <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -66,8 +67,8 @@
                                 &times;
                             </button>
                             <h4 class="modal-title" id="myModalLabel">
-								添加
-							</h4>
+                                添加
+                            </h4>
                         </div>
                         <div class="modal-body">
                             <form action="{:url('addwork')}" method="post" enctype="multipart/form-data">
@@ -75,12 +76,16 @@
                                     <label for="name">产品检查类型</label>
                                     <input type="text" class="form-control" id="" name="proche_type" placeholder="请输入姓名" value="other">
                                 </div>
+                                <div class="form-group" style="display: none;">
+                                    <label for="name">图片路径</label>
+                                    <input type="text" class="form-control" id="uploadimgPath" name="img_path" placeholder="请输入姓名" value="">
+                                </div>
                                 <div class="form-group">
                                     <label>时间</label>
                                     <div class='input-group date' style="width:200px" id='datetimepicker'>
-                                        <input id="time" type='text' class="form-control" name="time"  required="required"/>
+                                        <input id="time" type='text' class="form-control" name="time" required="required" />
                                         <span class="input-group-addon" style="margin-left: -200px;">
-						                <span class="glyphicon glyphicon-calendar"></span>
+                                        <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
                                     </div>
                                 </div>
@@ -120,8 +125,20 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <!-- <label for="name">上传图片</label>
+                                    <input id="input-id" name="work_require[]" class="file-loading" type="file" multiple> -->
                                     <label for="name">上传图片</label>
-                                    <input id="input-id" name="work_require[]" class="file" type="file" multiple>
+                                    <el-upload ref='uploadPic' name='pic[]' action="{:url('uploadPic')}" :on-success='picPath1' list-type="picture-card" :auto-upload='false' multiple='true'>
+                                        <i class="el-icon-plus"></i>
+                                    </el-upload>
+                                    <el-dialog :visible.sync="dialogVisible">
+                                        <img width="100%" :src="dialogImageUrl" alt="">
+                                    </el-dialog>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary" @click="uploadPic">
+                                        图片上传
+                                    </button>
                                 </div>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">
                                     关闭
@@ -143,8 +160,8 @@
                                 &times;
                             </button>
                             <h4 class="modal-title" id="myModalLabel">
-								查看图片
-							</h4>
+                                查看图片
+                            </h4>
                         </div>
                         <div class="modal-body" id="piclist">
                         </div>
@@ -163,8 +180,8 @@
                                 &times;
                             </button>
                             <h4 class="modal-title" id="myModalLabel">
-								修改
-							</h4>
+                                修改
+                            </h4>
                         </div>
                         <div class="modal-body">
                             <form action="{:url('updatework')}" method="post" enctype="multipart/form-data">
@@ -172,12 +189,16 @@
                                     <label for="name">产品检查类型</label>
                                     <input type="text" class="form-control" id="" name="proche_type" value="other">
                                 </div>
+                                <div class="form-group" style="display: none;">
+                                    <label for="name">图片路径</label>
+                                    <input type="text" class="form-control" id="updateimgPath" name="img_path" placeholder="请输入姓名" value="">
+                                </div>
                                 <div class="form-group">
                                     <label>时间</label>
                                     <div class='input-group date' style="width:200px" id='datetimepicker1'>
                                         <input id="time" type='text' class="form-control" name="time" :value="message.time" />
                                         <span class="input-group-addon" style="margin-left: -200px;">
-						                <span class="glyphicon glyphicon-calendar"></span>
+                                        <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
                                     </div>
                                 </div>
@@ -221,8 +242,18 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="name">上传图片</label>
-                                    <input id="input-id1" name="work_require[]" class="file" type="file" multiple>
+                                    <label for="name">重新上传图片</label>
+                                    <el-upload ref='updatepic' name='pic[]' action="{:url('uploadPic')}" :on-success='picPath2' list-type="picture-card" :auto-upload='false' multiple='true'>
+                                        <i class="el-icon-plus"></i>
+                                    </el-upload>
+                                    <el-dialog :visible.sync="dialogVisible">
+                                        <img width="100%" :src="dialogImageUrl" alt="">
+                                    </el-dialog>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary" @click="updatePic">
+                                        图片上传
+                                    </button>
                                 </div>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">
                                     关闭
@@ -244,8 +275,8 @@
                                 &times;
                             </button>
                             <h4 class="modal-title" id="myModalLabel">
-								异常情况
-							</h4>
+                                异常情况
+                            </h4>
                         </div>
                         <div class="modal-body" id="piclist">
                             <form action="{:url('updateAbnormal')}" method="post">
@@ -321,7 +352,7 @@
         <div style="display: none;" id="start">
             <table border="1" cellspacing="0" style="text-align: center;">
                 <tr>
-                   <th>序列</th>
+                    <th>序列</th>
                     <th style="width: 10%;">时间</th>
                     <th style="width: 8%;">类型</th>
                     <th style="width: 7%;">产品名称</th>
@@ -353,9 +384,9 @@
         </div>
     </div>
     <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.5.1/js/fileinput.js"></script>
-    
     <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/locales/zh.min.js"></script>
     <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-datetimepicker.zh-CN.js"></script>
     <script type="text/javascript" src="__STATIC__/library/bootstrap/bootstrap-select.min.js"></script>
 </body>
 
@@ -366,13 +397,39 @@ new Vue({
     data: {
         printMessage: {},
         message: {},
-        abnormalMessage: {}
+        abnormalMessage: {},
+        dialogImageUrl: '',
+        dialogVisible: false
     },
     created: function() {
         $('#selecttime').hide();
         $('#selectother').show();
     },
     methods: {
+        picPath1(res, file, fileList) {
+            var path = []
+            fileList.forEach(function(value, i) {
+                path.push(value.response);
+                var aa = JSON.stringify(path);
+                $("#uploadimgPath").attr("value", aa);
+            })
+
+        },
+        picPath2(res, file, fileList) {
+            var path = []
+            fileList.forEach(function(value, i) {
+                path.push(value.response);
+                var aa = JSON.stringify(path);
+                $("#updateimgPath").attr("value", aa);
+            })
+
+        },
+        uploadPic() {
+            this.$refs.uploadPic.submit();
+        },
+        updatePic() {
+            this.$refs.updatepic.submit();
+        },
         //删除选中信息
         deleteChoose() {
             var len = $('input[type=checkbox]:checked').length;
@@ -387,7 +444,7 @@ new Vue({
 
                     });
                     $.post("{:url('goRecycle')}", {
-                        proche_type:"other",
+                        proche_type: "other",
                         list: JSON.stringify(list),
 
                     }, function(e) {
@@ -403,29 +460,29 @@ new Vue({
         //更改已完成
         finish(re) {
             $.get("{:url('changeIsfinsih')}", {
-                proche_type:"other",
+                proche_type: "other",
                 id: re,
                 num: 1
             }, function() {
                 window.location.reload();
             })
-            
+
         },
         //更改未完成
         unFinish(re) {
             $.get("{:url('changeIsfinsih')}", {
-                proche_type:"other",
+                proche_type: "other",
                 id: re,
                 num: 2
             }, function() {
                 window.location.reload();
             })
-            
+
         },
         //获取图片  
         getPic(re) {
             $.get("{:url('getPic')}", {
-                proche_type:"other",
+                proche_type: "other",
                 id: re,
             }, function(e) {
                 var a = "";
@@ -440,7 +497,7 @@ new Vue({
         getAbnormal(re) {
             var that = this;
             $.get("{:url('getAbnormal')}", {
-                 proche_type:"other",
+                proche_type: "other",
                 id: re,
             }, function(e) {
                 console.log(e);
@@ -451,7 +508,7 @@ new Vue({
         updateWork(re) {
             var that = this;
             $.get("{:url('getWork')}", {
-                proche_type:"other",
+                proche_type: "other",
                 id: re,
             }, function(e) {
                 that.message = e;
@@ -478,7 +535,7 @@ new Vue({
                         list = $(this).val();
                     });
                     $.get("{:url('getPrintMessage')}", {
-                        proche_type:"other",
+                        proche_type: "other",
                         id: list,
                     }, function(e) {
                         that.printMessage = e;
@@ -515,32 +572,32 @@ new Vue({
 
         },
         //搜索
-        select(){
-           var proche_type ="other";
-           var time = $('#sel_time_con').val();
-           var content = $('#sel_other_con').val();
-           var type = $('#selectchoose').val();
-           if (typeof(Storage)!=="undefined") {
-             sessionStorage.content=content;
-             sessionStorage.type=type;
-             sessionStorage.time=time;
+        select() {
+            var proche_type = "other";
+            var time = $('#sel_time_con').val();
+            var content = $('#sel_other_con').val();
+            var type = $('#selectchoose').val();
+            if (typeof(Storage) !== "undefined") {
+                sessionStorage.content = content;
+                sessionStorage.type = type;
+                sessionStorage.time = time;
 
-           }
-           if (type == 'time') {
-               if (time=='') {
-                alert('搜索内容不能为空');
-               }else{
-                url = "proche_select.html?proche_type=" + proche_type +"&time="+time+"&content="+content+"&type="+type;
-                window.location.href = url;
-               }
-           }else{
+            }
+            if (type == 'time') {
+                if (time == '') {
+                    alert('搜索内容不能为空');
+                } else {
+                    url = "proche_select.html?proche_type=" + proche_type + "&time=" + time + "&content=" + content + "&type=" + type;
+                    window.location.href = url;
+                }
+            } else {
                 if (content == '') {
-                alert('搜索内容不能为空');
-               }else{
-                url = "proche_select.html?proche_type=" + proche_type +"&time="+time+"&content="+content+"&type="+type;
-                window.location.href = url;
-               } 
-           }  
+                    alert('搜索内容不能为空');
+                } else {
+                    url = "proche_select.html?proche_type=" + proche_type + "&time=" + time + "&content=" + content + "&type=" + type;
+                    window.location.href = url;
+                }
+            }
         }
     }
 
@@ -550,14 +607,14 @@ $("#input-id").fileinput({
     language: 'zh', //设置语言
     uploadAsync: false, //默认异步上传
     showUpload: false, //是否显示上传按钮
-    showRemove : true, //显示移除按钮
-    showPreview : true, //是否显示预览
-    showCaption: true,//是否显示标题
+    showRemove: true, //显示移除按钮
+    showPreview: true, //是否显示预览
+    showCaption: true, //是否显示标题
     browseClass: "btn btn-primary", //按钮样式     
-    dropZoneEnabled: true,//是否显示拖拽区域
+    dropZoneEnabled: true, //是否显示拖拽区域
     maxFileCount: 10, //表示允许同时上传的最大文件个数
     enctype: 'multipart/form-data',
-    validateInitialCount:true,
+    validateInitialCount: true,
     previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
     msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
 });
@@ -565,14 +622,14 @@ $("#input-id1").fileinput({
     language: 'zh', //设置语言
     uploadAsync: false, //默认异步上传
     showUpload: false, //是否显示上传按钮
-    showRemove : true, //显示移除按钮
-    showPreview : true, //是否显示预览
-    showCaption: true,//是否显示标题
+    showRemove: true, //显示移除按钮
+    showPreview: true, //是否显示预览
+    showCaption: true, //是否显示标题
     browseClass: "btn btn-primary", //按钮样式     
-    dropZoneEnabled: true,//是否显示拖拽区域
+    dropZoneEnabled: true, //是否显示拖拽区域
     maxFileCount: 10, //表示允许同时上传的最大文件个数
     enctype: 'multipart/form-data',
-    validateInitialCount:true,
+    validateInitialCount: true,
     previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
     msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
 });
@@ -603,17 +660,17 @@ $('input[name="checkall"]').on("click", function() {
 //日历初始化
 $('#datetimepicker').datetimepicker({
     minView: "month", //选择日期后，不会再跳转去选择时分秒 
-    language:  'zh-CN',
+    language: 'zh-CN',
     format: 'yyyy-mm-dd',
-    todayBtn:  1,
+    todayBtn: 1,
     autoclose: 1,
 
 });
 $('#datetimepicker1').datetimepicker({
     minView: "month", //选择日期后，不会再跳转去选择时分秒 
-    language:  'zh-CN',
+    language: 'zh-CN',
     format: 'yyyy-mm-dd',
-    todayBtn:  1,
+    todayBtn: 1,
     autoclose: 1,
 
 });
@@ -667,7 +724,12 @@ $('#datetimepicker2').datetimepicker({
     width: 100%;
     height: auto;
 }
+
 .ab {
     width: 150px !important;
+}
+
+.el-upload__input {
+    display: none !important;
 }
 </style>
