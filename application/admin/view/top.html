@@ -310,7 +310,9 @@
 
             <div class="user_info">
                 <div class="user">
-                    <span class="glyphicon glyphicon-user"></span>
+                    <!-- <span class="glyphicon glyphicon-user"> -->
+                        <img src="__UPLOADS__{$Think.session.imageUrl}">
+                    
                 </div>
                <form action="{:url('index/login/logout')}" method="post" class="form" style="margin-left:-100px">
                 <span class="user_name">公司id:{$Think.session.u_belong} {$Think.session.u_company} {$Think.session.user_name}({$Think.session.user_cate})</span>

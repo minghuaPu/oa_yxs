@@ -26,8 +26,10 @@
   header .breach{margin-top: 13px;}
   header .user_info{margin-top: 16px; width: 350px;}
   header .user_info .user_name{margin:5px 0 0 3px;display: inline-block;}
-  header .user{width: 30px;height: 30px;background: #ccc;border-radius: 50%;position: relative;float: left;}
-  header .user span{color: white;position: absolute;left: 7px;top: 7px;}
+  header .user{width: 30px;height: 30px;background: #ccc;border-radius: 50%;position: relative;float: left;overflow: hidden;display:flex;
+align-items:center;
+justify-content:center;}
+  header .user img{width:100%;height: auto; }
   .left_menu{width:173px;height: 1500px;background: #36404a;position: fixed;overflow: hidden;}
   .left_menu ul li{padding: 10px 10px 10px 24px;text-align: center;border-left: #36404a 4px solid}
   .left_menu ul li a{color: white;font-size: 30px;text-align: center;}

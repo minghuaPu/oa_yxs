@@ -6,7 +6,8 @@ class Index extends \app\admin\Auth
     public function index()
     {
         $User=Session::get();
-        $this->assign('User',$User);
+        $users=db('user')->where('id='.$User['u_id'])->find();
+        $this->assign('users',json_encode($users));
      //  $ubelong=Session::get('u_belong');
      //    //查询公司分类
     	// $list = db('companycate')->select();
@@ -26,6 +27,26 @@ class Index extends \app\admin\Auth
         // $this->assign('notice_info',$notice_info);
         return $this->fetch();
     }
+    public function update(){
+        $imgs = request()->file('file');
+        $data='';
+         if($imgs){
+            $info = $imgs->move(ROOT_PATH.'/public/uploads');
+            if($info){
+                $data = $info->getSaveName();
+            }else{
+                 echo $info->getError();
+            }
+        }
+        return json($data);
+    }
+    public function Changepicture(){
+        $user=Session::get();
+
+        db('user')->where('id='.$user['u_id'])->update(['imageUrl'=>input('imgs')]);
+        $realpassword=db('user')->where('id='.$user['u_id'])->find();
+        Session::set('imageUrl',$realpassword["imageUrl"]);
+    }
     public function red(){
         $user=Session::get();
         if($user['user_cate']=='老板'){
@@ -35,6 +56,59 @@ class Index extends \app\admin\Auth
             $data=db('Daysoff')->where('uid='.$user['u_id'])->where('red=1')->count();
             return json($data);
         }
+    }
+    public function right(){
+        $user=Session::get();
+        $worksheet=db('worksheet')->where('uid='.$user['u_id'])->where('whether=0')->select();
+        $week=0;
+        $month=0;
+        $year=0;
+        $sdefaultDate = date("Y-m-d");
+        $first=1;
+        $w=date('w',strtotime($sdefaultDate));
+        $week_start=date('Y-m-d',strtotime("$sdefaultDate -".($w ? $w - $first : 6).' days'));
+        $week_end=date('Y-m-d',strtotime("$week_start +6 days"));
+        $forenoonshang=strtotime($sdefaultDate.' 08:30:00');
+        $forenoonxia=strtotime($sdefaultDate.' 12:30:00');
+
+        $afternoonshang=strtotime($sdefaultDate.' 14:30:00');
+        $afternoonxia=strtotime($sdefaultDate.' 7:00:00');
+        
+        foreach ($worksheet as $key => $value) {
+            
+          if(date("Y",$value['time'])==date('Y',time())){
+             $year+=$value['score'];
+          }
+          if(date("Y-m",$value['time'])==date('Y-m',time())){
+            $month+=$value['score'];
+          }
+          if($week_start<=date("Y-m-d",$value['time']) && $week_end>=date("Y-m-d",$value['time'])){
+            $week+=$value['score'];
+          }
+        }
+        $Attendance=db('attendance')->where('uid='.$user['u_id'])->select();
+        foreach ($Attendance as $key => $value) {
+            if($value['Attendance_status']=='迟到'){
+                if(date("Y",$value['start_time'])==date('Y',time())){
+                    $chidao=ceil(($value['end_time']-$value['start_time'])/3600);
+                        
+                    $year=$year-$chidao;
+                }
+                if(date("Y-m",$value['start_time'])==date('Y-m',time())){
+                    $chidao=ceil(($value['end_time']-$value['start_time'])/3600*10);
+                    $month=$month-$chidao;
+                  }
+                if($week_start<=date("Y-m-d",$value['start_time']) && $week_end>=date("Y-m-d",$value['start_time'])){
+                    $chidao=ceil(($value['end_time']-$value['start_time'])/3600*10);
+                    $week=$week-$chidao;
+                  }
+            }
+            if($value['Attendance_status']=='早退'){
+
+            }
+            if($value['Attendance_status']=='旷工'){}
+        }
+        return json(['year'=>$year,'month'=>$month,'week'=>$week]);
     }
     // 考勤提交
     public function Attendance(){
@@ -48,7 +122,7 @@ class Index extends \app\admin\Auth
                                     'end_time'=>$Attendance['end_time'],
                                     'reason'=>$Attendance['reason']
                                 ]);
-        $this->success('提交成功','index');
+        
     }
     public function AttendanceDel(){
         $id=input('id');
@@ -56,8 +130,12 @@ class Index extends \app\admin\Auth
         $this->success('删除成功','lookAttendance');
 
     }
-    public function lookAttendance(){
+    public function lookattendance(){
         $Attendance=db('Attendance')->order('id desc')->select();
+        foreach ($Attendance as $key => $value) {
+            $Attendance[$key]['start_time']=date("Y-m-d H:i:s",$value['start_time']);
+            $Attendance[$key]['end_time']=date("Y-m-d H:i:s",$value['end_time']);
+        }
         $this->assign('Attendance',$Attendance);
         return $this->fetch();
     }

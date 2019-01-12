@@ -5,29 +5,65 @@
   <meta name="renderer" content="webkit">
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9"> 
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
-
+<style>
+    .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px!important;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+  input[type=file] {
+    display: none!important;
+}
+</style>
   {include file="top"}
   {include file="right"} 
   {include file="left"}
 <div class="container">
 <div class="index_content_center">
     <div class="center_1">
-    <img src="__STATIC__/admin/index/images/20181206171359.jpg" alt="" class="center_1a">
+      <div class="center_1a">
+
+         <div class="rounded" @mouseover='hidyin(true)' @mouseout='hidyin(false)'>
+            
+           <img :src="'__UPLOADS__'+user.imageUrl" alt="">
+           <div class="yin"  v-show='hid' data-toggle="modal" data-target="#myModal">更换头像</div>
+         </div>
+      </div>
+      
+    <!-- <img src="__STATIC__/admin/index/images/20181206171359.jpg" alt="" > -->
 
 <!--     <img src="__STATIC__/admin/index/images/20181206171360.jpg" alt="" class="center_1b">
  --> 
 
-    <p style="font-size: 1em;"><strong>{$User['user_cate']}</strong></p>
-       <h3 style="margin-bottom: 0.1em;"><strong>{$User['user_name']}</strong></h3>
-    <button class="button1"><strong>打卡</strong></button>
-    <button class="button2"><strong>补卡</strong></button>
+    <p style="font-size: 1em;"><strong>{{user.user_cate}}</strong></p>
+       <h3 style="margin-bottom: 0.1em;"><strong>{{user.user_name}}</strong></h3>
+    <!-- <button class="button1"><strong>打卡</strong></button>
+    <button class="button2"><strong>补卡</strong></button> -->
+    <a href="{:url('task/index')}" class="btn btn-lg btn-info " style="margin-top: 60px;width: 100%;">任务管理</a>
     </div>
     
     <div class="center_2">
-      <form action="Attendance">
+      
           <div class="center_2a" >
-              <select  id="" name="Attendance_status">
-                  <option value="请假">请假</option>
+              <select  id="Attendance_status" name="Attendance_status">
                   <option value="迟到">迟到</option>
                   <option value="早退">早退</option>
                   <option value="旷工">旷工</option>
@@ -35,18 +71,26 @@
           </div>
           <div class="cneter_2b">
             <span>始：</span>
-            <input type="date" name="start_time">
-            </el-date-picker>
+            <el-date-picker
+      v-model="value1"
+      type="datetime"
+
+      placeholder="选择日期时间">
+    </el-date-picker>
           </div>
           <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/rili.png" alt=""></div>
           <div class="cneter_2b">
             <span>至：</span>
-            <input type="date" name="end_time">
+                    <el-date-picker
+              v-model="value2"
+              type="datetime"
+              placeholder="选择日期时间">
+            </el-date-picker>
           
           </div>
-          <textarea rows="10" cols="30" placeholder="说明原因" name="reason"></textarea> 
-          <button href="#" class="cneter_2c">提交</button>
-      </form>
+          <textarea rows="10" cols="30" placeholder="说明原因" name="reason" id="reason"></textarea> 
+          <button href="#" class="cneter_2c" @click='holiday'>提交</button>
+    
     </div>
 
     <div class="cneter_3" style="margin-right: 2%"><h3>打卡日历<span><i></i>2017 年 9 月<i></i></span></h3></div>
@@ -54,9 +98,41 @@
     <div class="cneter_4" style="margin-right: 2%"></div>
     <div class="cneter_4" id="main"></div>
 </div>   
-</div>
-    
+    <!-- 模态框（Modal） -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width: 35%;margin: auto;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            &times;
+          </button> 
+        </div>
+        
+        <div class="modal-body">
+          <div>
+          <div>
+            <el-upload
+
+                class="avatar-uploader"
+                action="{:url('update')}"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload">
+                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+          </div>
+        </div>
+        <div class="modal-footer"> 
+          <input type="submit" class="btn btn-primary" value="更改头像" @click='Changepicture'>  
+        </div>
+      
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+  </div> 
 <!-- 模态框结束 -->
+</div>
+
 <script type="text/javascript" src="__STATIC__/admin/index/js/index.js?126">
 </script>
 <script type="text/javascript" src="__STATIC__/admin/index/js/index2.js"></script>
@@ -110,7 +186,78 @@
   new Vue({
     el: ".container",
     data: {
-      value1:''
+      value1:'',
+      value2:'',
+      hid:false,
+      imageUrl: '',
+      imgs:'',
+      user:{$users}
     },
+    methods:{
+      hidyin(e){
+        this.hid=e
+        console.log(this.user);
+      },
+       handleAvatarSuccess(res, file) {
+        this.imageUrl = URL.createObjectURL(file.raw);
+        this.imgs=res;
+      },
+      beforeAvatarUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        console.log(file);
+        if (!isJPG) {
+          this.$message.error('上传头像图片只能是 JPG 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
+      },
+      Changepicture(e){
+        if (this.imgs=='') {
+          return
+        }
+        $.get('{:url("Changepicture")}',
+          {
+           imgs:this.imgs
+
+          },(rtnData)=>{
+             this.user.imageUrl=this.imgs
+                 this.$message({
+                          message: '更改成功！',
+                          type: 'success'
+                });
+          });
+      },
+      holiday(){
+      if(this.value1==''||this.value2==''){
+        this.$message('请选择时间');
+        return;
+      }
+
+        var Attendance_status=$('#Attendance_status').val();
+        var reason=$('#reason').val();
+        var start_time=new  Date(this.value1).getTime()/1000;
+        var end_time=new  Date(this.value2).getTime()/1000;
+        console.log(start_time);
+         $.get('{:url("Attendance")}',
+          {
+            Attendance_status:Attendance_status,
+            start_time:start_time,
+            end_time:end_time,
+            reason:reason
+
+          },(rtnData)=>{
+               $('#reason').val('');
+                      this.value1='';
+                      this.value2='';
+                        this.$message({
+                          message: '申请成功！',
+                          type: 'success'
+                });
+          });
+      }
+    }
   })
 </script>

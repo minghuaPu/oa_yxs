@@ -11,6 +11,7 @@ class Login extends \think\Controller
     }
     public function reg(){
     	$data=input();
+
         if($data['user_cate']=="员工"){
             $havecompany=db('companylist')->where('company_id',$data['belong'])->find();//根据从属编号查找有没该公司
             if(!empty($havecompany)){
@@ -63,6 +64,7 @@ class Login extends \think\Controller
             Session::set('bumen',$realpassword["bumen"]);
             Session::set('user_cate',$realpassword["user_cate"]);
             Session::set('u_id',$realpassword["id"]);
+            Session::set('imageUrl',$realpassword["imageUrl"]);
             Session::set('u_company',$realpassword["company_name"]);
             $havecompany=db('companylist')->where('company_name',$realpassword["company_name"])->find();
             Session::set('u_belong',$havecompany["company_id"]);

@@ -1,40 +1,56 @@
 {include file="top"}
 {include file="left"}
+{include file="right"}
 <style>
 	.holiday {border: 1px solid #bbb;width: 75%;margin:20px auto;overflow: hidden;}
-	 .holiday_box{width: 100%;display: flex;justify-content: space-around;margin:10px 0;}
-	.tijiao{float: right;margin:10px 70px;}
+	 .holiday_box{width: 90%;margin:10px auto;display: flex;justify-content: space-around;}
+	.tijiao{float: right;margin:10px 80px;}
     .box_kuang{display: flex;}
-    .box_kuang div{width: 100px;line-height: 35px;}
+    .box_kuang div{width: 85px;line-height: 35px;}
 </style>
 <div class="container" style="height: 100vh;">
 	{if $user_data['user_cate']=='员工'}
-	 <form action="{:url('holiday')}">
+	 
 	     <div class="holiday">
-	     	<h3 style="text-align: center;">调休申请</h3>
+	     	<h3 style="text-align: center;">申请</h3>
 			<div  class="holiday_box">
-					<div class="box_kuang">
-						<div >
-						 开始时间
-						</div>
-						<input type="date" class="form-control" name="start_time">
-					</div>
-					<div class="box_kuang">
-						<div>
-						 截止时间
-						</div>
-						<input type="date" class="form-control" name="end_time">
-					</div>
+			<div class="box_kuang">
+			 <div>类型:</div>
+			  <select   id="type" class="form-control">
+                  <option value="请假">请假</option>
+                  <option value="调休">调休</option>
+                 
+              </select>
+          </div>
+			<div class="block">
+		    <span class="demonstration">时间：</span>
+		    <el-date-picker
+		      v-model="value1"
+		      type="datetimerange"
+		      start-placeholder="开始日期"
+		      end-placeholder="结束日期"
+		      :default-time="['12:00:00']">
+		    </el-date-picker>
+  			</div>
+ 
 				</div>
-				<textarea class="form-control" style="width: 83%;margin:auto;" placeholder="调休原因..." name="reason"></textarea>
-				<button class="btn btn-success tijiao">提交申请</button>
+				<textarea class="form-control" style="width: 81%;margin:auto;" placeholder="说明原因..." id="reason"></textarea>
+				<button class="btn btn-success tijiao" @click='holiday'>提交申请</button>
 			</div>
-	</form>
+	
 	{/if}
-<table class="table table-striped table-bordered table-hover table-condensed" style="margin-top: 50px;">
+
+<table class="table table-striped table-bordered table-hover table-condensed" >
+	     	{if $user_data['user_cate']=='员工'}
+	        <h1 style="margin-top: 50px;text-align: center;">申请表</h1>	
+	        {/if}
+	        {if $user_data['user_cate']=='老板'}
+	         <h1 style="margin-top: 50px;text-align: center;">员工申请表</h1>	
+			{/if}
 			<thead>
 				<tr>
-					<th style="text-align: center!important;" width="15%">姓名</th>
+					<th style="text-align: center!important;" width="10%">姓名</th>
+					<th style="text-align: center!important;"  width="10%">类型</th>
 					<th style="text-align: center!important;" width="15%">开始时间</th>
 					<th style="text-align: center!important;" width="15%">结束时间</th>
 					<th style="text-align: center!important;">原因</th>
@@ -43,46 +59,96 @@
 			</thead>
 			<tbody>	
 				{if $user_data['user_cate']=='员工'}
-				{foreach $list as $key=>$val}
-				<tr style="text-align: center;">
-					<td>{$val.user_name}</td>
-					<td>{$val.start_time}</td>
-					<td>{$val.end_time}</td>
-					<td>{$val.reason}</td>
-					{if $val.state==0}
-					<td>审核中。。</td>
-					{/if}
-					{if $val.state==1}
-					<td  style="padding: 12px;color: #4cae4c;">同意</td>
-					{/if}
-					{if $val.state==2}
-					<td style="padding: 12px;color: #d43f3a;">拒绝</td>
-					{/if}
+				
+				<tr style="text-align: center;" v-for="(item,index) in list">
+					<td style="padding: 12px;">{{item.user_name}}</td>
+					<td style="padding: 12px;">{{item.type}}</td>
+					<td style="padding: 12px;">{{item.start_time}}</td>
+					<td style="padding: 12px;">{{item.end_time}}</td>
+					<td style="padding: 12px;">{{item.reason}}</td>
+					
+					<td style="padding: 12px;" v-if='item.state==0'>审核中。。</td>
+					
+					<td  style="padding: 12px;color: #4cae4c;" v-if='item.state==1'>同意</td>
+					
+					<td style="padding: 12px;color: #d43f3a;" v-if='item.state==2'>拒绝</td>
+					
 				</tr>
-				{/foreach}
+				
 				{/if}
 				{if $user_data['user_cate']=='老板'}
-				{foreach $list as $key=>$val}
-				<tr style="text-align: center;">
-					<td style="padding: 12px;">{$val.user_name}</td>
-					<td style="padding: 12px;">{$val.start_time}</td>
-					<td style="padding: 12px;">{$val.end_time}</td>
-					<td style="padding: 12px;">{$val.reason}</td>
-					{if $val.state==0}
-					<td>
-						<a href="{:url('agree',['id'=>$val.id])}" style="margin-right: 10px;" class="btn btn-success">同意</a>
-						<a href="{:url('reject',['id'=>$val.id])}" class="btn btn-danger">拒绝</a>
+				
+				<tr style="text-align: center;" v-for="(item,index) in list">
+					<td style="padding: 12px;">{{item.user_name}}</td>
+					<td style="padding: 12px;">{{item.type}}</td>
+					<td style="padding: 12px;">{{item.start_time}}</td>
+					<td style="padding: 12px;">{{item.end_time}}</td>
+					<td style="padding: 12px;">{{item.reason}}</td>
+					<td v-if='item.state==0'>
+						<a  @click='agree(index)' style="margin-right: 10px;" class="btn btn-success">同意</a>
+						<a  @click='reject(index)' class="btn btn-danger">拒绝</a>
 					</td>
-					{/if}
-					{if $val.state==1}
-					<td style="padding: 12px;color: #4cae4c;">同意</td>
-					{/if}
-					{if $val.state==2}
-					<td style="padding: 12px;color: #d43f3a;">拒绝</td>
-					{/if}
+					<td style="padding: 12px;color: #4cae4c;" v-if='item.state==1'>同意</td>
+					<td style="padding: 12px;color: #d43f3a;" v-if='item.state==2'>拒绝</td>
 				</tr>
-				{/foreach}
+				
 				{/if}
 			</tbody>
 		</table>
 </div>
+<script type="text/javascript">
+  new Vue({
+    el: ".container",
+    data: {
+       value1: '',
+       list:{$list},
+    },
+    methods:{
+    	holiday(){
+			if(this.value1==''){
+				this.$message('请选择时间');
+				return;
+			}
+    		var type=$('#type').val();
+    		var	reason=$('#reason').val();
+    		var start_time=new	Date(this.value1[0]).getTime()/1000;
+    		var end_time=new	Date(this.value1[1]).getTime()/1000;
+    		 $.get('{:url("holiday")}',
+    		 	{
+    		 		type:type,
+    		 		start_time:start_time,
+    		 		end_time:end_time,
+    		 		reason:reason
+    		 	},
+                    (rtnData)=>{
+                    	$('#reason').val('');
+                    	this.value1=''
+                    	this.list.unshift(rtnData);
+                        this.$message({
+					          message: '申请成功！',
+					          type: 'success'
+					        });
+                        
+                });
+    	},
+    	agree(e){
+    		 $.get('{:url("agree")}',
+    		 	{
+    		 		id:this.list[e].id
+    		 	},
+                    (rtnData)=>{
+                    	this.list.splice(e,1,rtnData)
+                });
+    	},
+    	reject(e){
+    			 $.get('{:url("reject")}',
+    		 	{
+    		 		id:this.list[e].id
+    		 	},
+                 (rtnData)=>{
+                    this.list.splice(e,1,rtnData)
+                });
+    	}
+    }
+  })
+</script>
