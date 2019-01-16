@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:83:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\information\check.html";i:1544610348;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1546998629;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544610348;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:83:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\information\check.html";i:1544610348;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1547536341;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544610348;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -310,7 +310,9 @@
 
             <div class="user_info">
                 <div class="user">
-                    <span class="glyphicon glyphicon-user"></span>
+                    <!-- <span class="glyphicon glyphicon-user"> -->
+                        <img src="__UPLOADS__<?php echo \think\Session::get('imageUrl'); ?>">
+                    
                 </div>
                <form action="<?php echo url('index/login/logout'); ?>" method="post" class="form" style="margin-left:-100px">
                 <span class="user_name">公司id:<?php echo \think\Session::get('u_belong'); ?> <?php echo \think\Session::get('u_company'); ?> <?php echo \think\Session::get('user_name'); ?>(<?php echo \think\Session::get('user_cate'); ?>)</span>

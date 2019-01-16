@@ -1,11 +1,40 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:77:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1547017946;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1546998629;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1544610348;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1547019384;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544610348;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:77:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1547536341;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1547536341;s:71:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\right.html";i:1547536341;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1547536889;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544610348;}*/ ?>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="renderer" content="webkit">
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9">
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
-<!DOCTYPE html>
+
+<style>
+    .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px!important;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+  input[type=file] {
+    display: none!important;
+}
+</style>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -316,7 +345,9 @@
 
             <div class="user_info">
                 <div class="user">
-                    <span class="glyphicon glyphicon-user"></span>
+                    <!-- <span class="glyphicon glyphicon-user"> -->
+                        <img src="__UPLOADS__<?php echo \think\Session::get('imageUrl'); ?>">
+                    
                 </div>
                <form action="<?php echo url('index/login/logout'); ?>" method="post" class="form" style="margin-left:-100px">
                 <span class="user_name">公司id:<?php echo \think\Session::get('u_belong'); ?> <?php echo \think\Session::get('u_company'); ?> <?php echo \think\Session::get('user_name'); ?>(<?php echo \think\Session::get('user_cate'); ?>)</span>
@@ -378,7 +409,7 @@
         }
     })
 </script>
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html>
 	<head>
 <script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
@@ -386,61 +417,54 @@
 		<title></title>
 	</head>
 	<body>
-		<div class="page" style="z-index: 99;background:white;padding-left: 10px;height:100%">
-			<div class="search_box">
-				<div class="iconfont icon-fangdajing"></div>
-				<input type="text" name="search" class="search" placeholder="搜索" />
-			</div>
-			<div class="people_box">
-				<div class="icon">
-					<div class="iconfont icon-geren"></div>
-					<div class="iconfont icon-iconset0337"></div>
-					<div class="iconfont icon-group"></div>
-				</div>
-				<div class="name_box">
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
-					
-					<div class="people">
-						<img src="__STATIC__/admin/tx.jpg"/>
-						<p>张总</p>
-					</div>
+		<div class="page" style="z-index: 99;background:#fff;padding-left: 10px;height:100%">
+			<div class="Score">
+				<div class="fens">
+					<div class="se" style="height:100%;background: #00adc7;"></div>
+					<div class="fen">{{week}}分</div>
 				</div>
 			</div>
-			<div  class="notice_title">
-				公告栏
-			</div>
-			<div class="notice_box">
-				<div class="notice">
-					<div class="notice_dian"></div>
-					<div class="notice_content">oa系统正式上线</div>
+			<div class="font">本周</div>
+
+			<div class="Score">
+				<div class="fens">
+					<div class="se" style="height:100%;text-align: center;background: #87d7a5;"></div>
+					<div class="fen">{{month}}分</div>
 				</div>
 			</div>
-			<div  class="notice_title">
-				新闻
+			<div class="font">本月</div>
+
+			<div class="Score">
+				<div class="fens">
+					<div class="se" style="height:100%;background: #fbad4c;"></div>
+					<div class="fen">{{year}}分</div>
+				</div>
 			</div>
+			<div class="font">本年</div>
+
 		</div>
 	</body>
+	<script>
+	new Vue({
+		el:'.page',
+		data:{
+			 week:0,
+			 month:0,
+			 year:0
+		},
+		created(){
+        	$.get('<?php echo url("admin/index/right"); ?>',
+                    (rtnData)=>{
+                         this.week=rtnData.week
+						 this.month=rtnData.month
+						 this.year=rtnData.year
+                });
+        },
+        methods:{
+        	
+        }
+	})
+</script>
 </html>
 
 
@@ -452,76 +476,52 @@
 	width:172px;
 	position:fixed ;
 	right: 0;
-	
-	
+	color: #404040;
 }
-.search_box{
-	display: flex;
-	margin-top:9px;
-	background: #e6e6e6;
-	
-}
-.search_box input{
-	background: #e6e6e6;
-	border: 0px;
-	outline:none 
-}
-.icon{
-	display: flex;
-	margin: 6px 20px ;
-	
-}
-.icon div{
-	font-size: 23px;
-	flex: 1;
-	text-align: center;
-}
-.people{
-	display: flex;
-	align-items: center;
-}
-.name_box{
-	height: 250px;
-	overflow:scroll;
-	overflow-x:visible;
-}
-.people img{
-	width: 26px;
-	height: 26px;
-	border-radius: 26px;	
-}
-.people p{
-    margin-top: 13px;
-    margin-left: 3px;
-}
-.notice_title{
-	text-align: center;
-    padding: 4px 0;
-    font-size: 16px;
-    border-top: 1px solid #cccccc;
-    border-bottom:1px solid #cccccc;
-    font-weight: bold;
-}
-.notice{
-	display: flex;
-}
-.notice_dian{
-	width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: red;
-    margin-top: 5px;
-    margin-left: 7px;
-}
-.notice_box{
-	height: 143px;
-}
-.notice_content{
-	margin-left: 10px;
-    font-size: 11px;
-}
-</style>
+.Score{
+		float: left;
+		width: 100px;
+		height: 100px;
+		margin:20px 20px 5px 20px;
+		padding: 1.5px;
+		line-height: 100px;
+		border: 1px solid rgb(76,113,153);
+		border-radius: 100%;
+		text-align: center;
+	}
+	.Score .fens{
+		width: 95px;
+		height: 95px;
+		border: 1px solid rgb(76,113,153);
+		border-radius: 100%;
+		overflow: hidden;
+		position: relative;
+	}
+	.Score .fens .se{
+		width: 110%;
+		height: 66.6%;
+		margin:auto;
+		border-radius: 0;
+		background: rgb(217,150,148);
+		position: absolute;
+		bottom: 0;
+		left: -4px;
+	}
+	 .Score .fens  .fen{
+			position: absolute;
+			top:0;
+			width: 100%;
+			height: 100%;
 
+			text-align: center;
+	}
+	.font{
+		width: 100px;
+		margin:0 20px;
+		text-align: center;
+	}
+</style> 
+  
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_there.css"/>
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_two.css"/>
@@ -557,7 +557,7 @@
 		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
 	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
         <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
-        <li onclick="jump_eight()"><a href="#" class="iconfont icon-kaoqindaqia"><p>投票</p></a></li>
+        <li onclick="jump_eight()"><a href="#" class="iconfont icon-jichuguanli"><p>投票</p></a></li>
 	</ul>
 	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
@@ -635,49 +635,103 @@
 </script>
 
 <div class="container">
-    <div class="index_content_center">
-        <div class="center_1">
-            <img src="__STATIC__/admin/index/images/20181206171359.jpg" alt="" class="center_1a">
-            <!--     <img src="__STATIC__/admin/index/images/20181206171360.jpg" alt="" class="center_1b">
- -->
-            <p style="font-size: 1em;"><strong><?php echo $User['user_cate']; ?></strong></p>
-            <h3 style="margin-bottom: 0.1em;"><strong><?php echo $User['user_name']; ?></strong></h3>
-            <button class="button1"><strong>打卡</strong></button>
-            <button class="button2"><strong>补卡</strong></button>
-        </div>
-        <div class="center_2">
-            <form action="Attendance">
-                <div class="center_2a">
-                    <select id="" name="Attendance_status">
-                        <option value="请假">请假</option>
-                        <option value="迟到">迟到</option>
-                        <option value="早退">早退</option>
-                        <option value="旷工">旷工</option>
-                    </select>
-                </div>
-                <div class="cneter_2b">
-                    <span>始：</span>
-                    <input type="date" name="start_time">
-                    </el-date-picker>
-                </div>
-                <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/rili.png" alt=""></div>
-                    <div class="cneter_2b">
-                        <span>至：</span>
-                        <input type="date" name="end_time">
-                    </div>
-                    <textarea rows="10" cols="30" placeholder="说明原因" name="reason"></textarea>
-                    <button href="#" class="cneter_2c">提交</button>
-            </form>
-        </div>
-        <div class="cneter_3" style="margin-right: 2%"><h3>打卡日历<span><i></i>2017 年 9 月<i></i></span></h3>
-        </div>
-        <div class="cneter_3"><h3>考勤统计</h3>
-        </div>
-        <div class="cneter_4" style="margin-right: 2%"></div>
-        <div class="cneter_4" id="main"></div>
+<div class="index_content_center">
+    <div class="center_1">
+      <div class="center_1a">
+
+         <div class="rounded" @mouseover='hidyin(true)' @mouseout='hidyin(false)'>
+            
+           <img :src="'__UPLOADS__'+user.imageUrl" alt="">
+           <div class="yin"  v-show='hid' data-toggle="modal" data-target="#myModal">更换头像</div>
+         </div>
+      </div>
+      
+    <!-- <img src="__STATIC__/admin/index/images/20181206171359.jpg" alt="" > -->
+
+<!--     <img src="__STATIC__/admin/index/images/20181206171360.jpg" alt="" class="center_1b">
+ --> 
+
+    <p style="font-size: 1em;"><strong>{{user.user_cate}}</strong></p>
+       <h3 style="margin-bottom: 0.1em;"><strong>{{user.user_name}}</strong></h3>
+    <!-- <button class="button1"><strong>打卡</strong></button>
+    <button class="button2"><strong>补卡</strong></button> -->
+    <a href="<?php echo url('task/index'); ?>" class="btn btn-lg btn-info " style="margin-top: 60px;width: 100%;">任务管理</a>
     </div>
-</div>
+    
+    <div class="center_2">
+      
+          <div class="center_2a" >
+              <select  id="Attendance_status" name="Attendance_status">
+                  <option value="迟到">迟到</option>
+                  <option value="早退">早退</option>
+                  <option value="旷工">旷工</option>
+              </select>
+          </div>
+          <div class="cneter_2b">
+            <span>始：</span>
+            <el-date-picker
+      v-model="value1"
+      type="datetime"
+
+      placeholder="选择日期时间">
+    </el-date-picker>
+          </div>
+          <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/rili.png" alt=""></div>
+          <div class="cneter_2b">
+            <span>至：</span>
+                    <el-date-picker
+              v-model="value2"
+              type="datetime"
+              placeholder="选择日期时间">
+            </el-date-picker>
+          
+          </div>
+          <textarea rows="10" cols="30" placeholder="说明原因" name="reason" id="reason"></textarea> 
+          <button href="#" class="cneter_2c" @click='holiday'>提交</button>
+    
+    </div>
+
+    <div class="cneter_3" style="margin-right: 2%"><h3>打卡日历<span><i></i>2017 年 9 月<i></i></span></h3></div>
+    <div class="cneter_3"><h3>考勤统计</h3></div>
+    <div class="cneter_4" style="margin-right: 2%"></div>
+    <div class="cneter_4" id="main"></div>
+</div>   
+    <!-- 模态框（Modal） -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width: 35%;margin: auto;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            &times;
+          </button> 
+        </div>
+        
+        <div class="modal-body">
+          <div>
+          <div>
+            <el-upload
+
+                class="avatar-uploader"
+                action="<?php echo url('update'); ?>"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload">
+                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+          </div>
+        </div>
+        <div class="modal-footer"> 
+          <input type="submit" class="btn btn-primary" value="更改头像" @click='Changepicture'>  
+        </div>
+      
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+  </div> 
+
 <!-- 模态框结束 -->
+</div>
+
 <script type="text/javascript" src="__STATIC__/admin/index/js/index.js?126">
 </script>
 <script type="text/javascript" src="__STATIC__/admin/index/js/index2.js"></script>
@@ -764,7 +818,80 @@ $(document).ready(function(){
 new Vue({
     el: ".container",
     data: {
-        value1: ''
+
+      value1:'',
+      value2:'',
+      hid:false,
+      imageUrl: '',
+      imgs:'',
+      user:<?php echo $users; ?>
     },
-})
+    methods:{
+      hidyin(e){
+        this.hid=e
+        console.log(this.user);
+      },
+       handleAvatarSuccess(res, file) {
+        this.imageUrl = URL.createObjectURL(file.raw);
+        this.imgs=res;
+      },
+      beforeAvatarUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        console.log(file);
+        if (!isJPG) {
+          this.$message.error('上传头像图片只能是 JPG 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
+      },
+      Changepicture(e){
+        if (this.imgs=='') {
+          return
+        }
+        $.get('<?php echo url("Changepicture"); ?>',
+          {
+           imgs:this.imgs
+
+          },(rtnData)=>{
+             this.user.imageUrl=this.imgs
+                 this.$message({
+                          message: '更改成功！',
+                          type: 'success'
+                });
+          });
+      },
+      holiday(){
+      if(this.value1==''||this.value2==''){
+        this.$message('请选择时间');
+        return;
+      }
+
+        var Attendance_status=$('#Attendance_status').val();
+        var reason=$('#reason').val();
+        var start_time=new  Date(this.value1).getTime()/1000;
+        var end_time=new  Date(this.value2).getTime()/1000;
+        console.log(start_time);
+         $.get('<?php echo url("Attendance"); ?>',
+          {
+            Attendance_status:Attendance_status,
+            start_time:start_time,
+            end_time:end_time,
+            reason:reason
+
+          },(rtnData)=>{
+               $('#reason').val('');
+                      this.value1='';
+                      this.value2='';
+                        this.$message({
+                          message: '申请成功！',
+                          type: 'success'
+                });
+          });
+      }
+    }
+  })
+
 </script>

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:77:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\bumen\index.html";i:1544610348;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1546998629;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1546998629;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544610348;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:77:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\bumen\index.html";i:1544610348;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1547536341;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1547536889;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544610348;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -310,7 +310,9 @@
 
             <div class="user_info">
                 <div class="user">
-                    <span class="glyphicon glyphicon-user"></span>
+                    <!-- <span class="glyphicon glyphicon-user"> -->
+                        <img src="__UPLOADS__<?php echo \think\Session::get('imageUrl'); ?>">
+                    
                 </div>
                <form action="<?php echo url('index/login/logout'); ?>" method="post" class="form" style="margin-left:-100px">
                 <span class="user_name">公司id:<?php echo \think\Session::get('u_belong'); ?> <?php echo \think\Session::get('u_company'); ?> <?php echo \think\Session::get('user_name'); ?>(<?php echo \think\Session::get('user_cate'); ?>)</span>
@@ -406,7 +408,8 @@
 		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
 		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
 	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
-         <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
+        <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
+        <li onclick="jump_eight()"><a href="#" class="iconfont icon-jichuguanli"><p>投票</p></a></li>
 	</ul>
 	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
@@ -476,6 +479,9 @@
  }
  function jump_seven(){
     window.location.href='<?php echo url('admin/index/lookAttendance'); ?>'
+ }
+ function jump_eight(){
+    window.location.href='<?php echo url('admin/index/toupiao'); ?>'
  }
 
 </script>

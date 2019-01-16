@@ -19,7 +19,7 @@
             投票
         </div>
         <div class="cjp_choose">
-            <button class="btn btn-info" style="outline: none;" data-toggle="modal" data-target="#newtoupiao">发起新投票</button>
+            <button class="btn btn-info" style="outline: none;" data-toggle="modal" data-target="#newtoupiao" @click="getList">发起新投票</button>
         </div>
         <!-- 新建投票框 -->
         <div class="modal fade" id="newtoupiao" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -40,6 +40,16 @@
                                 <input type="text" class="form-control" id="" name="biaoti" placeholder="请输入标题描述" required="required">
                             </div>
                             <div class="form-group">
+                                <label for="name">参与人</label>
+                                <input type="text" name="executerid" id="executer" value="" style="display: none;"></input>
+                                <el-select v-model="value7" placeholder="请选择" multiple required="required">
+                                    <el-option-group v-for="group in options3" :key="group.label" :label="group.label">
+                                        <el-option v-for="item in group.options" :key="item.value" :label="item.label" :value="item.value">
+                                        </el-option>
+                                    </el-option-group>
+                                </el-select>
+                            </div>
+                            <!-- <div class="form-group">
                                 <label for="name">参与部门</label>
                                 <input type="text" name="executerid" id="executer" value="" class="abc" style="display: none;"></input>
                                 <select id="approverq" class="selectpicker" multiple name="executor" required="required">
@@ -47,7 +57,7 @@
                                     <option value="{$info.bumen_name}">{$info.bumen_name}</option>
                                     {/foreach}
                                 </select>
-                            </div>
+                            </div> -->
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="optionsRadios" id="optionsRadios1" value="单选" checked> 单选
@@ -179,8 +189,8 @@
                     <td>{$info.content}</td>
                     <td>{$info.lasttime|date='Y-m-d H:i',###}</td>
                     <td>
-                            {range name="$User['u_id']" value="$info.yitoupiao" type="in"}
-                            {if $info.lasttime < time()} 已过期 {/if} {if $info.lasttime> time()}
+                        {range name="$User['u_id']" value="$info.yitoupiao" type="in"}
+                        {if $info.lasttime < time()} 已过期 {/if} {if $info.lasttime> time()}
                             你已经投过了
                             {/if}
                             {/range}
@@ -212,7 +222,9 @@ new Vue({
     data: {
         opnum: 2,
         message: {},
-        detail: {}
+        detail: {},
+        options3: [],
+        value7: ''
     },
     created: function() {
 
@@ -234,14 +246,23 @@ new Vue({
                 that.detail = e;
             })
         },
+        getList: function() {
+            var that = this;
+            $.get("{:url('getlist')}",
+                function(e) {
+                    that.options3 = e;
+                })
+        },
         fun: function() {
-            var str = [];
-            var obj = document.getElementById("approverq");
-            for (var i = 0; i < obj.options.length; i++) {
-                if (obj.options[i].selected) {
-                    str.push(obj.options[i].value); // 收集选中项
-                }
-            }
+
+            // console.log(JSON.stringify(this.value7));
+            var str = JSON.stringify(this.value7);
+            // var obj = document.getElementById("approverq");
+            // for (var i = 0; i < obj.options.length; i++) {
+            //     if (obj.options[i].selected) {
+            //         str.push(obj.options[i].value); // 收集选中项
+            //     }
+            // }
             $("#executer").val(str);
             var chil = $("#addoption").children();
             var optionlist = ["option1", "option2"];
@@ -272,15 +293,15 @@ function deOption(e) {
 //日历初始化
 $('#datetimepicker').datetimepicker({
     // minView: "month", //选择日期后，不会再跳转去选择时分秒 
-    language:  'zh-CN',
-     weekStart: 0, 
-        todayBtn:  1, //
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        forceParse: 0,
-        showMeridian: 1
-    
+    language: 'zh-CN',
+    weekStart: 0,
+    todayBtn: 1, //
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    forceParse: 0,
+    showMeridian: 1
+
 
 });
 </script>
