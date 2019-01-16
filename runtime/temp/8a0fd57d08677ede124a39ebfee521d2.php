@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:79:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\toupiao.html";i:1547602356;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1547536341;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1547536889;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:79:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\index\toupiao.html";i:1547605291;s:69:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\top.html";i:1547536341;s:70:"D:\wampserver\wamp64\www\oa\public/../application/admin\view\left.html";i:1547536889;}*/ ?>
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/finance/finance.css" />
 <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.5.1/css/fileinput.css" rel="stylesheet" />
@@ -545,14 +545,7 @@
                                     <?php endforeach; ?>
                                 </select>
                             </div> -->
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="单选" checked> 单选
-                                </label>
-                                <label>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="多选">多选
-                                </label>
-                            </div>
+                            
                             <div class="form-group">
                                 <label>截止时间</label>
                                 <div class='input-group date' style="width:200px" id='datetimepicker'>
@@ -564,6 +557,16 @@
                             </div>
                             <div class="form-group">
                                 <label for="name">选项</label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="单选" checked> 单选
+                                </label>
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="多选">多选
+                                </label>
+                            </div>
+                            <div class="form-group">
                                 <input type="text" name="oplist" id="op" value="" style="display: none;"></input>
                                 <input type="text" class="form-control" name="option1" placeholder="选项" style="width: 85%;" required="required">
                             </div>
