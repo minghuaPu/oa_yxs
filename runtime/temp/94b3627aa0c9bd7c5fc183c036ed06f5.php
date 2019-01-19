@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"D:\wamp64\www\oa\public/../application/admin\view\index\toupiao.html";i:1547544877;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1547709787;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1547630952;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1547280365;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:68:"D:\wamp64\www\oa\public/../application/admin\view\index\toupiao.html";i:1547883014;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1547709787;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1547630952;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1547883014;}*/ ?>
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/finance/finance.css" />
 <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.5.1/css/fileinput.css" rel="stylesheet" />
@@ -600,7 +600,7 @@
 		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
 	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
         <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
-        <li onclick="jump_eight()"><a href="#" class="iconfont icon-kaoqindaqia"><p>投票</p></a></li>
+        <li onclick="jump_eight()"><a href="#" class="iconfont icon-jichuguanli"><p>投票</p></a></li>
 	</ul>
 	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
@@ -682,7 +682,7 @@
             投票
         </div>
         <div class="cjp_choose">
-            <button class="btn btn-info" style="outline: none;" data-toggle="modal" data-target="#newtoupiao">发起新投票</button>
+            <button class="btn btn-info" style="outline: none;" data-toggle="modal" data-target="#newtoupiao" @click="getList">发起新投票</button>
         </div>
         <!-- 新建投票框 -->
         <div class="modal fade" id="newtoupiao" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -703,6 +703,16 @@
                                 <input type="text" class="form-control" id="" name="biaoti" placeholder="请输入标题描述" required="required">
                             </div>
                             <div class="form-group">
+                                <label for="name">参与人</label>
+                                <input type="text" name="executerid" id="executer" value="" style="display: none;"></input>
+                                <el-select v-model="value7" placeholder="请选择" multiple required="required">
+                                    <el-option-group v-for="group in options3" :key="group.label" :label="group.label">
+                                        <el-option v-for="item in group.options" :key="item.value" :label="item.label" :value="item.value">
+                                        </el-option>
+                                    </el-option-group>
+                                </el-select>
+                            </div>
+                            <!-- <div class="form-group">
                                 <label for="name">参与部门</label>
                                 <input type="text" name="executerid" id="executer" value="" class="abc" style="display: none;"></input>
                                 <select id="approverq" class="selectpicker" multiple name="executor" required="required">
@@ -710,15 +720,8 @@
                                     <option value="<?php echo $info['bumen_name']; ?>"><?php echo $info['bumen_name']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="单选" checked> 单选
-                                </label>
-                                <label>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="多选">多选
-                                </label>
-                            </div>
+                            </div> -->
+                            
                             <div class="form-group">
                                 <label>截止时间</label>
                                 <div class='input-group date' style="width:200px" id='datetimepicker'>
@@ -730,6 +733,16 @@
                             </div>
                             <div class="form-group">
                                 <label for="name">选项</label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="单选" checked> 单选
+                                </label>
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="多选">多选
+                                </label>
+                            </div>
+                            <div class="form-group">
                                 <input type="text" name="oplist" id="op" value="" style="display: none;"></input>
                                 <input type="text" class="form-control" name="option1" placeholder="选项" style="width: 85%;" required="required">
                             </div>
@@ -842,7 +855,7 @@
                     <td><?php echo $info['content']; ?></td>
                     <td><?php echo date('Y-m-d H:i',$info['lasttime']); ?></td>
                     <td>
-                            <?php if(in_array(($User['u_id']), is_array($info['yitoupiao'])?$info['yitoupiao']:explode(',',$info['yitoupiao']))): if($info['lasttime'] < time()): ?> 已过期 <?php endif; if($info['lasttime']> time()): ?>
+                        <?php if(in_array(($User['u_id']), is_array($info['yitoupiao'])?$info['yitoupiao']:explode(',',$info['yitoupiao']))): if($info['lasttime'] < time()): ?> 已过期 <?php endif; if($info['lasttime']> time()): ?>
                             你已经投过了
                             <?php endif; endif; if(!in_array(($User['u_id']), is_array($info['yitoupiao'])?$info['yitoupiao']:explode(',',$info['yitoupiao']))): if($info['lasttime'] < time()): ?> 已过期 <?php endif; if($info['lasttime']> time()): ?>
                                 <button class="btn btn-info btn-xs" style="outline: none;" data-toggle="modal" data-target="#gotoupiao" @click='getToupiao(<?php echo $info['id']; ?>)'>去投票</button>
@@ -870,7 +883,9 @@ new Vue({
     data: {
         opnum: 2,
         message: {},
-        detail: {}
+        detail: {},
+        options3: [],
+        value7: ''
     },
     created: function() {
 
@@ -892,14 +907,23 @@ new Vue({
                 that.detail = e;
             })
         },
+        getList: function() {
+            var that = this;
+            $.get("<?php echo url('getlist'); ?>",
+                function(e) {
+                    that.options3 = e;
+                })
+        },
         fun: function() {
-            var str = [];
-            var obj = document.getElementById("approverq");
-            for (var i = 0; i < obj.options.length; i++) {
-                if (obj.options[i].selected) {
-                    str.push(obj.options[i].value); // 收集选中项
-                }
-            }
+
+            // console.log(JSON.stringify(this.value7));
+            var str = JSON.stringify(this.value7);
+            // var obj = document.getElementById("approverq");
+            // for (var i = 0; i < obj.options.length; i++) {
+            //     if (obj.options[i].selected) {
+            //         str.push(obj.options[i].value); // 收集选中项
+            //     }
+            // }
             $("#executer").val(str);
             var chil = $("#addoption").children();
             var optionlist = ["option1", "option2"];
@@ -930,15 +954,15 @@ function deOption(e) {
 //日历初始化
 $('#datetimepicker').datetimepicker({
     // minView: "month", //选择日期后，不会再跳转去选择时分秒 
-    language:  'zh-CN',
-     weekStart: 0, 
-        todayBtn:  1, //
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        forceParse: 0,
-        showMeridian: 1
-    
+    language: 'zh-CN',
+    weekStart: 0,
+    todayBtn: 1, //
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    forceParse: 0,
+    showMeridian: 1
+
 
 });
 </script>

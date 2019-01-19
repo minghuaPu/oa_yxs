@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:66:"D:\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1547883356;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1547709787;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1547630952;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1547280365;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:66:"D:\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1547883356;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1547709787;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1547630952;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1547883014;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -622,7 +622,7 @@
 		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
 	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
         <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
-        <li onclick="jump_eight()"><a href="#" class="iconfont icon-kaoqindaqia"><p>投票</p></a></li>
+        <li onclick="jump_eight()"><a href="#" class="iconfont icon-jichuguanli"><p>投票</p></a></li>
 	</ul>
 	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
