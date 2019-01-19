@@ -656,36 +656,72 @@ class Index extends \app\admin\Auth
         $this->assign('bumenlist',$bumenlist);
         $toupiao = db('toupiao')->order('id desc')->select();
         $toupiaolist = [];
+        
         foreach ($toupiao as $key => $v1) {
             foreach (json_decode($v1['participant']) as $key => $v2) {
                 if ($v2==$uid) {
                 array_push($toupiaolist, $v1);
             }
             }
-        }
+        };
+
+
         $this->assign('toupiaolist',$toupiaolist);
         return $this->fetch();
     }
+    //投票页面获取部门列表
+    public function getlist(){
+      $canyulist = [];
+       $bmlist = db('bumen')->field('bumen_name')->select();
+       
+       foreach ($bmlist as $k1 => $v1) {
+         $fistlist = [];
+         $fistlist['label']=$v1['bumen_name'];
+         $bmrlist = db('user')->where('bumen',$v1['bumen_name'])->select();
+         
+         $secondlist = [];
+         $thirdlist = [];
+         foreach ($bmrlist as $k2 => $v2) {
+          
+          if ($v2['id']) {
+            $secondlist['value']=$v2['id'];
+          };
+           if ($v2['user_name']) {
+            $secondlist['label']=$v2['user_name'];
+          };
+          array_push($thirdlist, $secondlist);
+         }
+         $fistlist['options']=$thirdlist;
+         array_push($canyulist, $fistlist);
+         
+       };
+       
+       return $canyulist;
+    }
     //新建投票
     public function addtoupiao(){
-       $bumen = input('executerid');
+       $bumen = json_decode(input('executerid')) ;
        $oplist = json_decode(input('oplist'));
        $biaoti = input('biaoti');
        $optionsRadios = input('optionsRadios');
        $time = strtotime(input('time'));
-       $bumenlist = explode(",",$bumen);
-       $participant = [1];
+       // $bumenlist = explode(",",$bumen);
+       // $participant = [1];
        $optio = [];
+       $bosslist =db('user')->field('id')->where('user_cate','老板')->select();
+       foreach ($bosslist as $key => $value) {
+         array_push($bumen, $value['id']);
+       }
        foreach ($oplist as $key => $value) {
            $optio[input($value)]=0;
        };
-       
-       foreach ($bumenlist as $key => $value) {
-           $list =db('user')->field('id')->where('bumen',$value)->select();
-           foreach ($list as $key => $value) {
-                array_push($participant, $value['id']);   
-           }
-       };
+       // foreach ($bumenlist as $key => $value) {
+       //     $list =db('user')->field('id')->where('bumen',$value)->select();
+       //     foreach ($list as $key => $value) {
+       //          array_push($participant, $value['id']);   
+       //     }
+       // };
+
        if ($optionsRadios=='单选') {
            $optionsRadios = 1;
        }else{
@@ -697,7 +733,7 @@ class Index extends \app\admin\Auth
             'multiple'=>$optionsRadios,
             'lasttime'=>$time,
             'option'=>json_encode($optio),
-            'participant'=>json_encode($participant),   
+            'participant'=>json_encode($bumen),   
         ]);
         $this->success('新建投票成功'); 
     }
