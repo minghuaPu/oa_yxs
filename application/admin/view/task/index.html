@@ -1,5 +1,5 @@
 {include file="top"}
-
+{include file="right"}
 <style type="text/css">
 	.table_box{background-color: #fff !important}
 	.Employee_box .Employee_right .Score .fens .se{background: red  !important;}
@@ -18,7 +18,7 @@
 			{foreach $user as $userdata}
 			{if $userdata.user_cate=='员工'}
 			<div class="btn btn-default opinion" @click='open3'>提建议</div>
-			<div class="btn btn-default opinions" data-toggle="modal" data-target="#holiday">申请调休</div>
+			
 			{/if}
 			{if $userdata.user_cate=='老板'}
 			<div class="btn btn-default opinion"  data-toggle="modal" data-target="#asdf">查看建议</div>
@@ -391,10 +391,7 @@ new Vue({
     
 
         mounted(){
-        	console.log({$zongshu});
-        	console.log( {$zhoujihua})	
-        	console.log( {$daibanwork})	
-        	console.log(this.worksheet);
+        
         	if(this.worksheet.length<8){
         		var num=8-this.worksheet.length;
         		for (var i = 0; i < num; i++) {
@@ -470,11 +467,7 @@ new Vue({
         	    	});
 	        });
       	},
-      	open4(){
-	        // this.$alert('<table  class="table table-striped table-bordered table-hover table-condensed"><tr><th>员工建议</th><th>提建议时间</th></tr><tr v-for="item in advise"><td>{{item.advise}}</td><td>{{item.time}}</td></tr></table>', 'HTML 片段', {
-	        //   dangerouslyUseHTMLString: true
-	        // });
-	      },
+  
      	select(){
 
      		var selinfo = $('#selectinfo').val();
@@ -488,6 +481,7 @@ new Vue({
      	// 添加
      	add(){
      		if(this.disabled){return}
+     	
      		// this.worksheet.push({primary:{$main},secondary:[]})
      		$.get('{:url("admin/task/classify")}',
         	    	{select:0,},(rtnData)=>{
@@ -590,6 +584,10 @@ new Vue({
                 whether: this.worksheet[e].whether
             }, (rtnData) => {
                 // this.zongshu = rtnData
+                if(this.worksheet[e].zhoujihua==1){
+                	this.worksheet[e].score=rtnData
+                }
+                
             });
             this.zongshu=0;
             for(var i=0;i<this.worksheet.length;i++){

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:72:"D:\wamp64\www\oa\public/../application/admin\view\index\information.html";i:1544798596;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1546941863;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1547017307;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1546848285;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:72:"D:\wamp64\www\oa\public/../application/admin\view\index\information.html";i:1544798596;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1547547044;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1547545847;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1547280365;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -310,7 +310,9 @@
 
             <div class="user_info">
                 <div class="user">
-                    <span class="glyphicon glyphicon-user"></span>
+                    <!-- <span class="glyphicon glyphicon-user"> -->
+                        <img src="__UPLOADS__<?php echo \think\Session::get('imageUrl'); ?>">
+                    
                 </div>
                <form action="<?php echo url('index/login/logout'); ?>" method="post" class="form" style="margin-left:-100px">
                 <span class="user_name">公司id:<?php echo \think\Session::get('u_belong'); ?> <?php echo \think\Session::get('u_company'); ?> <?php echo \think\Session::get('user_name'); ?>(<?php echo \think\Session::get('user_cate'); ?>)</span>
@@ -337,6 +339,31 @@
         created(){
             this.init();
             this.red();
+            
+            setInterval( () =>{
+
+                $.get('<?php echo url("admin/index/prompt"); ?>',
+                    (rtnData)=>{
+                    
+                        for (var i = 0; i < rtnData.length; i++) {
+                            <?php if(\think\Session::get('user_cate')=='老板'): ?>
+                                this.$notify({
+                                  title: '提示',
+                                  message: rtnData[i].user_name+'员工添加了一个新的工作任务',
+                                  duration: 0
+                                })
+                            <?php endif; if(\think\Session::get('user_cate')=='员工'): ?>
+                                this.$notify({
+                                  title: '提示',
+                                  message: rtnData[i].user_name+'老板发布了一个新的工作任务',
+                                  duration: 0
+                                })
+                            <?php endif; ?>
+                        }
+                       
+                });
+            },2000);
+            
         },
         methods:{
             bell(){
@@ -376,37 +403,64 @@
 <html>
 	<head>
 <script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="__STATIC__/library/element-ui.min.css">
+    <!-- 引入组件库 -->
+    <script src="__STATIC__/library/element-ui.min.js"></script>
 		<meta charset="UTF-8">
 		<title></title>
 	</head>
 	<body>
-		<div class="page" style="z-index: 99;background:#f4f8fb;padding-left: 10px;height:100%">
+		<div class="page" style="z-index: 99;background:#fff;padding-left: 0%;height:100%">
 			<div class="Score">
 				<div class="fens">
-					<div class="se" style="height:100%;"></div>
-					<div class="fen">100分</div>
+					<div class="se" style="height:100%;background: #00adc7;"></div>
+					<div class="fen">{{week}}分</div>
 				</div>
 			</div>
-			<div class="font">周</div>
+			<div class="font">本周</div>
 
 			<div class="Score">
 				<div class="fens">
-					<div class="se" style="height:100%;text-align: center;"></div>
-					<div class="fen">100分</div>
+					<div class="se" style="height:100%;text-align: center;background: #87d7a5;"></div>
+					<div class="fen">{{month}}分</div>
 				</div>
 			</div>
-			<div class="font">月</div>
+			<div class="font">本月</div>
 
 			<div class="Score">
 				<div class="fens">
-					<div class="se" style="height:100%;"></div>
-					<div class="fen">100分</div>
+					<div class="se" style="height:100%;background: #fbad4c;"></div>
+					<div class="fen">{{year}}分</div>
 				</div>
 			</div>
-			<div class="font">年</div>
+			<div class="font">本年</div>
 
 		</div>
 	</body>
+	<script>
+	new Vue({
+		el:'.page',
+		data:{
+			 week:0,
+			 month:0,
+			 year:0,
+			 prompt:[]
+		},
+		created(){
+        	$.get('<?php echo url("admin/index/right"); ?>',
+                    (rtnData)=>{
+                         this.week=rtnData.week
+						 this.month=rtnData.month
+						 this.year=rtnData.year
+                });
+
+        	
+        	
+        },
+        methods:{
+                }
+	})
+</script>
 </html>
 
 
@@ -415,18 +469,17 @@
 
 <style type="text/css">
 .page{
-	width:172px;
+	border-left: 1px solid #eee;
 	position:fixed ;
 	right: 0;
-	color: #fff;
-	
+	color: #404040;
 }
 .Score{
 		float: left;
 		width: 100px;
 		height: 100px;
-		margin:20px;
-		padding: 1px;
+		margin:20px 20px 5px 20px;
+		padding: 1.5px;
 		line-height: 100px;
 		border: 1px solid rgb(76,113,153);
 		border-radius: 100%;
@@ -460,7 +513,7 @@
 	}
 	.font{
 		width: 100px;
-		margin:20px;
+		margin:0 20px;
 		text-align: center;
 	}
 </style>
@@ -499,7 +552,8 @@
 		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
 		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
 	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
-         <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
+        <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
+        <li onclick="jump_eight()"><a href="#" class="iconfont icon-kaoqindaqia"><p>投票</p></a></li>
 	</ul>
 	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
@@ -569,6 +623,9 @@
  }
  function jump_seven(){
     window.location.href='<?php echo url('admin/index/lookAttendance'); ?>'
+ }
+ function jump_eight(){
+    window.location.href='<?php echo url('admin/index/toupiao'); ?>'
  }
 
 </script>

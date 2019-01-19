@@ -1,5 +1,5 @@
-.task{width:100%;	display: flex;}
-.task .task_left{width: 7%;}
+.task{width:90%;	display: flex;}
+.task .task_left{width: 1%;}
 .task .task_right{width: 2%;}
 .task .task_box{flex: auto;}
 

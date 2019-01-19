@@ -8,23 +8,50 @@ class Index extends \app\admin\Auth
         $User=Session::get();
         $users=db('user')->where('id='.$User['u_id'])->find();
         $this->assign('users',json_encode($users));
-     //  $ubelong=Session::get('u_belong');
-     //    //查询公司分类
-    	// $list = db('companycate')->select();
-    	// $this->assign('list',$list);
-     //    //查询客户来源
-     //    $user_source = db('usersource')->select();
-     //    $this->assign('user_source',$user_source);
-     //    //查询学校名字
-     //    $school_name = db('school')->select();
-     //    $this->assign('school_name',$school_name);
-     //    //查询所报课程
-     //    $lesson_name = db('lessname')->select();
-     //    $this->assign('lesson_name',$lesson_name);
-     //    //查询公告
-     //    //$id = input('id');
-     //    $notice_info = db('notice')->where("belong='$ubelong'")->order('id desc')->select();
-        // $this->assign('notice_info',$notice_info);
+        $worksheet=db('worksheet')->where("uid",$User['u_id'])->where('whether=0')->select();
+        
+         $yue=date('Y-m-1',time());
+       $current_month=date('m',time());
+       $firstday=strtotime($yue);
+        $monday=$firstday-86400*(date('N',$firstday)-1);
+
+       for ($i=1; $i <= 5; $i++) {
+            $start = date("Y-m-d",$monday+($i-1)*86400*7);//起始周一
+            $end   = date("Y-m-d",$monday+$i*86399*7);//结束周日
+           
+            if(date('m',$monday+$i*86399*7)!=$current_month)
+            {   
+                continue;
+            }
+            $zhouci[]='第'.$i.'周';
+            $shuliang[]='';
+            $zongfen[]='';
+            foreach ($worksheet as $key => $value) {
+                if(strtotime($start)>=strtotime($yue)){
+                    
+                    if($start <= date('Y-m-d',$value['time'])&& date('Y-m-d',$value['time'])<= $end||$start <= date('Y-m-d',$value['state'])&& date('Y-m-d',$value['state'])<= $end){
+                        $shuliang[$i-1]+=number_format($value['quantity'],2);
+                        $zongfen[$i-1]+=number_format($value['score'],2);
+                    }
+                }
+            }
+         
+        }
+        $user_list=db('user')->where('user_cate='."'员工'")->select();
+        $date=date('Y-m-d',time());
+         $data=db('clock')->where('uid',$User['u_id'])->where('time',$date)->find();
+        if(!$data){
+            
+            foreach ($user_list as $key => $value) {
+                db('clock')->insert(['uid'=>$value['id'],'time'=>$date]);
+              
+            }
+            
+        }
+         $this->assign('data',json_encode($data));
+        $this->assign('shuliang',json_encode($shuliang));
+        $this->assign('zongfen',json_encode($zongfen));
+        $this->assign('zhouci',json_encode($zhouci));
         return $this->fetch();
     }
     public function update(){
@@ -47,6 +74,34 @@ class Index extends \app\admin\Auth
         $realpassword=db('user')->where('id='.$user['u_id'])->find();
         Session::set('imageUrl',$realpassword["imageUrl"]);
     }
+    public function clock(){
+        $user=Session::get();
+        $date=date('Y-m-d',time());
+        $forenoonshang=strtotime($date.' 08:30:00');
+        $forenoonxia=strtotime($date.' 12:30:00');
+
+        $afternoonshang=strtotime($date.' 14:30:00');
+        $afternoonxia=strtotime($date.' 19:00:00');
+        $data=db('clock')->where('uid',$user['u_id'])->where('time',$date)->find();
+        if(!$data){
+            db('clock')->insert(['uid'=>$user['u_id'],'time'=>$date]);
+        }
+
+        if($forenoonshang<time()&&$forenoonxia>time()){
+            // 上午上班
+            db('clock')->where('uid',$user['u_id'])->where('time',$date)->update(['forenoon_shang'=>time()]);
+        }elseif($forenoonxia<time()&&$afternoonshang>time()){
+            // 上午下班
+            db('clock')->where('uid',$user['u_id'])->where('time',$date)->update(['forenoon_xia'=>time()]);
+        }elseif($afternoonshang<time()&&$afternoonxia>time()){
+            // 下午上班
+            db('clock')->where('uid',$user['u_id'])->where('time',$date)->update(['afternoon_shang'=>time()]);
+        }elseif($afternoonxia>time()){
+            // 下午下班
+            db('clock')->where('uid',$user['u_id'])->where('time',$date)->update(['afternoon_xia'=>time()]);
+        }
+        $this->success('打卡成功','index');
+    }
     public function red(){
         $user=Session::get();
         if($user['user_cate']=='老板'){
@@ -57,70 +112,296 @@ class Index extends \app\admin\Auth
             return json($data);
         }
     }
+    public function prompt(){
+        $user=Session::get();
+        if($user['user_cate']=='老板'){
+                $data=db('worksheet')->field('u.user_name,w.zhoujihua,w.prompt')
+                                     ->alias('w')->join('crm_user u','w.uid=u.id')
+                                     ->where('prompt<>1')->select();
+                db('worksheet')->where('prompt<>1')->update(['prompt'=>1]);
+        }else{
+            $data=db('worksheet')->field('u.user_name')->alias('w')->join('crm_user u','w.boss_id=u.id')
+                 ->where("uid=".$user['u_id'])
+                 ->where('boss_prompt=0')
+                 ->select();
+            db('worksheet')->where("uid=".$user['u_id'])->where('boss_prompt=0')->update(['boss_prompt'=>1]);
+        }
+        
+        return json($data);
+    }
     public function right(){
         $user=Session::get();
-        $worksheet=db('worksheet')->where('uid='.$user['u_id'])->where('whether=0')->select();
+        
         $week=0;
         $month=0;
         $year=0;
-        $sdefaultDate = date("Y-m-d");
         $first=1;
+        $sdefaultDate=date('Y-m-d');
         $w=date('w',strtotime($sdefaultDate));
         $week_start=date('Y-m-d',strtotime("$sdefaultDate -".($w ? $w - $first : 6).' days'));
         $week_end=date('Y-m-d',strtotime("$week_start +6 days"));
-        $forenoonshang=strtotime($sdefaultDate.' 08:30:00');
-        $forenoonxia=strtotime($sdefaultDate.' 12:30:00');
+        $user_list=db('user')->where("user_cate='员工'")->select();
+        $integral=db('integral')->select();
+        $year=[];
+        $month=[];
+        $week=[];
+        foreach ($user_list as $k => $val){
+              $year[$k]['uid']=$val['id'];
+              $month[$k]['uid']=$val['id'];
+              $week[$k]['uid']=$val['id'];
 
-        $afternoonshang=strtotime($sdefaultDate.' 14:30:00');
-        $afternoonxia=strtotime($sdefaultDate.' 7:00:00');
-        
-        foreach ($worksheet as $key => $value) {
-            
-          if(date("Y",$value['time'])==date('Y',time())){
-             $year+=$value['score'];
-          }
-          if(date("Y-m",$value['time'])==date('Y-m',time())){
-            $month+=$value['score'];
-          }
-          if($week_start<=date("Y-m-d",$value['time']) && $week_end>=date("Y-m-d",$value['time'])){
-            $week+=$value['score'];
-          }
-        }
-        $Attendance=db('attendance')->where('uid='.$user['u_id'])->select();
-        foreach ($Attendance as $key => $value) {
-            if($value['Attendance_status']=='迟到'){
-                if(date("Y",$value['start_time'])==date('Y',time())){
-                    $chidao=ceil(($value['end_time']-$value['start_time'])/3600);
-                        
-                    $year=$year-$chidao;
+              $year[$k]['integral']=0;
+              $month[$k]['integral']=0;
+              $week[$k]['integral']=0;
+
+              $worksheet=db('worksheet')->where('uid='.$val['id'])->where('whether=0')->select();
+            foreach ($worksheet as $key => $value) {
+                
+              if(date("Y",$value['time'])==date('Y',time())){
+                 $year[$k]['integral']+=$value['score'];
+              }
+              if(date("Y-m",$value['time'])==date('Y-m',time())){
+                $month[$k]['integral']+=$value['score'];
+              }
+              if($week_start<=date("Y-m-d",$value['time']) && $week_end>=date("Y-m-d",$value['time'])){
+                $week[$k]['integral']+=$value['score'];
+              }
+            }
+
+            $Attendance=db('attendance')->where('uid='.$val['id'])->select();
+            foreach ($Attendance as $key => $value) {
+                $minute=ceil($value['minute']/60);
+                if($value['Attendance_status']=='迟到'||$value['Attendance_status']=='早退'){
+                    if(date("Y",$value['time'])==date('Y',time())){
+                        if($minute>2){
+                            $minute=40;
+                            $year[$k]['integral']=$year[$k]['integral']-$minute;
+                        }else{
+                            $minute=$minute*10;
+                            $year[$k]['integral']=$year[$k]['integral']-$minute;
+                        }
+                    }
+                    if(date("Y-m",$value['time'])==date('Y-m',time())){
+                        if($minute>2){
+                            $minute=40;
+                            $month[$k]['integral']=$month[$k]['integral']-$minute;
+                        }else{
+                            $minute=$minute*10;
+                            $month[$k]['integral']=$month[$k]['integral']-$minute;
+                        }
+                      }
+                    if($week_start<=date("Y-m-d",$value['time']) && $week_end>=date("Y-m-d",$value['time'])){
+                        if($minute>2){
+                            $minute=40;
+                            $week[$k]['integral']=$week[$k]['integral']-$minute;
+                        }else{
+                            $minute=$minute*10;
+                            $week[$k]['integral']=$week[$k]['integral']-$minute;
+                        }
+                      }
                 }
-                if(date("Y-m",$value['start_time'])==date('Y-m',time())){
-                    $chidao=ceil(($value['end_time']-$value['start_time'])/3600*10);
-                    $month=$month-$chidao;
-                  }
-                if($week_start<=date("Y-m-d",$value['start_time']) && $week_end>=date("Y-m-d",$value['start_time'])){
-                    $chidao=ceil(($value['end_time']-$value['start_time'])/3600*10);
-                    $week=$week-$chidao;
-                  }
+                if($value['Attendance_status']=='旷工'){
+                        if(date("Y",$value['time'])==date('Y',time())){
+                                $year[$k]['integral']=$year[$k]['integral']-80;
+                        }
+                        if(date("Y-m",$value['time'])==date('Y-m',time())){
+                                $month[$k]['integral']=$month[$k]['integral']-80;
+                        }
+                        if($week_start<=date("Y-m-d",$value['time']) && $week_end>=date("Y-m-d",$value['time'])){
+                                $week[$k]['integral']=$week[$k]['integral']-80;
+                        }
+                }
             }
-            if($value['Attendance_status']=='早退'){
+             $daysoff=db('daysoff')->where('uid='.$val['id'])->select();
+            foreach ($daysoff as $key => $value) {
+                $tian=($value['end_time']-$value['start_time'])/86400+1;
+                  if($value['type']=='请假'&&$value['state']=='1'){
+                      if(date("Y",$value['start_time'])==date('Y',time())){
+                                $year[$k]['integral']=$year[$k]['integral']-$tian*80;
+                        }
+                        if(date("Y-m",$value['start_time'])==date('Y-m',time())){
+                                $month[$k]['integral']=$month[$k]['integral']-$tian*80;
+                        }
+                        if($week_start<=date("Y-m-d",$value['start_time']) && $week_end>=date("Y-m-d",$value['start_time'])){
+                                $week[$k]['integral']=$week[$k]['integral']-$tian*80;
+                        }
+                    }
+                    if($value['type']=='调休'&&$value['state']=='1'){
+                      if(date("Y",$value['start_time'])==date('Y',time())){
+                                $year[$k]['integral']=$year[$k]['integral']-$tian*40;
+                        }
+                        if(date("Y-m",$value['start_time'])==date('Y-m',time())){
+                                $month[$k]['integral']=$month[$k]['integral']-$tian*40;
+                        }
+                        if($week_start<=date("Y-m-d",$value['start_time']) && $week_end>=date("Y-m-d",$value['start_time'])){
+                                $week[$k]['integral']=$week[$k]['integral']-$tian*40;
+                        }
+                    }
+                    if($value['type']=='加班'&&$value['state']=='1'){
+                         $overtime=ceil(($value['end_time']-$value['start_time'])/3600);
+                        if(date("Y",$value['start_time'])==date('Y',time())){
+                                $year[$k]['integral']=$year[$k]['integral']+$overtime*10*1.3;
+                        }
+                        if(date("Y-m",$value['start_time'])==date('Y-m',time())){
+                                $month[$k]['integral']=$month[$k]['integral']+$overtime*10*1.3;
+                        }
+                        if($week_start<=date("Y-m-d",$value['start_time']) && $week_end>=date("Y-m-d",$value['start_time'])){
+                                $week[$k]['integral']=$week[$k]['integral']+$overtime*10*1.3;
+                        }
+                    }
+            }
 
-            }
-            if($value['Attendance_status']=='旷工'){}
+
+      
+    }
+   //     $ll=db('integral')->where('time',$week_start)->select();
+   //      foreach ($week as $key => $value) {
+   //          if($ll){
+   //              db('integral')->where(['uid'=>$value['uid'],'time'=>$week_start])->update(['integral'=>$value['integral']]);
+   //          }else{
+   //              db('integral')->insert(['uid'=>$value['uid'],'time'=>$week_start,'integral'=>$value['integral']]);
+   //          }
+   //      }
+          
+   //  $integral_list=db('integral')->select();
+   //  foreach ($integral_list as $key => $value) {
+   //     $aa[$key]=strtotime($value['time']);
+   //    if($aa[$key]=strtotime($value['time'])){
+   //       $scores_a[date('m',strtotime($value['time']))][$key][date('W',strtotime($value['time']))]['integral']=$value['integral'];
+   //       $scores_a[date('m',strtotime($value['time']))][$key][date('W',strtotime($value['time']))]['uid']=$value['uid'];
+   //    }
+   //  }
+   //  $week_best =[];
+   //  $yue_best =[];
+   //  $week4=[];
+   //  $yue12=[];
+   //  foreach ($scores_a as $key => $value) {
+   //     foreach ($value as $k => $val) {
+   //       foreach ($val as $y => $v) {
+   //        $week_best[$y]['integral']=1;
+   //         $week_best[$y]['uid'] =1;
+   //         $week4[$key][$v['uid']]=0;
+   //       }
+   //     }
+   //  }
+   // foreach ($scores_a as $key => $value) {
+   //     foreach ($value as $k => $val) {
+   //       foreach ($val as $y => $v) {
+   //            if($week_best[$y]['integral']<$v['integral']){
+   //              $week_best[$y]['integral'] = $v['integral'];
+   //                $week_best[$y]['uid'] = $v['uid'];
+   //           }
+
+   //       }
+   //     }
+   //  }
+   //   foreach ($scores_a as $key => $value) {
+   //     foreach ($value as $k => $val) {
+   //       foreach ($val as $y => $v) {
+   //            if($week_best[$y]['integral']==$v['integral']){
+   //             $scores_a[$key][$k][$y]['integral']=$v['integral']+50;
+   //           }
+              
+   //       }
+   //     }
+   //  }
+   //  foreach ($scores_a as $key => $value) {
+   //     foreach ($value as $k => $val) {
+   //       foreach ($val as $y => $v) {
+   //           $yue_best[$key][$v['uid']][]=$v;
+             
+   //       }
+   //     }
+   //  }
+   //  foreach ($yue_best as $key => $value) {
+       
+   //      foreach ($value as $k => $val) {
+   //          foreach ($val as $y => $v) {
+   //              $week4[$key][$v['uid']]+=$v['integral'];
+   //              $yue12[$key]['uid']=0;
+   //              $yue12[$key]['integral']=0;
+   //          }
+                
+   //      }
+   //  }
+    
+ 
+   // return json($week_best);
+    foreach ($year as $key => $value) {
+        
+        $weeks[$key]  = $week[$key]['integral'];
+        $months[$key]  = $month[$key]['integral'];
+        $years[$key]  = $year[$key]['integral'];
+    }
+    array_multisort($weeks,SORT_DESC , $weeks, SORT_ASC, $week);
+    array_multisort($months,SORT_DESC , $months, SORT_ASC, $month);
+    array_multisort($years,SORT_DESC , $years, SORT_ASC, $year);
+    $week[0]['integral']+=50;
+    $month[0]['integral']+=400;
+    $year[0]['integral']+=800;
+    foreach ($week as $key => $value) {
+        if($user['u_id']==$week[$key]['uid']){
+            $weekfenshu=$week[$key]['integral'];
         }
-        return json(['year'=>$year,'month'=>$month,'week'=>$week]);
+        if($user['u_id']==$month[$key]['uid']){
+            $monthfenshu=$month[$key]['integral'];
+        }
+         if($user['u_id']==$year[$key]['uid']){
+            $yearfenshu=$year[$key]['integral'];
+        }
+    }
+
+
+
+    // $age=array("Bill"=>"35","Steve"=>"37","Peter"=>"43");
+    // return json($age);
+        return json(['year'=>$yearfenshu,'month'=>$monthfenshu,'week'=>$weekfenshu]);
     }
     // 考勤提交
     public function Attendance(){
         $Attendance=input();
         $user=Session::get();
+         $sdefaultDate = date("Y-m-d",$Attendance['time']);
+            $forenoonshang=strtotime($sdefaultDate.' 08:30:00');
+            $forenoonxia=strtotime($sdefaultDate.' 12:30:00');
+
+            $afternoonshang=strtotime($sdefaultDate.' 14:30:00');
+            $afternoonxia=strtotime($sdefaultDate.' 19:00:00');
+          
+            if($Attendance['classes']==0){
+                 if($Attendance['Attendance_status']=='早退'){
+                    $Attendance['minute']=ceil(($forenoonxia-$Attendance['time'])/60);
+                } 
+                if($Attendance['Attendance_status']=='迟到'){
+                  $Attendance['minute']=ceil(($Attendance['time']-$forenoonshang)/60);
+                }
+                 if($Attendance['Attendance_status']=='旷工'){
+                  $Attendance['minute']='旷工';
+                }
+            }
+             elseif($Attendance['classes']==1){
+                 if($Attendance['Attendance_status']=='早退'){
+                    $Attendance['minute']=ceil(($afternoonxia-$Attendance['time'])/60);
+                } 
+                if($Attendance['Attendance_status']=='迟到'){
+                  $Attendance['minute']=ceil(($Attendance['time']-$afternoonshang)/60);
+                }
+                 if($Attendance['Attendance_status']=='旷工'){
+                  $Attendance['minute']='旷工';
+                }
+            }else{
+                 if($Attendance['Attendance_status']=='旷工'){
+                  $Attendance['minute']='旷工';
+                }
+            }
         db('Attendance')->insert([
                                     'uid'=>$user['u_id'],
                                     'user_name'=>$user['user_name'],
                                     'Attendance_status'=>$Attendance['Attendance_status'],
-                                    'start_time'=>$Attendance['start_time'],
-                                    'end_time'=>$Attendance['end_time'],
-                                    'reason'=>$Attendance['reason']
+                                    'classes'=>$Attendance['classes'],
+                                    'time'=>$Attendance['time'],
+                                    'reason'=>$Attendance['reason'],
+                                    'minute'=>$Attendance['minute']
                                 ]);
         
     }
@@ -132,10 +413,44 @@ class Index extends \app\admin\Auth
     }
     public function lookattendance(){
         $Attendance=db('Attendance')->order('id desc')->select();
+        $clock=db('clock')->field('u.user_name,c.forenoon_shang,c.forenoon_xia,c.afternoon_shang,c.afternoon_xia,c.time')->alias('c')->join('crm_user u','u.id=c.uid')->order('c.id')->select();
         foreach ($Attendance as $key => $value) {
-            $Attendance[$key]['start_time']=date("Y-m-d H:i:s",$value['start_time']);
-            $Attendance[$key]['end_time']=date("Y-m-d H:i:s",$value['end_time']);
+            // $sdefaultDate = date("Y-m-d",$value['time']);
+            // $forenoonshang=strtotime($sdefaultDate.' 08:30:00');
+            // $forenoonxia=strtotime($sdefaultDate.' 12:30:00');
+
+            // $afternoonshang=strtotime($sdefaultDate.' 14:30:00');
+            // $afternoonxia=strtotime($sdefaultDate.' 7:00:00');
+            // $Attendance[$key]['minute']='';
+            $Attendance[$key]['time']=date("Y-m-d",$value['time']);
+            // if($value['classes']==0){
+            //      if($value['Attendance_status']=='早退'){
+            //         $Attendance[$key]['minute']=ceil(($forenoonxia-$value['time'])/60);
+            //     } 
+            //     if($value['Attendance_status']=='迟到'){
+            //       $Attendance[$key]['minute']=ceil(($value['time']-$forenoonshang)/60);
+            //     }
+            //      if($value['Attendance_status']=='旷工'){
+            //       $Attendance[$key]['minute']='旷工';
+            //     }
+            // }
+            //  elseif($value['classes']==1){
+            //      if($value['Attendance_status']=='早退'){
+            //         $Attendance[$key]['minute']=ceil(($afternoonxia-$value['time'])/60);
+            //     } 
+            //     if($value['Attendance_status']=='迟到'){
+            //       $Attendance[$key]['minute']=ceil(($value['time']-$afternoonshang)/60);
+            //     }
+            //      if($value['Attendance_status']=='旷工'){
+            //       $Attendance[$key]['minute']='旷工';
+            //     }
+            // }else{
+            //      if($value['Attendance_status']=='旷工'){
+            //       $Attendance[$key]['minute']='旷工';
+            //     }
+            // }
         }
+        $this->assign('clock',$clock);
         $this->assign('Attendance',$Attendance);
         return $this->fetch();
     }
@@ -225,16 +540,19 @@ class Index extends \app\admin\Auth
             {   
                 continue;
             }
+            $month[]=0;
+            $zhouci[]='第'.$i.'周';
             foreach ($worksheet as $key => $value) {
                 if(strtotime($start)>=strtotime($yue)){
                     // echo $i.$start.'---'.$end."<br/>";
-                    if($start < date('Y-m-d',$value['time'])&& date('Y-m-d',$value['time'])< $end||$start < date('Y-m-d',$value['state'])&& date('Y-m-d',$value['state'])< $end){
-                        $month[$i-2]+=number_format($value['score'],2,'.','')/6;
+                    if($start <= date('Y-m-d',$value['time'])&& date('Y-m-d',$value['time'])<= $end||$start <= date('Y-m-d',$value['state'])&& date('Y-m-d',$value['state'])<= $end){
+                        $month[$i-1]+=number_format($value['score'],2,'.','');
                     }
                 }
             }
          
         }
+        $this->assign('zhouci',json_encode($zhouci));
         $this->assign('month',json_encode($month));
         $this->assign('week',json_encode($week));
     }elseif ($user_data['user_cate']=='老板') {

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:66:"D:\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1547280471;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1547264770;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1547025875;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1547280365;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:66:"D:\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1547883356;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1547709787;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1547630952;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1547280365;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -25,6 +25,7 @@
     line-height: 178px!important;
     text-align: center;
   }
+ 
   .avatar {
     width: 178px;
     height: 178px;
@@ -374,6 +375,56 @@
         created(){
             this.init();
             this.red();
+            
+            setInterval( () =>{
+
+                $.get('<?php echo url("admin/index/prompt"); ?>',
+                    (rtnData)=>{
+                    
+                        for (var i = 0; i < rtnData.length; i++) {
+                            <?php if(\think\Session::get('user_cate')=='老板'): ?>
+                               if(rtnData[i].prompt==0){
+                                if(rtnData[i].zhoujihua==1){
+                                     this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工添加了一个新的周计划',
+                                          duration: 0
+                                        });
+                                 }else{
+                                    this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工添加了一个新的工作任务',
+                                          duration: 0
+                                        });
+                                 }
+                               }else if(rtnData[i].prompt==2){
+                                  if(rtnData[i].zhoujihua==1){
+                                      this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工完成了一个周计划任务',
+                                          duration: 0
+                                        });
+                                  }else{
+                                     this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工完成了一个工作任务',
+                                          duration: 0
+                                        });
+                                  }
+                               }
+                               
+                            <?php endif; if(\think\Session::get('user_cate')=='员工'): ?>
+                                this.$notify({
+                                  title: '提示',
+                                  message: rtnData[i].user_name+'老板发布了一个新的工作任务',
+                                  duration: 0
+                                })
+                            <?php endif; ?>
+                        }
+                       
+                });
+            },2000);
+            
         },
         methods:{
             bell(){
@@ -413,11 +464,14 @@
 <html>
 	<head>
 <script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="__STATIC__/library/element-ui.min.css">
+    <!-- 引入组件库 -->
+    <script src="__STATIC__/library/element-ui.min.js"></script>
 		<meta charset="UTF-8">
 		<title></title>
 	</head>
 	<body>
-		<div class="page" style="z-index: 99;background:#fff;padding-left: 10px;height:100%">
+		<div class="page" style="z-index: 99;background:#fff;padding-left: 0%;height:100%">
 			<div class="Score">
 				<div class="fens">
 					<div class="se" style="height:100%;background: #00adc7;"></div>
@@ -441,7 +495,15 @@
 				</div>
 			</div>
 			<div class="font">本年</div>
-
+			<div>
+				积分规则：<br>
+				1小时10分<br>
+				   1天的分数是80分<br>
+				   每周的优秀员工 加80 分  <br>
+   每月的优秀员工 加400分<br>
+   一年的优秀员工 加800分<br>
+				
+</div>	
 		</div>
 	</body>
 	<script>
@@ -450,7 +512,8 @@
 		data:{
 			 week:0,
 			 month:0,
-			 year:0
+			 year:0,
+			 prompt:[]
 		},
 		created(){
         	$.get('<?php echo url("admin/index/right"); ?>',
@@ -459,10 +522,12 @@
 						 this.month=rtnData.month
 						 this.year=rtnData.year
                 });
+
+        	
+        	
         },
         methods:{
-        	
-        }
+                }
 	})
 </script>
 </html>
@@ -473,7 +538,7 @@
 
 <style type="text/css">
 .page{
-	width:172px;
+	border-left: 1px solid #eee;
 	position:fixed ;
 	right: 0;
 	color: #404040;
@@ -637,8 +702,9 @@
 <div class="container">
 <div class="index_content_center">
     <div class="center_1">
-      <div class="center_1a">
 
+      <div class="center_1a">
+<img src="__STATIC__/admin/index/images/20181206171359.jpg" alt="">
          <div class="rounded" @mouseover='hidyin(true)' @mouseout='hidyin(false)'>
             
            <img :src="'__UPLOADS__'+user.imageUrl" alt="">
@@ -653,9 +719,13 @@
 
     <p style="font-size: 1em;"><strong>{{user.user_cate}}</strong></p>
        <h3 style="margin-bottom: 0.1em;"><strong>{{user.user_name}}</strong></h3>
-    <!-- <button class="button1"><strong>打卡</strong></button>
-    <button class="button2"><strong>补卡</strong></button> -->
-    <a href="<?php echo url('task/index'); ?>" class="btn btn-lg btn-info " style="margin-top: 60px;width: 100%;">任务管理</a>
+    <!-- <button class="button1"><strong>打卡</strong></button> -->
+    <!-- <form action="<?php echo url('clock'); ?>"> -->
+      <!-- <button class="button2" style="margin-left:32%;" ><strong>打卡</strong></button> -->
+      <el-button type="primary" :disabled='disabled' @click="submitForm">打卡</el-button>
+    <!-- </form> -->
+    
+    <a href="<?php echo url('task/index'); ?>" class="btn btn-lg btn-info " style="margin-top: 12px;width: 100%;">任务管理</a>
     </div>
     
     <div class="center_2">
@@ -667,19 +737,22 @@
                   <option value="旷工">旷工</option>
               </select>
           </div>
+          
           <div class="cneter_2b">
-            <span>始：</span>
-            <el-date-picker
-      v-model="value1"
-      type="datetime"
-
-      placeholder="选择日期时间">
-    </el-date-picker>
+            <span>班次：</span>
+            <el-select v-model="value" placeholder="请选择" style='width: 80%;'>
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
           </div>
           <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/rili.png" alt=""></div>
           <div class="cneter_2b">
-            <span>至：</span>
-                    <el-date-picker
+            <span>时间：</span>
+              <el-date-picker
               v-model="value2"
               type="datetime"
               placeholder="选择日期时间">
@@ -691,11 +764,17 @@
     
     </div>
 
-    <div class="cneter_3" style="margin-right: 2%"><h3>打卡日历<span><i></i>2017 年 9 月<i></i></span></h3></div>
-    <div class="cneter_3"><h3>考勤统计</h3></div>
-    <div class="cneter_4" style="margin-right: 2%"></div>
-    <div class="cneter_4" id="main"></div>
+    <div class="cneter_3" style="margin-right: 2%">
+      <div id="shuliang"   style="width: 100%;height:300px;"></div>
+        
+    </div>
+    <div class="cneter_3">
+      <div id="fenshu"   style="width: 100%;height:300px;"></div>
+    </div>
+    
+    
 </div>   
+
     <!-- 模态框（Modal） -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -731,54 +810,11 @@
 
 <!-- 模态框结束 -->
 </div>
-
+</div></div></div>
 <script type="text/javascript" src="__STATIC__/admin/index/js/index.js?126">
 </script>
 <script type="text/javascript" src="__STATIC__/admin/index/js/index2.js"></script>
-<script type="text/javascript">
-// 基于准备好的dom，初始化echarts实例
-var myChart = echarts.init(document.getElementById('main'));
 
-// 指定图表的配置项和数据
-var option = {
-    title: {
-        text: ''
-    },
-    tooltip: {},
-    legend: {
-        data: ['正常上班']
-    },
-    xAxis: {
-        data: ["", "九月", ""]
-    },
-    yAxis: {},
-    series: [{
-        name: '正常上班',
-        type: 'bar',
-        data: [24, 4, 1]
-    }]
-};
-
-// 使用刚指定的配置项和数据显示图表。
-myChart.setOption(option);
-(function() {
-    var changeRem = function() {
-        document.getElementsByTagName('html')[0].style.fontSize = document.documentElement.clientWidth / 20 + 'px';
-    };
-    changeRem();
-    var t;
-    window.addEventListener('resize', function() {
-        clearTimeout(t);
-        t = setTimeout(changeRem, 300);
-    }, false);
-    window.addEventListener('pageshow', function(e) {
-        if (e.persisted) {
-            clearTimeout(t);
-            t = setTimeout(changeRem, 300);
-        }
-    }, false);
-}());
-</script>
 
 <footer class="footer" style="text-align: center;margin-top: 50px;">
 	&nbsp;&nbsp;网站: <b><a href="http://xiaomai.zzlic.cn/public/" target="_blank">xiaomai.zzlic.cn</a></b> 
@@ -819,18 +855,61 @@ new Vue({
     el: ".container",
     data: {
 
-      value1:'',
+      value:'',
       value2:'',
       hid:false,
       imageUrl: '',
       imgs:'',
-      user:<?php echo $users; ?>
+      user:<?php echo $users; ?>,
+      clock:<?php echo $data; ?>,
+      disabled:false,
+      options: [{
+          value: '0',
+          label: '上午'
+        },
+        {
+          value: '1',
+          label: '下午'
+        }],
+    },
+     mounted(){
+       var now = new Date();
+       var ttime= new Date().getTime()
+       var year = now.getFullYear(); //得到年份
+       var month = now.getMonth()+1;//得到月份
+       var date = now.getDate();//得到日期
+       var shijian=year+'/'+month+'/'+date+''
+       var  forenoonshang=new Date(shijian +' 08:30').getTime();
+       var forenoonxia=new Date(shijian +' 12:30:00').getTime();;
+       var afternoonshang=new Date(shijian +' 14:30:00').getTime();;
+       var afternoonxia=new Date(shijian +' 19:00:00').getTime();;
+     
+     if(forenoonshang<ttime&&forenoonxia>ttime){
+            // 上午上班
+            if(this.clock.forenoon_shang){this.disabled=true;}
+           
+        }else if(forenoonxia<ttime&&afternoonshang>ttime){
+            // 上午下班
+       if(this.clock.forenoon_xia){this.disabled=true;}
+        }else if(afternoonshang<ttime&&afternoonxia>ttime){
+            // 下午上班
+           if(this.clock.afternoon_shang){this.disabled=true;}
+        }else if(afternoonxia>ttime){
+            // 下午下班
+        if(this.clock.afternoon_xia){this.disabled=true;}
+        }
+     
+    
     },
     methods:{
+      submitForm(e){
+        window.location.href='<?php echo url('clock'); ?>'
+      },
       hidyin(e){
         this.hid=e
-        console.log(this.user);
+        console.log(this.value);
       },
+
        handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);
         this.imgs=res;
@@ -871,14 +950,14 @@ new Vue({
 
         var Attendance_status=$('#Attendance_status').val();
         var reason=$('#reason').val();
-        var start_time=new  Date(this.value1).getTime()/1000;
-        var end_time=new  Date(this.value2).getTime()/1000;
-        console.log(start_time);
+        var classes=new  Date(this.value1).getTime()/1000;
+        var time=new  Date(this.value2).getTime()/1000;
+        
          $.get('<?php echo url("Attendance"); ?>',
           {
             Attendance_status:Attendance_status,
-            start_time:start_time,
-            end_time:end_time,
+            classes:this.value,
+            time:time,
             reason:reason
 
           },(rtnData)=>{
@@ -895,3 +974,105 @@ new Vue({
   })
 
 </script>
+
+
+
+
+ <script type="text/javascript">
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('shuliang'));
+         
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '本月工作任务数量'
+            },
+            color: ['#3398DB'],
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            legend: {
+                data:['数量']
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    data : <?php echo $zhouci; ?>,
+                    axisTick: {
+                        alignWithLabel: true
+                    }
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'数量',
+                    type:'bar',
+                    barWidth: '60%',
+                    data:<?php echo $shuliang; ?>
+                }
+            ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+                // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('fenshu'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '本月工作任务分数'
+            },
+            tooltip: {
+                 trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+              grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            legend: {
+                data:['总分']
+            },
+            xAxis: {
+               type : 'category',
+                data: <?php echo $zhouci; ?>,
+                 axisTick: {
+                        alignWithLabel: true
+                    }
+            },
+            yAxis: [
+               {
+                    type : 'value'
+                }
+            ],
+            series: [{
+                name: '总分',
+                type: 'bar',
+                data: <?php echo $zongfen; ?>
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>

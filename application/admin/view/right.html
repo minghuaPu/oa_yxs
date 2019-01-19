@@ -2,11 +2,14 @@
 <html>
 	<head>
 <script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="__STATIC__/library/element-ui.min.css">
+    <!-- 引入组件库 -->
+    <script src="__STATIC__/library/element-ui.min.js"></script>
 		<meta charset="UTF-8">
 		<title></title>
 	</head>
 	<body>
-		<div class="page" style="z-index: 99;background:#fff;padding-left: 10px;height:100%">
+		<div class="page" style="z-index: 99;background:#fff;padding-left: 0%;height:100%">
 			<div class="Score">
 				<div class="fens">
 					<div class="se" style="height:100%;background: #00adc7;"></div>
@@ -30,7 +33,15 @@
 				</div>
 			</div>
 			<div class="font">本年</div>
-
+			<div>
+				积分规则：<br>
+				1小时10分<br>
+				   1天的分数是80分<br>
+				   每周的优秀员工 加80 分  <br>
+   每月的优秀员工 加400分<br>
+   一年的优秀员工 加800分<br>
+				
+</div>	
 		</div>
 	</body>
 	<script>
@@ -39,7 +50,8 @@
 		data:{
 			 week:0,
 			 month:0,
-			 year:0
+			 year:0,
+			 prompt:[]
 		},
 		created(){
         	$.get('{:url("admin/index/right")}',
@@ -48,10 +60,12 @@
 						 this.month=rtnData.month
 						 this.year=rtnData.year
                 });
+
+        	
+        	
         },
         methods:{
-        	
-        }
+                }
 	})
 </script>
 </html>
@@ -62,7 +76,7 @@
 
 <style type="text/css">
 .page{
-	width:172px;
+	border-left: 1px solid #eee;
 	position:fixed ;
 	right: 0;
 	color: #404040;

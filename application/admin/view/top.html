@@ -339,6 +339,57 @@
         created(){
             this.init();
             this.red();
+            
+            setInterval( () =>{
+
+                $.get('{:url("admin/index/prompt")}',
+                    (rtnData)=>{
+                    
+                        for (var i = 0; i < rtnData.length; i++) {
+                            {if $Think.session.user_cate=='老板'}
+                               if(rtnData[i].prompt==0){
+                                if(rtnData[i].zhoujihua==1){
+                                     this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工添加了一个新的周计划',
+                                          duration: 0
+                                        });
+                                 }else{
+                                    this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工添加了一个新的工作任务',
+                                          duration: 0
+                                        });
+                                 }
+                               }else if(rtnData[i].prompt==2){
+                                  if(rtnData[i].zhoujihua==1){
+                                      this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工完成了一个周计划任务',
+                                          duration: 0
+                                        });
+                                  }else{
+                                     this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工完成了一个工作任务',
+                                          duration: 0
+                                        });
+                                  }
+                               }
+                               
+                            {/if}
+                            {if $Think.session.user_cate=='员工'}
+                                this.$notify({
+                                  title: '提示',
+                                  message: rtnData[i].user_name+'老板发布了一个新的工作任务',
+                                  duration: 0
+                                })
+                            {/if}
+                        }
+                       
+                });
+            },2000);
+            
         },
         methods:{
             bell(){

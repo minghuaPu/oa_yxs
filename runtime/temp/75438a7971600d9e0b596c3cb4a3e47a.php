@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:75:"D:\wamp64\www\oa\public/../application/admin\view\index\lookattendance.html";i:1546920858;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1546941863;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1546848285;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:75:"D:\wamp64\www\oa\public/../application/admin\view\index\lookattendance.html";i:1547889363;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1547709787;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1547630952;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1547280365;}*/ ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -314,7 +314,9 @@
 
             <div class="user_info">
                 <div class="user">
-                    <span class="glyphicon glyphicon-user"></span>
+                    <!-- <span class="glyphicon glyphicon-user"> -->
+                        <img src="__UPLOADS__<?php echo \think\Session::get('imageUrl'); ?>">
+                    
                 </div>
                <form action="<?php echo url('index/login/logout'); ?>" method="post" class="form" style="margin-left:-100px">
                 <span class="user_name">公司id:<?php echo \think\Session::get('u_belong'); ?> <?php echo \think\Session::get('u_company'); ?> <?php echo \think\Session::get('user_name'); ?>(<?php echo \think\Session::get('user_cate'); ?>)</span>
@@ -341,6 +343,56 @@
         created(){
             this.init();
             this.red();
+            
+            setInterval( () =>{
+
+                $.get('<?php echo url("admin/index/prompt"); ?>',
+                    (rtnData)=>{
+                    
+                        for (var i = 0; i < rtnData.length; i++) {
+                            <?php if(\think\Session::get('user_cate')=='老板'): ?>
+                               if(rtnData[i].prompt==0){
+                                if(rtnData[i].zhoujihua==1){
+                                     this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工添加了一个新的周计划',
+                                          duration: 0
+                                        });
+                                 }else{
+                                    this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工添加了一个新的工作任务',
+                                          duration: 0
+                                        });
+                                 }
+                               }else if(rtnData[i].prompt==2){
+                                  if(rtnData[i].zhoujihua==1){
+                                      this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工完成了一个周计划任务',
+                                          duration: 0
+                                        });
+                                  }else{
+                                     this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工完成了一个工作任务',
+                                          duration: 0
+                                        });
+                                  }
+                               }
+                               
+                            <?php endif; if(\think\Session::get('user_cate')=='员工'): ?>
+                                this.$notify({
+                                  title: '提示',
+                                  message: rtnData[i].user_name+'老板发布了一个新的工作任务',
+                                  duration: 0
+                                })
+                            <?php endif; ?>
+                        }
+                       
+                });
+            },2000);
+            
         },
         methods:{
             bell(){
@@ -376,6 +428,132 @@
         }
     })
 </script>
+	<!DOCTYPE html>
+<html>
+	<head>
+<script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="__STATIC__/library/element-ui.min.css">
+    <!-- 引入组件库 -->
+    <script src="__STATIC__/library/element-ui.min.js"></script>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="page" style="z-index: 99;background:#fff;padding-left: 0%;height:100%">
+			<div class="Score">
+				<div class="fens">
+					<div class="se" style="height:100%;background: #00adc7;"></div>
+					<div class="fen">{{week}}分</div>
+				</div>
+			</div>
+			<div class="font">本周</div>
+
+			<div class="Score">
+				<div class="fens">
+					<div class="se" style="height:100%;text-align: center;background: #87d7a5;"></div>
+					<div class="fen">{{month}}分</div>
+				</div>
+			</div>
+			<div class="font">本月</div>
+
+			<div class="Score">
+				<div class="fens">
+					<div class="se" style="height:100%;background: #fbad4c;"></div>
+					<div class="fen">{{year}}分</div>
+				</div>
+			</div>
+			<div class="font">本年</div>
+			<div>
+				积分规则：<br>
+				1小时10分<br>
+				   1天的分数是80分<br>
+				   每周的优秀员工 加80 分  <br>
+   每月的优秀员工 加400分<br>
+   一年的优秀员工 加800分<br>
+				
+</div>	
+		</div>
+	</body>
+	<script>
+	new Vue({
+		el:'.page',
+		data:{
+			 week:0,
+			 month:0,
+			 year:0,
+			 prompt:[]
+		},
+		created(){
+        	$.get('<?php echo url("admin/index/right"); ?>',
+                    (rtnData)=>{
+                         this.week=rtnData.week
+						 this.month=rtnData.month
+						 this.year=rtnData.year
+                });
+
+        	
+        	
+        },
+        methods:{
+                }
+	})
+</script>
+</html>
+
+
+
+
+
+<style type="text/css">
+.page{
+	border-left: 1px solid #eee;
+	position:fixed ;
+	right: 0;
+	color: #404040;
+}
+.Score{
+		float: left;
+		width: 100px;
+		height: 100px;
+		margin:20px 20px 5px 20px;
+		padding: 1.5px;
+		line-height: 100px;
+		border: 1px solid rgb(76,113,153);
+		border-radius: 100%;
+		text-align: center;
+	}
+	.Score .fens{
+		width: 95px;
+		height: 95px;
+		border: 1px solid rgb(76,113,153);
+		border-radius: 100%;
+		overflow: hidden;
+		position: relative;
+	}
+	.Score .fens .se{
+		width: 110%;
+		height: 66.6%;
+		margin:auto;
+		border-radius: 0;
+		background: rgb(217,150,148);
+		position: absolute;
+		bottom: 0;
+		left: -4px;
+	}
+	 .Score .fens  .fen{
+			position: absolute;
+			top:0;
+			width: 100%;
+			height: 100%;
+
+			text-align: center;
+	}
+	.font{
+		width: 100px;
+		margin:0 20px;
+		text-align: center;
+	}
+</style> 
 	
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left.css"/>
 <link rel="stylesheet" type="text/css" href=" __STATIC__/admin/iconfont_left_there.css"/>
@@ -411,7 +589,8 @@
 		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
 		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
 	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
-         <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
+        <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
+        <li onclick="jump_eight()"><a href="#" class="iconfont icon-kaoqindaqia"><p>投票</p></a></li>
 	</ul>
 	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
@@ -482,6 +661,9 @@
  function jump_seven(){
     window.location.href='<?php echo url('admin/index/lookAttendance'); ?>'
  }
+ function jump_eight(){
+    window.location.href='<?php echo url('admin/index/toupiao'); ?>'
+ }
 
 </script>
  
@@ -490,35 +672,90 @@
 	</head>
 	<body>
 
-	<div style="margin-left: 200px;margin-top: 20px;width: 85%;text-align: center;">                                 
+	<div style="margin:auto;margin-top: 20px;width: 75%;text-align: center;"> 
+	         <h3 class="text-muted">签到表</h3>                                
 		<table class="table table-striped table-bordered table-hover table-condensed">
 			<thead>
 			
 				<tr >
-					<th style="text-align: center!important;" width="15%">员工</th>
-					<th style="text-align: center!important;" width="15%">开始时间</th>
-					<th style="text-align: center!important;" width="15%">结束时间</th>
-					<th style="text-align: center!important;" width="15%">考勤情况</th>
-					<th style="text-align: center!important;">原因</th>
-					<th style="text-align: center!important;" width="5%">操作</th>
+					<th style="text-align: center!important;" width="10%">员工</th>
+					<th style="text-align: center!important;" width="10%">签到日期</th>
+					<th style="text-align: center!important;" width="10%">上午上班</th>
+					<th style="text-align: center!important;" width="10%">上午下班</th>
+					<th style="text-align: center!important;" width="15%">下午上班</th>
+					<th style="text-align: center!important;" width="15%">下午下班</th>
+				
+					
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach($Attendance as $key=>$val): ?>
+				<?php foreach($clock as $key=>$val): ?>
 					<tr >
 						<td><?php echo $val['user_name']; ?></td>
-						<td><?php echo $val['start_time']; ?></td>
-						<td><?php echo $val['end_time']; ?></td>
-						<td><?php echo $val['Attendance_status']; ?></td>
-						<td><?php echo $val['reason']; ?></td>
-						<td ><a href="<?php echo url('AttendanceDel',['id'=>$val['id']]); ?>" style="color: red;">×</a>
+						<td><?php echo $val['time']; ?></td>
+						<?php if($val['forenoon_shang']): ?>
+						<td><?php echo date('H:i:s',$val['forenoon_shang']); ?></td>
+						<?php endif; if(!$val['forenoon_shang']): ?>
+						<td>未签到</td>
+						<?php endif; if($val['forenoon_xia']): ?>
+						<td><?php echo date('H:i:s',$val['forenoon_xia']); ?></td>
+						<?php endif; if(!$val['forenoon_xia']): ?>
+						<td>未签到</td>
+						<?php endif; if($val['afternoon_shang']): ?>
+						<td><?php echo date('H:i:s',$val['afternoon_shang']); ?></td>
+						<?php endif; if(!$val['afternoon_shang']): ?>
+						<td>未签到</td>
+						<?php endif; if($val['afternoon_xia']): ?>
+						<td><?php echo date('H:i:s',$val['afternoon_xia']); ?></td>
+						<?php endif; if(!$val['afternoon_xia']): ?>
+						<td>未签到</td>
+						<?php endif; ?>
+					
 						</td>
 					</tr>
 				<?php endforeach; ?>
 				
 			</tbody>
 		</table>
-</div>
+
+	</div>
+
+		<div style="margin:auto;margin-top: 20px;width: 75%;text-align: center;">   
+		<h3 class="text-muted">原因</h3>                               
+		<table class="table table-striped table-bordered table-hover table-condensed">
+			<thead>
+			
+				<tr >
+					<th style="text-align: center!important;" width="10%">员工</th>
+					<th style="text-align: center!important;" width="10%">考勤情况</th>
+					<th style="text-align: center!important;" width="10%">班次</th>
+					<th style="text-align: center!important;" width="15%">日期</th>
+					<th style="text-align: center!important;" width="15%">时间</th>
+					<th style="text-align: center!important;">原因</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach($Attendance as $key=>$val): ?>
+					<tr >
+						<td><?php echo $val['user_name']; ?></td>
+						<td><?php echo $val['Attendance_status']; ?></td>
+						<?php if($val['classes']==0): ?>
+						<td>上午</td>
+						<?php endif; if($val['classes']==1): ?>
+						<td>下午</td>
+						<?php endif; ?>
+						<td><?php echo $val['time']; ?></td>
+						<td><?php echo $val['minute']; ?>分钟</td>
+						<td><?php echo $val['reason']; ?></td>
+					
+						</td>
+					</tr>
+				<?php endforeach; ?>
+				
+			</tbody>
+		</table>
+
 	</div>
 	</body>
 </html>

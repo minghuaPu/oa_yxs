@@ -176,7 +176,8 @@ class Task extends \app\admin\Auth
     }
     // 接受任务
     public function accept(){
-        db('worksheet')->where('id='.input('id'))->update(['time'=>time()]);
+
+        db('worksheet')->where('id='.input('id'))->update(['time'=>strtotime(date("Y-m-d"),time())]);
         $this->success('操作成功','index');
     }
     // 排序
@@ -243,7 +244,7 @@ class Task extends \app\admin\Auth
         $user_data=Session::get();
         $select=input('select');
         if($select==0){
-            db('worksheet')->insert(['uid'=>$user_data['u_id'],'time'=>time(),'start_time'=>time()]);
+            db('worksheet')->insert(['uid'=>$user_data['u_id'],'time'=>time(),'start_time'=>time(),'prompt'=>0]);
             $data=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
             return json($data);
         }
@@ -257,7 +258,7 @@ class Task extends \app\admin\Auth
                 $list=db('worksheet')->where('id='.input('theme_id'))->find();
                 return json(['list'=>$list]);
             }elseif(input("xuan")){
-               db('worksheet')->insert(["primary"=>json_encode($up),"uid"=>$user_data['u_id'],'time'=>time(),'start_time'=>time()]);
+               db('worksheet')->insert(["primary"=>json_encode($up),"uid"=>$user_data['u_id'],'time'=>time(),'start_time'=>time(),'prompt'=>0]);
                 $list=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
                 return json(['list'=>$list]);
             }
@@ -270,7 +271,21 @@ class Task extends \app\admin\Auth
                 $up['grade']=input('xuan.grade');
                 $liang=db('worksheet')->where('id='.input('theme_id'))->value('quantity');
                 $bb=$liang*$up['grade'];
-                db("worksheet")->where('id='.input('theme_id'))->update(["secondary"=>json_encode($up),"score"=>$bb]);
+                $worksheet=db('worksheet')->where('id='.input('theme_id'))->find();
+                if($worksheet['zhoujihua']==1){
+                    $tian=intval(($worksheet['time']-$worksheet['start_time'])/86400+1);
+                    if($worksheet['time']>$worksheet['lasttime']){
+                                //延期
+                                $score=$tian*80*0.8;
+                                db("worksheet")->where('id='.input('theme_id'))->update(["secondary"=>json_encode($up),"score"=>$score]);
+                            }else{
+                                $score=$tian*80;
+                                db("worksheet")->where('id='.input('theme_id'))->update(["secondary"=>json_encode($up),"score"=>$score]);
+                            }
+                }else{
+                    db("worksheet")->where('id='.input('theme_id'))->update(["secondary"=>json_encode($up),"score"=>$bb]);
+                }
+                
                 $data=db('worksheet')->where('id='.input('theme_id'))->value('score');
                 return json($data);     
         }
@@ -281,7 +296,20 @@ class Task extends \app\admin\Auth
             $dangge=db("worksheet")->where('id='.input('theme_id'))->value('secondary');
             $ii=json_decode($dangge,true);
             $bb=$liang*$ii['grade'];
-            db("worksheet")->where('id='.input('theme_id'))->update(["quantity"=>input('liang'),"score"=>$bb]);
+            $worksheet=db('worksheet')->where('id='.input('theme_id'))->find();
+                if($worksheet['zhoujihua']==1){
+                    $tian=intval(($worksheet['time']-$worksheet['start_time'])/86400+1);
+                    if($worksheet['time']>$worksheet['lasttime']){
+                                //延期
+                                $score=$tian*80*0.8;
+                                db("worksheet")->where('id='.input('theme_id'))->update(["quantity"=>input('liang'),"score"=>$score]);
+                            }else{
+                                $score=$tian*80;
+                                db("worksheet")->where('id='.input('theme_id'))->update(["quantity"=>input('liang'),"score"=>$score]);
+                            }
+                }else{
+                    db("worksheet")->where('id='.input('theme_id'))->update(["quantity"=>input('liang'),"score"=>$bb]);
+                }
             $yuan=db('worksheet')->where("uid=".$user_data['u_id'])->select();
                 foreach ($yuan as $key => $value) {
                     if(date('Y-m-d',$value['time'])==date('Y-m-d')){
@@ -306,7 +334,7 @@ class Task extends \app\admin\Auth
                 return json(false);
 
             }elseif(input('job')){
-                db('worksheet')->insert(["job"=>input('job'),"uid"=>$user_data['u_id'],'time'=>time(),'start_time'=>time()]);
+                db('worksheet')->insert(["job"=>input('job'),"uid"=>$user_data['u_id'],'time'=>time(),'start_time'=>time(),'prompt'=>0]);
                 $list=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
                 return json($list);
             }else{
@@ -317,7 +345,7 @@ class Task extends \app\admin\Auth
               if(input('theme_id')){
                 db("worksheet")->where('id='.input('theme_id'))->update(["whether"=>input('whether')]);
                 if(input('whether')==0){
-                    db("worksheet")->where('id='.input('theme_id'))->update(["end_time"=>time()]);
+                    db("worksheet")->where('id='.input('theme_id'))->update(["end_time"=>time(),'prompt'=>2]);
                 }else{
                     db("worksheet")->where('id='.input('theme_id'))->update(["end_time"=>'']);
                 }
@@ -338,39 +366,55 @@ class Task extends \app\admin\Auth
                    
                     
                 }
-            }
-            $yuangong=[];
-            $date=date('Y-m-d');
-               $yuan=db('worksheet')->where("uid=".$user_data['u_id'])->select();
-                foreach ($yuan as $key => $value) {
-                    if(date('Y-m-d',$value['time'])==date('Y-m-d')){
-                         if(date('Y-m-d',$value['state'])!=$date){
-                            if($value['whether']==1){
-                                $yuangong[]=$value;
+                 $worksheet=db('worksheet')->where('id='.input('theme_id'))->find();
+                if($worksheet['zhoujihua']==1){
+                    $tian=intval(($worksheet['time']-$worksheet['start_time'])/86400+1);
+                    
+                    if($worksheet['time']>$worksheet['lasttime']){
+                                //延期
+                                $score=floatval($tian*80*0.8);
+                                db("worksheet")->where('id='.input('theme_id'))->update(["score"=>$score]);
+                            }else{
+                                $score=floatval($tian*80);
+                                db("worksheet")->where('id='.input('theme_id'))->update(["score"=>$score]);
                             }
-                         }else{
-                            $yuangong[]=$value;
-                         }
+                            return $score;
+                }
+                
+            }
+
+            // $yuangong=[];
+            // $date=date('Y-m-d');
+            //    $yuan=db('worksheet')->where("uid=".$user_data['u_id'])->select();
+            //     foreach ($yuan as $key => $value) {
+            //         if(date('Y-m-d',$value['time'])==date('Y-m-d')){
+            //              if(date('Y-m-d',$value['state'])!=$date){
+            //                 if($value['whether']==1){
+            //                     $yuangong[]=$value;
+            //                 }
+            //              }else{
+            //                 $yuangong[]=$value;
+            //              }
                                 
 
-                    }elseif(date('Y-m-d',$value['state'])==date('Y-m-d')){
-                                $yuangong[]=$value;
-                    }
-                }
-                $zongshu=0;
-                foreach ($yuangong as $key => $value) {
-                    if($value['whether']=='0'){
-                        $zongshu+=floatval($value['score']);
-                    }
-                }
-                   return $zongshu ;      
+            //         }elseif(date('Y-m-d',$value['state'])==date('Y-m-d')){
+            //                     $yuangong[]=$value;
+            //         }
+            //     }
+            //     $zongshu=0;
+            //     foreach ($yuangong as $key => $value) {
+            //         if($value['whether']=='0'){
+            //             $zongshu+=floatval($value['score']);
+            //         }
+            //     }
+            //        return $zongshu;      
         }
         else if($select==6){
               if(input('theme_id')){
                 db("worksheet")->where('id='.input('theme_id'))->update(["reasons"=>input('reasons')]);
                 return json(false);
             }elseif(input('reasons')){
-                db('worksheet')->insert(["reasons"=>input('reasons'),"uid"=>$user_data['u_id'],'time'=>time(),'start_time'=>time()]);
+                db('worksheet')->insert(["reasons"=>input('reasons'),"uid"=>$user_data['u_id'],'time'=>time(),'start_time'=>time(),'prompt'=>0]);
                 $list=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
                 return json($list);
             }else{
@@ -383,7 +427,7 @@ class Task extends \app\admin\Auth
                 db("worksheet")->where('id='.input('theme_id'))->update(["remark"=>input('remark')]);
                 return json(false);
             }elseif(input('remark')){
-                db('worksheet')->insert(["remark"=>input('remark'),"uid"=>$user_data['u_id'],'time'=>time(),'start_time'=>time()]);
+                db('worksheet')->insert(["remark"=>input('remark'),"uid"=>$user_data['u_id'],'time'=>time(),'start_time'=>time(),'prompt'=>0]);
                 $list=db('worksheet')->where('uid='.$user_data['u_id'])->order('id desc')->find();
                 return json($list);
             }else{
@@ -719,7 +763,7 @@ class Task extends \app\admin\Auth
         ]);
         
         foreach ($y_id as $key => $value) {
-            db('worksheet')->insert(['uid'=>$value,'job'=>$work_name,'primary'=>$a,'secondary'=>$b,'time'=>strtotime(input('time')),'start_time'=>strtotime(input('time')),'boss_id'=>$u_id,'remark'=>$urgency,'boss_rwid'=>$boss_rwid,'lasttime'=>strtotime($lasttime)]);
+            db('worksheet')->insert(['uid'=>$value,'job'=>$work_name,'primary'=>$a,'secondary'=>$b,'time'=>strtotime(input('time')),'start_time'=>strtotime(input('time')),'boss_id'=>$u_id,'remark'=>$urgency,'boss_rwid'=>$boss_rwid,'lasttime'=>strtotime($lasttime),'boss_prompt'=>0]);
         }
         $this->success('布置成功','index');
     }  

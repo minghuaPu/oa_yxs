@@ -3,41 +3,108 @@
 	<head>
 
 	{include file="top"}
+	{include file="right"} 
 	{include file="left"} 
 		<meta charset="UTF-8">
 		<title></title>
 	</head>
 	<body>
 
-	<div style="margin-left: 200px;margin-top: 20px;width: 85%;text-align: center;">                                 
+	<div style="margin:auto;margin-top: 20px;width: 75%;text-align: center;"> 
+	         <h3 class="text-muted">签到表</h3>                                
 		<table class="table table-striped table-bordered table-hover table-condensed">
 			<thead>
 			
 				<tr >
-					<th style="text-align: center!important;" width="15%">员工</th>
-					<th style="text-align: center!important;" width="15%">开始时间</th>
-					<th style="text-align: center!important;" width="15%">结束时间</th>
-					<th style="text-align: center!important;" width="15%">考勤情况</th>
-					<th style="text-align: center!important;">原因</th>
-					<th style="text-align: center!important;" width="5%">操作</th>
+					<th style="text-align: center!important;" width="10%">员工</th>
+					<th style="text-align: center!important;" width="10%">签到日期</th>
+					<th style="text-align: center!important;" width="10%">上午上班</th>
+					<th style="text-align: center!important;" width="10%">上午下班</th>
+					<th style="text-align: center!important;" width="15%">下午上班</th>
+					<th style="text-align: center!important;" width="15%">下午下班</th>
+				
+					
 				</tr>
 			</thead>
 			<tbody>
-				{foreach $Attendance as $key=>$val}
+				{foreach $clock as $key=>$val}
 					<tr >
 						<td>{$val.user_name}</td>
-						<td>{$val.start_time}</td>
-						<td>{$val.end_time}</td>
-						<td>{$val.Attendance_status}</td>
-						<td>{$val.reason}</td>
-						<td ><a href="{:url('AttendanceDel',['id'=>$val.id])}" style="color: red;">×</a>
+						<td>{$val.time}</td>
+						{if $val.forenoon_shang}
+						<td>{$val.forenoon_shang|date='H:i:s',###}</td>
+						{/if}
+						{if !$val.forenoon_shang}
+						<td>未签到</td>
+						{/if}
+
+						{if $val.forenoon_xia}
+						<td>{$val.forenoon_xia|date='H:i:s',###}</td>
+						{/if}
+						{if !$val.forenoon_xia}
+						<td>未签到</td>
+						{/if}
+
+						{if $val.afternoon_shang}
+						<td>{$val.afternoon_shang|date='H:i:s',###}</td>
+						{/if}
+						{if !$val.afternoon_shang}
+						<td>未签到</td>
+						{/if}
+
+						{if $val.afternoon_xia}
+						<td>{$val.afternoon_xia|date='H:i:s',###}</td>
+						{/if}
+						{if !$val.afternoon_xia}
+						<td>未签到</td>
+						{/if}
+					
 						</td>
 					</tr>
 				{/foreach}
 				
 			</tbody>
 		</table>
-</div>
+
+	</div>
+
+		<div style="margin:auto;margin-top: 20px;width: 75%;text-align: center;">   
+		<h3 class="text-muted">原因</h3>                               
+		<table class="table table-striped table-bordered table-hover table-condensed">
+			<thead>
+			
+				<tr >
+					<th style="text-align: center!important;" width="10%">员工</th>
+					<th style="text-align: center!important;" width="10%">考勤情况</th>
+					<th style="text-align: center!important;" width="10%">班次</th>
+					<th style="text-align: center!important;" width="15%">日期</th>
+					<th style="text-align: center!important;" width="15%">时间</th>
+					<th style="text-align: center!important;">原因</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				{foreach $Attendance as $key=>$val}
+					<tr >
+						<td>{$val.user_name}</td>
+						<td>{$val.Attendance_status}</td>
+						{if $val.classes==0}
+						<td>上午</td>
+						{/if}
+						{if $val.classes==1}
+						<td>下午</td>
+						{/if}
+						<td>{$val.time}</td>
+						<td>{$val.minute}分钟</td>
+						<td>{$val.reason}</td>
+					
+						</td>
+					</tr>
+				{/foreach}
+				
+			</tbody>
+		</table>
+
 	</div>
 	</body>
 </html>

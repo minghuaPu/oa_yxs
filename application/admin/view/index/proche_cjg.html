@@ -14,6 +14,7 @@
 <body>
     {include file="top"}
     {include file="left"}
+    {include file="right"} 
     <div class="cjp_box">
         <div class="cjp_head">
             粗加工
@@ -693,9 +694,10 @@ $('#datetimepicker2').datetimepicker({
 </script>
 <style type="text/css">
 .cjp_box {
-    margin-left: 173px;
-    width: 100%;
+    margin: auto;
+    width: 78%;
     height: auto;
+    overflow-x: scroll; 
 }
 
 .cjp_head {
@@ -707,7 +709,7 @@ $('#datetimepicker2').datetimepicker({
 .cjp_content {
     margin-left: 20px;
     margin-top: 10px;
-    width: auto;
+    width: 200%;
     height: auto;
     background-color: #f4f8fb;
 }

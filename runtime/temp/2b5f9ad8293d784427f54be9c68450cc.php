@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\index\work.html";i:1546507314;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1546941863;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1546848285;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1547025875;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\index\work.html";i:1547710052;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1547709787;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1547280365;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1547630952;}*/ ?>
 	<!DOCTYPE html>
 
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/work/work.css"/>
@@ -318,7 +318,9 @@
 
             <div class="user_info">
                 <div class="user">
-                    <span class="glyphicon glyphicon-user"></span>
+                    <!-- <span class="glyphicon glyphicon-user"> -->
+                        <img src="__UPLOADS__<?php echo \think\Session::get('imageUrl'); ?>">
+                    
                 </div>
                <form action="<?php echo url('index/login/logout'); ?>" method="post" class="form" style="margin-left:-100px">
                 <span class="user_name">公司id:<?php echo \think\Session::get('u_belong'); ?> <?php echo \think\Session::get('u_company'); ?> <?php echo \think\Session::get('user_name'); ?>(<?php echo \think\Session::get('user_cate'); ?>)</span>
@@ -345,6 +347,56 @@
         created(){
             this.init();
             this.red();
+            
+            setInterval( () =>{
+
+                $.get('<?php echo url("admin/index/prompt"); ?>',
+                    (rtnData)=>{
+                    
+                        for (var i = 0; i < rtnData.length; i++) {
+                            <?php if(\think\Session::get('user_cate')=='老板'): ?>
+                               if(rtnData[i].prompt==0){
+                                if(rtnData[i].zhoujihua==1){
+                                     this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工添加了一个新的周计划',
+                                          duration: 0
+                                        });
+                                 }else{
+                                    this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工添加了一个新的工作任务',
+                                          duration: 0
+                                        });
+                                 }
+                               }else if(rtnData[i].prompt==2){
+                                  if(rtnData[i].zhoujihua==1){
+                                      this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工完成了一个周计划任务',
+                                          duration: 0
+                                        });
+                                  }else{
+                                     this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工完成了一个工作任务',
+                                          duration: 0
+                                        });
+                                  }
+                               }
+                               
+                            <?php endif; if(\think\Session::get('user_cate')=='员工'): ?>
+                                this.$notify({
+                                  title: '提示',
+                                  message: rtnData[i].user_name+'老板发布了一个新的工作任务',
+                                  duration: 0
+                                })
+                            <?php endif; ?>
+                        }
+                       
+                });
+            },2000);
+            
         },
         methods:{
             bell(){
@@ -415,7 +467,8 @@
 		<li onclick="jump_four()"><a href="#" class="iconfont icon-group"><p>部门管理</p></a></li>
 		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
 	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
-         <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
+        <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
+        <li onclick="jump_eight()"><a href="#" class="iconfont icon-kaoqindaqia"><p>投票</p></a></li>
 	</ul>
 	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
@@ -486,6 +539,9 @@
  function jump_seven(){
     window.location.href='<?php echo url('admin/index/lookAttendance'); ?>'
  }
+ function jump_eight(){
+    window.location.href='<?php echo url('admin/index/toupiao'); ?>'
+ }
 
 </script>
  
@@ -493,11 +549,14 @@
 <html>
 	<head>
 <script src="__STATIC__/admin/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="__STATIC__/library/element-ui.min.css">
+    <!-- 引入组件库 -->
+    <script src="__STATIC__/library/element-ui.min.js"></script>
 		<meta charset="UTF-8">
 		<title></title>
 	</head>
 	<body>
-		<div class="page" style="z-index: 99;background:#fff;padding-left: 10px;height:100%">
+		<div class="page" style="z-index: 99;background:#fff;padding-left: 0%;height:100%">
 			<div class="Score">
 				<div class="fens">
 					<div class="se" style="height:100%;background: #00adc7;"></div>
@@ -521,7 +580,15 @@
 				</div>
 			</div>
 			<div class="font">本年</div>
-
+			<div>
+				积分规则：<br>
+				1小时10分<br>
+				   1天的分数是80分<br>
+				   每周的优秀员工 加80 分  <br>
+   每月的优秀员工 加400分<br>
+   一年的优秀员工 加800分<br>
+				
+</div>	
 		</div>
 	</body>
 	<script>
@@ -530,7 +597,8 @@
 		data:{
 			 week:0,
 			 month:0,
-			 year:0
+			 year:0,
+			 prompt:[]
 		},
 		created(){
         	$.get('<?php echo url("admin/index/right"); ?>',
@@ -539,10 +607,12 @@
 						 this.month=rtnData.month
 						 this.year=rtnData.year
                 });
+
+        	
+        	
         },
         methods:{
-        	
-        }
+                }
 	})
 </script>
 </html>
@@ -553,7 +623,7 @@
 
 <style type="text/css">
 .page{
-	width:172px;
+	border-left: 1px solid #eee;
 	position:fixed ;
 	right: 0;
 	color: #404040;
@@ -693,6 +763,7 @@
 </html>
 <?php if($user_data['user_cate']=='员工'): ?>
 <script type="text/javascript">
+    console.log(<?php echo $zhouci; ?>);
 	    var myChart = echarts.init(document.getElementById('main'));
         var option = {
             title: {
@@ -708,7 +779,7 @@
                 data: ["星期一","星期二","星期三","星期四","星期五","星期六"]
             },
             yAxis: {
-            	max:100
+            	
             },
             series: [{
                 color:'#28d2ae',
@@ -722,12 +793,12 @@
 	    var   option = {
 	    xAxis: {
 	        type: 'category',
-	        data: ['第一周', '第二周', '第三周', '第四周']
+	        data: <?php echo $zhouci; ?>
 	    },
 	     tooltip: {}, //提示
 	    yAxis: {
 	        type: 'value',
-	        max:100
+	       
 	    },
 	    series: [{
 	    	 color:'#28d2ae',
@@ -893,7 +964,7 @@
         }
     ],
     yAxis: {
-            	max:200
+            	
             },
    
     series : 
@@ -924,7 +995,7 @@
                 data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
             },
             yAxis: {
-            	max:1200
+            	
             },
             series: [{
                 color:'#28d2ae',
