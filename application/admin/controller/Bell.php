@@ -34,6 +34,8 @@ class Bell extends \app\admin\Auth
                                 'reason'=>input('reason'),
                             ]);
         $list=db('Daysoff')->where('id='.$data)->find();
+         $list['start_time']=date("Y-m-d H:i:s",$list['start_time']);
+            $list['end_time']=date("Y-m-d H:i:s",$list['end_time']);
         return json($list);
     }
     // 同意

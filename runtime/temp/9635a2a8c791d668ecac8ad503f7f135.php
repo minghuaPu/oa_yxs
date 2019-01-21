@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:66:"D:\wamp64\www\oa\public/../application/index\view\login\index.html";i:1544063215;s:58:"D:\wamp64\www\oa\public/../application/index\view\top.html";i:1544427062;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:66:"D:\wamp64\www\oa\public/../application/index\view\login\index.html";i:1548060460;s:58:"D:\wamp64\www\oa\public/../application/index\view\top.html";i:1544427062;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -168,7 +168,11 @@ var login = new Vue({
    methods:
    {
    	loginin:function(){
-      $.get('<?php echo url("index/login/loginin"); ?>',{user_name:this.logininfo,password:this.loginpassword},(rtnData)=>{
+      $.get('<?php echo url("index/login/loginin"); ?>',
+        {
+          user_name:this.logininfo,
+          password:this.loginpassword
+        },(rtnData)=>{
       	if(rtnData===true){
       		this.$alert('登录成功，点击确定即将跳转到CRM界面......',  {
           confirmButtonText: '确定',
