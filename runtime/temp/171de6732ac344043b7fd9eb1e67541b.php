@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:66:"D:\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1547883356;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1547709787;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1547630952;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1547883014;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:66:"D:\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1548040722;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1548040718;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1547630952;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1547883014;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -360,7 +360,7 @@
                 </div>
                </form>
             </div>
-
+            <audio src="" controls="controls" preload id="music1" hidden>
         </div>
     </header>
     <div class="top" style="height: 60px;width: 100%;"></div>
@@ -375,7 +375,7 @@
         created(){
             this.init();
             this.red();
-            
+            var music= new Audio('__STATIC__/admin/9337.mp3');
             setInterval( () =>{
 
                 $.get('<?php echo url("admin/index/prompt"); ?>',
@@ -390,12 +390,15 @@
                                           message: rtnData[i].user_name+'员工添加了一个新的周计划',
                                           duration: 0
                                         });
+                                     music.play();
                                  }else{
                                     this.$notify({
                                           title: '提示',
                                           message: rtnData[i].user_name+'员工添加了一个新的工作任务',
                                           duration: 0
                                         });
+                                   
+                                   music.play();
                                  }
                                }else if(rtnData[i].prompt==2){
                                   if(rtnData[i].zhoujihua==1){
@@ -404,12 +407,14 @@
                                           message: rtnData[i].user_name+'员工完成了一个周计划任务',
                                           duration: 0
                                         });
+                                      music.play();
                                   }else{
                                      this.$notify({
                                           title: '提示',
                                           message: rtnData[i].user_name+'员工完成了一个工作任务',
                                           duration: 0
                                         });
+                                     music.play();
                                   }
                                }
                                
@@ -418,7 +423,8 @@
                                   title: '提示',
                                   message: rtnData[i].user_name+'老板发布了一个新的工作任务',
                                   duration: 0
-                                })
+                                });
+                                music.play();
                             <?php endif; ?>
                         }
                        
@@ -883,7 +889,7 @@ new Vue({
        var forenoonxia=new Date(shijian +' 12:30:00').getTime();;
        var afternoonshang=new Date(shijian +' 14:30:00').getTime();;
        var afternoonxia=new Date(shijian +' 19:00:00').getTime();;
-     
+
      if(forenoonshang<ttime&&forenoonxia>ttime){
             // 上午上班
             if(this.clock.forenoon_shang){this.disabled=true;}

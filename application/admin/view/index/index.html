@@ -187,7 +187,7 @@ new Vue({
        var forenoonxia=new Date(shijian +' 12:30:00').getTime();;
        var afternoonshang=new Date(shijian +' 14:30:00').getTime();;
        var afternoonxia=new Date(shijian +' 19:00:00').getTime();;
-     
+
      if(forenoonshang<ttime&&forenoonxia>ttime){
             // 上午上班
             if(this.clock.forenoon_shang){this.disabled=true;}

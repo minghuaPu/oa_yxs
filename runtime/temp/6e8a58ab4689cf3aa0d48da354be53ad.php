@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:67:"D:\wamp64\www\oa\public/../application/admin\view\task\arrange.html";i:1546595551;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1547540702;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:67:"D:\wamp64\www\oa\public/../application/admin\view\task\arrange.html";i:1548040978;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1548040718;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -324,7 +324,7 @@
                 </div>
                </form>
             </div>
-
+            <audio src="" controls="controls" preload id="music1" hidden>
         </div>
     </header>
     <div class="top" style="height: 60px;width: 100%;"></div>
@@ -339,7 +339,7 @@
         created(){
             this.init();
             this.red();
-            
+            var music= new Audio('__STATIC__/admin/9337.mp3');
             setInterval( () =>{
 
                 $.get('<?php echo url("admin/index/prompt"); ?>',
@@ -347,17 +347,48 @@
                     
                         for (var i = 0; i < rtnData.length; i++) {
                             <?php if(\think\Session::get('user_cate')=='老板'): ?>
-                                this.$notify({
-                                  title: '提示',
-                                  message: rtnData[i].user_name+'员工添加了一个新的工作任务',
-                                  duration: 0
-                                })
+                               if(rtnData[i].prompt==0){
+                                if(rtnData[i].zhoujihua==1){
+                                     this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工添加了一个新的周计划',
+                                          duration: 0
+                                        });
+                                     music.play();
+                                 }else{
+                                    this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工添加了一个新的工作任务',
+                                          duration: 0
+                                        });
+                                   
+                                   music.play();
+                                 }
+                               }else if(rtnData[i].prompt==2){
+                                  if(rtnData[i].zhoujihua==1){
+                                      this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工完成了一个周计划任务',
+                                          duration: 0
+                                        });
+                                      music.play();
+                                  }else{
+                                     this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工完成了一个工作任务',
+                                          duration: 0
+                                        });
+                                     music.play();
+                                  }
+                               }
+                               
                             <?php endif; if(\think\Session::get('user_cate')=='员工'): ?>
                                 this.$notify({
                                   title: '提示',
                                   message: rtnData[i].user_name+'老板发布了一个新的工作任务',
                                   duration: 0
-                                })
+                                });
+                                music.play();
                             <?php endif; ?>
                         }
                        
@@ -411,7 +442,7 @@
     <h3 class="time_now"><?php echo $time; ?></h3>
     <div class="from_box">
         <form action="<?php echo url('save2'); ?>" class="form" method="post" enctype="multipart/form-data" onsubmit="return beforesend()">
-            <div class="form-group">
+            <div class="form-group" style="width: 100%;">
                 <div class="form-group">
                     <label>任务</label>
                     <input id="workname" type="text" class="form-control" name="work_name" value="">
