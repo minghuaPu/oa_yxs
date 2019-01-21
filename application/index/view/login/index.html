@@ -156,7 +156,11 @@ var login = new Vue({
    methods:
    {
    	loginin:function(){
-      $.get('{:url("index/login/loginin")}',{user_name:this.logininfo,password:this.loginpassword},(rtnData)=>{
+      $.get('{:url("index/login/loginin")}',
+        {
+          user_name:this.logininfo,
+          password:this.loginpassword
+        },(rtnData)=>{
       	if(rtnData===true){
       		this.$alert('登录成功，点击确定即将跳转到CRM界面......',  {
           confirmButtonText: '确定',

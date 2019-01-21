@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\bell\index.html";i:1547457416;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1547709787;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1547280365;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1547630952;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\bell\index.html";i:1547457416;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1548040718;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1547883014;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1547630952;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -324,7 +324,7 @@
                 </div>
                </form>
             </div>
-
+            <audio src="" controls="controls" preload id="music1" hidden>
         </div>
     </header>
     <div class="top" style="height: 60px;width: 100%;"></div>
@@ -339,7 +339,7 @@
         created(){
             this.init();
             this.red();
-            
+            var music= new Audio('__STATIC__/admin/9337.mp3');
             setInterval( () =>{
 
                 $.get('<?php echo url("admin/index/prompt"); ?>',
@@ -354,12 +354,15 @@
                                           message: rtnData[i].user_name+'员工添加了一个新的周计划',
                                           duration: 0
                                         });
+                                     music.play();
                                  }else{
                                     this.$notify({
                                           title: '提示',
                                           message: rtnData[i].user_name+'员工添加了一个新的工作任务',
                                           duration: 0
                                         });
+                                   
+                                   music.play();
                                  }
                                }else if(rtnData[i].prompt==2){
                                   if(rtnData[i].zhoujihua==1){
@@ -368,12 +371,14 @@
                                           message: rtnData[i].user_name+'员工完成了一个周计划任务',
                                           duration: 0
                                         });
+                                      music.play();
                                   }else{
                                      this.$notify({
                                           title: '提示',
                                           message: rtnData[i].user_name+'员工完成了一个工作任务',
                                           duration: 0
                                         });
+                                     music.play();
                                   }
                                }
                                
@@ -382,7 +387,8 @@
                                   title: '提示',
                                   message: rtnData[i].user_name+'老板发布了一个新的工作任务',
                                   duration: 0
-                                })
+                                });
+                                music.play();
                             <?php endif; ?>
                         }
                        
@@ -460,7 +466,7 @@
 		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
 	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
         <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
-        <li onclick="jump_eight()"><a href="#" class="iconfont icon-kaoqindaqia"><p>投票</p></a></li>
+        <li onclick="jump_eight()"><a href="#" class="iconfont icon-jichuguanli"><p>投票</p></a></li>
 	</ul>
 	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>

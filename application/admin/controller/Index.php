@@ -37,9 +37,11 @@ class Index extends \app\admin\Auth
             }
          
         }
-        $user_list=db('user')->where('user_cate='."'员工'")->select();
+       
         $date=date('Y-m-d',time());
+        if($User['user_cate']=='员工'){
          $data=db('clock')->where('uid',$User['u_id'])->where('time',$date)->find();
+         $user_list=db('user')->where('user_cate='."'员工'")->select();
         if(!$data){
             
             foreach ($user_list as $key => $value) {
@@ -48,6 +50,9 @@ class Index extends \app\admin\Auth
             }
             
         }
+      }else{
+        $data=[];
+      }
          $this->assign('data',json_encode($data));
         $this->assign('shuliang',json_encode($shuliang));
         $this->assign('zongfen',json_encode($zongfen));
@@ -413,7 +418,7 @@ class Index extends \app\admin\Auth
     }
     public function lookattendance(){
         $Attendance=db('Attendance')->order('id desc')->select();
-        $clock=db('clock')->field('u.user_name,c.forenoon_shang,c.forenoon_xia,c.afternoon_shang,c.afternoon_xia,c.time')->alias('c')->join('crm_user u','u.id=c.uid')->order('c.id')->select();
+        $clock=db('clock')->field('u.user_name,c.forenoon_shang,c.forenoon_xia,c.afternoon_shang,c.afternoon_xia,c.time')->alias('c')->join('crm_user u','u.id=c.uid')->order('c.id desc')->select();
         foreach ($Attendance as $key => $value) {
             // $sdefaultDate = date("Y-m-d",$value['time']);
             // $forenoonshang=strtotime($sdefaultDate.' 08:30:00');
