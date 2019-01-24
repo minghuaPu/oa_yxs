@@ -344,6 +344,9 @@ class Index extends \app\admin\Auth
     $week[0]['integral']+=50;
     $month[0]['integral']+=400;
     $year[0]['integral']+=800;
+    $weekfenshu=0;
+    $monthfenshu=0;
+    $yearfenshu=0;
     foreach ($week as $key => $value) {
         if($user['u_id']==$week[$key]['uid']){
             $weekfenshu=$week[$key]['integral'];
@@ -355,12 +358,14 @@ class Index extends \app\admin\Auth
             $yearfenshu=$year[$key]['integral'];
         }
     }
-
+    $week_user=db('user')->where('id',$week[0]['uid'])->value('imageUrl');
+    $month_user=db('user')->where('id',$month[0]['uid'])->value('imageUrl');
+    $year_user=db('user')->where('id',$year[0]['uid'])->value('imageUrl');
 
 
     // $age=array("Bill"=>"35","Steve"=>"37","Peter"=>"43");
     // return json($age);
-        return json(['year'=>$yearfenshu,'month'=>$monthfenshu,'week'=>$weekfenshu]);
+        return json(['year'=>$yearfenshu,'month'=>$monthfenshu,'week'=>$weekfenshu,'week_user'=>$week_user,'month_user'=>$month_user,'year_user'=>$year_user]);
     }
     // 考勤提交
     public function Attendance(){

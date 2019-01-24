@@ -86,26 +86,7 @@ class Task extends \app\admin\Auth
                                         $value['remark']='指派任务:'.$user_n;
                             }
                              $yuangong[]=$value;
-                            // if($value['state']){
-                            //      if(date('Y-m-d',$value['state'])!=$date){
-                            //         if($value['whether']==1){
-                            //             $yuangong[]=$value;
-                            //         }
-                            //      }
-                            // }else{
-                            //     $yuangong[]=$value;
-                            // }
-
-              
             }
-            //  elseif(date('Y-m-d',$value['state'])==$date){
-               
-            //         $value['primary']=json_decode($value['primary']);
-            //         $value['secondary']=json_decode($value['secondary']);
-            //         $yuangong[]=$value;
-               
-               
-            // }
             elseif ($value['zhoujihua']=='1') {
                 if($value['start_time']){
                     $value['start_time']=date('Y-m-d',$value['start_time']);
@@ -136,15 +117,7 @@ class Task extends \app\admin\Auth
         }
         $time=date('Y-m-d',time());
         $list=db('bossworklist')->select();
-        foreach ($yuan as $key => $value) {
-                    if($value['boss_id']){
-                        if(date('Y-m-d',$value['time'])<$time){
-                            if($value['whether']!=1){
-                                // $daibanwork[]=db('bossworklist')->where('id='.$value['boss_rwid'])->find();
-                            }  
-                        }
-                    }
-               }
+     
         
         $this->assign('bossfenprw',$bossfenprw);
         $this->assign('zongshu',$zongshu);
@@ -382,32 +355,7 @@ class Task extends \app\admin\Auth
                 }
                 
             }
-
-            // $yuangong=[];
-            // $date=date('Y-m-d');
-            //    $yuan=db('worksheet')->where("uid=".$user_data['u_id'])->select();
-            //     foreach ($yuan as $key => $value) {
-            //         if(date('Y-m-d',$value['time'])==date('Y-m-d')){
-            //              if(date('Y-m-d',$value['state'])!=$date){
-            //                 if($value['whether']==1){
-            //                     $yuangong[]=$value;
-            //                 }
-            //              }else{
-            //                 $yuangong[]=$value;
-            //              }
-                                
-
-            //         }elseif(date('Y-m-d',$value['state'])==date('Y-m-d')){
-            //                     $yuangong[]=$value;
-            //         }
-            //     }
-            //     $zongshu=0;
-            //     foreach ($yuangong as $key => $value) {
-            //         if($value['whether']=='0'){
-            //             $zongshu+=floatval($value['score']);
-            //         }
-            //     }
-            //        return $zongshu;      
+      
         }
         else if($select==6){
               if(input('theme_id')){
@@ -460,6 +408,18 @@ class Task extends \app\admin\Auth
                 
            }
            return json(['list'=>$list,'zongshu'=>$zongshu]);
+        }
+        elseif($select==9){
+            // 一键提交
+            $id=input('id');
+            $whether=input('whether');
+            if($whether==0){
+                db('worksheet')->where('id',$id)->update(['whether'=>$whether]);
+            }else{
+                db('worksheet')->where('id',$id)->update(['time'=>null,'whether'=>$whether]);
+            }
+        }elseif ($select==10) {
+            db('worksheet')->where('id='.input('id'))->delete();
         }
       
     } 

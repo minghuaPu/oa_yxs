@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:66:"D:\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1548040722;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1548040718;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1547630952;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1547883014;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:66:"D:\wamp64\www\oa\public/../application/admin\view\index\index.html";i:1548040722;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1548040718;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1548065367;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1547883014;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -480,7 +480,7 @@
 		<div class="page" style="z-index: 99;background:#fff;padding-left: 0%;height:100%">
 			<div class="Score">
 				<div class="fens">
-					<div class="se" style="height:100%;background: #00adc7;"></div>
+					<img class="se" style="height:100%;background: #00adc7;" :src="week_user">
 					<div class="fen">{{week}}分</div>
 				</div>
 			</div>
@@ -488,7 +488,7 @@
 
 			<div class="Score">
 				<div class="fens">
-					<div class="se" style="height:100%;text-align: center;background: #87d7a5;"></div>
+					<img class="se" style="height:100%;text-align: center;background: #87d7a5;" :src="month_user">
 					<div class="fen">{{month}}分</div>
 				</div>
 			</div>
@@ -496,7 +496,7 @@
 
 			<div class="Score">
 				<div class="fens">
-					<div class="se" style="height:100%;background: #fbad4c;"></div>
+					<img class="se" style="height:100%;background: #fbad4c;" :src="year_user">
 					<div class="fen">{{year}}分</div>
 				</div>
 			</div>
@@ -519,6 +519,9 @@
 			 week:0,
 			 month:0,
 			 year:0,
+			 week_user:'',
+			 month_user:'',
+			 year_user:'',
 			 prompt:[]
 		},
 		created(){
@@ -527,6 +530,9 @@
                          this.week=rtnData.week
 						 this.month=rtnData.month
 						 this.year=rtnData.year
+						 this.week_user='__UPLOADS__'+rtnData.week_user
+						 this.month_user='__UPLOADS__'+rtnData.month_user
+						 this.year_user='__UPLOADS__'+rtnData.year_user
                 });
 
         	
@@ -583,7 +589,7 @@
 			top:0;
 			width: 100%;
 			height: 100%;
-
+			color: red;
 			text-align: center;
 	}
 	.font{

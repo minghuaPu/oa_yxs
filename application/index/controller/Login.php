@@ -68,10 +68,10 @@ class Login extends \think\Controller
             Session::set('u_company',$realpassword["company_name"]);
             $havecompany=db('companylist')->where('company_name',$realpassword["company_name"])->find();
             Session::set('u_belong',$havecompany["company_id"]);
-        	return true;
+        	return json(true);
         }
         else
-        	return false; 
+        	return json(false); 
     }
 
     public function logout(){

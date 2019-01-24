@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1547707564;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1548040718;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1547630952;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\task\index.html";i:1548299963;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1548040718;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1548065367;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -444,7 +444,7 @@
 		<div class="page" style="z-index: 99;background:#fff;padding-left: 0%;height:100%">
 			<div class="Score">
 				<div class="fens">
-					<div class="se" style="height:100%;background: #00adc7;"></div>
+					<img class="se" style="height:100%;background: #00adc7;" :src="week_user">
 					<div class="fen">{{week}}分</div>
 				</div>
 			</div>
@@ -452,7 +452,7 @@
 
 			<div class="Score">
 				<div class="fens">
-					<div class="se" style="height:100%;text-align: center;background: #87d7a5;"></div>
+					<img class="se" style="height:100%;text-align: center;background: #87d7a5;" :src="month_user">
 					<div class="fen">{{month}}分</div>
 				</div>
 			</div>
@@ -460,7 +460,7 @@
 
 			<div class="Score">
 				<div class="fens">
-					<div class="se" style="height:100%;background: #fbad4c;"></div>
+					<img class="se" style="height:100%;background: #fbad4c;" :src="year_user">
 					<div class="fen">{{year}}分</div>
 				</div>
 			</div>
@@ -483,6 +483,9 @@
 			 week:0,
 			 month:0,
 			 year:0,
+			 week_user:'',
+			 month_user:'',
+			 year_user:'',
 			 prompt:[]
 		},
 		created(){
@@ -491,6 +494,9 @@
                          this.week=rtnData.week
 						 this.month=rtnData.month
 						 this.year=rtnData.year
+						 this.week_user='__UPLOADS__'+rtnData.week_user
+						 this.month_user='__UPLOADS__'+rtnData.month_user
+						 this.year_user='__UPLOADS__'+rtnData.year_user
                 });
 
         	
@@ -547,7 +553,7 @@
 			top:0;
 			width: 100%;
 			height: 100%;
-
+			color: red;
 			text-align: center;
 	}
 	.font{
@@ -609,10 +615,10 @@
 					<th width="60px">数量/时间</th>
 					<th>工作内容</th>
 					<th width="60px">是否完成</th>
-					<th>未完成原因</th>
+					<!-- <th>未完成原因</th> -->
 					<th>备注</th>
 					<th width="100px">统计分数</th>
-					<th width="150px">操作</th>
+					<th width="100px">操作</th>
 				</tr>
 				<tr :bgcolor="index%2 ==0?'':'#fff'" v-for='(item,index) in worksheet'>
 					<td>
@@ -639,13 +645,15 @@
 						<div  :style="index%2 ==0?'background: #fff;':''"  v-if='item.boss_id'>{{item.job}}</div>
 						<input :disabled='disabled' type="text"  style="text-align: center;" @blur='job(index)' v-model="item.job"  v-else>	
 					</td>
-					<td>
-						<select  :disabled='disabled'   v-model='item.whether' @change='whether(index)'>
+					 <td>
+					 	<div v-if='item.whether==0'>已完成</div>
+					 	<div v-if='item.whether==1'>未完成</div>
+						<!-- <select  :disabled='disabled'   v-model='item.whether' @change='whether(index)'>
 						  <option value ="0" >是</option>
 						  <option value ="1" >否</option>
-					  </select>
-					</td>
-					<td><input type="text" :disabled='disabled'  style="text-align: center;" v-model='item.reasons' @blur='reasons(index)'></td>
+					  </select> -->
+					</td>	
+ 			<!-- 	<td><input type="text" :disabled='disabled'  style="text-align: center;" v-model='item.reasons' @blur='reasons(index)'></td> -->
 					<td>
 						<div  v-if='item.boss_id'>{{item.remark}}</div>
 						<input type="text" :disabled='disabled'   style="text-align: center;" v-model='item.remark' @blur='remark(index)' v-else>
@@ -653,16 +661,26 @@
 					<td><div>{{item.score}}</td>
 					<td >
 						<div style="display: flex;justify-content: space-around;" v-if='item.id'>
-						<a style="cursor: pointer;"  data-toggle="modal" data-target="#myModal" @click='zhipairw(item.id)'>指派任务</a>
-						<a @click='viewDetails(item.boss_rwid,index)' v-if='item.boss_rwid' style="cursor: pointer;">点击提交</a>
-						<a @click='viewDetails(item.id,index)'  v-else style="cursor: pointer;">点击提交</a>
-						<a @click='delrw(item.id)' v-if='!item.boss_rwid'   style="cursor: pointer;">删除</a>
+						
+						<a @click='viewDetails(item.boss_rwid,index)' v-if='item.boss_rwid' style="cursor: pointer;">查看详情</a>
+						<a @click='viewDetails(item.id,index)'  v-else style="cursor: pointer;">查看详情</a>
+						<!-- <a @click='delrw(item.id)' v-if='!item.boss_rwid'   style="cursor: pointer;">删除</a> -->
 						</div>
 					</td>	
 				</tr>
 			</table>
-			 <div class="daiadd" @click='daiadd'>+</div>
-			<div class="backlog">待办工作</div>
+			<div style="display: flex;justify-content: space-between;">
+				<div class="daiadd" @click='daiadd'>+</div>
+				<div class="backlog">待办工作</div>
+				<div style="line-height: 75px;">
+					<a style="cursor: pointer;" class="btn btn-default "  @click='zhipaishow' >指派任务</a>
+					<a style="cursor: pointer;" class="btn btn-default "  @click="submitshow" >一键提交</a>
+					<a style="cursor: pointer;" class="btn btn-default "  @click="delshow" >一键删除</a>
+				</div>
+				
+			</div>
+			 
+			
 			<table class="aa" style="text-align: center;" border='1px' width="1000px">
 				<tr bgcolor="#0E59B6" align="center" style="color: #fff;font-size: 12px;">
 					<th width="50px">序号</th>
@@ -792,62 +810,11 @@
 			<ul class="list_bottom">
 				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
 			</ul>
-			<?php endif; if($userdata['user_cate']=='经理'): ?>
-			<ul class="list_top">
-				<li><a href="<?php echo url('arrange'); ?>"><span class="glyphicon glyphicon-list"></span>布置任务</a></li>
-				<li><a href="<?php echo url('read'); ?>"><span class="glyphicon glyphicon-list"></span>查看任务</a></li>
-				<li style="width: 0%;">
-					 <form action="<?php echo url('index'); ?>" class="form">
-					 	<div class="input-group pull-left">
-					 		<input type="text" class="form-control pull-left" placeholder="输入员工名称" name="user_name">
-					 	</div>
-					 	<input type="submit" class="btn btn-group pull-left" style="cursor: pointer;" value="搜索">
-					 </form>
-				</li>
-			</ul>
-			<table class="table" style="text-align: center;">
-				<tr>
-					<th>编号ID</th>
-					<th>员工</th>
-					<th>名称</th>
-					<th>内容</th>
-					<th>附件</th>
-					<th>部门</th>
-					<th>添加时间</th>
-					<th>回复</th>
-					<th>操作</th>
-				</tr>
-				<?php foreach($work_list as $info): ?>
-					<tr >
-						<td><?php echo $info['id']; ?></td>
-						<?php foreach($user_list as $user): if($user['id']==$info['u_id']): ?>	
-						<td><?php echo $user['user_name']; ?></td>
-						<?php endif; endforeach; ?>	
-						<td><?php echo $info['title']; ?></td>
-						<td><?php echo $info['content']; ?></td>
-						<?php if($info['work']!=""): ?>
-						<td><a href="__UPLOADS__<td><?php echo $info['bumen']; ?></td><?php echo $info['work']; ?>">点击查看</a></td>
-						<?php endif; if($info['work']==""): ?>
-						<td>无</td>
-						<?php endif; ?>
-                        <td><?php echo $info['bumen']; ?></td>
-						<td><?php echo $info['time']; ?></td>
-						<td><?php echo $info['reply']; ?></td>
-						<td><a class="btn btn-default" href="<?php echo url('check',['id'=>$info['id']]); ?>">批改</a></td>
-					</tr>			
-				<?php endforeach; ?>
-			</table>
-			<?php echo $work_list->render(); ?>
-			<ul class="list_bottom">
-				<li><a href="<?php echo url('look'); ?>"><span class="glyphicon glyphicon-folder-open"></span>查看提交情况</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-list"></span>汇总</a></li>
-				<li><a href="javascript:;"><span class="glyphicon glyphicon-download-alt"></span>作业导出</a></li>
-			</ul>
 			<?php endif; endforeach; ?>
 		</div>
 	</div>
 	<div class="task_right"></div>
-		<!-- 模态框（Modal） -->
+		<!-- 模态框（Modal）指派任务 -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -856,29 +823,145 @@
 						&times;
 					</button>	
 				</div>
-				<form action="zhipairw" method="post" enctype="multipart/form-data">
+				
 				<div class="modal-body">
 					<div style="width: 100%">
-					<div >
-						<input type="hidden" v-model='zhipai' name="zhipai">
-						<select class="form-control" name="zhipai_id">
-						  <?php foreach($users as $key=>$val): ?>
-							<option value="<?php echo $val['id']; ?>"><?php echo $val['user_name']; ?></option>
-						  <?php endforeach; ?>
+		<table class="table table-striped table-bordered table-hover table-condensed">
+			<thead>
+				<tr>
+					<th style="text-align: center!important;" width="10%">
+					<input type="checkbox" id="" style="width:15px;height: 15px;" :checked="fruitIds.length === worksheet_oa.length" @click='checkedAll()'>
+					</th>
+					<th style="text-align: center!important;">任务名称</th>
+					<th style="text-align: center!important;" width="20%">选择员工</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for='(item,index) in worksheet_oa'>
+					<td>
+						<input type="checkbox" 
+						:checked="fruitIds.indexOf(item.id)>=0" 
+						style="width:15px;height: 15px;margin-top: 10px;"
+						@click='checkedOne(item.id)'>
+					</td>
+					<td style="line-height: 30px;">{{item.job}}</td>					
+					<td>
+						<select class="form-control" name="zhipai_id" v-model='item.zhipai'>
+					  <?php foreach($users as $key=>$val): ?>
+						<option value="<?php echo $val['id']; ?>"><?php echo $val['user_name']; ?></option>
+					  <?php endforeach; ?>
 						</select>
-					</div>
-				</div>
-				<div class="modal-footer"> 
-					<input type="submit" class="btn btn-primary" value="提交">	
-				</div>
-			</form>
+					</td>
+				</tr>			
+			</tbody>
+		</table>
+			</div>
+			<div class="modal-footer"> 
+				<input type="submit" class="btn btn-primary" value="提交" @click='zhipairw'>	
+			</div>		
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal -->
-	</div>	
-	
+	</div>		
 </div>
-</form>
 
+	<!-- 模态框（Modal）一键提交 -->
+	<div class="modal fade" id="submit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>	
+				</div>
+				
+				<div class="modal-body">
+					<div style="width: 100%">
+		<table class="table table-striped table-bordered table-hover table-condensed">
+			<thead>
+				<tr>
+					<th style="text-align: center!important;" width="10%">
+					<input type="checkbox" id="" style="width:15px;height: 15px;" :checked="fruitIds.length === worksheet_oa.length" @click='checkedAll()'>
+					</th>
+					<th style="text-align: center!important;">任务名称</th>
+					<th style="text-align: center!important;" width="15%">是否完成</th>
+					<th style="text-align: center!important;" width="20%">未完成原因</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for='(item,index) in worksheet_oa' >
+					<td>
+						<input type="checkbox" 
+						:checked="fruitIds.indexOf(item.id)>=0" 
+						style="width:15px;height: 15px;margin-top: 10px;"
+						@click='checkedOne(item.id)'>
+					</td>
+					<td style="line-height: 30px;">{{item.job}}</td>					
+					<td>
+						<select    v-model='item.whether'>
+						  <option value ="0" >是</option>
+						  <option value ="1" >否</option>
+					  </select>
+					</td>
+					<td>
+						<input type="text">
+					</td>
+					
+				</tr>			
+			</tbody>
+		</table>
+			</div>
+			<div class="modal-footer"> 
+				<input type="submit" class="btn btn-primary" value="一键提交" @click='keysubmit'>	
+			</div>		
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>		
+</div>
+
+		<!-- 模态框（Modal）一键删除 -->
+	<div class="modal fade" id="del" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>	
+				</div>
+				
+				<div class="modal-body">
+					<div style="width: 100%">
+		<table class="table table-striped table-bordered table-hover table-condensed">
+			<thead>
+				<tr>
+					<th style="text-align: center!important;" width="10%">
+					<input type="checkbox" id="" style="width:15px;height: 15px;" :checked="fruitIds.length === worksheet_oa.length" @click='checkedAll()'>
+					</th>
+					<th style="text-align: center!important;">任务名称</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for='(item,index) in worksheet_oa'>
+					<td>
+						<input type="checkbox" 
+						:checked="fruitIds.indexOf(item.id)>=0" 
+						style="width:15px;height: 15px;margin-top: 10px;"
+						@click='checkedOne(item.id)'>
+					</td>
+					<td style="line-height: 30px;">{{item.job}}</td>					
+					
+				</tr>			
+			</tbody>
+		</table>
+			</div>
+			<div class="modal-footer"> 
+				<input type="submit" class="btn btn-primary" value="一键删除" @click='keydel'>	
+			</div>		
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>		
+</div>
 <!-- 查看建议 -->
 <?php foreach($user as $userdata): if($userdata['user_cate']=='老板'): ?>
 	<div class="modal fade" id="asdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -920,6 +1003,7 @@ new Vue({
     el: ".task",
     data: {
         worksheet:<?php echo $yuangong; ?>,
+        worksheet_oa:<?php echo $yuangong; ?>,
         primary:<?php echo $main; ?>,
         zhipai:'1',
         fine:<?php echo $fine; ?>,
@@ -928,7 +1012,9 @@ new Vue({
         daibanwork:<?php echo $daibanwork; ?>,
 		zhoujihua:<?php echo $zhoujihua; ?>,
         disabled:false,
-        DATE:'<?php echo $date; ?>'
+        DATE:'<?php echo $date; ?>',
+        fruitIds:[],
+        isCheckedAll:false
     },
     
 
@@ -938,13 +1024,11 @@ new Vue({
         		var num=8-this.worksheet.length;
         		for (var i = 0; i < num; i++) {
         			this.worksheet.push({});
-        		}
-        		
-        		
-        	}
-        		
+        		}	
+        	}	
         	for (var i = 0; i < this.worksheet.length; i++) {
         		this.secondary.push([])
+        		
            		 if(this.worksheet[i].boss_id){
            		 	this.worksheet[i].disabled=true
            		 }else{
@@ -956,14 +1040,11 @@ new Vue({
           				this.secondary[i].push(this.fine[a])
         			}
         		}
-        	    
-        	    }
-        	   
-        		
+        	    }	
         	}
-   
-        	console.log(this.secondary);
-        	console.log(this.worksheet);
+        	for (var i = 0; i < this.worksheet_oa.length; i++) {
+        		this.worksheet_oa[i].zhipai='';
+        	}
          			
 		},
        	
@@ -991,11 +1072,76 @@ new Vue({
      			});
 
      	},
+     	// 指派任务
      	zhipairw(e){
-     		this.zhipai=e
-     		console.log(this.zhipai);
+     		for (var i = 0; i < this.worksheet_oa.length; i++) {
+     			for (var b = 0; b < this.fruitIds.length; b++) {
+     				
+     			if(this.fruitIds[b]==this.worksheet_oa[i].id){
+     			$.get('<?php echo url("admin/task/zhipairw"); ?>',
+        	    	{
+        	    		zhipai:this.fruitIds[b],
+        	    		zhipai_id:this.worksheet_oa[i].zhipai
+        	    	},(rtnData)=>{
+
+        	    	});
+   		  		}
+     		}
+    	 }
+     		window.location.reload()
      	},
-     	
+     	// 显示指派任务
+     	zhipaishow(){
+     		this.fruitIds=[];
+     		$('#myModal').modal('show');
+     	},
+     	// 显示一键提交
+     	submitshow(){
+     		this.fruitIds=[];
+     		$('#submit').modal('show');
+     	},
+     	// 显示一键删除
+     	delshow(){
+     		this.fruitIds=[];
+     		$('#del').modal('show');
+     	},
+     	// 一键提交
+     	keysubmit(){
+     		for (var i = 0; i < this.worksheet_oa.length; i++) {
+     			for (var b = 0; b < this.fruitIds.length; b++) {
+     				
+     			if(this.fruitIds[b]==this.worksheet_oa[i].id){
+     			$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+        	    		select:9,
+        	    		id:this.worksheet_oa[i].id,
+        	    		whether:this.worksheet_oa[i].whether
+        	    	},(rtnData)=>{
+
+        	    	});
+   		  		}
+     		}
+    	 }
+    	 window.location.reload()
+     	},
+     	// 一键删除
+		keydel(){
+     		for (var i = 0; i < this.worksheet_oa.length; i++) {
+     			for (var b = 0; b < this.fruitIds.length; b++) {
+     				
+     			if(this.fruitIds[b]==this.worksheet_oa[i].id){
+     			$.get('<?php echo url("admin/task/classify"); ?>',
+        	    	{
+        	    		select:10,
+        	    		id:this.worksheet_oa[i].id,
+        	    	},(rtnData)=>{
+
+        	    	});
+   		  		}
+     		}
+    	 }
+    	 window.location.reload()
+     	},     	
      	 open3() {
 	        this.$prompt('提建议', '', {
 	          confirmButtonText: '确定',
@@ -1027,7 +1173,7 @@ new Vue({
      		// this.worksheet.push({primary:<?php echo $main; ?>,secondary:[]})
      		$.get('<?php echo url("admin/task/classify"); ?>',
         	    	{select:0,},(rtnData)=>{
-        	    		
+        	    	   this.worksheet_oa.push(rtnData)
                  	   this.worksheet.push(rtnData)
                  	   	console.log(this.worksheet)
      			});
@@ -1045,6 +1191,7 @@ new Vue({
         	    			if(rtnData.list){
         	    				rtnData.list.primary=JSON.parse(rtnData.list.primary)
         	    				this.$set(this.worksheet,e,rtnData.list)
+        	    				this.$set(this.worksheet_oa,e,rtnData.list)
         	    			}
         	    			var text=[];
         	    			 for (var a = 0; a < this.fine.length; a++) {
@@ -1112,6 +1259,7 @@ new Vue({
         	    				console.log(1)
         	    				// this.worksheet[e]=rtnData
         	    				this.$set(this.worksheet,e,rtnData)
+        	    				this.$set(this.worksheet_oa,e,rtnData)
         	    			}
         	    			console.log(this.worksheet);
         	    	});
@@ -1293,7 +1441,28 @@ new Vue({
                 remark:this.zhoujihua[e].remark
             });
         },
+        checkedOne:function(e){
+        	let idIndex = this.fruitIds.indexOf(e);
+	        if (idIndex >= 0) {
+	          this.fruitIds.splice(idIndex, 1)
+	        } else {
+	          this.fruitIds.push(e)
+	        }
+	     console.log(this.worksheet_oa);
+        },
+        checkedAll () {
+		      this.isCheckedAll = !this.isCheckedAll
+		      if (this.isCheckedAll) {
+		        // 全选时
+		        this.fruitIds = []
+		        this.worksheet_oa.forEach(function (item) {
+		          this.fruitIds.push(item.id)
+		        }, this)
+		      } else {
+		        this.fruitIds = []
+		      }
 
+    	},
 
 
     }

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:63:"D:\wamp64\www\oa\public/../application/admin\view\task\wfb.html";i:1545303362;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1545791874;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:63:"D:\wamp64\www\oa\public/../application/admin\view\task\wfb.html";i:1545303362;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1548040718;s:59:"D:\wamp64\www\oa\public/../application/admin\view\foot.html";i:1544063215;}*/ ?>
     <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -310,16 +310,21 @@
 
             <div class="user_info">
                 <div class="user">
-                    <span class="glyphicon glyphicon-user"></span>
+                    <!-- <span class="glyphicon glyphicon-user"> -->
+                        <img src="__UPLOADS__<?php echo \think\Session::get('imageUrl'); ?>">
+                    
                 </div>
                <form action="<?php echo url('index/login/logout'); ?>" method="post" class="form" style="margin-left:-100px">
                 <span class="user_name">公司id:<?php echo \think\Session::get('u_belong'); ?> <?php echo \think\Session::get('u_company'); ?> <?php echo \think\Session::get('user_name'); ?>(<?php echo \think\Session::get('user_cate'); ?>)</span>
-                <span> <a href="<?php echo url('admin/index/index'); ?>"  id="return">返回主页</a></span>
-                <input id="exit" type="submit" value= "安全退出" class="btn btn-default" style="margin-left:0px;margin-bottom: 5px;padding:0;margin-top:2px"></input>
-
+                <span class="user_name"> <a href="<?php echo url('admin/index/index'); ?>"  id="return">返回主页</a></span>
+                <input id="exit" type="submit" value= "安全退出" class="btn btn-default" style="margin:4px;padding:0;"></input>
+                <div class="bell" @click='bell'>
+                    <img src="__STATIC__/admin/bell.png"></a>
+                    <div v-if='num!=0'></div>
+                </div>
                </form>
             </div>
-
+            <audio src="" controls="controls" preload id="music1" hidden>
         </div>
     </header>
     <div class="top" style="height: 60px;width: 100%;"></div>
@@ -328,15 +333,82 @@
         el:'#top_menu',
         data:{
            controller:"Index",
-           cur:''
+           cur:'',
+           num:0
         },
         created(){
             this.init();
+            this.red();
+            var music= new Audio('__STATIC__/admin/9337.mp3');
+            setInterval( () =>{
+
+                $.get('<?php echo url("admin/index/prompt"); ?>',
+                    (rtnData)=>{
+                    
+                        for (var i = 0; i < rtnData.length; i++) {
+                            <?php if(\think\Session::get('user_cate')=='老板'): ?>
+                               if(rtnData[i].prompt==0){
+                                if(rtnData[i].zhoujihua==1){
+                                     this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工添加了一个新的周计划',
+                                          duration: 0
+                                        });
+                                     music.play();
+                                 }else{
+                                    this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工添加了一个新的工作任务',
+                                          duration: 0
+                                        });
+                                   
+                                   music.play();
+                                 }
+                               }else if(rtnData[i].prompt==2){
+                                  if(rtnData[i].zhoujihua==1){
+                                      this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工完成了一个周计划任务',
+                                          duration: 0
+                                        });
+                                      music.play();
+                                  }else{
+                                     this.$notify({
+                                          title: '提示',
+                                          message: rtnData[i].user_name+'员工完成了一个工作任务',
+                                          duration: 0
+                                        });
+                                     music.play();
+                                  }
+                               }
+                               
+                            <?php endif; if(\think\Session::get('user_cate')=='员工'): ?>
+                                this.$notify({
+                                  title: '提示',
+                                  message: rtnData[i].user_name+'老板发布了一个新的工作任务',
+                                  duration: 0
+                                });
+                                music.play();
+                            <?php endif; ?>
+                        }
+                       
+                });
+            },2000);
+            
         },
         methods:{
+            bell(){
+                window.location.href='<?php echo url('admin/bell/index'); ?>'
+            },
+            red(){
+                $.get('<?php echo url("admin/index/red"); ?>',
+                    (rtnData)=>{
+                        this.num=rtnData;
+                });
+            },
             init(){
                 this.controller="<?php echo request()->controller(); ?>";
-                
+                console.log(this.controller);
                 if(this.controller=='Index' || this.controller=='Crm'){
                     this.cur='CRM';
                 }else if(this.controller=='Map' ){

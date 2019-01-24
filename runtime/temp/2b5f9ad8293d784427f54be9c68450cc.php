@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\index\work.html";i:1547710052;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1547709787;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1547280365;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1547630952;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:65:"D:\wamp64\www\oa\public/../application/admin\view\index\work.html";i:1547710052;s:58:"D:\wamp64\www\oa\public/../application/admin\view\top.html";i:1548040718;s:59:"D:\wamp64\www\oa\public/../application/admin\view\left.html";i:1547883014;s:60:"D:\wamp64\www\oa\public/../application/admin\view\right.html";i:1548065367;}*/ ?>
 	<!DOCTYPE html>
 
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/work/work.css"/>
@@ -332,7 +332,7 @@
                 </div>
                </form>
             </div>
-
+            <audio src="" controls="controls" preload id="music1" hidden>
         </div>
     </header>
     <div class="top" style="height: 60px;width: 100%;"></div>
@@ -347,7 +347,7 @@
         created(){
             this.init();
             this.red();
-            
+            var music= new Audio('__STATIC__/admin/9337.mp3');
             setInterval( () =>{
 
                 $.get('<?php echo url("admin/index/prompt"); ?>',
@@ -362,12 +362,15 @@
                                           message: rtnData[i].user_name+'员工添加了一个新的周计划',
                                           duration: 0
                                         });
+                                     music.play();
                                  }else{
                                     this.$notify({
                                           title: '提示',
                                           message: rtnData[i].user_name+'员工添加了一个新的工作任务',
                                           duration: 0
                                         });
+                                   
+                                   music.play();
                                  }
                                }else if(rtnData[i].prompt==2){
                                   if(rtnData[i].zhoujihua==1){
@@ -376,12 +379,14 @@
                                           message: rtnData[i].user_name+'员工完成了一个周计划任务',
                                           duration: 0
                                         });
+                                      music.play();
                                   }else{
                                      this.$notify({
                                           title: '提示',
                                           message: rtnData[i].user_name+'员工完成了一个工作任务',
                                           duration: 0
                                         });
+                                     music.play();
                                   }
                                }
                                
@@ -390,7 +395,8 @@
                                   title: '提示',
                                   message: rtnData[i].user_name+'老板发布了一个新的工作任务',
                                   duration: 0
-                                })
+                                });
+                                music.play();
                             <?php endif; ?>
                         }
                        
@@ -468,7 +474,7 @@
 		<li onclick="jump_five()"><a href="#" class="iconfont icon-iconset0337"><p>信息中心</p></a></li>
 	    <li onclick="jump_six()"><a href="#" class="iconfont icon-kucun"><p>钢材库存</p></a></li>
         <li onclick="jump_seven()"><a href="#" class="iconfont icon-kaoqindaqia"><p>员工考勤</p></a></li>
-        <li onclick="jump_eight()"><a href="#" class="iconfont icon-kaoqindaqia"><p>投票</p></a></li>
+        <li onclick="jump_eight()"><a href="#" class="iconfont icon-jichuguanli"><p>投票</p></a></li>
 	</ul>
 	<!--<ul v-if="controller=='Map'" class="Maplist">
 		<li><a href="<?php echo url('admin/map/index'); ?>" class="glyphicon glyphicon-home"><p>工作台</p></a></li>
@@ -559,7 +565,7 @@
 		<div class="page" style="z-index: 99;background:#fff;padding-left: 0%;height:100%">
 			<div class="Score">
 				<div class="fens">
-					<div class="se" style="height:100%;background: #00adc7;"></div>
+					<img class="se" style="height:100%;background: #00adc7;" :src="week_user">
 					<div class="fen">{{week}}分</div>
 				</div>
 			</div>
@@ -567,7 +573,7 @@
 
 			<div class="Score">
 				<div class="fens">
-					<div class="se" style="height:100%;text-align: center;background: #87d7a5;"></div>
+					<img class="se" style="height:100%;text-align: center;background: #87d7a5;" :src="month_user">
 					<div class="fen">{{month}}分</div>
 				</div>
 			</div>
@@ -575,7 +581,7 @@
 
 			<div class="Score">
 				<div class="fens">
-					<div class="se" style="height:100%;background: #fbad4c;"></div>
+					<img class="se" style="height:100%;background: #fbad4c;" :src="year_user">
 					<div class="fen">{{year}}分</div>
 				</div>
 			</div>
@@ -598,6 +604,9 @@
 			 week:0,
 			 month:0,
 			 year:0,
+			 week_user:'',
+			 month_user:'',
+			 year_user:'',
 			 prompt:[]
 		},
 		created(){
@@ -606,6 +615,9 @@
                          this.week=rtnData.week
 						 this.month=rtnData.month
 						 this.year=rtnData.year
+						 this.week_user='__UPLOADS__'+rtnData.week_user
+						 this.month_user='__UPLOADS__'+rtnData.month_user
+						 this.year_user='__UPLOADS__'+rtnData.year_user
                 });
 
         	
@@ -662,7 +674,7 @@
 			top:0;
 			width: 100%;
 			height: 100%;
-
+			color: red;
 			text-align: center;
 	}
 	.font{
