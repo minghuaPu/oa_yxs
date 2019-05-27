@@ -1,0 +1,100 @@
+{include file="top"}
+{include file="left"}
+<style>
+	.product_menu{height: auto;
+    overflow: hidden;
+    width: 54%;
+    margin: 0 auto;}
+	.product_menu li {
+		width: 20%;
+
+float: left;
+
+color: #fff;
+
+margin-right: 35px;
+
+margin-bottom: 30px;
+
+height: 40px;
+
+line-height: 40px;
+}
+.product_menu li a{ background-color: #1570B6;
+display: inline-block;
+width: 100%;
+text-align: center;
+color: #fff;}
+</style>
+<div class="container" style="height: 100vh;background-color: #fff;">
+
+		<h2 style="font-size: 18px;padding: 60px 0;margin: 0 auto;text-align: center;">生产管理系统</h2>
+	<ul class="product_menu">
+		<li> <a href="">下料</a> </li>
+		<li onclick="jump_dzcj()">
+			<a href="#">
+				<p>锻造</p>
+			</a>
+		</li>
+		<li onclick="jump_cjg()">
+			<a>
+				<p>粗加工</p>
+			</a>
+		</li>
+		<li onclick="jump_rcl()">
+			<a href="#">
+				<p>热处理</p>
+			</a>
+		</li>
+
+		<li onclick="jump_jjg()">
+			<a href="#">
+				<p>精加工</p>
+			</a>
+		</li>
+		<li onclick="jump_bzjy()">
+			<a href="#">
+				<p>包装</p>
+			</a>
+		</li>
+
+		<li onclick="jump_bzjy()">
+			<a href="#">
+				<p>检验</p>
+			</a>
+		</li>
+		<li onclick="jump_qt()">
+			<a href="#">
+				<p>报表</p>
+			</a>
+		</li>
+	</ul>
+
+
+</div>
+<script>
+	function jump_cjg() {
+		window.location.href = '{:url('admin/product/proche_cjg')}'
+	}
+	function jump_rcl() {
+		window.location.href = '{:url('admin/product/proche_rcl')}'
+	}
+	function jump_dzcj() {
+		window.location.href = '{:url('admin/product/proche_dzcj')}'
+	}
+	function jump_bzjy() {
+		window.location.href = '{:url('admin/product/proche_bzjy')}'
+	}
+	function jump_jjg() {
+		window.location.href = '{:url('admin/product/proche_jjg')}'
+	}
+	function jump_qt() {
+		window.location.href = '{:url('admin/product/proche_qt')}'
+	}
+	function jump_seven() {
+		window.location.href = '{:url('admin/product/lookAttendance')}'
+	}
+	function jump_eight() {
+		window.location.href = '{:url('admin/product/toupiao')}'
+	}
+</script>

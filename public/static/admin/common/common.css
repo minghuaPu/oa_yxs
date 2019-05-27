@@ -10,14 +10,15 @@
   sup { vertical-align:text-top; }
   sub{ vertical-align:text-bottom; }
   legend { color:#000;}
+  body { background-color: #e6e1e1e6 !important; }
   /*设置提交表单的间距*/
   .spacing{margin-top: 5px;}
   fieldset, img { border:0; }
   button, input, select, textarea { font-size:100%; }
   table { border-collapse:collapse; border-spacing:0; }
-  header{left: 0px;position: fixed;right: 0;top: 0px;z-index: 999;height: 60px;background: #f3f3f3;}
+  header{left: 202px;position: fixed;right: 0;top: 0px;z-index: 999;height: 60px;background: #257bd2;}
   header .logo{padding: 10px;}
-  header .title .dropdown .btn{height: 60px;background: #f3f3f3;}
+  header .title .dropdown .btn{height: 60px;background: #1864b1;}
   header .title .dropdown .btn span{font-size: 16px;}
   header .title ul li a{font-weight: 400;overflow: hidden;width: 300px;}
   header .title ul li span{padding-top: 10px;color: #337ab7;padding-right: 5px;}
@@ -30,9 +31,23 @@
 align-items:center;
 justify-content:center;}
   header .user img{width:100%;height: auto; }
-  .left_menu{width:173px;height: 1500px;background: #36404a;position: fixed;overflow: hidden;}
-  .left_menu ul li{padding: 10px 10px 10px 24px;text-align: center;border-left: #36404a 4px solid}
+  .left_menu{width:202px;height: 1500px;background: #545c64;position: fixed;top: 0;overflow: hidden;}
+  .left_menu .el-col-12 { width: 101%; }
+  .left_menu .f_headerphoto { width: 100%;height: 190px; display: flex;justify-content: center; margin: auto; align-items: center;}
+  .left_menu .f_headerphoto .f_photo { width: 80px;height: 80px;border-radius: 50%; background-color: white; cursor: pointer;border: 1px red; overflow: hidden;position: relative;}
+  .left_menu .f_photo div { position: absolute; top: 0;left: 0; text-align: center; line-height: 80px;}
+  .left_menu .f_photo img { position: absolute; top: 0;left: 0; }
+
+  .left_menu .f_headerphoto .f_intro { color: white; margin-left: 20px;}
+  .left_menu .f_headerphoto .f_intro p:nth-child(1) { font-size: 16px; font-weight: bold;}
+  .left_menu .f_headerphoto .f_intro p:nth-child(2) { font-size: 12px; }
+  .left_menu .glyphicon { left: -6px; top:-1px; }
+
+
+/*原来left 样式*/
+/*  .left_menu ul li{padding: 10px 10px 0 24px;text-align: center;border-left: #36404a 4px solid;cursor: pointer;}
   .left_menu ul li a{color: white;font-size: 30px;text-align: center;}
+  .left_menu ul li a .f_icon_font{ font-size: 15px; }
   .left_menu ul li a:hover{text-decoration: none;text-align: center;}
   .left_menu ul li p{font-size: 12px;color: white;margin-top: 5px;padding-top: 8px;margin-left: 16px;}
   .left_menu.lbs .Maplist{margin-top: 50px}
@@ -51,8 +66,8 @@ justify-content:center;}
     display: -webkit-box;
     display: -ms-flexbox;
     
-  }
-  .container{background: #f4f8fb;width: 81%!important;margin: auto!important;}
+  }*/
+  .container{background: #f4f8fb;width: 81%!important;margin: auto!important; min-width: 1333px;}
   #allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
   #exit{
     border:none;background: none; margin-left: 30px; 
@@ -86,3 +101,70 @@ justify-content:center;}
     background: red;
     border-radius: 100%;
   }
+
+/*锋之修改*/
+.container {
+  margin-right: 0 !important;
+  margin-left: 203px !important;
+/*  padding-right: 0 !important;
+  padding-left: 0 !important;*/
+  width: 85%!important;
+  padding-right: 0 !important;
+  background-color: #e6e1e1e6;
+  padding-bottom: 20px !important;
+}
+
+#return{
+  color:inherit;
+}
+#return:hover{
+ color:#84c1ff;
+ text-decoration: underline!important;
+}
+
+header{background-color: #1570B6;}
+#top_menu,#top_menu span,#exit{    color: #fff !important}
+#top_menu button{   border-radius: 0 !important;}
+.bell{width: 68px !important;cursor: pointer}
+.bell img {
+
+width: 25px !important;
+height: auto !important;
+cursor: pointer;
+position: absolute;
+top: -3px !important;
+
+}
+header .user_info{display: flex;width: 268px !important;}
+.bell .nnum{right: 18px !important;}
+
+/* 公共样式 */
+.clear{clear:both}
+.huise{color: #949090}
+.mt_10{margin-top: 10px}
+.mb_10{margin-bottom: 10px}
+.box_title{font-size: 16px;font-weight: bold}
+.fl{float: left;}
+.align-center{text-align: center}
+.lanmu_title{
+  text-align: center;padding: 10px 0;font-size: 20px;
+}  .box_white {
+  background-color: #fff;
+  margin: 20px 0 10px 10px;
+  width: 87%;
+  padding: 10px;
+  height: auto;
+}
+.rl_box {
+  background-color: #fff;
+  margin-top: 20px;
+  padding: 10px;
+}
+.el-icon-date::before {
+  content: "\e608";
+  padding-left: 10px !important;
+}
+.el-input__inner {
+  color: #888 !important;
+}
+.font_input_line_height{    line-height: 40px;}

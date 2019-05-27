@@ -221,8 +221,8 @@ return [
     ],
     // 视图输出字符串内容替换
     'view_replace_str'       => [
-        '__PUBLIC__'         => '/public',
-        '__PC_PUBLIC__'         => '/public/static/pc/',
+        '__PUBLIC__'         => '/oa/oa_yxs/public',
+        '__PC_PUBLIC__'         => '/oa/oa_yxs/public/static/pc/',
         '__ROOT__'              => '../../../',
     ],
 

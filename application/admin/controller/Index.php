@@ -1,10 +1,12 @@
 <?php
 namespace app\admin\controller;
 use \think\Session;
+
+ini_set("error_reporting","E_ALL & ~E_NOTICE");      
 class Index extends \app\admin\Auth
 {
     public function index()
-    {
+    {                                                                                     
         $User=Session::get();
         $users=db('user')->where('id='.$User['u_id'])->find();
         $this->assign('users',json_encode($users));
@@ -57,6 +59,88 @@ class Index extends \app\admin\Auth
         $this->assign('shuliang',json_encode($shuliang));
         $this->assign('zongfen',json_encode($zongfen));
         $this->assign('zhouci',json_encode($zhouci));
+      
+        
+        $worksheet=db('worksheet')->where("uid=".$User['u_id'])->where('whether=0')->select();
+        $shuliang=[0,0,0,0,0,0,0,0,0,0,0,0];
+        $fenshu=[0,0,0,0,0,0,0,0,0,0,0,0];
+        $mainclassify=db('mainclassify')->field('type')->select();
+       foreach ($mainclassify as $key => $value) {
+           $mainshuliang[$key]['name']=$value['type'];
+           $mainshuliang[$key]['value']=0;
+           $mainfenshu[$key]['name']=$value['type'];
+           $mainfenshu[$key]['value']=0;
+       }
+       $month = date('m',time());
+        foreach ($worksheet as $key => $value) {
+             if(date('m',$value['time'])==$month){
+                $a[$key]=json_decode($value['primary'],true);
+                 foreach ($mainclassify as $e => $v) {
+                    if($a[$key]['type']==$v['type']){
+                       $mainshuliang[$e]['value']+=$value['quantity'];
+                        $mainfenshu[$e]['value']=$value['score'];
+                   }
+               }
+            
+             }
+        }
+
+        $this->assign('main',json_encode($mainshuliang));
+
+
+        // 待办
+        $yuan=db('worksheet')->where("uid=".$User['u_id'])->order('boss_rwid')->select();
+        $yuangong=[];
+        $bossfenprw=[];
+        $daibanwork=[];
+        $zhoujihua=[];
+        foreach ($yuan as $key => $value) {
+           
+            if(date('Y-m-d',$value['time'])==$date){
+
+                       $value['cate']=1;
+                       $value['primary']=json_decode($value['primary']);
+                       $value['secondary']=json_decode($value['secondary']);
+                         if($value['zhipai']!==null){
+                                        $user_n=db('user')->where('id','=',$value['zhipai'])->value('user_name');
+                                        $value['remark']='指派任务:'.$user_n;
+                            }
+                             $yuangong[]=$value;
+            }
+            elseif ($value['zhoujihua']=='1') {
+                if($value['start_time']){
+                    $value['start_time']=date('Y-m-d',$value['start_time']);
+                }
+                if ($value['lasttime']) {
+                    $value['lasttime']=date('Y-m-d',$value['lasttime']);
+                }
+                 $zhoujihua[]=$value;
+            }
+            elseif($value['whether']!=0){
+                if($value['start_time']){
+                    $value['start_time']=date('Y-m-d',$value['start_time']);
+                }
+                if($value['time']){
+                    $value['time']=date('Y-m-d',$value['time']);
+                }
+                if ($value['lasttime']) {
+                    $value['lasttime']=date('Y-m-d',$value['lasttime']);
+                }
+                $daibanwork[]=$value;
+            }
+        }
+
+        $this->assign('daibanwork',json_encode($daibanwork));
+
+        $tixing_a = db("tixing")->where("uid=".$User['u_id']." and tx_time like '".date('Y-m',time())."%'")->select();
+        $laydate_mark = '';
+        if ($tixing_a) {
+            foreach ($tixing_a as $key => $value) {
+                $laydate_mark->{$value['tx_time']} = "";
+            }
+        }
+        $this->assign('laydate_mark',json_encode($laydate_mark));
+
         return $this->fetch();
     }
     public function update(){
@@ -370,7 +454,9 @@ class Index extends \app\admin\Auth
     // 考勤提交
     public function Attendance(){
         $Attendance=input();
+        // $Attendance['time'] = time();
         $user=Session::get();
+        $Attendance['time'] = strtotime( str_replace(["年","月","日"],["-","-",""],$Attendance['time']));
          $sdefaultDate = date("Y-m-d",$Attendance['time']);
             $forenoonshang=strtotime($sdefaultDate.' 08:30:00');
             $forenoonxia=strtotime($sdefaultDate.' 12:30:00');
@@ -381,24 +467,46 @@ class Index extends \app\admin\Auth
             if($Attendance['classes']==0){
                  if($Attendance['Attendance_status']=='早退'){
                     $Attendance['minute']=ceil(($forenoonxia-$Attendance['time'])/60);
+                    db('clock')->where("uid=".$user['u_id']." and time='$sdefaultDate'")->update([
+                        "forenoon_xia"=>$Attendance['Attendance_status'].'因为'.$Attendance['reason'],
+                     ]);
                 } 
                 if($Attendance['Attendance_status']=='迟到'){
                   $Attendance['minute']=ceil(($Attendance['time']-$forenoonshang)/60);
+                  db('clock')->where("uid=".$user['u_id']." and time='$sdefaultDate'")->update([
+                    "forenoon_shang"=>$Attendance['Attendance_status'].'因为'.$Attendance['reason'],
+                 ]);
                 }
                  if($Attendance['Attendance_status']=='旷工'){
+                    db('clock')->where("uid=".$user['u_id']." and time='$sdefaultDate'")->update([
+                        "forenoon_xia"=>$Attendance['Attendance_status'].'因为'.$Attendance['reason'],
+                        "forenoon_shang"=>$Attendance['Attendance_status'].'因为'.$Attendance['reason'],
+                     ]);
                   $Attendance['minute']='旷工';
                 }
+                
             }
              elseif($Attendance['classes']==1){
                  if($Attendance['Attendance_status']=='早退'){
                     $Attendance['minute']=ceil(($afternoonxia-$Attendance['time'])/60);
+                    db('clock')->where("uid=".$user['u_id']." and time='$sdefaultDate'")->update([
+                        "afternoon_xia"=>$Attendance['Attendance_status'].'因为'.$Attendance['reason'],
+                     ]);
                 } 
                 if($Attendance['Attendance_status']=='迟到'){
                   $Attendance['minute']=ceil(($Attendance['time']-$afternoonshang)/60);
+                  db('clock')->where("uid=".$user['u_id']." and time='$sdefaultDate'")->update([
+                    "afternoon_shang"=>$Attendance['Attendance_status'].'因为'.$Attendance['reason'],
+                 ]);
                 }
                  if($Attendance['Attendance_status']=='旷工'){
                   $Attendance['minute']='旷工';
+                  db('clock')->where("uid=".$user['u_id']." and time='$sdefaultDate'")->update([
+                    "afternoon_xia"=>$Attendance['Attendance_status'].'因为'.$Attendance['reason'],
+                    "afternoon_shang"=>$Attendance['Attendance_status'].'因为'.$Attendance['reason'],
+                 ]);
                 }
+                
             }else{
                  if($Attendance['Attendance_status']=='旷工'){
                   $Attendance['minute']='旷工';
@@ -808,42 +916,7 @@ class Index extends \app\admin\Auth
         }
         return json($list);
     }
-    //粗加工页面
-    public function proche_cjg(){
-    	$cjg_list  =  db('rough')->where('cas',1)->order('id desc')->paginate(10);
-         $this->assign('cjg_list',$cjg_list);
-        return $this->fetch();
-    }
-    //热处理页面
-    public function proche_rcl(){
-        $rcl_list  =  db('treatment')->where('cas',1)->order('id desc')->paginate(10);
-        $this->assign('rcl_list',$rcl_list);
-        return $this->fetch();
-    }
-    //锻造车间页面
-    public function proche_dzcj(){
-        $dzcj_list  =  db('workshop')->where('cas',1)->order('id desc')->paginate(10);
-         $this->assign('dzcj_list',$dzcj_list);
-        return $this->fetch();
-    }
-     //包装检验页面
-    public function proche_bzjy(){
-        $bzjy_list  =  db('packaging')->where('cas',1)->order('id desc')->paginate(10);
-         $this->assign('bzjy_list',$bzjy_list);
-        return $this->fetch();
-    }
-     //精加工页面
-    public function proche_jjg(){
-        $jjg_list  =  db('machining')->where('cas',1)->order('id desc')->paginate(10);
-         $this->assign('jjg_list',$jjg_list);
-        return $this->fetch();
-    }
-     //其他页面
-    public function proche_qt(){
-        $qt_list  =  db('other')->where('cas',1)->order('id desc')->paginate(10);
-         $this->assign('qt_list',$qt_list);
-        return $this->fetch();
-    }
+  
     //上传图片
     public function uploadPic(){
         $work=request()->file('pic');

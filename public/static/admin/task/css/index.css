@@ -1,3 +1,5 @@
+header { left: 0 ; }
+
 .task{width:90%;	display: flex;}
 .task .task_left{width: 1%;}
 .task .task_right{width: 2%;}
@@ -154,7 +156,7 @@
 			text-align: center;
 	}
 	input,select{
-		width: 100%;
+		width: 25%;
 		height: 100%;
 		border:0;
 		

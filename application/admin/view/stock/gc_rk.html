@@ -1,0 +1,322 @@
+{include file="top"}
+{include file="left"}
+{include file="right"}
+<style>
+    .riqi_box {
+        width: 14%;
+        height: 105px;
+        background-color: #d4d4d4;
+        float: left;
+        text-align: center;
+        border: 1px solid #fff;
+    }
+
+    .wk_title {
+        text-align: center;
+        width: 14%;
+        background-color: #477dea;
+        color: #fff;
+        border: 1px solid #fff;
+        height: 30px;
+        line-height: 30px;
+    }
+
+    .has {
+        background-color: #b5cbf7;
+        color: #fff;
+        padding: 5px 0;
+    }
+
+    .zw {
+        font-size: 12px
+    }
+
+    .zw span {
+        background-color: transparent !important
+    }
+
+    .sxwu {
+        background-color: #e6e4e4;
+        padding: 5px 0;
+    }
+
+    .sxwu p {
+        height: 17px;
+        overflow: hidden;
+    }
+
+    .qdtj_box li {
+        display: flex;
+    }
+
+    .qdtj_box b {
+        width: 10px;
+        height: 10px;
+        margin-top: 5px;
+        display: inline-block;
+        margin-right: 30px;
+    }
+
+    .qdtj_title {
+        color: #999;
+        margin: 10px 0
+    }
+
+    .qd_cd {
+        background-color: #e9403c;
+        color: #e9403c
+    }
+
+    .qd_zt {
+        background-color: #84120f;
+        color: #84120f
+    }
+
+    .qd_kg {
+        background-color: #f3b745;
+        color: #f3b745
+    }
+
+    .qd_qj {
+        background-color: #477dea;
+        color: #477dea
+    }
+
+    .qd_jb {
+        background-color: #4ba151;
+        color: #4ba151
+    }
+
+
+
+    .el-input__icon {
+        display: none;
+    }
+
+    .el-input--prefix .el-input__inner {
+        color: #888;
+        padding-left: 15px !important;
+    }
+
+
+
+    .el-select .el-input__inner {
+        color: #888;
+        margin-bottom: 20px !important;
+    }
+
+    .bt .wk_title {
+        height: 50px;
+        line-height: 50px;
+        width: 10%;
+    }
+
+    .wk_title {
+        height: 40px;
+        line-height: 40px;
+        width: 10%;
+    }
+
+    .lanse .wk_title {
+        background-color: #cfd7f7;
+        color: #4c4c4c;
+    }
+
+    .huise .wk_title {
+        background-color: #e9ecfb;
+        color: #4c4c4c;
+    }
+
+    .form_hui {
+        border-bottom: 1px solid #fff
+    }
+
+    .form_hui .form_title {
+        background-color: #477dea;
+        color: #fff;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+    }
+
+    .form_hui .el-input__inner {
+        background-color: #e6e4e4;
+        color: #666;
+        border-radius: 0;
+    }
+
+    .el-input.is-active .el-input__inner,
+    .el-input__inner:focus {
+        border-color: #e6e4e4;
+        outline: 0;
+    }
+
+    .rt_form {
+        background-color: #fff;
+        margin: 20px 0 0 10px;
+        width: 18%;
+    }
+
+    .form_input_box {
+        padding: 10px;
+    }
+    .wk_title{width: 9.09% !important;}
+</style>
+<div class="container">
+
+    <el-row>
+        <el-col class="rl_box" :span="19">
+            <el-row>
+                <el-col :span="24">
+                    <el-row class="lanmu_title">钢材入库登记表</el-row>
+                    <el-row class="bt">
+                        <el-col class="wk_title" :span="2" v-for="wk in week_a">{{wk}}</el-col>
+                    </el-row>
+                    <el-row class="data_list" v-for="(kc,k) in week_d" :class="{'lanse':k%2==0,'huise':k%2!=0}">
+                        <el-col class="wk_title" :span="2">{{kc.rksj}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.gangzhong}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.type}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.standard}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.danzhong}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.danwei}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.number}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.zongzhongliang}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.beizhu}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.luhao}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.guanliyuan}}</el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="5" style="margin:15px 0px">
+                            <el-date-picker
+                            @change="choise_year"
+                            v-model="year_kw"
+                            type="year"
+                            placeholder="选择年">
+                          </el-date-picker>
+                        </el-col>
+                        <el-col :span="11" :offset="1">{$gc_data->render()}</el-col>
+                        <el-col :span="3" :offset="4" style="margin:15px 0px">
+                            <!-- <el-input style="width: 70%;margin-right: 15px">
+                                <el-button slot="append" icon="el-icon-search"></el-button>
+                            </el-input> -->
+                            <el-button onclick="location.href='{:url(\'gc_djb\')}'" type="primary">返回</el-button>
+
+                        </el-col>
+                </el-col>
+
+
+            </el-row>
+        </el-col>
+        <el-col class="rt_form" :span="5">
+            <el-row class="lanmu_title">钢材入库信息</el-row>
+            <el-row class="form_input_box">
+                <el-row class="form_hui">
+                    <el-col class="form_title" :span="10">入库时间</el-col>
+                    <el-col :span="14">
+                       
+                        <el-date-picker style="    width: 100%;" v-model="form.rksj" type="date" format="yyyy-MM-dd" placeholder="选择日期">
+                        </el-date-picker>
+                    </el-col>
+                </el-row>
+                <el-row class="form_hui">
+                    <el-col class="form_title" :span="10">钢种</el-col>
+                    <el-col :span="14">
+                        <el-input v-model="form.gangzhong"></el-input>
+                    </el-col>
+                </el-row>
+                <el-row class="form_hui">
+                    <el-col class="form_title" :span="10">型号</el-col>
+                    <el-col :span="14">
+                        <el-input v-model="form.type"></el-input>
+                    </el-col>
+                </el-row>
+                <el-row class="form_hui">
+                    <el-col class="form_title" :span="10">规格</el-col>
+                    <el-col :span="14">
+                        <el-input v-model="form.standard"></el-input>
+                    </el-col>
+                </el-row>
+                <el-row class="form_hui">
+                    <el-col class="form_title" :span="10">单重</el-col>
+                    <el-col :span="14">
+                        <el-input v-model="form.danzhong"></el-input>
+                    </el-col>
+                </el-row>
+                <el-row class="form_hui">
+                    <el-col class="form_title" :span="10">单位</el-col>
+                    <el-col :span="14">
+                        <el-input v-model="form.danwei"></el-input>
+                    </el-col>
+                </el-row>
+                <el-row class="form_hui">
+                    <el-col class="form_title" :span="10">入库数量</el-col>
+                    <el-col :span="14">
+                        <el-input v-model="form.number"></el-input>
+                    </el-col>
+                </el-row>
+                <el-row class="form_hui">
+                    <el-col class="form_title" :span="10">总重量</el-col>
+                    <el-col :span="14">
+                        <el-input v-model="form.zongzhongliang"></el-input>
+                    </el-col>
+                </el-row>
+                <el-row class="form_hui">
+                    <el-col class="form_title" :span="10">备注</el-col>
+                    <el-col :span="14">
+                        <el-input v-model="form.beizhu"></el-input>
+                    </el-col>
+                </el-row>
+                <el-row class="form_hui">
+                    <el-col class="form_title" :span="10">炉号</el-col>
+                    <el-col :span="14">
+                        <el-input v-model="form.luhao"></el-input>
+                    </el-col>
+                </el-row>
+                <el-row class="form_hui">
+                    <el-col class="form_title" :span="10">入库员</el-col>
+                    <el-col :span="14">
+                        <el-input v-model="form.guanliyuan"></el-input>
+                    </el-col>
+                </el-row>
+                <el-row style="text-align: right;margin-top: 10px;">
+                        <el-button  @click="add" type="primary">入库</el-button>
+                </el-row>
+            </el-row>
+
+        </el-col>
+    </el-row>
+
+    </el-col>
+
+
+    </el-row>
+</div>
+
+<script>
+
+    new Vue({
+        el: '.container',
+        data: {
+            week_a: ['入库时间','钢种', '型号', '规格', '单重', '单位', '入库数量', '总重量', '备注', '炉号', '管理员'],
+            week_d: [],
+            form:{},
+            year_kw:'',
+            rksj: ''
+        },
+        created() {
+            var week_d = JSON.parse('{$inventory}')
+            console.log(week_d)
+            this.week_d = week_d.data
+        },
+        methods: {
+            add(){
+                $.post("{:url('gc_rk_save')}",{form_data:JSON.stringify(this.form)},function () {
+                    location.reload()
+                })
+            },
+            choise_year(){
+                location.href="{:url('gc_rk')}"+"?year_kw="+this.year_kw
+            }
+        }
+    })
+</script>

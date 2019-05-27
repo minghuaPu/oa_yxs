@@ -1,4 +1,5 @@
 {include file="top"}
+{include file="left"}
 {include file="right"}
 <style type="text/css">
 	.table_box{background-color: #fff !important}
@@ -6,13 +7,23 @@
 	.Employee_box .Employee_right .Score .fens .fen {
     color: #000;}
     input[disabled]{background: #fff!important;}
+		.opinion {
+    position: absolute;
+    top: 69px !important;
+    left: 455px !important;
+}.task {
+    width: 86% !important;    margin-left: 203px;
+}
+select ,input{
+
+width: 100% !important;}
 </style>
 
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/task/css/index.css?3">
 <div class="task">
 	<div class="task_left"></div>
 	<div class="task_box">
-		<div class="task_title">
+		<!-- <div class="task_title">
 			<span class="glyphicon glyphicon-list-alt pull-left"></span>
 			<h4>TASK员工任务管理</h4>
 			{foreach $user as $userdata}
@@ -24,7 +35,7 @@
 			<div class="btn btn-default opinion"  data-toggle="modal" data-target="#asdf">查看建议</div>
 			{/if}
 			{/foreach}
-		</div>
+		</div> -->
 		<div class="task_content">
 			{foreach $user as $userdata}
 			<!-- 学生身份作业管理 -->
@@ -445,6 +456,7 @@
 	</div>
 	{/if}
 	{/foreach}
+		</div>
 <script>
 // 第二步：定义路由，也就是每个路由应该映射一个组件
 
@@ -564,12 +576,12 @@ new Vue({
         	    		id:this.worksheet_oa[i].id,
         	    		whether:this.worksheet_oa[i].whether
         	    	},(rtnData)=>{
-
+									window.location.reload()
         	    	});
    		  		}
      		}
     	 }
-    	 window.location.reload()
+    
      	},
      	// 一键删除
 		keydel(){

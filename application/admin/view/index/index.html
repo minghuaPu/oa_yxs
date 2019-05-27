@@ -4,7 +4,7 @@
 <meta name="renderer" content="webkit">
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index.css?9">
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/index/css/index2.css">
-
+<div class="page"></div>
 <style>
     .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
@@ -33,52 +33,93 @@
   input[type=file] {
     display: none!important;
 }
+.f_center_1_left{float: left;}
+.center_2{float: right;}
+.ycshij{position: absolute !important;opacity: 1;left: 0px;top: -8px;width: 10px !important;opacity: 0; cursor: pointer;}
+.laydate-day-mark {font-size: 14px;color: red}
+.laydate-day-mark::after {
+    background-color: transparent;
+}
+
+.cneter_2b .el-input__inner{color: #fff !important;}
 </style>
   {include file="top"}
   {include file="right"} 
   {include file="left"}
 <div class="container">
 <div class="index_content_center">
-    <div class="center_1">
+    <div class="center_1" style="display:inline-block">
 
-      <div class="center_1a">
-<img src="__STATIC__/admin/index/images/20181206171359.jpg" alt="">
+    <!--   <div class="center_1a">
+         <img src="__STATIC__/admin/index/images/20181206171359.jpg" alt="">
          <div class="rounded" @mouseover='hidyin(true)' @mouseout='hidyin(false)'>
             
            <img :src="'__UPLOADS__'+user.imageUrl" alt="">
            <div class="yin"  v-show='hid' data-toggle="modal" data-target="#myModal">更换头像</div>
          </div>
-      </div>
+      </div> -->
       
-    <!-- <img src="__STATIC__/admin/index/images/20181206171359.jpg" alt="" > -->
+      <el-row  class="mb_10">
+        <el-col :span="4" style="text-align:left" class="box_title">考勤签到</el-col>
+        <el-col class="huise" :span="3" :offset="11">
+            {{week}}
+         
+          </el-col>
+        <el-col class="huise"  :span="3"> {{nowtime}}</el-col>
+        <el-col :span="3" style="position:relative">   <i style="padding-top: 3px;" class="el-icon-date"></i> 
+          <el-date-picker 
+          @change="has_choise_time"
+          v-model="choise_time"
+          type="date"
+          class="ycshij"
+          placeholder="选择日期">
+        </el-date-picker>
+        
+        </el-col>
+      
 
-<!--     <img src="__STATIC__/admin/index/images/20181206171360.jpg" alt="" class="center_1b">
- --> 
-
-    <p style="font-size: 1em;"><strong>{{user.user_cate}}</strong></p>
+    </el-row>
+    <div class="clear"></div>
+ <div class="f_center_1_left">
+  <!--  <p style="font-size: 1em;"><strong>{{user.user_cate}}</strong></p>
        <h3 style="margin-bottom: 0.1em;"><strong>{{user.user_name}}</strong></h3>
-    <!-- <button class="button1"><strong>打卡</strong></button> -->
-    <!-- <form action="{:url('clock')}"> -->
-      <!-- <button class="button2" style="margin-left:32%;" ><strong>打卡</strong></button> -->
-      <el-button type="primary" :disabled='disabled' @click="submitForm">打卡</el-button>
-    <!-- </form> -->
+   -->
+   <div class="f_am_time">
+     <div class="f_am_right">上午</div>
+     <div class="f_am_left">
+       <div><span class="glyphicon glyphicon-upload"></span> <b v-if="clock.forenoon_shang">{{clock.forenoon_shang|timeToHm("上班打卡时间")}}</b> <b v-else>暂无打卡记录</b> </div>
+       <div><span class="glyphicon glyphicon-download"></span><b v-if="clock.forenoon_xia">{{clock.forenoon_xia|timeToHm("下班打卡时间")}}</b> <b v-else>暂无打卡记录</b> </div>
+     </div>
+   </div>
+   <div class="f_am_time f_margin_bottom">
+     <div class="f_am_right">下午</div>
+     <div class="f_am_left">
+       <div><span class="glyphicon glyphicon-upload"></span><b v-if="clock.afternoon_shang">{{clock.afternoon_shang|timeToHm("上班打卡时间")}}</b> <b v-else>暂无打卡记录</b> </div>
+       <div><span class="glyphicon glyphicon-download"></span><b v-if="clock.afternoon_xia">{{clock.afternoon_xia|timeToHm("下班打卡时间")}}</b> <b v-else>暂无打卡记录</b> </div>
+     </div>
+   </div>
+    <el-button type="primary" :disabled='disabled' @click="submitForm" >打卡 {{shi_fen_miao}}</el-button>
     
-    <a href="{:url('task/index')}" class="btn btn-lg btn-info " style="margin-top: 12px;width: 100%;">任务管理</a>
-    </div>
-    
-    <div class="center_2">
-      
-          <div class="center_2a" >
-              <select  id="Attendance_status" name="Attendance_status">
-                  <option value="迟到">迟到</option>
-                  <option value="早退">早退</option>
-                  <option value="旷工">旷工</option>
-              </select>
+  
+    <!-- <a href="{:url('task/index')}" class="btn btn-lg btn-info " style="margin-top: 12px;width: 100%;">任务管理</a> -->
+ </div> 
+<div class="center_2">
+    <div class="left_mb_10_titile">异常情况</div>
+      <div class="f_layout">
+        <div class="cneter_2b" > 
+              <el-select v-model="yc_type" >
+                  <el-option
+                    v-for="item in exception"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
           </div>
           
-          <div class="cneter_2b">
-            <span>班次：</span>
-            <el-select v-model="value" placeholder="请选择" style='width: 80%;'>
+          <div class="cneter_2b" >
+            <!-- <span>班次：</span> -->
+            <el-select v-model="yc_jd" >
               <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -86,9 +127,13 @@
                 :value="item.value">
               </el-option>
             </el-select>
+           
           </div>
-          <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/rili.png" alt=""></div>
-          <div class="cneter_2b">
+      </div>
+          
+         <!--  改 -->
+          <!-- <div class="cneter_2ba"><img src="__STATIC__/admin/index/images/rili.png" alt=""></div> -->
+          <!-- <div class="cneter_2b">
             <span>时间：</span>
               <el-date-picker
               v-model="value2"
@@ -96,22 +141,155 @@
               placeholder="选择日期时间">
             </el-date-picker>
           
-          </div>
-          <textarea rows="10" cols="30" placeholder="说明原因" name="reason" id="reason"></textarea> 
-          <button href="#" class="cneter_2c" @click='holiday'>提交</button>
+          </div> -->
+          <textarea rows="10" cols="20" placeholder="说明原因" name="reason" id="reason"></textarea> 
+          <button href="#" class="cneter_2c btn btn-primary pull-right" @click='holiday'>确认</button>
     
+    </div>
+</div>
+    
+    
+    <div class="f_center_4">
+      <div class="f_title">
+        <h4  class="box_title">代办事宜</h4>
+        <div class="f_title_right">
+        <div><span class="f_bg_color f_bg_color_one"></span>着急(<span>2</span>)</div>
+        <div><span class="f_bg_color f_bg_color_twe"></span>重要(<span>2</span>)</div>
+        <div><span class="f_bg_color f_bg_color_three"></span>一般(<span>2</span>)</div>
+          
+        </div>
+      </div>
+      <div class="f_message">
+        <ul>
+          <li v-for='(item,index) in daibanwork' ><span class="glyphicon glyphicon-tag " id="f_bg_color_one"></span>{{item.job}}</li>
+          <!-- <li><span class="glyphicon glyphicon-tag " id="f_bg_color_twe"></span>锻件网手机加满人</li>
+          <li><span class="glyphicon glyphicon-tag " id="f_bg_color_three"></span>整理全部产品照片</li> -->
+          <li v-if="daibanwork == ''">今日事今日毕，很优秀！</li>
+        </ul>
+      </div>
+    </div>
+    <div class="f_center_5">
+      <h4>优秀员工</h4>
+      <div class="f_week_good">
+        <div class="f_week_circle">
+          <img :src="week_user">
+        </div>
+        <div>本周</div>
+      </div>
+      <div class="f_week_good">
+        <div class="f_week_circle">
+          <img :src="month_user">
+        </div>
+        <div>本月</div>
+      </div>
+       <div class="f_week_good">
+        <div class="f_week_circle">
+          <img :src="year_user">
+        </div>
+        <div>本年</div>
+      </div>
     </div>
 
-    <div class="cneter_3" style="margin-right: 2%">
-      <div id="shuliang"   style="width: 100%;height:300px;"></div>
+
+    
+    <div class="f_buttom_box">
+      <div>
+         <div style="display: block;" id="f_box_one">
+           
+        <div class="cneter_3" >
+            <el-row>
+                <el-col :span="4" style="text-align:left" class="box_title">工作统计</el-col>
+            </el-row>
+            <el-row class="align-center">
+              <el-col :span="12" >工作得分：{{fenshu}}</el-col>
+              <el-col :span="12" >工作数量</el-col>
+          </el-row>
+            <div class="clear"></div>
+          <div id="fenshu"  class="fl"  style="width: 50%;height:288px;"></div>
+          <div id="shuliang" class="fl"   style="width: 50%;height:288px;"></div>
+
+        </div>
+      </div>
+        <!-- <div style="display: none;" id="f_box_twe">
+          <div class="cneter_3 f_center_3" >
+            <div class="f_left_box">
+              <h4>建议</h4>
+              <form action="" >
+                <div class="f_form">
+                  <div>匿名&nbsp&nbsp&nbsp&nbsp&nbsp<input type="radio" value="匿名" name="one" checked="checked">
+                </div>
+                <div class="f_input_m">
+                  实名&nbsp&nbsp&nbsp&nbsp&nbsp<input type="radio" value="实名" name="one" >
+                </div>
+                </div>
+                <textarea name="" id="f_area_box" cols="35" rows="9" placeholder="请输入内容"></textarea>
+                <input type="submit" value="确认" class="btn btn-primary f_btn_bottom">
+              </form>
+              
+            </div>
+            <div class="f_left_box f_left_box_one">
+              <h4>投票</h4>
+              <el-select v-model="value_one" placeholder="请选择">
+                      <el-option
+                        v-for="item in options_one"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                </el-select>
+                <el-input
+                    type="textarea"
+                    :rows="2"
+                    placeholder="请输入内容"
+                    v-model="f_textarea_one">
+                  </el-input>
+                <el-input v-model="f_input_one" placeholder="选项1" style="width: 50%"></el-input>
+                <el-input v-model="f_input_twe" placeholder="选项2" style="width: 50%"></el-input>
+                <el-input v-model="f_input_three" placeholder="选项3" style="width: 50%"></el-input>
+              <input type="submit" value="确认" class="btn btn-primary f_btn_box">
+            </div>
+          </div>
+        </div> -->
+      </div>
+     
+      
+    <div class="f_data_box">
+      <div class="f_data_left">
+        <span id="testView"></span>
+        <div id="test2"></div>
         
+      
+      </div>
+      <div class="f_data_right">
+        <h4 class="f_data_title_one" style="margin-bottom:10px">事件提醒</h4>
+        <div style="width: 214px; height: 85px; border: 1px solid red;padding: 5px;overflow-y: scroll;">
+          <p v-for="tx in tx_data">{{tx.tx_title}}</p>
+        </div>
+        <h4 style="margin-bottom: 10px;margin-top: 30px;">添加事件</h4>
+        <textarea rows="4" cols="28" placeholder="请输入内容" v-model="tx_title"></textarea>
+        <button class="btn btn-primary pull-right f_data_btn" @click="addTixing">确认</button> 
+      </div>
+
+      
     </div>
-    <div class="cneter_3">
-      <div id="fenshu"   style="width: 100%;height:300px;"></div>
     </div>
     
+  <!-- <div class="cneter_3" style="margin-right: 2%"> -->
     
-</div>   
+  <!-- </div> -->
+     
+        
+    
+
+    </div>
+   
+     
+    </div>
+
+   
+    
+    
+
 
     <!-- 模态框（Modal） -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -155,10 +333,39 @@
 
 {include file="foot"}
 <script type="text/javascript">
-new Vue({
+  $(function() {
+
+    $('#Attendance_status').change(function() {
+      var option = $('#Attendance_status option:selected')
+        // alert(option.val())
+        if (option.val() == "迟到") {
+          $('#f_box_one').show().siblings().hide()
+        }else {
+          $('#f_box_twe').show().siblings().hide()
+        }
+    });
+  });
+
+
+
+
+
+
+
+     
+var mv =  new Vue({
     el: ".container",
     data: {
-
+      week:'',//周
+      nowtime:'',//当前月日
+      shi_fen_miao:'',//时分秒
+      choise_time:'',//自己选择日期
+      f_textarea_one:'',
+      f_input_one:'',
+      yc_type:'迟到',
+      yc_jd:'上午',
+      f_input_twe:'',
+      f_input_three:'',
       value:'',
       value2:'',
       hid:false,
@@ -167,6 +374,18 @@ new Vue({
       user:{$users},
       clock:{$data},
       disabled:false,
+      tx_title:'',
+      exception: [{
+          value: '迟到',
+          label: '迟到'
+        },{
+          value: '早退',
+          label: '早退'
+        },{
+          value: '矿工',
+          label: '矿工'
+        },
+      ],
       options: [{
           value: '0',
           label: '上午'
@@ -175,11 +394,66 @@ new Vue({
           value: '1',
           label: '下午'
         }],
+        options_one: [{
+          value: '选项1',
+          label: '黄金糕'
+        }, {
+          value: '选项2',
+          label: '双皮奶'
+        }, {
+          value: '选项3',
+          label: '蚵仔煎'
+        }, {
+          value: '选项4',
+          label: '龙须面'
+        }, {
+          value: '选项5',
+          label: '北京烤鸭'
+        }],
+        value_one: '',
+        week_user:'',
+			 month_user:'',
+			 year_user:'',
+       fenshu:0,
+        daibanwork:{$daibanwork},
+        year:'',
+        weeka :new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"),
+        tx_time:'',
+        tx_data:[],
     },
+    filters:{
+      timeToHm:function(t,str){
+         if(!isNaN(t*1000) ){
+          var d = new Date(t*1000)
+          return str+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()
+         }else{
+           return t
+         }
+      
+      }
+    },
+    created(){
+        	$.get('{:url("admin/index/right")}',
+                    (rtnData)=>{
+                      this.week_user='__UPLOADS__'+rtnData.week_user
+                      this.month_user='__UPLOADS__'+rtnData.month_user
+                      this.year_user='__UPLOADS__'+rtnData.year_user
+            });
+              
+            var zongfen_a  = JSON.parse('{$zongfen}')
+            for (var i = 0; i < zongfen_a.length; i++) {
+              this.fenshu+=Number(zongfen_a[i]);
+            }
+
+            
+               
+        },
      mounted(){
+     
        var now = new Date();
        var ttime= new Date().getTime()
-       var year = now.getFullYear(); //得到年份
+      var year = now.getFullYear(); //得到年份
+      this.year = year
        var month = now.getMonth()+1;//得到月份
        var date = now.getDate();//得到日期
        var shijian=year+'/'+month+'/'+date+''
@@ -187,7 +461,15 @@ new Vue({
        var forenoonxia=new Date(shijian +' 12:30:00').getTime();;
        var afternoonshang=new Date(shijian +' 14:30:00').getTime();;
        var afternoonxia=new Date(shijian +' 19:00:00').getTime();;
-
+       this.nowtime = month+"月"+date+"日"
+       this.week = this.weeka[now.getDay()]
+       var that = this
+       that.tx_time = year+"-"+ Appendzero(month)+"-"+Appendzero(date)
+       setInterval(function () {
+        var now = new Date();
+          that.shi_fen_miao = now.getHours()+":"+now.getMinutes()+":"+now.getSeconds()
+       },1000)
+      
      if(forenoonshang<ttime&&forenoonxia>ttime){
             // 上午上班
             if(this.clock.forenoon_shang){this.disabled=true;}
@@ -202,13 +484,74 @@ new Vue({
             // 下午下班
         if(this.clock.afternoon_xia){this.disabled=true;}
         }
-     
-    
-    },
+        this.getTixing()
+        layui.use('laydate', function(){
+          var laydate = layui.laydate;
+          
+          laydate.render({
+          elem: '#test2'
+          ,mark: {$laydate_mark}
+          ,position: 'static'
+          ,change: function(value, date){ //监听日期被切换
+            that.tx_time = value
+            that.getTixing()
+          },
+        });
+        
+        });
+    }, 
     methods:{
+      
+      addTixing(){
+        var that = this
+
+          // 添加事件提醒
+          console.log(this.tx_title)
+          if(this.tx_title == ''){
+            that.$message.error('请输入内容');
+            return
+
+          }
+          $.get("{:url('kaoqin/add_tixing')}",{tx_title:this.tx_title,tx_time:this.tx_time},function (res) {
+            that.tx_data.push({tx_title:that.tx_title})
+            that.tx_title = ''
+            that.$message.success('添加成功！');
+        })
+      },
+      getTixing(){
+        var that = this
+          // 获取事件提醒
+          console.log(this.tx_title)
+          $.get("{:url('kaoqin/get_tixing')}",{tx_time:this.tx_time},function (res) {
+            if(res){
+              that.tx_data = res
+
+            }
+        })
+      },
+      has_choise_time(e){
+        // 考勤时间切换后
+        var choist_t  = new Date(e)
+        this.nowtime = Appendzero(choist_t.getMonth()+1)+"月"+Appendzero(choist_t.getDate())+"日"
+        this.week = this.weeka[choist_t.getDay()] 
+        this.show_qiandao_data()
+      },
+      show_qiandao_data(){
+        var that = this
+        $.get("{:url('kaoqin/list_by_year')}",{time:this.year + "年"+this.nowtime},function (res) {
+          console.log(res)
+          if (res) {
+            that.clock = res
+          }else{
+            that.clock = {  forenoon_shang: null, forenoon_xia: null, afternoon_shang: null, afternoon_xia: null }
+          }
+        })
+      },
+      //绑定打卡按钮函数
       submitForm(e){
         window.location.href='{:url('clock')}'
       },
+      //鼠标放上头像显示“更换头像”
       hidyin(e){
         this.hid=e
         console.log(this.value);
@@ -246,32 +589,33 @@ new Vue({
                 });
           });
       },
+
+
       holiday(){
-      if(this.value1==''||this.value2==''){
-        this.$message('请选择时间');
+      if(this.yc_jd==''){
+        this.$message('请选择上午还是下午');
         return;
       }
 
-        var Attendance_status=$('#Attendance_status').val();
         var reason=$('#reason').val();
-        var classes=new  Date(this.value1).getTime()/1000;
         var time=new  Date(this.value2).getTime()/1000;
         
          $.get('{:url("Attendance")}',
           {
-            Attendance_status:Attendance_status,
-            classes:this.value,
-            time:time,
+            Attendance_status:this.yc_type,
+            classes:this.yc_jd,
+            time:this.year + "年"+this.nowtime,
             reason:reason
 
           },(rtnData)=>{
                $('#reason').val('');
-                      this.value1='';
-                      this.value2='';
-                        this.$message({
-                          message: '申请成功！',
-                          type: 'success'
-                });
+                this.yc_jd='';
+                this.value2='';
+                  this.$message({
+                    message: '提交成功！',
+                    type: 'success'
+                  });
+                this.show_qiandao_data()
           });
       }
     }
@@ -284,65 +628,15 @@ new Vue({
 
  <script type="text/javascript">
 
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('shuliang'));
          
-        // 指定图表的配置项和数据
-        var option = {
-            title: {
-                text: '本月工作任务数量'
-            },
-            color: ['#3398DB'],
-            tooltip : {
-                trigger: 'axis',
-                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                }
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            legend: {
-                data:['数量']
-            },
-            xAxis : [
-                {
-                    type : 'category',
-                    data : {$zhouci},
-                    axisTick: {
-                        alignWithLabel: true
-                    }
-                }
-            ],
-            yAxis : [
-                {
-                    type : 'value'
-                }
-            ],
-            series : [
-                {
-                    name:'数量',
-                    type:'bar',
-                    barWidth: '60%',
-                    data:{$shuliang}
-                }
-            ]
-};
 
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
 
                 // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('fenshu'));
+        var Chart = echarts.init(document.getElementById('fenshu'));
 
         // 指定图表的配置项和数据
         var option = {
-            title: {
-                text: '本月工作任务分数'
-            },
+            
             tooltip: {
                  trigger: 'axis',
                 axisPointer : {            // 坐标轴指示器，坐标轴触发有效
@@ -355,9 +649,7 @@ new Vue({
                 bottom: '3%',
                 containLabel: true
             },
-            legend: {
-                data:['总分']
-            },
+           
             xAxis: {
                type : 'category',
                 data: {$zhouci},
@@ -373,10 +665,57 @@ new Vue({
             series: [{
                 name: '总分',
                 type: 'bar',
+                color:'#477dea',
+                
                 data: {$zongfen}
             }]
         };
 
         // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
+        Chart.setOption(option);
+
+var myChart = echarts.init(document.getElementById('shuliang'));
+
+option = {
+  
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        // orient: 'vertical',
+        // top: 'middle',
+        bottom: 10,
+        left: 'center',
+        data: ['产品', '文章','办公','视频','图片','外出','其他'],
+    },
+    series : [
+        {
+            type: 'pie',
+            radius : '40%',
+            center: ['50%', '45%'],
+            selectedMode: 'single',
+            data:{$main},
+            // data:[
+            //     {value:130,name: '产品',itemStyle:{color:'#477dea'}},
+            //     {value:4, name: '文章',itemStyle:{color:'#9b9b9b'}},
+            //     {value:10, name: '办公',itemStyle:{color:'#f3b745'}},
+            //     {value:4, name: '视频',itemStyle:{color:'#c51a16'}},
+            //     {value:20, name: '图片',itemStyle:{color:'#4ba151'}},
+            //     {value:6, name: '网维',itemStyle:{color:'#e9403c'}},
+            //     {value:60, name: '外出',itemStyle:{color:'#1343a4'}},
+            //     {value:36, name: '其他',itemStyle:{color:'#5d5d5d'}}
+            // ],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }
+    ]
+};
+
+myChart.setOption(option);
     </script>

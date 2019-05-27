@@ -1,0 +1,199 @@
+{include file="top"}
+{include file="left"}
+{include file="right"}
+<style>
+    .riqi_box {
+        width: 14%;
+        height: 105px;
+        background-color: #d4d4d4;
+        float: left;
+        text-align: center;
+        border: 1px solid #fff;
+    }
+
+    .wk_title {
+        text-align: center;
+        width: 14%;
+        background-color: #477dea;
+        color: #fff;
+        border: 1px solid #fff;
+        height: 30px;
+        line-height: 30px;
+    }
+
+    .has {
+        background-color: #b5cbf7;
+        color: #fff;
+        padding: 5px 0;
+    }
+
+    .zw {
+        font-size: 12px
+    }
+
+    .zw span {
+        background-color: transparent !important
+    }
+
+    .sxwu {
+        background-color: #e6e4e4;
+        padding: 5px 0;
+    }
+
+    .sxwu p {
+        height: 17px;
+        overflow: hidden;
+    }
+
+    .qdtj_box li {
+        display: flex;
+    }
+
+    .qdtj_box b {
+        width: 10px;
+        height: 10px;
+        margin-top: 5px;
+        display: inline-block;
+        margin-right: 30px;
+    }
+
+    .qdtj_title {
+        color: #999;
+        margin: 10px 0
+    }
+
+    .qd_cd {
+        background-color: #e9403c;
+        color: #e9403c
+    }
+
+    .qd_zt {
+        background-color: #84120f;
+        color: #84120f
+    }
+
+    .qd_kg {
+        background-color: #f3b745;
+        color: #f3b745
+    }
+
+    .qd_qj {
+        background-color: #477dea;
+        color: #477dea
+    }
+
+    .qd_jb {
+        background-color: #4ba151;
+        color: #4ba151
+    }
+
+
+
+    .el-input__icon {
+        display: none;
+    }
+
+    .el-input--prefix .el-input__inner {
+        color: #888;
+        padding-left: 15px !important;
+    }
+
+
+
+    .el-select .el-input__inner {
+        color: #888;
+        margin-bottom: 20px !important;
+    }
+
+    .bt .wk_title {
+        height: 50px;
+        line-height: 50px;
+        width: 10%;
+    }
+
+    .wk_title {
+        height: 40px;
+        line-height: 40px;
+        width: 10%;
+    }
+
+    .lanse .wk_title {
+        background-color: #cfd7f7;
+        color: #4c4c4c;
+    }
+
+    .huise .wk_title {
+        background-color: #e9ecfb;
+        color: #4c4c4c;
+    }
+</style>
+<div class="container">
+
+    <el-row>
+        <el-col class="rl_box" :span="24" style="width: 98%;">
+            <el-row>
+                <el-col :span="24">
+                    <el-row class="lanmu_title">钢材库存登记表</el-row>
+                    <el-row class="bt">
+                        <el-col class="wk_title" :span="2" v-for="wk in week_a">{{wk}}</el-col>
+                    </el-row>
+                    <el-row v-for="(kc,k) in week_d" :class="{'lanse':k%2==0,'huise':k%2!=0}">
+                        <el-col class="wk_title" :span="2">{{kc.gangzhong}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.type}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.standard}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.danzhong}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.danwei}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.number}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.zongzhongliang}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.beizhu}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.luhao}}</el-col>
+                        <el-col class="wk_title" :span="2">{{kc.guanliyuan}}</el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="6" style="margin:15px 0px">
+                            <el-button onclick="location.href='{:url(\'gc_rk\')}'" type="primary">钢材入库</el-button>
+                            <el-button  onclick="location.href='{:url(\'gc_ck\')}'"  type="primary">钢材出库</el-button>
+                        </el-col>
+                        <el-col :span="10">{$gc_data->render()}</el-col>
+                        <el-col :span="8" style="margin:15px 0px">
+                            <el-input v-model="gangzhong_kwd" style="width: 70%;margin-right: 15px">
+                                    <el-button @click="doSearch" slot="append" icon="el-icon-search"></el-button>
+                            </el-input>
+                            <el-button type="primary">打印</el-button>
+
+                        </el-col>
+                </el-col>
+
+
+            </el-row>
+        </el-col>
+
+    </el-row>
+
+    </el-col>
+
+
+    </el-row>
+</div>
+
+<script>
+
+    new Vue({
+        el: '.container',
+        data: {
+            week_a: ['钢种', '型号', '规格', '单重', '单位', '出库数量', '总重量', '备注', '炉号', '管理员'],
+            week_d: [],
+            gangzhong_kwd:""
+        },
+        created() {
+            var week_d = JSON.parse('{$inventory}')
+            console.log(week_d)
+            this.week_d = week_d.data
+        },
+        methods: {
+            doSearch(){
+                location.href="{:url('gc_djb')}"+"?gangzhong_kwd="+this.gangzhong_kwd
+            }
+        }
+    })
+</script>

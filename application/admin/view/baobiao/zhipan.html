@@ -1,0 +1,149 @@
+{include file="top"}
+{include file="left"}
+{include file="right"}
+
+<style>
+    .el-checkbox {
+        margin-right: 10px !important;
+    }
+
+    .el-checkbox+.el-checkbox {
+        margin-left: 0 !important;
+    }
+</style>
+<div class="container">
+    <el-row>
+        <el-col :span="16" class="rl_box">
+            <el-row class="lanmu_title">工作内容 </el-row>
+            <el-row>
+                <el-col :span="8">待办工作
+                </el-col>
+                <el-col :span="8">
+                    <el-row>
+                        <el-col :span="8">着急</el-col>
+                        <el-col :span="8">重要</el-col>
+                        <el-col :span="8">一般</el-col>
+                    </el-row>
+                </el-col>
+                <el-col :span="8">
+                    <el-input></el-input>
+                </el-col>
+            </el-row>
+            <el-row class="mt_10">
+                <el-col :span="2">bj</el-col>
+                <el-col :span="10">公司办公OA系统定做 </el-col>
+                <el-col :span="4">2019.02.27</el-col>
+                <el-col :span="3">待办</el-col>
+                <el-col :span="5">
+                    <el-button size="mini" icon="el-icon-upload ">完成</el-button>
+                    <el-button icon="el-icon-delete" size="mini">删除</el-button>
+                </el-col>
+            </el-row>
+
+            <el-row>
+                分页
+            </el-row>
+        </el-col>
+        <el-col :span="6" class="box_white">
+            <el-row class="lanmu_title">工作指派</el-row>
+            <el-row class="font_input_line_height mb_10">
+                <el-col :span="6">开始时间</el-col>
+                <el-col :span="18">
+                    <el-date-picker v-model="start_time" type="date" placeholder="选择日期"> </el-date-picker>
+                </el-col>
+            </el-row>
+            <el-row class="font_input_line_height mb_10">
+                <el-col :span="6">结束时间</el-col>
+                <el-col :span="18">
+                    <el-date-picker v-model="end_time" type="date" placeholder="选择日期"> </el-date-picker>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="12">
+                    <el-row class="font_input_line_height ">
+                        <el-col :span="12">任务级别</el-col>
+                        <el-col :span="12">
+                            <el-select v-model="rwjb">
+                                <el-option v-for="item in jb_data" :key="item.key" :value="item.value"> </el-option>
+                            </el-select>
+                        </el-col>
+                    </el-row>
+                </el-col>
+                <el-col :span="12">
+                    <el-row class="font_input_line_height ">
+                        <el-col :span="6" :offset="4">部门</el-col>
+                        <el-col :span="14">
+                            <el-select v-model="bm">
+                                <el-option v-for="item in bm_data" :key="item.key" :value="item.value"> </el-option>
+                            </el-select>
+                        </el-col>
+                    </el-row>
+                </el-col>
+            </el-row>
+            <el-row class="font_input_line_height mb_10">
+                <el-col :span="6">指派人
+                </el-col>
+                <el-col :span="18">
+                    <el-checkbox-group v-model="hxr">
+                        <el-checkbox v-for="hx_info in hxr_data" :label="hx_info.user_name" ></el-checkbox>
+                    </el-checkbox-group>
+                </el-col>
+            </el-row>
+            <el-row class="mb_10"> 简述 </el-row>
+            <el-row class="mb_10">
+                <el-input type="textarea"></el-input>
+            </el-row>
+            <el-row>
+                <el-col :offset="18">
+                    <el-button type="primary">确定</el-button>
+                </el-col>
+            </el-row>
+
+            </el-rocolw>
+    </el-row>
+</div>
+
+<script>
+
+    new Vue({
+        el: '.container',
+        data: {
+            start_time: '',
+            end_time: '',
+            hxr: [],
+            hxr_data:{$user_a},
+            jb_data: [
+                {
+                    key: 'zhaoji',
+                    value: '着急'
+                },
+                {
+                    key: 'zhongyao',
+                    value: '重要'
+                },
+                {
+                    key: 'yiban',
+                    value: '一般'
+                }
+            ],
+            rwjb: '',
+            bm_data: [
+                {
+                    key: 'bgs',
+                    value: '办公室'
+                },
+                {
+                    key: 'cj1',
+                    value: '车间1'
+                }
+            ],
+            bm: ''
+        },
+        created() {
+
+        },
+        methods: {
+
+        }
+    })
+</script>
