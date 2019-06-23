@@ -30,7 +30,7 @@ color: #fff;}
 
 		<h2 style="font-size: 18px;padding: 60px 0;margin: 0 auto;text-align: center;">生产管理系统</h2>
 	<ul class="product_menu">
-		<li> <a href="">下料</a> </li>
+		<li onclick="jump_xl()"> <a href="#">下料</a> </li>
 		<li onclick="jump_dzcj()">
 			<a href="#">
 				<p>锻造</p>
@@ -73,6 +73,9 @@ color: #fff;}
 
 </div>
 <script>
+	function jump_xl() {
+		window.location.href = '{:url('admin/product/Blanking')}'
+	}
 	function jump_cjg() {
 		window.location.href = '{:url('admin/product/proche_cjg')}'
 	}

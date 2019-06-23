@@ -15,11 +15,11 @@ return [
     // 服务器地址
     'hostname'        => 'localhost',
     // 数据库名
-    'database'        => 'oa_yxs',
+    'database'        => 'oa',
     // 用户名
     'username'        => 'root',
     // 密码
-    'password'        => 'root',//上线时修改为weirong666
+    'password'        => '123',//上线时修改为weirong666
     // 端口
     'hostport'        => '',
     // 连接dsn

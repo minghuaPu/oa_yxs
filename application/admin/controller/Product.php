@@ -8,6 +8,10 @@ class Product extends \app\admin\Auth
         return $this->fetch();
  
     }
+    //下料
+    public function Blanking(){
+        return $this->fetch();
+    }
       //粗加工页面
       public function proche_cjg(){
     	$cjg_list  =  db('rough')->where('cas',1)->order('id desc')->paginate(10);

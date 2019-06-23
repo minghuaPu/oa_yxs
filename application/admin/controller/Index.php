@@ -1301,6 +1301,9 @@ class Index extends \app\admin\Auth
         $this->assign('data',$data);
         return $this->fetch();
     }
+    public function proche_rcl(){
+        return $this->fetch();
+    }
 	public function save(){   //保存库存修改的数据
 	     $value =input('keep');
 		 $id = input('id');
